@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RegistrationAgreementsViewDlg" widgetVar="RegistrationAgreementsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRegistrationAgreementsTitle}" closeOnEscape="true">
+
+            <h:form id="RegistrationAgreementsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{registrationAgreementsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRegistrationAgreementsLabel_id}"/>
+                        <h:outputText value="#{registrationAgreementsController.selected.id}" title="#{myBundle.ViewRegistrationAgreementsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistrationAgreementsLabel_name}"/>
+                        <h:outputText value="#{registrationAgreementsController.selected.name}" title="#{myBundle.ViewRegistrationAgreementsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistrationAgreementsLabel_contents}"/>
+                        <h:outputText value="#{registrationAgreementsController.selected.contents}" title="#{myBundle.ViewRegistrationAgreementsTitle_contents}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RegistrationAgreementsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

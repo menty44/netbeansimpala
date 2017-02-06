@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GuaranteeTypesCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateGuaranteeTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GuaranteeTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GuaranteeTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{guaranteeTypesController.selected != null}">
+                    <p:tabView id="GuaranteeTypesTabView">
+
+                        <p:tab id="GuaranteeTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel>
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{guaranteeTypesController.selected.name}" title="#{myBundle.CreateGuaranteeTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_name}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_description}" for="description" />
+                                    <p:inputTextarea rows="4" cols="30" id="description" value="#{guaranteeTypesController.selected.description}" title="#{myBundle.CreateGuaranteeTypesTitle_description}" />
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_model}" for="model" />
+                                    <p:inputText id="model" value="#{guaranteeTypesController.selected.model}" title="#{myBundle.CreateGuaranteeTypesTitle_model}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_model}" size="2" maxlength="2"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_authorizedBy}" for="authorizedBy" />
+                                    <p:inputText id="authorizedBy" value="#{guaranteeTypesController.selected.authorizedBy}" title="#{myBundle.CreateGuaranteeTypesTitle_authorizedBy}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_authorizedBy}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_enabled}" for="enabled" />
+                                    <p:selectBooleanCheckbox id="enabled" value="#{guaranteeTypesController.selected.enabled}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_enabled}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_pendingGuaranteeExpirationNumber}" for="pendingGuaranteeExpirationNumber" />
+                                    <p:inputText id="pendingGuaranteeExpirationNumber" value="#{guaranteeTypesController.selected.pendingGuaranteeExpirationNumber}" title="#{myBundle.CreateGuaranteeTypesTitle_pendingGuaranteeExpirationNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_pendingGuaranteeExpirationField}" for="pendingGuaranteeExpirationField" />
+                                    <p:inputText id="pendingGuaranteeExpirationField" value="#{guaranteeTypesController.selected.pendingGuaranteeExpirationField}" title="#{myBundle.CreateGuaranteeTypesTitle_pendingGuaranteeExpirationField}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_paymentObligationPeriodNumber}" for="paymentObligationPeriodNumber" />
+                                    <p:inputText id="paymentObligationPeriodNumber" value="#{guaranteeTypesController.selected.paymentObligationPeriodNumber}" title="#{myBundle.CreateGuaranteeTypesTitle_paymentObligationPeriodNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_paymentObligationPeriodField}" for="paymentObligationPeriodField" />
+                                    <p:inputText id="paymentObligationPeriodField" value="#{guaranteeTypesController.selected.paymentObligationPeriodField}" title="#{myBundle.CreateGuaranteeTypesTitle_paymentObligationPeriodField}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_creditFeePayer}" for="creditFeePayer" />
+                                    <p:inputText id="creditFeePayer" value="#{guaranteeTypesController.selected.creditFeePayer}" title="#{myBundle.CreateGuaranteeTypesTitle_creditFeePayer}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_creditFeePayer}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_issueFeePayer}" for="issueFeePayer" />
+                                    <p:inputText id="issueFeePayer" value="#{guaranteeTypesController.selected.issueFeePayer}" title="#{myBundle.CreateGuaranteeTypesTitle_issueFeePayer}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_issueFeePayer}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_creditFee}" for="creditFee" />
+                                    <p:inputText id="creditFee" value="#{guaranteeTypesController.selected.creditFee}" title="#{myBundle.CreateGuaranteeTypesTitle_creditFee}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_creditFee}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_creditFeeType}" for="creditFeeType" />
+                                    <p:inputText id="creditFeeType" value="#{guaranteeTypesController.selected.creditFeeType}" title="#{myBundle.CreateGuaranteeTypesTitle_creditFeeType}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_creditFeeType}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_creditFeeReadonly}" for="creditFeeReadonly" />
+                                    <p:selectBooleanCheckbox id="creditFeeReadonly" value="#{guaranteeTypesController.selected.creditFeeReadonly}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_creditFeeReadonly}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_issueFee}" for="issueFee" />
+                                    <p:inputText id="issueFee" value="#{guaranteeTypesController.selected.issueFee}" title="#{myBundle.CreateGuaranteeTypesTitle_issueFee}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_issueFee}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_issueFeeType}" for="issueFeeType" />
+                                    <p:inputText id="issueFeeType" value="#{guaranteeTypesController.selected.issueFeeType}" title="#{myBundle.CreateGuaranteeTypesTitle_issueFeeType}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_issueFeeType}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_issueFeeReadonly}" for="issueFeeReadonly" />
+                                    <p:selectBooleanCheckbox id="issueFeeReadonly" value="#{guaranteeTypesController.selected.issueFeeReadonly}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_issueFeeReadonly}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                                    <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{guaranteeTypesController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                                        <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                                       var="adminNotificationPreferencesCollectionItem"
+                                                       itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                       itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_creditFeeTransferTypeId}" for="creditFeeTransferTypeId" />
+                                    <p:selectOneMenu id="creditFeeTransferTypeId" value="#{guaranteeTypesController.selected.creditFeeTransferTypeId}"  converter="transferTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="creditFeeTransferTypeIdItem"
+                                                       itemValue="#{creditFeeTransferTypeIdItem}"
+                                                       itemLabel="#{creditFeeTransferTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_issueFeeTransferTypeId}" for="issueFeeTransferTypeId" />
+                                    <p:selectOneMenu id="issueFeeTransferTypeId" value="#{guaranteeTypesController.selected.issueFeeTransferTypeId}"  converter="transferTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="issueFeeTransferTypeIdItem"
+                                                       itemValue="#{issueFeeTransferTypeIdItem}"
+                                                       itemLabel="#{issueFeeTransferTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab id="GuaranteeTypesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:outputPanel>
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_loanTransferTypeId}" for="loanTransferTypeId" />
+                                    <p:selectOneMenu id="loanTransferTypeId" value="#{guaranteeTypesController.selected.loanTransferTypeId}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_loanTransferTypeId}" converter="transferTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="loanTransferTypeIdItem"
+                                                       itemValue="#{loanTransferTypeIdItem}"
+                                                       itemLabel="#{loanTransferTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_currencyId}" for="currencyId" />
+                                    <p:selectOneMenu id="currencyId" value="#{guaranteeTypesController.selected.currencyId}" required="true" requiredMessage="#{myBundle.CreateGuaranteeTypesRequiredMessage_currencyId}" converter="currenciesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{currenciesController.items}"
+                                                       var="currencyIdItem"
+                                                       itemValue="#{currencyIdItem}"
+                                                       itemLabel="#{currencyIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateGuaranteeTypesLabel_forwardTransferTypeId}" for="forwardTransferTypeId" />
+                                    <p:selectOneMenu id="forwardTransferTypeId" value="#{guaranteeTypesController.selected.forwardTransferTypeId}"  converter="transferTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="forwardTransferTypeIdItem"
+                                                       itemValue="#{forwardTransferTypeIdItem}"
+                                                       itemLabel="#{forwardTransferTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+                                </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{guaranteeTypesController.saveNew}" value="#{myBundle.Save}" update="display,:GuaranteeTypesListPage:GuaranteeTypesListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:GuaranteeTypesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdInterestsViewDlg" widgetVar="AdInterestsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAdInterestsTitle}" closeOnEscape="true">
+
+            <h:form id="AdInterestsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{adInterestsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_id}"/>
+                        <h:outputText value="#{adInterestsController.selected.id}" title="#{myBundle.ViewAdInterestsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_title}"/>
+                        <h:outputText value="#{adInterestsController.selected.title}" title="#{myBundle.ViewAdInterestsTitle_title}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_tradeType}"/>
+                        <h:outputText value="#{adInterestsController.selected.tradeType}" title="#{myBundle.ViewAdInterestsTitle_tradeType}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_initialPrice}"/>
+                        <h:outputText value="#{adInterestsController.selected.initialPrice}" title="#{myBundle.ViewAdInterestsTitle_initialPrice}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_finalPrice}"/>
+                        <h:outputText value="#{adInterestsController.selected.finalPrice}" title="#{myBundle.ViewAdInterestsTitle_finalPrice}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_keywords}"/>
+                        <h:outputText value="#{adInterestsController.selected.keywords}" title="#{myBundle.ViewAdInterestsTitle_keywords}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_categoryId}"/>
+                        <h:outputText value="#{adInterestsController.selected.categoryId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_groupFilterId}"/>
+                        <h:outputText value="#{adInterestsController.selected.groupFilterId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_currencyId}"/>
+                        <h:outputText value="#{adInterestsController.selected.currencyId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_memberId}"/>
+                        <h:outputText value="#{adInterestsController.selected.memberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdInterestsLabel_ownerId}"/>
+                        <h:outputText value="#{adInterestsController.selected.ownerId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AdInterestsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

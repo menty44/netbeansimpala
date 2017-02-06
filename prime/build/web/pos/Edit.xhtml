@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PosEditDlg" widgetVar="PosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPosTitle}" closeOnEscape="true">
+
+            <h:form id="PosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{posController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPosLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{posController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPosLabel_posId}" for="posId" />
+                        <p:inputText id="posId" value="#{posController.selected.posId}" title="#{myBundle.EditPosTitle_posId}" required="true" requiredMessage="#{myBundle.EditPosRequiredMessage_posId}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPosLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{posController.selected.description}" title="#{myBundle.EditPosTitle_description}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPosLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{posController.selected.status}" title="#{myBundle.EditPosTitle_status}" required="true" requiredMessage="#{myBundle.EditPosRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditPosLabel_memberPosId}" for="memberPosId" />
+                        <p:selectOneMenu id="memberPosId" value="#{posController.selected.memberPosId}"  converter="memberPosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{memberPosController.items}"
+                                           var="memberPosIdItem"
+                                           itemValue="#{memberPosIdItem}"
+                                           itemLabel="#{memberPosIdItem.posName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{posController.save}" value="#{myBundle.Save}" update="display,:PosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PosEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

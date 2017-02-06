@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ErrorLogEntryParametersCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateErrorLogEntryParametersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ErrorLogEntryParametersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ErrorLogEntryParametersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{errorLogEntryParametersController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntryParametersPK_errorLogEntryId}" for="errorLogEntryParametersPK_errorLogEntryId" />
+                            <p:inputText id="errorLogEntryParametersPK_errorLogEntryId" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.errorLogEntryId}" title="#{myBundle.CreateErrorLogEntryParametersTitle_errorLogEntryParametersPK_errorLogEntryId}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntryParametersPK_errorLogEntryId}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntryParametersPK_name}" for="errorLogEntryParametersPK_name" />
+                            <p:inputText id="errorLogEntryParametersPK_name" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.name}" title="#{myBundle.CreateErrorLogEntryParametersTitle_errorLogEntryParametersPK_name}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntryParametersPK_name}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_value}" for="value" />
+                            <p:inputTextarea rows="4" cols="30" id="value" value="#{errorLogEntryParametersController.selected.value}" title="#{myBundle.CreateErrorLogEntryParametersTitle_value}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntries}" for="errorLogEntries" />
+                            <p:selectOneMenu id="errorLogEntries" value="#{errorLogEntryParametersController.selected.errorLogEntries}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntries}" converter="errorLogEntriesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{errorLogEntriesController.items}"
+                                               var="errorLogEntriesItem"
+                                               itemValue="#{errorLogEntriesItem}"
+                                               itemLabel="#{errorLogEntriesItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{errorLogEntryParametersController.saveNew}" value="#{myBundle.Save}" update="display,:ErrorLogEntryParametersListPage:ErrorLogEntryParametersListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ErrorLogEntryParametersListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

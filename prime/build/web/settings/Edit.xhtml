@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SettingsEditDlg" widgetVar="SettingsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditSettingsTitle}" closeOnEscape="true">
+
+            <h:form id="SettingsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{settingsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditSettingsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{settingsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditSettingsLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{settingsController.selected.type}" title="#{myBundle.EditSettingsTitle_type}" required="true" requiredMessage="#{myBundle.EditSettingsRequiredMessage_type}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSettingsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{settingsController.selected.name}" title="#{myBundle.EditSettingsTitle_name}" required="true" requiredMessage="#{myBundle.EditSettingsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditSettingsLabel_value}" for="value" />
+                        <p:inputTextarea rows="4" cols="30" id="value" value="#{settingsController.selected.value}" title="#{myBundle.EditSettingsTitle_value}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{settingsController.save}" value="#{myBundle.Save}" update="display,:SettingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SettingsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SettingsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberPosViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMemberPosTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberPosListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberPosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{memberPosController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_id}"/>
+                            <h:outputText value="#{memberPosController.selected.id}" title="#{myBundle.ViewMemberPosTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_posName}"/>
+                            <h:outputText value="#{memberPosController.selected.posName}" title="#{myBundle.ViewMemberPosTitle_posName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_posPin}"/>
+                            <h:outputText value="#{memberPosController.selected.posPin}" title="#{myBundle.ViewMemberPosTitle_posPin}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_date}"/>
+                            <h:outputText value="#{memberPosController.selected.date}" title="#{myBundle.ViewMemberPosTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_allowMakePayment}"/>
+                            <h:selectBooleanCheckbox id="allowMakePayment" value="#{memberPosController.selected.allowMakePayment}" title="#{myBundle.EditMemberPosTitle_allowMakePayment}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_allowMakePayment}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_maxSchedulingPayments}"/>
+                            <h:outputText value="#{memberPosController.selected.maxSchedulingPayments}" title="#{myBundle.ViewMemberPosTitle_maxSchedulingPayments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_numberOfCopies}"/>
+                            <h:outputText value="#{memberPosController.selected.numberOfCopies}" title="#{myBundle.ViewMemberPosTitle_numberOfCopies}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_resultPageSize}"/>
+                            <h:outputText value="#{memberPosController.selected.resultPageSize}" title="#{myBundle.ViewMemberPosTitle_resultPageSize}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_status}"/>
+                            <h:outputText value="#{memberPosController.selected.status}" title="#{myBundle.ViewMemberPosTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_posId}"/>
+                            <h:outputText value="#{memberPosController.selected.posId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberPosLabel_ownerId}"/>
+                            <h:outputText value="#{memberPosController.selected.ownerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

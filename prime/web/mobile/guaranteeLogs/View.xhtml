@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GuaranteeLogsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewGuaranteeLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GuaranteeLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GuaranteeLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{guaranteeLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_id}"/>
+                            <h:outputText value="#{guaranteeLogsController.selected.id}" title="#{myBundle.ViewGuaranteeLogsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_date}"/>
+                            <h:outputText value="#{guaranteeLogsController.selected.date}" title="#{myBundle.ViewGuaranteeLogsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_status}"/>
+                            <h:outputText value="#{guaranteeLogsController.selected.status}" title="#{myBundle.ViewGuaranteeLogsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_guaranteeId}"/>
+                            <h:outputText value="#{guaranteeLogsController.selected.guaranteeId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_byId}"/>
+                            <h:outputText value="#{guaranteeLogsController.selected.byId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

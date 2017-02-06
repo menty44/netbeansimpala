@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentObligationLogsCreateDlg" widgetVar="PaymentObligationLogsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePaymentObligationLogsTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentObligationLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{paymentObligationLogsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentObligationLogsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{paymentObligationLogsController.selected.date}" title="#{myBundle.CreatePaymentObligationLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationLogsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentObligationLogsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{paymentObligationLogsController.selected.status}" title="#{myBundle.CreatePaymentObligationLogsTitle_status}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationLogsRequiredMessage_status}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentObligationLogsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{paymentObligationLogsController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentObligationLogsLabel_paymentObligationId}" for="paymentObligationId" />
+                        <p:selectOneMenu id="paymentObligationId" value="#{paymentObligationLogsController.selected.paymentObligationId}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationLogsRequiredMessage_paymentObligationId}" converter="paymentObligationsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paymentObligationsController.items}"
+                                           var="paymentObligationIdItem"
+                                           itemValue="#{paymentObligationIdItem}"
+                                           itemLabel="#{paymentObligationIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentObligationLogsController.saveNew}" value="#{myBundle.Save}" update="display,:PaymentObligationLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaymentObligationLogsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PaymentObligationLogsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

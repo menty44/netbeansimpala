@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CardsListForm">
+
+        <p:panel header="#{myBundle.ListCardsTitle}">
+            <p:contextMenu id="CardsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CardsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CardsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CardsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CardsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CardsMenuItem_cardLogsCollection}" icon="ui-icon-search"  action="#{cardsController.navigateCardLogsCollection}" disabled="#{empty cardsController.selected.cardLogsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CardsMenuItem_wrongCredentialAttemptsCollection}" icon="ui-icon-search"  action="#{cardsController.navigateWrongCredentialAttemptsCollection}" disabled="#{empty cardsController.selected.wrongCredentialAttemptsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CardsMenuItem_cardTypeId}" icon="ui-icon-search"  actionListener="#{cardsController.prepareCardTypeId}" update=":CardTypesViewForm" oncomplete="PF('CardTypesViewDialog').show()" disabled="#{empty cardsController.selected.cardTypeId}"/>  
+                <p:menuitem value="#{myBundle.CardsMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{cardsController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty cardsController.selected.ownerId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{cardsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cardsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cardsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CardsDataTableContextMenu" listener="#{cardsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CardsDataTableContextMenu" listener="#{cardsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{cardsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CardsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cardNumber}" filterBy="#{item.cardNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_cardNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cardNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cardSecurityCode}" filterBy="#{item.cardSecurityCode}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_cardSecurityCode}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cardSecurityCode}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_creationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.activationDate}" filterBy="#{item.activationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_activationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.activationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.expirationDate}" filterBy="#{item.expirationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardsTitle_expirationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.expirationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cardSecurityCodeBlockedUntil}" filterBy="#{item.cardSecurityCodeBlockedUntil}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardsTitle_cardSecurityCodeBlockedUntil}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cardSecurityCodeBlockedUntil}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardsTitle_status}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.status}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.cardTypeId.name}" filterBy="#{item.cardTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardsTitle_cardTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cardTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardsTitle_ownerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ownerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cardsController.prepareCreate}" update=":CardsCreateForm" oncomplete="PF('CardsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CardsViewForm" oncomplete="PF('CardsViewDialog').show()" disabled="#{empty cardsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CardsEditForm" oncomplete="PF('CardsEditDialog').show()" disabled="#{empty cardsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cardsController.delete}" update=":growl,datalist" disabled="#{empty cardsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LoginHistoryViewDlg" widgetVar="LoginHistoryViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewLoginHistoryTitle}" closeOnEscape="true">
+
+            <h:form id="LoginHistoryViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{loginHistoryController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewLoginHistoryLabel_id}"/>
+                        <h:outputText value="#{loginHistoryController.selected.id}" title="#{myBundle.ViewLoginHistoryTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoginHistoryLabel_date}"/>
+                        <h:outputText value="#{loginHistoryController.selected.date}" title="#{myBundle.ViewLoginHistoryTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewLoginHistoryLabel_remoteAddress}"/>
+                        <h:outputText value="#{loginHistoryController.selected.remoteAddress}" title="#{myBundle.ViewLoginHistoryTitle_remoteAddress}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoginHistoryLabel_userId}"/>
+                        <h:outputText value="#{loginHistoryController.selected.userId.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('LoginHistoryViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

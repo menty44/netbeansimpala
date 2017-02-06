@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TicketsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewTicketsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TicketsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TicketsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{ticketsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_id}"/>
+                            <h:outputText value="#{ticketsController.selected.id}" title="#{myBundle.ViewTicketsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_subclass}"/>
+                            <h:outputText value="#{ticketsController.selected.subclass}" title="#{myBundle.ViewTicketsTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_status}"/>
+                            <h:outputText value="#{ticketsController.selected.status}" title="#{myBundle.ViewTicketsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_ticket}"/>
+                            <h:outputText value="#{ticketsController.selected.ticket}" title="#{myBundle.ViewTicketsTitle_ticket}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_creationDate}"/>
+                            <h:outputText value="#{ticketsController.selected.creationDate}" title="#{myBundle.ViewTicketsTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_amount}"/>
+                            <h:outputText value="#{ticketsController.selected.amount}" title="#{myBundle.ViewTicketsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_description}"/>
+                            <h:outputText value="#{ticketsController.selected.description}" title="#{myBundle.ViewTicketsTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_returnUrl}"/>
+                            <h:outputText value="#{ticketsController.selected.returnUrl}" title="#{myBundle.ViewTicketsTitle_returnUrl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_clientAddress}"/>
+                            <h:outputText value="#{ticketsController.selected.clientAddress}" title="#{myBundle.ViewTicketsTitle_clientAddress}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_memberAddress}"/>
+                            <h:outputText value="#{ticketsController.selected.memberAddress}" title="#{myBundle.ViewTicketsTitle_memberAddress}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_traceData}"/>
+                            <h:outputText value="#{ticketsController.selected.traceData}" title="#{myBundle.ViewTicketsTitle_traceData}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_transferId}"/>
+                            <h:outputText value="#{ticketsController.selected.transferId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_toChannelId}"/>
+                            <h:outputText value="#{ticketsController.selected.toChannelId.internalName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_fromMemberId}"/>
+                            <h:outputText value="#{ticketsController.selected.fromMemberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_toMemberId}"/>
+                            <h:outputText value="#{ticketsController.selected.toMemberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_transferTypeId}"/>
+                            <h:outputText value="#{ticketsController.selected.transferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_currencyId}"/>
+                            <h:outputText value="#{ticketsController.selected.currencyId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTicketsLabel_fromChannelId}"/>
+                            <h:outputText value="#{ticketsController.selected.fromChannelId.internalName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

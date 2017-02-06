@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransactionFeesViewDlg" widgetVar="TransactionFeesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTransactionFeesTitle}" closeOnEscape="true">
+
+            <h:form id="TransactionFeesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="TransactionFeesTabView">
+
+                        <p:tab id="TransactionFeesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{transactionFeesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_id}"/>
+                                <h:outputText value="#{transactionFeesController.selected.id}" title="#{myBundle.ViewTransactionFeesTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_subclass}"/>
+                                <h:outputText value="#{transactionFeesController.selected.subclass}" title="#{myBundle.ViewTransactionFeesTitle_subclass}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_payer}"/>
+                                <h:outputText value="#{transactionFeesController.selected.payer}" title="#{myBundle.ViewTransactionFeesTitle_payer}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_enabled}"/>
+                                <h:selectBooleanCheckbox id="enabled" value="#{transactionFeesController.selected.enabled}" title="#{myBundle.EditTransactionFeesTitle_enabled}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_enabled}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_name}"/>
+                                <h:outputText value="#{transactionFeesController.selected.name}" title="#{myBundle.ViewTransactionFeesTitle_name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_fromAllGroups}"/>
+                                <h:selectBooleanCheckbox id="fromAllGroups" value="#{transactionFeesController.selected.fromAllGroups}" title="#{myBundle.EditTransactionFeesTitle_fromAllGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_fromAllGroups}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_toAllGroups}"/>
+                                <h:selectBooleanCheckbox id="toAllGroups" value="#{transactionFeesController.selected.toAllGroups}" title="#{myBundle.EditTransactionFeesTitle_toAllGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_toAllGroups}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_description}"/>
+                                <h:outputText value="#{transactionFeesController.selected.description}" title="#{myBundle.ViewTransactionFeesTitle_description}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_deductAmount}"/>
+                                <h:selectBooleanCheckbox id="deductAmount" value="#{transactionFeesController.selected.deductAmount}" title="#{myBundle.EditTransactionFeesTitle_deductAmount}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_deductAmount}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_amount}"/>
+                                <h:outputText value="#{transactionFeesController.selected.amount}" title="#{myBundle.ViewTransactionFeesTitle_amount}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_amountType}"/>
+                                <h:outputText value="#{transactionFeesController.selected.amountType}" title="#{myBundle.ViewTransactionFeesTitle_amountType}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_maxFixedValue}"/>
+                                <h:outputText value="#{transactionFeesController.selected.maxFixedValue}" title="#{myBundle.ViewTransactionFeesTitle_maxFixedValue}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_maxPercentageValue}"/>
+                                <h:outputText value="#{transactionFeesController.selected.maxPercentageValue}" title="#{myBundle.ViewTransactionFeesTitle_maxPercentageValue}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_initialAmount}"/>
+                                <h:outputText value="#{transactionFeesController.selected.initialAmount}" title="#{myBundle.ViewTransactionFeesTitle_initialAmount}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_finalAmount}"/>
+                                <h:outputText value="#{transactionFeesController.selected.finalAmount}" title="#{myBundle.ViewTransactionFeesTitle_finalAmount}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_receiver}"/>
+                                <h:outputText value="#{transactionFeesController.selected.receiver}" title="#{myBundle.ViewTransactionFeesTitle_receiver}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_h}"/>
+                                <h:outputText value="#{transactionFeesController.selected.h}" title="#{myBundle.ViewTransactionFeesTitle_h}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_AFIsZero}"/>
+                                <h:outputText value="#{transactionFeesController.selected.AFIsZero}" title="#{myBundle.ViewTransactionFeesTitle_AFIsZero}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_f1}"/>
+                                <h:outputText value="#{transactionFeesController.selected.f1}" title="#{myBundle.ViewTransactionFeesTitle_f1}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_FInfinite}"/>
+                                <h:outputText value="#{transactionFeesController.selected.FInfinite}" title="#{myBundle.ViewTransactionFeesTitle_FInfinite}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransactionFeesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{transactionFeesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_FMinimal}"/>
+                                <h:outputText value="#{transactionFeesController.selected.FMinimal}" title="#{myBundle.ViewTransactionFeesTitle_FMinimal}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_GFIsZero}"/>
+                                <h:outputText value="#{transactionFeesController.selected.GFIsZero}" title="#{myBundle.ViewTransactionFeesTitle_GFIsZero}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_whichBroker}"/>
+                                <h:outputText value="#{transactionFeesController.selected.whichBroker}" title="#{myBundle.ViewTransactionFeesTitle_whichBroker}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_whenApply}"/>
+                                <h:outputText value="#{transactionFeesController.selected.whenApply}" title="#{myBundle.ViewTransactionFeesTitle_whenApply}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_whenCount}"/>
+                                <h:outputText value="#{transactionFeesController.selected.whenCount}" title="#{myBundle.ViewTransactionFeesTitle_whenCount}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_allBrokerGroups}"/>
+                                <h:selectBooleanCheckbox id="allBrokerGroups" value="#{transactionFeesController.selected.allBrokerGroups}" title="#{myBundle.EditTransactionFeesTitle_allBrokerGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_allBrokerGroups}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_generatedTypeId}"/>
+                                <h:outputText value="#{transactionFeesController.selected.generatedTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_fromMemberId}"/>
+                                <h:outputText value="#{transactionFeesController.selected.fromMemberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_toMemberId}"/>
+                                <h:outputText value="#{transactionFeesController.selected.toMemberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransactionFeesLabel_originalTypeId}"/>
+                                <h:outputText value="#{transactionFeesController.selected.originalTypeId.name}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TransactionFeesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

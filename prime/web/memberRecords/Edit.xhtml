@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MemberRecordsEditDlg" widgetVar="MemberRecordsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMemberRecordsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberRecordsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{memberRecordsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMemberRecordsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{memberRecordsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberRecordsController.selected.date}" title="#{myBundle.EditMemberRecordsTitle_date}" required="true" requiredMessage="#{myBundle.EditMemberRecordsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_lastModified}" for="lastModified" />
+                        <p:calendar id="lastModified" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberRecordsController.selected.lastModified}" title="#{myBundle.EditMemberRecordsTitle_lastModified}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{memberRecordsController.selected.byId}" required="true" requiredMessage="#{myBundle.EditMemberRecordsRequiredMessage_byId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_modifiedById}" for="modifiedById" />
+                        <p:selectOneMenu id="modifiedById" value="#{memberRecordsController.selected.modifiedById}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="modifiedByIdItem"
+                                           itemValue="#{modifiedByIdItem}"
+                                           itemLabel="#{modifiedByIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_elementId}" for="elementId" />
+                        <p:selectOneMenu id="elementId" value="#{memberRecordsController.selected.elementId}" required="true" requiredMessage="#{myBundle.EditMemberRecordsRequiredMessage_elementId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="elementIdItem"
+                                           itemValue="#{elementIdItem}"
+                                           itemLabel="#{elementIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMemberRecordsLabel_memberRecordTypeId}" for="memberRecordTypeId" />
+                        <p:selectOneMenu id="memberRecordTypeId" value="#{memberRecordsController.selected.memberRecordTypeId}" required="true" requiredMessage="#{myBundle.EditMemberRecordsRequiredMessage_memberRecordTypeId}" converter="memberRecordTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{memberRecordTypesController.items}"
+                                           var="memberRecordTypeIdItem"
+                                           itemValue="#{memberRecordTypeIdItem}"
+                                           itemLabel="#{memberRecordTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{memberRecordsController.save}" value="#{myBundle.Save}" update="display,:MemberRecordsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MemberRecordsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MemberRecordsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

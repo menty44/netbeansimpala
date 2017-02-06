@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MembersCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateMembersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MembersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MembersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{membersController.selected != null}">
+                    <p:tabView id="MembersTabView">
+
+                        <p:tab id="MembersTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel>
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_subclass}" for="subclass" />
+                                    <p:inputText id="subclass" value="#{membersController.selected.subclass}" title="#{myBundle.CreateMembersTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateMembersRequiredMessage_subclass}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{membersController.selected.name}" title="#{myBundle.CreateMembersTitle_name}" required="true" requiredMessage="#{myBundle.CreateMembersRequiredMessage_name}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_creationDate}" for="creationDate" />
+                                    <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{membersController.selected.creationDate}" title="#{myBundle.CreateMembersTitle_creationDate}" required="true" requiredMessage="#{myBundle.CreateMembersRequiredMessage_creationDate}" showOn="button"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_email}" for="email" />
+                                    <p:inputText id="email" value="#{membersController.selected.email}" title="#{myBundle.CreateMembersTitle_email}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_memberActivationDate}" for="memberActivationDate" />
+                                    <p:calendar id="memberActivationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{membersController.selected.memberActivationDate}" title="#{myBundle.CreateMembersTitle_memberActivationDate}"  showOn="button"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_hideEmail}" for="hideEmail" />
+                                    <p:selectBooleanCheckbox id="hideEmail" value="#{membersController.selected.hideEmail}" required="true" requiredMessage="#{myBundle.CreateMembersRequiredMessage_hideEmail}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_loansCollection}" for="loansCollection" />
+                                    <p:selectManyMenu id="loansCollection" value="#{membersController.selected.loansCollection}"  converter="loansConverter">
+                                        <f:selectItems value="#{loansController.items}"
+                                                       var="loansCollectionItem"
+                                                       itemValue="#{loansCollectionItem}"
+                                                       itemLabel="#{loansCollectionItem.id.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_memberSmsStatus}" for="memberSmsStatus" />
+                                    <p:selectOneMenu id="memberSmsStatus" value="#{membersController.selected.memberSmsStatus}"  converter="memberSmsStatusConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{memberSmsStatusController.items}"
+                                                       var="memberSmsStatusItem"
+                                                       itemValue="#{memberSmsStatusItem}"
+                                                       itemLabel="#{memberSmsStatusItem.id.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_groupId}" for="groupId" />
+                                    <p:selectOneMenu id="groupId" value="#{membersController.selected.groupId}" required="true" requiredMessage="#{myBundle.CreateMembersRequiredMessage_groupId}" converter="groupsConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{groupsController.items}"
+                                                       var="groupIdItem"
+                                                       itemValue="#{groupIdItem}"
+                                                       itemLabel="#{groupIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_memberBrokerId}" for="memberBrokerId" />
+                                    <p:selectOneMenu id="memberBrokerId" value="#{membersController.selected.memberBrokerId}"  converter="membersConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{membersController.items}"
+                                                       var="memberBrokerIdItem"
+                                                       itemValue="#{memberBrokerIdItem}"
+                                                       itemLabel="#{memberBrokerIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_memberId}" for="memberId" />
+                                    <p:selectOneMenu id="memberId" value="#{membersController.selected.memberId}"  converter="membersConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{membersController.items}"
+                                                       var="memberIdItem"
+                                                       itemValue="#{memberIdItem}"
+                                                       itemLabel="#{memberIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateMembersLabel_users}" for="users" />
+                                    <p:selectOneMenu id="users" value="#{membersController.selected.users}"  converter="usersConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{usersController.items}"
+                                                       var="usersItem"
+                                                       itemValue="#{usersItem}"
+                                                       itemLabel="#{usersItem.username.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+                                </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{membersController.saveNew}" value="#{myBundle.Save}" update="display,:MembersListPage:MembersListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MembersListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

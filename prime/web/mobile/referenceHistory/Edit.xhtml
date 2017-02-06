@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ReferenceHistoryEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditReferenceHistoryTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ReferenceHistoryListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ReferenceHistoryEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{referenceHistoryController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditReferenceHistoryLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{referenceHistoryController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_level}" for="level" />
+                            <p:inputText id="level" value="#{referenceHistoryController.selected.level}" title="#{myBundle.EditReferenceHistoryTitle_level}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_level}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_startDate}" for="startDate" />
+                            <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{referenceHistoryController.selected.startDate}" title="#{myBundle.EditReferenceHistoryTitle_startDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{referenceHistoryController.selected.endDate}" title="#{myBundle.EditReferenceHistoryTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_fromMemberId}" for="fromMemberId" />
+                            <p:selectOneMenu id="fromMemberId" value="#{referenceHistoryController.selected.fromMemberId}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_fromMemberId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="fromMemberIdItem"
+                                               itemValue="#{fromMemberIdItem}"
+                                               itemLabel="#{fromMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_toMemberId}" for="toMemberId" />
+                            <p:selectOneMenu id="toMemberId" value="#{referenceHistoryController.selected.toMemberId}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_toMemberId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="toMemberIdItem"
+                                               itemValue="#{toMemberIdItem}"
+                                               itemLabel="#{toMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{referenceHistoryController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ReferenceHistoryListPage:ReferenceHistoryListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ReferenceHistoryListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

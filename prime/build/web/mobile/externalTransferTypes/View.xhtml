@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ExternalTransferTypesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewExternalTransferTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ExternalTransferTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ExternalTransferTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{externalTransferTypesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_id}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.id}" title="#{myBundle.ViewExternalTransferTypesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_code}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.code}" title="#{myBundle.ViewExternalTransferTypesTitle_code}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_name}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.name}" title="#{myBundle.ViewExternalTransferTypesTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_action}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.action}" title="#{myBundle.ViewExternalTransferTypesTitle_action}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_description}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.description}" title="#{myBundle.ViewExternalTransferTypesTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_transferTypeId}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.transferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewExternalTransferTypesLabel_accountId}"/>
+                            <h:outputText value="#{externalTransferTypesController.selected.accountId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

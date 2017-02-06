@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReferenceHistoryViewDlg" widgetVar="ReferenceHistoryViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewReferenceHistoryTitle}" closeOnEscape="true">
+
+            <h:form id="ReferenceHistoryViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{referenceHistoryController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_id}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.id}" title="#{myBundle.ViewReferenceHistoryTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_level}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.level}" title="#{myBundle.ViewReferenceHistoryTitle_level}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_startDate}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.startDate}" title="#{myBundle.ViewReferenceHistoryTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_endDate}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.endDate}" title="#{myBundle.ViewReferenceHistoryTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_fromMemberId}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.fromMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenceHistoryLabel_toMemberId}"/>
+                        <h:outputText value="#{referenceHistoryController.selected.toMemberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ReferenceHistoryViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

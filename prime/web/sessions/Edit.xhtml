@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SessionsEditDlg" widgetVar="SessionsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditSessionsTitle}" closeOnEscape="true">
+
+            <h:form id="SessionsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{sessionsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditSessionsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{sessionsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_identifier}" for="identifier" />
+                        <p:inputText id="identifier" value="#{sessionsController.selected.identifier}" title="#{myBundle.EditSessionsTitle_identifier}" required="true" requiredMessage="#{myBundle.EditSessionsRequiredMessage_identifier}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.creationDate}" title="#{myBundle.EditSessionsTitle_creationDate}" required="true" requiredMessage="#{myBundle.EditSessionsRequiredMessage_creationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.expirationDate}" title="#{myBundle.EditSessionsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.EditSessionsRequiredMessage_expirationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_posWeb}" for="posWeb" />
+                        <p:selectBooleanCheckbox id="posWeb" value="#{sessionsController.selected.posWeb}" />
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_remoteAddr}" for="remoteAddr" />
+                        <p:inputText id="remoteAddr" value="#{sessionsController.selected.remoteAddr}" title="#{myBundle.EditSessionsTitle_remoteAddr}" required="true" requiredMessage="#{myBundle.EditSessionsRequiredMessage_remoteAddr}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditSessionsLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{sessionsController.selected.userId}" required="true" requiredMessage="#{myBundle.EditSessionsRequiredMessage_userId}" converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"
+                                           itemLabel="#{userIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sessionsController.save}" value="#{myBundle.Save}" update="display,:SessionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SessionsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SessionsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

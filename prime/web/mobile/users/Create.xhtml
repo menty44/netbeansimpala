@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsersCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateUsersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usersController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_id}" for="id" />
+                            <p:inputText id="id" value="#{usersController.selected.id}" title="#{myBundle.CreateUsersTitle_id}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{usersController.selected.subclass}" title="#{myBundle.CreateUsersTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_subclass}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_salt}" for="salt" />
+                            <p:inputText id="salt" value="#{usersController.selected.salt}" title="#{myBundle.CreateUsersTitle_salt}" size="32" maxlength="32"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_username}" for="username" />
+                            <p:inputText id="username" value="#{usersController.selected.username}" title="#{myBundle.CreateUsersTitle_username}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_username}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_password}" for="password" />
+                            <p:inputText id="password" value="#{usersController.selected.password}" title="#{myBundle.CreateUsersTitle_password}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_transactionPassword}" for="transactionPassword" />
+                            <p:inputText id="transactionPassword" value="#{usersController.selected.transactionPassword}" title="#{myBundle.CreateUsersTitle_transactionPassword}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_transactionPasswordStatus}" for="transactionPasswordStatus" />
+                            <p:inputText id="transactionPasswordStatus" value="#{usersController.selected.transactionPasswordStatus}" title="#{myBundle.CreateUsersTitle_transactionPasswordStatus}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_transactionPasswordStatus}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_lastLogin}" for="lastLogin" />
+                            <p:calendar id="lastLogin" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.lastLogin}" title="#{myBundle.CreateUsersTitle_lastLogin}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_passwordDate}" for="passwordDate" />
+                            <p:calendar id="passwordDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordDate}" title="#{myBundle.CreateUsersTitle_passwordDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_passwordBlockedUntil}" for="passwordBlockedUntil" />
+                            <p:calendar id="passwordBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordBlockedUntil}" title="#{myBundle.CreateUsersTitle_passwordBlockedUntil}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_pin}" for="pin" />
+                            <p:inputText id="pin" value="#{usersController.selected.pin}" title="#{myBundle.CreateUsersTitle_pin}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_pinBlockedUntil}" for="pinBlockedUntil" />
+                            <p:calendar id="pinBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.pinBlockedUntil}" title="#{myBundle.CreateUsersTitle_pinBlockedUntil}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateUsersLabel_members}" for="members" />
+                            <p:selectOneMenu id="members" value="#{usersController.selected.members}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_members}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="membersItem"
+                                               itemValue="#{membersItem}"
+                                               itemLabel="#{membersItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{usersController.saveNew}" value="#{myBundle.Save}" update="display,:UsersListPage:UsersListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:UsersListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

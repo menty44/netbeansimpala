@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberGroupsEmailValidationViewDlg" widgetVar="MemberGroupsEmailValidationViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberGroupsEmailValidationTitle}" closeOnEscape="true">
+
+            <h:form id="MemberGroupsEmailValidationViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberGroupsEmailValidationController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupsEmailValidationLabel_memberGroupsEmailValidationPK_groupId}"/>
+                        <h:outputText value="#{memberGroupsEmailValidationController.selected.memberGroupsEmailValidationPK.groupId}" title="#{myBundle.ViewMemberGroupsEmailValidationTitle_memberGroupsEmailValidationPK_groupId}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupsEmailValidationLabel_memberGroupsEmailValidationPK_type}"/>
+                        <h:outputText value="#{memberGroupsEmailValidationController.selected.memberGroupsEmailValidationPK.type}" title="#{myBundle.ViewMemberGroupsEmailValidationTitle_memberGroupsEmailValidationPK_type}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupsEmailValidationLabel_groups}"/>
+                        <h:outputText value="#{memberGroupsEmailValidationController.selected.groups.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberGroupsEmailValidationViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

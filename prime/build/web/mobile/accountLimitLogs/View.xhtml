@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountLimitLogsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAccountLimitLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountLimitLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountLimitLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountLimitLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_id}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.id}" title="#{myBundle.ViewAccountLimitLogsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_date}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.date}" title="#{myBundle.ViewAccountLimitLogsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_creditLimit}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.creditLimit}" title="#{myBundle.ViewAccountLimitLogsTitle_creditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_upperCreditLimit}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.upperCreditLimit}" title="#{myBundle.ViewAccountLimitLogsTitle_upperCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_byId}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.byId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_accountId}"/>
+                            <h:outputText value="#{accountLimitLogsController.selected.accountId.ownerName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

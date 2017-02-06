@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CertificationLogsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateCertificationLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CertificationLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CertificationLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{certificationLogsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCertificationLogsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{certificationLogsController.selected.date}" title="#{myBundle.CreateCertificationLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreateCertificationLogsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCertificationLogsLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{certificationLogsController.selected.status}" title="#{myBundle.CreateCertificationLogsTitle_status}" required="true" requiredMessage="#{myBundle.CreateCertificationLogsRequiredMessage_status}" size="2" maxlength="2"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCertificationLogsLabel_certificationId}" for="certificationId" />
+                            <p:selectOneMenu id="certificationId" value="#{certificationLogsController.selected.certificationId}" required="true" requiredMessage="#{myBundle.CreateCertificationLogsRequiredMessage_certificationId}" converter="certificationsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{certificationsController.items}"
+                                               var="certificationIdItem"
+                                               itemValue="#{certificationIdItem}"
+                                               itemLabel="#{certificationIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCertificationLogsLabel_byId}" for="byId" />
+                            <p:selectOneMenu id="byId" value="#{certificationLogsController.selected.byId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="byIdItem"
+                                               itemValue="#{byIdItem}"
+                                               itemLabel="#{byIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{certificationLogsController.saveNew}" value="#{myBundle.Save}" update="display,:CertificationLogsListPage:CertificationLogsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:CertificationLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

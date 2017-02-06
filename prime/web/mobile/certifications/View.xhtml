@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CertificationsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCertificationsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CertificationsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CertificationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{certificationsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_id}"/>
+                            <h:outputText value="#{certificationsController.selected.id}" title="#{myBundle.ViewCertificationsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_amount}"/>
+                            <h:outputText value="#{certificationsController.selected.amount}" title="#{myBundle.ViewCertificationsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_beginDate}"/>
+                            <h:outputText value="#{certificationsController.selected.beginDate}" title="#{myBundle.ViewCertificationsTitle_beginDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_endDate}"/>
+                            <h:outputText value="#{certificationsController.selected.endDate}" title="#{myBundle.ViewCertificationsTitle_endDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_status}"/>
+                            <h:outputText value="#{certificationsController.selected.status}" title="#{myBundle.ViewCertificationsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_buyerId}"/>
+                            <h:outputText value="#{certificationsController.selected.buyerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_guaranteeTypeId}"/>
+                            <h:outputText value="#{certificationsController.selected.guaranteeTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationsLabel_issuerId}"/>
+                            <h:outputText value="#{certificationsController.selected.issuerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

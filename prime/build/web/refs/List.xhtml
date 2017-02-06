@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RefsListForm">
+
+        <p:panel header="#{myBundle.ListRefsTitle}">
+            <p:contextMenu id="RefsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('RefsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('RefsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('RefsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('RefsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.RefsMenuItem_transferId}" icon="ui-icon-search"  actionListener="#{refsController.prepareTransferId}" update=":TransfersViewForm" oncomplete="PF('TransfersViewDialog').show()" disabled="#{empty refsController.selected.transferId}"/>  
+                <p:menuitem value="#{myBundle.RefsMenuItem_fromMemberId}" icon="ui-icon-search"  actionListener="#{refsController.prepareFromMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty refsController.selected.fromMemberId}"/>  
+                <p:menuitem value="#{myBundle.RefsMenuItem_toMemberId}" icon="ui-icon-search"  actionListener="#{refsController.prepareToMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty refsController.selected.toMemberId}"/>  
+                <p:menuitem value="#{myBundle.RefsMenuItem_scheduledPaymentId}" icon="ui-icon-search"  actionListener="#{refsController.prepareScheduledPaymentId}" update=":ScheduledPaymentsViewForm" oncomplete="PF('ScheduledPaymentsViewDialog').show()" disabled="#{empty refsController.selected.scheduledPaymentId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{refsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{refsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{refsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RefsDataTableContextMenu" listener="#{refsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RefsDataTableContextMenu" listener="#{refsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{refsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RefsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.level}" filterBy="#{item.level}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_level}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.level}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.comments}" filterBy="#{item.comments}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_comments}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.comments}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.replyCommentsDate}" filterBy="#{item.replyCommentsDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRefsTitle_replyCommentsDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.replyCommentsDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.replyComments}" filterBy="#{item.replyComments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_replyComments}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.replyComments}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.adminCommentsDate}" filterBy="#{item.adminCommentsDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_adminCommentsDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.adminCommentsDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.adminComments}" filterBy="#{item.adminComments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_adminComments}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.adminComments}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transferId.description}" filterBy="#{item.transferId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_transferId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromMemberId.name}" filterBy="#{item.fromMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_fromMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toMemberId.name}" filterBy="#{item.toMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_toMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.scheduledPaymentId.description}" filterBy="#{item.scheduledPaymentId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRefsTitle_scheduledPaymentId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.scheduledPaymentId.description}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{refsController.prepareCreate}" update=":RefsCreateForm" oncomplete="PF('RefsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":RefsViewForm" oncomplete="PF('RefsViewDialog').show()" disabled="#{empty refsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RefsEditForm" oncomplete="PF('RefsEditDialog').show()" disabled="#{empty refsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{refsController.delete}" update=":growl,datalist" disabled="#{empty refsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

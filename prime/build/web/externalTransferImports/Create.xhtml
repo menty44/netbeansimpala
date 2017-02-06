@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExternalTransferImportsCreateDlg" widgetVar="ExternalTransferImportsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateExternalTransferImportsTitle}" closeOnEscape="true">
+
+            <h:form id="ExternalTransferImportsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{externalTransferImportsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferImportsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{externalTransferImportsController.selected.date}" title="#{myBundle.CreateExternalTransferImportsTitle_date}" required="true" requiredMessage="#{myBundle.CreateExternalTransferImportsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferImportsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{externalTransferImportsController.selected.byId}" required="true" requiredMessage="#{myBundle.CreateExternalTransferImportsRequiredMessage_byId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferImportsLabel_accountId}" for="accountId" />
+                        <p:selectOneMenu id="accountId" value="#{externalTransferImportsController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateExternalTransferImportsRequiredMessage_accountId}" converter="externalAccountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{externalAccountsController.items}"
+                                           var="accountIdItem"
+                                           itemValue="#{accountIdItem}"
+                                           itemLabel="#{accountIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{externalTransferImportsController.saveNew}" value="#{myBundle.Save}" update="display,:ExternalTransferImportsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ExternalTransferImportsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ExternalTransferImportsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

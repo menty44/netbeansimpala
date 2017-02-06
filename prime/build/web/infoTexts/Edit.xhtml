@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="InfoTextsEditDlg" widgetVar="InfoTextsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditInfoTextsTitle}" closeOnEscape="true">
+
+            <h:form id="InfoTextsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{infoTextsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditInfoTextsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{infoTextsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditInfoTextsLabel_subject}" for="subject" />
+                        <p:inputText id="subject" value="#{infoTextsController.selected.subject}" title="#{myBundle.EditInfoTextsTitle_subject}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_subject}" size="160" maxlength="160"/>
+
+                        <p:outputLabel value="#{myBundle.EditInfoTextsLabel_body}" for="body" />
+                        <p:inputTextarea rows="4" cols="30" id="body" value="#{infoTextsController.selected.body}" title="#{myBundle.EditInfoTextsTitle_body}" />
+
+                        <p:outputLabel value="#{myBundle.EditInfoTextsLabel_enabled}" for="enabled" />
+                        <p:selectBooleanCheckbox id="enabled" value="#{infoTextsController.selected.enabled}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_enabled}"/>
+
+                        <p:outputLabel value="#{myBundle.EditInfoTextsLabel_beginDate}" for="beginDate" />
+                        <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.beginDate}" title="#{myBundle.EditInfoTextsTitle_beginDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditInfoTextsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.endDate}" title="#{myBundle.EditInfoTextsTitle_endDate}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{infoTextsController.save}" value="#{myBundle.Save}" update="display,:InfoTextsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InfoTextsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('InfoTextsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

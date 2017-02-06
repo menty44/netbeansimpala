@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ServiceClientPermissionsEditDlg" widgetVar="ServiceClientPermissionsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditServiceClientPermissionsTitle}" closeOnEscape="true">
+
+            <h:form id="ServiceClientPermissionsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{serviceClientPermissionsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditServiceClientPermissionsLabel_serviceClientPermissionsPK_serviceClientId}" for="serviceClientPermissionsPK_serviceClientId" />
+                        <h:outputText id="serviceClientPermissionsPK_serviceClientId" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.serviceClientId}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditServiceClientPermissionsLabel_serviceClientPermissionsPK_operation}" for="serviceClientPermissionsPK_operation" />
+                        <h:outputText id="serviceClientPermissionsPK_operation" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.operation}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditServiceClientPermissionsLabel_serviceClients}" for="serviceClients" />
+                        <h:outputText id="serviceClients" value="#{serviceClientPermissionsController.selected.serviceClients}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{serviceClientPermissionsController.save}" value="#{myBundle.Save}" update="display,:ServiceClientPermissionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ServiceClientPermissionsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ServiceClientPermissionsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

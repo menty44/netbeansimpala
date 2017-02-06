@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PaymentObligationsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreatePaymentObligationsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PaymentObligationsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PaymentObligationsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{paymentObligationsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{paymentObligationsController.selected.status}" title="#{myBundle.CreatePaymentObligationsTitle_status}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_status}" size="2" maxlength="2"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{paymentObligationsController.selected.amount}" title="#{myBundle.CreatePaymentObligationsTitle_amount}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_expirationDate}" for="expirationDate" />
+                            <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{paymentObligationsController.selected.expirationDate}" title="#{myBundle.CreatePaymentObligationsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_expirationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_maxPublishDate}" for="maxPublishDate" />
+                            <p:calendar id="maxPublishDate" pattern="MM/dd/yyyy" value="#{paymentObligationsController.selected.maxPublishDate}" title="#{myBundle.CreatePaymentObligationsTitle_maxPublishDate}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_maxPublishDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_registrationDate}" for="registrationDate" />
+                            <p:calendar id="registrationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{paymentObligationsController.selected.registrationDate}" title="#{myBundle.CreatePaymentObligationsTitle_registrationDate}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_registrationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_description}" for="description" />
+                            <p:inputTextarea rows="4" cols="30" id="description" value="#{paymentObligationsController.selected.description}" title="#{myBundle.CreatePaymentObligationsTitle_description}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_guaranteeId}" for="guaranteeId" />
+                            <p:selectOneMenu id="guaranteeId" value="#{paymentObligationsController.selected.guaranteeId}"  converter="guaranteesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{guaranteesController.items}"
+                                               var="guaranteeIdItem"
+                                               itemValue="#{guaranteeIdItem}"
+                                               itemLabel="#{guaranteeIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_sellerId}" for="sellerId" />
+                            <p:selectOneMenu id="sellerId" value="#{paymentObligationsController.selected.sellerId}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_sellerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="sellerIdItem"
+                                               itemValue="#{sellerIdItem}"
+                                               itemLabel="#{sellerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_buyerId}" for="buyerId" />
+                            <p:selectOneMenu id="buyerId" value="#{paymentObligationsController.selected.buyerId}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_buyerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="buyerIdItem"
+                                               itemValue="#{buyerIdItem}"
+                                               itemLabel="#{buyerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreatePaymentObligationsLabel_currencyId}" for="currencyId" />
+                            <p:selectOneMenu id="currencyId" value="#{paymentObligationsController.selected.currencyId}" required="true" requiredMessage="#{myBundle.CreatePaymentObligationsRequiredMessage_currencyId}" converter="currenciesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{currenciesController.items}"
+                                               var="currencyIdItem"
+                                               itemValue="#{currencyIdItem}"
+                                               itemLabel="#{currencyIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{paymentObligationsController.saveNew}" value="#{myBundle.Save}" update="display,:PaymentObligationsListPage:PaymentObligationsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:PaymentObligationsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdminPreferencesSystemAlertsViewDlg" widgetVar="AdminPreferencesSystemAlertsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAdminPreferencesSystemAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AdminPreferencesSystemAlertsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{adminPreferencesSystemAlertsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_preferenceId}"/>
+                        <h:outputText value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.preferenceId}" title="#{myBundle.ViewAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_preferenceId}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_type}"/>
+                        <h:outputText value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.type}" title="#{myBundle.ViewAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_type}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesSystemAlertsLabel_adminNotificationPreferences}"/>
+                        <h:outputText value="#{adminPreferencesSystemAlertsController.selected.adminNotificationPreferences.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AdminPreferencesSystemAlertsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

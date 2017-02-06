@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BrokerCommissionContractsEditDlg" widgetVar="BrokerCommissionContractsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditBrokerCommissionContractsTitle}" closeOnEscape="true">
+
+            <h:form id="BrokerCommissionContractsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{brokerCommissionContractsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{brokerCommissionContractsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_amountValue}" for="amountValue" />
+                        <p:inputText id="amountValue" value="#{brokerCommissionContractsController.selected.amountValue}" title="#{myBundle.EditBrokerCommissionContractsTitle_amountValue}" required="true" requiredMessage="#{myBundle.EditBrokerCommissionContractsRequiredMessage_amountValue}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_amountType}" for="amountType" />
+                        <p:inputText id="amountType" value="#{brokerCommissionContractsController.selected.amountType}" title="#{myBundle.EditBrokerCommissionContractsTitle_amountType}" required="true" requiredMessage="#{myBundle.EditBrokerCommissionContractsRequiredMessage_amountType}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{brokerCommissionContractsController.selected.startDate}" title="#{myBundle.EditBrokerCommissionContractsTitle_startDate}" required="true" requiredMessage="#{myBundle.EditBrokerCommissionContractsRequiredMessage_startDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{brokerCommissionContractsController.selected.endDate}" title="#{myBundle.EditBrokerCommissionContractsTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{brokerCommissionContractsController.selected.status}" title="#{myBundle.EditBrokerCommissionContractsTitle_status}" required="true" requiredMessage="#{myBundle.EditBrokerCommissionContractsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_statusBeforeSuspension}" for="statusBeforeSuspension" />
+                        <p:inputText id="statusBeforeSuspension" value="#{brokerCommissionContractsController.selected.statusBeforeSuspension}" title="#{myBundle.EditBrokerCommissionContractsTitle_statusBeforeSuspension}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_cancelledById}" for="cancelledById" />
+                        <p:selectOneMenu id="cancelledById" value="#{brokerCommissionContractsController.selected.cancelledById}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="cancelledByIdItem"
+                                           itemValue="#{cancelledByIdItem}"
+                                           itemLabel="#{cancelledByIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_brokeringId}" for="brokeringId" />
+                        <p:selectOneMenu id="brokeringId" value="#{brokerCommissionContractsController.selected.brokeringId}"  converter="brokeringsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{brokeringsController.items}"
+                                           var="brokeringIdItem"
+                                           itemValue="#{brokeringIdItem}"
+                                           itemLabel="#{brokeringIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditBrokerCommissionContractsLabel_brokerCommissionId}" for="brokerCommissionId" />
+                        <p:selectOneMenu id="brokerCommissionId" value="#{brokerCommissionContractsController.selected.brokerCommissionId}"  converter="transactionFeesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transactionFeesController.items}"
+                                           var="brokerCommissionIdItem"
+                                           itemValue="#{brokerCommissionIdItem}"
+                                           itemLabel="#{brokerCommissionIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{brokerCommissionContractsController.save}" value="#{myBundle.Save}" update="display,:BrokerCommissionContractsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('BrokerCommissionContractsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('BrokerCommissionContractsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

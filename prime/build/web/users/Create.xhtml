@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsersTitle}" closeOnEscape="true">
+
+            <h:form id="UsersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{usersController.selected.id}" title="#{myBundle.CreateUsersTitle_id}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_id}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{usersController.selected.subclass}" title="#{myBundle.CreateUsersTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_salt}" for="salt" />
+                        <p:inputText id="salt" value="#{usersController.selected.salt}" title="#{myBundle.CreateUsersTitle_salt}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{usersController.selected.username}" title="#{myBundle.CreateUsersTitle_username}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_username}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{myBundle.CreateUsersTitle_password}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_transactionPassword}" for="transactionPassword" />
+                        <p:inputText id="transactionPassword" value="#{usersController.selected.transactionPassword}" title="#{myBundle.CreateUsersTitle_transactionPassword}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_transactionPasswordStatus}" for="transactionPasswordStatus" />
+                        <p:inputText id="transactionPasswordStatus" value="#{usersController.selected.transactionPasswordStatus}" title="#{myBundle.CreateUsersTitle_transactionPasswordStatus}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_transactionPasswordStatus}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_lastLogin}" for="lastLogin" />
+                        <p:calendar id="lastLogin" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.lastLogin}" title="#{myBundle.CreateUsersTitle_lastLogin}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_passwordDate}" for="passwordDate" />
+                        <p:calendar id="passwordDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordDate}" title="#{myBundle.CreateUsersTitle_passwordDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_passwordBlockedUntil}" for="passwordBlockedUntil" />
+                        <p:calendar id="passwordBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordBlockedUntil}" title="#{myBundle.CreateUsersTitle_passwordBlockedUntil}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_pin}" for="pin" />
+                        <p:inputText id="pin" value="#{usersController.selected.pin}" title="#{myBundle.CreateUsersTitle_pin}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_pinBlockedUntil}" for="pinBlockedUntil" />
+                        <p:calendar id="pinBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.pinBlockedUntil}" title="#{myBundle.CreateUsersTitle_pinBlockedUntil}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsersLabel_members}" for="members" />
+                        <p:selectOneMenu id="members" value="#{usersController.selected.members}" required="true" requiredMessage="#{myBundle.CreateUsersRequiredMessage_members}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="membersItem"
+                                           itemValue="#{membersItem}"
+                                           itemLabel="#{membersItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usersController.saveNew}" value="#{myBundle.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

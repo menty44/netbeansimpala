@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GuaranteesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditGuaranteesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GuaranteesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GuaranteesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{guaranteesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditGuaranteesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{guaranteesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{guaranteesController.selected.status}" title="#{myBundle.EditGuaranteesTitle_status}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_status}" size="2" maxlength="2"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{guaranteesController.selected.amount}" title="#{myBundle.EditGuaranteesTitle_amount}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_creditFee}" for="creditFee" />
+                            <p:inputText id="creditFee" value="#{guaranteesController.selected.creditFee}" title="#{myBundle.EditGuaranteesTitle_creditFee}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_creditFeeType}" for="creditFeeType" />
+                            <p:inputText id="creditFeeType" value="#{guaranteesController.selected.creditFeeType}" title="#{myBundle.EditGuaranteesTitle_creditFeeType}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_issueFee}" for="issueFee" />
+                            <p:inputText id="issueFee" value="#{guaranteesController.selected.issueFee}" title="#{myBundle.EditGuaranteesTitle_issueFee}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_issueFeeType}" for="issueFeeType" />
+                            <p:inputText id="issueFeeType" value="#{guaranteesController.selected.issueFeeType}" title="#{myBundle.EditGuaranteesTitle_issueFeeType}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_beginDate}" for="beginDate" />
+                            <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{guaranteesController.selected.beginDate}" title="#{myBundle.EditGuaranteesTitle_beginDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{guaranteesController.selected.endDate}" title="#{myBundle.EditGuaranteesTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_registrationDate}" for="registrationDate" />
+                            <p:calendar id="registrationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{guaranteesController.selected.registrationDate}" title="#{myBundle.EditGuaranteesTitle_registrationDate}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_registrationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_certificationId}" for="certificationId" />
+                            <p:selectOneMenu id="certificationId" value="#{guaranteesController.selected.certificationId}"  converter="certificationsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{certificationsController.items}"
+                                               var="certificationIdItem"
+                                               itemValue="#{certificationIdItem}"
+                                               itemLabel="#{certificationIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_sellerId}" for="sellerId" />
+                            <p:selectOneMenu id="sellerId" value="#{guaranteesController.selected.sellerId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="sellerIdItem"
+                                               itemValue="#{sellerIdItem}"
+                                               itemLabel="#{sellerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_buyerId}" for="buyerId" />
+                            <p:selectOneMenu id="buyerId" value="#{guaranteesController.selected.buyerId}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_buyerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="buyerIdItem"
+                                               itemValue="#{buyerIdItem}"
+                                               itemLabel="#{buyerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_guaranteeTypeId}" for="guaranteeTypeId" />
+                            <p:selectOneMenu id="guaranteeTypeId" value="#{guaranteesController.selected.guaranteeTypeId}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_guaranteeTypeId}" converter="guaranteeTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{guaranteeTypesController.items}"
+                                               var="guaranteeTypeIdItem"
+                                               itemValue="#{guaranteeTypeIdItem}"
+                                               itemLabel="#{guaranteeTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_issuerId}" for="issuerId" />
+                            <p:selectOneMenu id="issuerId" value="#{guaranteesController.selected.issuerId}" required="true" requiredMessage="#{myBundle.EditGuaranteesRequiredMessage_issuerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="issuerIdItem"
+                                               itemValue="#{issuerIdItem}"
+                                               itemLabel="#{issuerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditGuaranteesLabel_loanId}" for="loanId" />
+                            <p:selectOneMenu id="loanId" value="#{guaranteesController.selected.loanId}"  converter="loansConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{loansController.items}"
+                                               var="loanIdItem"
+                                               itemValue="#{loanIdItem}"
+                                               itemLabel="#{loanIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{guaranteesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:GuaranteesListPage:GuaranteesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:GuaranteesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

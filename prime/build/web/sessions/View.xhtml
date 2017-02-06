@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SessionsViewDlg" widgetVar="SessionsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSessionsTitle}" closeOnEscape="true">
+
+            <h:form id="SessionsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{sessionsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_id}"/>
+                        <h:outputText value="#{sessionsController.selected.id}" title="#{myBundle.ViewSessionsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_identifier}"/>
+                        <h:outputText value="#{sessionsController.selected.identifier}" title="#{myBundle.ViewSessionsTitle_identifier}"/>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_creationDate}"/>
+                        <h:outputText value="#{sessionsController.selected.creationDate}" title="#{myBundle.ViewSessionsTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_expirationDate}"/>
+                        <h:outputText value="#{sessionsController.selected.expirationDate}" title="#{myBundle.ViewSessionsTitle_expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_posWeb}"/>
+                        <h:selectBooleanCheckbox id="posWeb" value="#{sessionsController.selected.posWeb}" title="#{myBundle.EditSessionsTitle_posWeb}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_remoteAddr}"/>
+                        <h:outputText value="#{sessionsController.selected.remoteAddr}" title="#{myBundle.ViewSessionsTitle_remoteAddr}"/>
+
+                        <h:outputText value="#{myBundle.ViewSessionsLabel_userId}"/>
+                        <h:outputText value="#{sessionsController.selected.userId.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SessionsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

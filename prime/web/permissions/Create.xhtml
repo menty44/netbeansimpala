@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermissionsCreateDlg" widgetVar="PermissionsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePermissionsTitle}" closeOnEscape="true">
+
+            <h:form id="PermissionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{permissionsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePermissionsLabel_permissionsPK_groupId}" for="permissionsPK_groupId" />
+                        <p:inputText id="permissionsPK_groupId" value="#{permissionsController.selected.permissionsPK.groupId}" title="#{myBundle.CreatePermissionsTitle_permissionsPK_groupId}" required="true" requiredMessage="#{myBundle.CreatePermissionsRequiredMessage_permissionsPK_groupId}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePermissionsLabel_permissionsPK_permission}" for="permissionsPK_permission" />
+                        <p:inputText id="permissionsPK_permission" value="#{permissionsController.selected.permissionsPK.permission}" title="#{myBundle.CreatePermissionsTitle_permissionsPK_permission}" required="true" requiredMessage="#{myBundle.CreatePermissionsRequiredMessage_permissionsPK_permission}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePermissionsLabel_groups}" for="groups" />
+                        <p:selectOneMenu id="groups" value="#{permissionsController.selected.groups}" required="true" requiredMessage="#{myBundle.CreatePermissionsRequiredMessage_groups}" converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsItem"
+                                           itemValue="#{groupsItem}"
+                                           itemLabel="#{groupsItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{permissionsController.saveNew}" value="#{myBundle.Save}" update="display,:PermissionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PermissionsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PermissionsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

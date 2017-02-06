@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountFeesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAccountFeesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountFeesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountFeesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountFeesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_id}"/>
+                            <h:outputText value="#{accountFeesController.selected.id}" title="#{myBundle.ViewAccountFeesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_name}"/>
+                            <h:outputText value="#{accountFeesController.selected.name}" title="#{myBundle.ViewAccountFeesTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_chargeMode}"/>
+                            <h:outputText value="#{accountFeesController.selected.chargeMode}" title="#{myBundle.ViewAccountFeesTitle_chargeMode}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_runMode}"/>
+                            <h:outputText value="#{accountFeesController.selected.runMode}" title="#{myBundle.ViewAccountFeesTitle_runMode}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_paymentDirection}"/>
+                            <h:outputText value="#{accountFeesController.selected.paymentDirection}" title="#{myBundle.ViewAccountFeesTitle_paymentDirection}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_enabled}"/>
+                            <h:selectBooleanCheckbox id="enabled" value="#{accountFeesController.selected.enabled}" title="#{myBundle.EditAccountFeesTitle_enabled}" required="true" requiredMessage="#{myBundle.EditAccountFeesRequiredMessage_enabled}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_amount}"/>
+                            <h:outputText value="#{accountFeesController.selected.amount}" title="#{myBundle.ViewAccountFeesTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_invoiceMode}"/>
+                            <h:outputText value="#{accountFeesController.selected.invoiceMode}" title="#{myBundle.ViewAccountFeesTitle_invoiceMode}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_description}"/>
+                            <h:outputText value="#{accountFeesController.selected.description}" title="#{myBundle.ViewAccountFeesTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_enabledSince}"/>
+                            <h:outputText value="#{accountFeesController.selected.enabledSince}" title="#{myBundle.ViewAccountFeesTitle_enabledSince}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_day}"/>
+                            <h:outputText value="#{accountFeesController.selected.day}" title="#{myBundle.ViewAccountFeesTitle_day}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_hour}"/>
+                            <h:outputText value="#{accountFeesController.selected.hour}" title="#{myBundle.ViewAccountFeesTitle_hour}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_freeBase}"/>
+                            <h:outputText value="#{accountFeesController.selected.freeBase}" title="#{myBundle.ViewAccountFeesTitle_freeBase}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_recurrenceNumber}"/>
+                            <h:outputText value="#{accountFeesController.selected.recurrenceNumber}" title="#{myBundle.ViewAccountFeesTitle_recurrenceNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_recurrenceField}"/>
+                            <h:outputText value="#{accountFeesController.selected.recurrenceField}" title="#{myBundle.ViewAccountFeesTitle_recurrenceField}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_transferTypeId}"/>
+                            <h:outputText value="#{accountFeesController.selected.transferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountFeesLabel_accountTypeId}"/>
+                            <h:outputText value="#{accountFeesController.selected.accountTypeId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

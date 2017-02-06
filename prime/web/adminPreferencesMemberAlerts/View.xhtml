@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdminPreferencesMemberAlertsViewDlg" widgetVar="AdminPreferencesMemberAlertsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAdminPreferencesMemberAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AdminPreferencesMemberAlertsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{adminPreferencesMemberAlertsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesMemberAlertsLabel_adminPreferencesMemberAlertsPK_preferenceId}"/>
+                        <h:outputText value="#{adminPreferencesMemberAlertsController.selected.adminPreferencesMemberAlertsPK.preferenceId}" title="#{myBundle.ViewAdminPreferencesMemberAlertsTitle_adminPreferencesMemberAlertsPK_preferenceId}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesMemberAlertsLabel_adminPreferencesMemberAlertsPK_type}"/>
+                        <h:outputText value="#{adminPreferencesMemberAlertsController.selected.adminPreferencesMemberAlertsPK.type}" title="#{myBundle.ViewAdminPreferencesMemberAlertsTitle_adminPreferencesMemberAlertsPK_type}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdminPreferencesMemberAlertsLabel_adminNotificationPreferences}"/>
+                        <h:outputText value="#{adminPreferencesMemberAlertsController.selected.adminNotificationPreferences.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AdminPreferencesMemberAlertsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

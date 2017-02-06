@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DefaultBrokerCommissionsListForm">
+
+        <p:panel header="#{myBundle.ListDefaultBrokerCommissionsTitle}">
+            <p:contextMenu id="DefaultBrokerCommissionsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DefaultBrokerCommissionsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DefaultBrokerCommissionsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DefaultBrokerCommissionsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DefaultBrokerCommissionsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DefaultBrokerCommissionsMenuItem_brokerId}" icon="ui-icon-search"  actionListener="#{defaultBrokerCommissionsController.prepareBrokerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty defaultBrokerCommissionsController.selected.brokerId}"/>  
+                <p:menuitem value="#{myBundle.DefaultBrokerCommissionsMenuItem_brokerCommissionId}" icon="ui-icon-search"  actionListener="#{defaultBrokerCommissionsController.prepareBrokerCommissionId}" update=":TransactionFeesViewForm" oncomplete="PF('TransactionFeesViewDialog').show()" disabled="#{empty defaultBrokerCommissionsController.selected.brokerCommissionId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{defaultBrokerCommissionsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{defaultBrokerCommissionsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{defaultBrokerCommissionsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DefaultBrokerCommissionsDataTableContextMenu" listener="#{defaultBrokerCommissionsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DefaultBrokerCommissionsDataTableContextMenu" listener="#{defaultBrokerCommissionsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{defaultBrokerCommissionsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DefaultBrokerCommissionsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amountType}" filterBy="#{item.amountType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_amountType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amountType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.whenApply}" filterBy="#{item.whenApply}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_whenApply}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.whenApply}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.whenCount}" filterBy="#{item.whenCount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_whenCount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.whenCount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.setByBroker}" filterBy="#{item.setByBroker}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_setByBroker}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="setByBroker" value="#{item.setByBroker}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_setByBroker}"  disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.suspended}" filterBy="#{item.suspended}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_suspended}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="suspended" value="#{item.suspended}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_suspended}"  disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.brokerId.name}" filterBy="#{item.brokerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_brokerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.brokerId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.brokerCommissionId.name}" filterBy="#{item.brokerCommissionId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle_brokerCommissionId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.brokerCommissionId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{defaultBrokerCommissionsController.prepareCreate}" update=":DefaultBrokerCommissionsCreateForm" oncomplete="PF('DefaultBrokerCommissionsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DefaultBrokerCommissionsViewForm" oncomplete="PF('DefaultBrokerCommissionsViewDialog').show()" disabled="#{empty defaultBrokerCommissionsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DefaultBrokerCommissionsEditForm" oncomplete="PF('DefaultBrokerCommissionsEditDialog').show()" disabled="#{empty defaultBrokerCommissionsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{defaultBrokerCommissionsController.delete}" update=":growl,datalist" disabled="#{empty defaultBrokerCommissionsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

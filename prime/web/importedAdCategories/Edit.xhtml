@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ImportedAdCategoriesEditDlg" widgetVar="ImportedAdCategoriesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditImportedAdCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedAdCategoriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{importedAdCategoriesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditImportedAdCategoriesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{importedAdCategoriesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditImportedAdCategoriesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{importedAdCategoriesController.selected.name}" title="#{myBundle.EditImportedAdCategoriesTitle_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditImportedAdCategoriesLabel_existingParentId}" for="existingParentId" />
+                        <p:selectOneMenu id="existingParentId" value="#{importedAdCategoriesController.selected.existingParentId}"  converter="adCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adCategoriesController.items}"
+                                           var="existingParentIdItem"
+                                           itemValue="#{existingParentIdItem}"
+                                           itemLabel="#{existingParentIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditImportedAdCategoriesLabel_importedParentId}" for="importedParentId" />
+                        <p:selectOneMenu id="importedParentId" value="#{importedAdCategoriesController.selected.importedParentId}"  converter="importedAdCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{importedAdCategoriesController.items}"
+                                           var="importedParentIdItem"
+                                           itemValue="#{importedParentIdItem}"
+                                           itemLabel="#{importedParentIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditImportedAdCategoriesLabel_adImportId}" for="adImportId" />
+                        <p:selectOneMenu id="adImportId" value="#{importedAdCategoriesController.selected.adImportId}" required="true" requiredMessage="#{myBundle.EditImportedAdCategoriesRequiredMessage_adImportId}" converter="adImportsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adImportsController.items}"
+                                           var="adImportIdItem"
+                                           itemValue="#{adImportIdItem}"
+                                           itemLabel="#{adImportIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{importedAdCategoriesController.save}" value="#{myBundle.Save}" update="display,:ImportedAdCategoriesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ImportedAdCategoriesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ImportedAdCategoriesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

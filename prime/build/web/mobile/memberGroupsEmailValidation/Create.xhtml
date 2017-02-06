@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberGroupsEmailValidationCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateMemberGroupsEmailValidationTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberGroupsEmailValidationListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberGroupsEmailValidationCreateForm">
+
+                <h:panelGroup id="display" rendered="#{memberGroupsEmailValidationController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupsEmailValidationLabel_memberGroupsEmailValidationPK_groupId}" for="memberGroupsEmailValidationPK_groupId" />
+                            <p:inputText id="memberGroupsEmailValidationPK_groupId" value="#{memberGroupsEmailValidationController.selected.memberGroupsEmailValidationPK.groupId}" title="#{myBundle.CreateMemberGroupsEmailValidationTitle_memberGroupsEmailValidationPK_groupId}" required="true" requiredMessage="#{myBundle.CreateMemberGroupsEmailValidationRequiredMessage_memberGroupsEmailValidationPK_groupId}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupsEmailValidationLabel_memberGroupsEmailValidationPK_type}" for="memberGroupsEmailValidationPK_type" />
+                            <p:inputText id="memberGroupsEmailValidationPK_type" value="#{memberGroupsEmailValidationController.selected.memberGroupsEmailValidationPK.type}" title="#{myBundle.CreateMemberGroupsEmailValidationTitle_memberGroupsEmailValidationPK_type}" required="true" requiredMessage="#{myBundle.CreateMemberGroupsEmailValidationRequiredMessage_memberGroupsEmailValidationPK_type}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupsEmailValidationLabel_groups}" for="groups" />
+                            <p:selectOneMenu id="groups" value="#{memberGroupsEmailValidationController.selected.groups}" required="true" requiredMessage="#{myBundle.CreateMemberGroupsEmailValidationRequiredMessage_groups}" converter="groupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsItem"
+                                               itemValue="#{groupsItem}"
+                                               itemLabel="#{groupsItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{memberGroupsEmailValidationController.saveNew}" value="#{myBundle.Save}" update="display,:MemberGroupsEmailValidationListPage:MemberGroupsEmailValidationListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MemberGroupsEmailValidationListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

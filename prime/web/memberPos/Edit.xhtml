@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MemberPosEditDlg" widgetVar="MemberPosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMemberPosTitle}" closeOnEscape="true">
+
+            <h:form id="MemberPosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{memberPosController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMemberPosLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{memberPosController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_posName}" for="posName" />
+                        <p:inputText id="posName" value="#{memberPosController.selected.posName}" title="#{myBundle.EditMemberPosTitle_posName}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_posPin}" for="posPin" />
+                        <p:inputText id="posPin" value="#{memberPosController.selected.posPin}" title="#{myBundle.EditMemberPosTitle_posPin}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberPosController.selected.date}" title="#{myBundle.EditMemberPosTitle_date}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_allowMakePayment}" for="allowMakePayment" />
+                        <p:selectBooleanCheckbox id="allowMakePayment" value="#{memberPosController.selected.allowMakePayment}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_allowMakePayment}"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_maxSchedulingPayments}" for="maxSchedulingPayments" />
+                        <p:inputText id="maxSchedulingPayments" value="#{memberPosController.selected.maxSchedulingPayments}" title="#{myBundle.EditMemberPosTitle_maxSchedulingPayments}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_maxSchedulingPayments}"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_numberOfCopies}" for="numberOfCopies" />
+                        <p:inputText id="numberOfCopies" value="#{memberPosController.selected.numberOfCopies}" title="#{myBundle.EditMemberPosTitle_numberOfCopies}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_numberOfCopies}"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_resultPageSize}" for="resultPageSize" />
+                        <p:inputText id="resultPageSize" value="#{memberPosController.selected.resultPageSize}" title="#{myBundle.EditMemberPosTitle_resultPageSize}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_resultPageSize}"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{memberPosController.selected.status}" title="#{myBundle.EditMemberPosTitle_status}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_posId}" for="posId" />
+                        <p:selectOneMenu id="posId" value="#{memberPosController.selected.posId}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_posId}" converter="posConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{posController.items}"
+                                           var="posIdItem"
+                                           itemValue="#{posIdItem}"
+                                           itemLabel="#{posIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMemberPosLabel_ownerId}" for="ownerId" />
+                        <p:selectOneMenu id="ownerId" value="#{memberPosController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_ownerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="ownerIdItem"
+                                           itemValue="#{ownerIdItem}"
+                                           itemLabel="#{ownerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{memberPosController.save}" value="#{myBundle.Save}" update="display,:MemberPosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MemberPosEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MemberPosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

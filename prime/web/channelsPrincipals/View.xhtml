@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ChannelsPrincipalsViewDlg" widgetVar="ChannelsPrincipalsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewChannelsPrincipalsTitle}" closeOnEscape="true">
+
+            <h:form id="ChannelsPrincipalsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{channelsPrincipalsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewChannelsPrincipalsLabel_id}"/>
+                        <h:outputText value="#{channelsPrincipalsController.selected.id}" title="#{myBundle.ViewChannelsPrincipalsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewChannelsPrincipalsLabel_principal}"/>
+                        <h:outputText value="#{channelsPrincipalsController.selected.principal}" title="#{myBundle.ViewChannelsPrincipalsTitle_principal}"/>
+
+                        <h:outputText value="#{myBundle.ViewChannelsPrincipalsLabel_isDefault}"/>
+                        <h:selectBooleanCheckbox id="isDefault" value="#{channelsPrincipalsController.selected.isDefault}" title="#{myBundle.EditChannelsPrincipalsTitle_isDefault}" required="true" requiredMessage="#{myBundle.EditChannelsPrincipalsRequiredMessage_isDefault}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewChannelsPrincipalsLabel_customFieldId}"/>
+                        <h:outputText value="#{channelsPrincipalsController.selected.customFieldId.internalName}"/>
+
+                        <h:outputText value="#{myBundle.ViewChannelsPrincipalsLabel_channelId}"/>
+                        <h:outputText value="#{channelsPrincipalsController.selected.channelId.internalName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ChannelsPrincipalsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

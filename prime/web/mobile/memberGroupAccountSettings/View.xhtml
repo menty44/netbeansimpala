@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberGroupAccountSettingsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMemberGroupAccountSettingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberGroupAccountSettingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberGroupAccountSettingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{memberGroupAccountSettingsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_id}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.id}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultType}"/>
+                            <h:selectBooleanCheckbox id="defaultType" value="#{memberGroupAccountSettingsController.selected.defaultType}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_defaultType}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_defaultType}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_transactionPasswordRequired}"/>
+                            <h:selectBooleanCheckbox id="transactionPasswordRequired" value="#{memberGroupAccountSettingsController.selected.transactionPasswordRequired}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_transactionPasswordRequired}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_transactionPasswordRequired}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_hideWhenNoCreditLimit}"/>
+                            <h:selectBooleanCheckbox id="hideWhenNoCreditLimit" value="#{memberGroupAccountSettingsController.selected.hideWhenNoCreditLimit}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_hideWhenNoCreditLimit}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_hideWhenNoCreditLimit}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultCreditLimit}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.defaultCreditLimit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_defaultCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultUpperCreditLimit}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.defaultUpperCreditLimit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_defaultUpperCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_initialCredit}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.initialCredit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_initialCredit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_lowUnits}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.lowUnits}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_lowUnits}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_lowUnitsMessage}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.lowUnitsMessage}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_lowUnitsMessage}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_initialCreditTransferTypeId}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.initialCreditTransferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_groupId}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.groupId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_typeId}"/>
+                            <h:outputText value="#{memberGroupAccountSettingsController.selected.typeId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

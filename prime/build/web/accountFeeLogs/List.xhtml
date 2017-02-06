@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AccountFeeLogsListForm">
+
+        <p:panel header="#{myBundle.ListAccountFeeLogsTitle}">
+            <p:contextMenu id="AccountFeeLogsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AccountFeeLogsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AccountFeeLogsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AccountFeeLogsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AccountFeeLogsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AccountFeeLogsMenuItem_membersCollection}" icon="ui-icon-search"  action="#{accountFeeLogsController.navigateMembersCollection}" disabled="#{empty accountFeeLogsController.selected.membersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AccountFeeLogsMenuItem_invoicesCollection}" icon="ui-icon-search"  action="#{accountFeeLogsController.navigateInvoicesCollection}" disabled="#{empty accountFeeLogsController.selected.invoicesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AccountFeeLogsMenuItem_transfersCollection}" icon="ui-icon-search"  action="#{accountFeeLogsController.navigateTransfersCollection}" disabled="#{empty accountFeeLogsController.selected.transfersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AccountFeeLogsMenuItem_accountFeeId}" icon="ui-icon-search"  actionListener="#{accountFeeLogsController.prepareAccountFeeId}" update=":AccountFeesViewForm" oncomplete="PF('AccountFeesViewDialog').show()" disabled="#{empty accountFeeLogsController.selected.accountFeeId}"/>  
+                <p:menuitem value="#{myBundle.AccountFeeLogsMenuItem_memberAccountFeeLogsCollection}" icon="ui-icon-search"  action="#{accountFeeLogsController.navigateMemberAccountFeeLogsCollection}" disabled="#{empty accountFeeLogsController.selected.memberAccountFeeLogsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{accountFeeLogsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{accountFeeLogsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{accountFeeLogsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccountFeeLogsDataTableContextMenu" listener="#{accountFeeLogsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccountFeeLogsDataTableContextMenu" listener="#{accountFeeLogsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{accountFeeLogsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AccountFeeLogsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rechargingFailed}" filterBy="#{item.rechargingFailed}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_rechargingFailed}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="rechargingFailed" value="#{item.rechargingFailed}" title="#{myBundle.EditAccountFeeLogsTitle_rechargingFailed}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_rechargingFailed}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rechargeAttempt}" filterBy="#{item.rechargeAttempt}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_rechargeAttempt}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rechargeAttempt}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.failedMembers}" filterBy="#{item.failedMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_failedMembers}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.failedMembers}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.totalMembers}" filterBy="#{item.totalMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_totalMembers}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.totalMembers}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.finishDate}" filterBy="#{item.finishDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_finishDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.finishDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_amount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.amount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.freeBase}" filterBy="#{item.freeBase}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_freeBase}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.freeBase}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.beginDate}" filterBy="#{item.beginDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_beginDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.beginDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_endDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.endDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.accountFeeId.name}" filterBy="#{item.accountFeeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAccountFeeLogsTitle_accountFeeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.accountFeeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{accountFeeLogsController.prepareCreate}" update=":AccountFeeLogsCreateForm" oncomplete="PF('AccountFeeLogsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AccountFeeLogsViewForm" oncomplete="PF('AccountFeeLogsViewDialog').show()" disabled="#{empty accountFeeLogsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AccountFeeLogsEditForm" oncomplete="PF('AccountFeeLogsEditDialog').show()" disabled="#{empty accountFeeLogsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{accountFeeLogsController.delete}" update=":growl,datalist" disabled="#{empty accountFeeLogsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CardsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCardsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CardsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CardsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{cardsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_id}"/>
+                            <h:outputText value="#{cardsController.selected.id}" title="#{myBundle.ViewCardsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_cardNumber}"/>
+                            <h:outputText value="#{cardsController.selected.cardNumber}" title="#{myBundle.ViewCardsTitle_cardNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_cardSecurityCode}"/>
+                            <h:outputText value="#{cardsController.selected.cardSecurityCode}" title="#{myBundle.ViewCardsTitle_cardSecurityCode}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_creationDate}"/>
+                            <h:outputText value="#{cardsController.selected.creationDate}" title="#{myBundle.ViewCardsTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_activationDate}"/>
+                            <h:outputText value="#{cardsController.selected.activationDate}" title="#{myBundle.ViewCardsTitle_activationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_expirationDate}"/>
+                            <h:outputText value="#{cardsController.selected.expirationDate}" title="#{myBundle.ViewCardsTitle_expirationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_cardSecurityCodeBlockedUntil}"/>
+                            <h:outputText value="#{cardsController.selected.cardSecurityCodeBlockedUntil}" title="#{myBundle.ViewCardsTitle_cardSecurityCodeBlockedUntil}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_status}"/>
+                            <h:outputText value="#{cardsController.selected.status}" title="#{myBundle.ViewCardsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_cardTypeId}"/>
+                            <h:outputText value="#{cardsController.selected.cardTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCardsLabel_ownerId}"/>
+                            <h:outputText value="#{cardsController.selected.ownerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="GroupFiltersEditDlg" widgetVar="GroupFiltersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditGroupFiltersTitle}" closeOnEscape="true">
+
+            <h:form id="GroupFiltersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{groupFiltersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditGroupFiltersLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{groupFiltersController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{groupFiltersController.selected.name}" title="#{myBundle.EditGroupFiltersTitle_name}" required="true" requiredMessage="#{myBundle.EditGroupFiltersRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_loginPageName}" for="loginPageName" />
+                        <p:inputText id="loginPageName" value="#{groupFiltersController.selected.loginPageName}" title="#{myBundle.EditGroupFiltersTitle_loginPageName}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_rootUrl}" for="rootUrl" />
+                        <p:inputText id="rootUrl" value="#{groupFiltersController.selected.rootUrl}" title="#{myBundle.EditGroupFiltersTitle_rootUrl}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_containerUrl}" for="containerUrl" />
+                        <p:inputText id="containerUrl" value="#{groupFiltersController.selected.containerUrl}" title="#{myBundle.EditGroupFiltersTitle_containerUrl}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{groupFiltersController.selected.description}" title="#{myBundle.EditGroupFiltersTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_showInProfile}" for="showInProfile" />
+                        <p:selectBooleanCheckbox id="showInProfile" value="#{groupFiltersController.selected.showInProfile}" required="true" requiredMessage="#{myBundle.EditGroupFiltersRequiredMessage_showInProfile}"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupFiltersLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{groupFiltersController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{groupFiltersController.save}" value="#{myBundle.Save}" update="display,:GroupFiltersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GroupFiltersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('GroupFiltersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

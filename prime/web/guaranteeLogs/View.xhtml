@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GuaranteeLogsViewDlg" widgetVar="GuaranteeLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGuaranteeLogsTitle}" closeOnEscape="true">
+
+            <h:form id="GuaranteeLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{guaranteeLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_id}"/>
+                        <h:outputText value="#{guaranteeLogsController.selected.id}" title="#{myBundle.ViewGuaranteeLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_date}"/>
+                        <h:outputText value="#{guaranteeLogsController.selected.date}" title="#{myBundle.ViewGuaranteeLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_status}"/>
+                        <h:outputText value="#{guaranteeLogsController.selected.status}" title="#{myBundle.ViewGuaranteeLogsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_guaranteeId}"/>
+                        <h:outputText value="#{guaranteeLogsController.selected.guaranteeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteeLogsLabel_byId}"/>
+                        <h:outputText value="#{guaranteeLogsController.selected.byId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('GuaranteeLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

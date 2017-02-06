@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="InfoTextsListForm">
+
+        <p:panel header="#{myBundle.ListInfoTextsTitle}">
+            <p:contextMenu id="InfoTextsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('InfoTextsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('InfoTextsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('InfoTextsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('InfoTextsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{infoTextsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{infoTextsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{infoTextsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:InfoTextsDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:InfoTextsDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('InfoTextsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subject}" filterBy="#{item.subject}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_subject}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subject}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.body}" filterBy="#{item.body}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_body}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.body}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.enabled}" filterBy="#{item.enabled}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_enabled}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="enabled" value="#{item.enabled}" title="#{myBundle.EditInfoTextsTitle_enabled}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_enabled}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.beginDate}" filterBy="#{item.beginDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_beginDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.beginDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListInfoTextsTitle_endDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{infoTextsController.prepareCreate}" update=":InfoTextsCreateForm" oncomplete="PF('InfoTextsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":InfoTextsViewForm" oncomplete="PF('InfoTextsViewDialog').show()" disabled="#{empty infoTextsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":InfoTextsEditForm" oncomplete="PF('InfoTextsEditDialog').show()" disabled="#{empty infoTextsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{infoTextsController.delete}" update=":growl,datalist" disabled="#{empty infoTextsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

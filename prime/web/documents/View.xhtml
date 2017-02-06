@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentsViewDlg" widgetVar="DocumentsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDocumentsTitle}" closeOnEscape="true">
+
+            <h:form id="DocumentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{documentsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_id}"/>
+                        <h:outputText value="#{documentsController.selected.id}" title="#{myBundle.ViewDocumentsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_subclass}"/>
+                        <h:outputText value="#{documentsController.selected.subclass}" title="#{myBundle.ViewDocumentsTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_name}"/>
+                        <h:outputText value="#{documentsController.selected.name}" title="#{myBundle.ViewDocumentsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_description}"/>
+                        <h:outputText value="#{documentsController.selected.description}" title="#{myBundle.ViewDocumentsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_visibility}"/>
+                        <h:outputText value="#{documentsController.selected.visibility}" title="#{myBundle.ViewDocumentsTitle_visibility}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_documentPageId}"/>
+                        <h:outputText value="#{documentsController.selected.documentPageId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_memberId}"/>
+                        <h:outputText value="#{documentsController.selected.memberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_formPageId}"/>
+                        <h:outputText value="#{documentsController.selected.formPageId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocumentsLabel_binaryFileId}"/>
+                        <h:outputText value="#{documentsController.selected.binaryFileId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DocumentsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

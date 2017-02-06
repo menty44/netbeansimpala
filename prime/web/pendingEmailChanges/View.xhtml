@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PendingEmailChangesViewDlg" widgetVar="PendingEmailChangesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPendingEmailChangesTitle}" closeOnEscape="true">
+
+            <h:form id="PendingEmailChangesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{pendingEmailChangesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_id}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.id}" title="#{myBundle.ViewPendingEmailChangesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_creationDate}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.creationDate}" title="#{myBundle.ViewPendingEmailChangesTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_newEmail}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.newEmail}" title="#{myBundle.ViewPendingEmailChangesTitle_newEmail}"/>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_validationKey}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.validationKey}" title="#{myBundle.ViewPendingEmailChangesTitle_validationKey}"/>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_lastEmailDate}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.lastEmailDate}" title="#{myBundle.ViewPendingEmailChangesTitle_lastEmailDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_remoteAddress}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.remoteAddress}" title="#{myBundle.ViewPendingEmailChangesTitle_remoteAddress}"/>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_byId}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_memberId}"/>
+                        <h:outputText value="#{pendingEmailChangesController.selected.memberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PendingEmailChangesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

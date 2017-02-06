@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GuaranteesViewDlg" widgetVar="GuaranteesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGuaranteesTitle}" closeOnEscape="true">
+
+            <h:form id="GuaranteesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{guaranteesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_id}"/>
+                        <h:outputText value="#{guaranteesController.selected.id}" title="#{myBundle.ViewGuaranteesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_status}"/>
+                        <h:outputText value="#{guaranteesController.selected.status}" title="#{myBundle.ViewGuaranteesTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_amount}"/>
+                        <h:outputText value="#{guaranteesController.selected.amount}" title="#{myBundle.ViewGuaranteesTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_creditFee}"/>
+                        <h:outputText value="#{guaranteesController.selected.creditFee}" title="#{myBundle.ViewGuaranteesTitle_creditFee}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_creditFeeType}"/>
+                        <h:outputText value="#{guaranteesController.selected.creditFeeType}" title="#{myBundle.ViewGuaranteesTitle_creditFeeType}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_issueFee}"/>
+                        <h:outputText value="#{guaranteesController.selected.issueFee}" title="#{myBundle.ViewGuaranteesTitle_issueFee}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_issueFeeType}"/>
+                        <h:outputText value="#{guaranteesController.selected.issueFeeType}" title="#{myBundle.ViewGuaranteesTitle_issueFeeType}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_beginDate}"/>
+                        <h:outputText value="#{guaranteesController.selected.beginDate}" title="#{myBundle.ViewGuaranteesTitle_beginDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_endDate}"/>
+                        <h:outputText value="#{guaranteesController.selected.endDate}" title="#{myBundle.ViewGuaranteesTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_registrationDate}"/>
+                        <h:outputText value="#{guaranteesController.selected.registrationDate}" title="#{myBundle.ViewGuaranteesTitle_registrationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_certificationId}"/>
+                        <h:outputText value="#{guaranteesController.selected.certificationId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_sellerId}"/>
+                        <h:outputText value="#{guaranteesController.selected.sellerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_buyerId}"/>
+                        <h:outputText value="#{guaranteesController.selected.buyerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_guaranteeTypeId}"/>
+                        <h:outputText value="#{guaranteesController.selected.guaranteeTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_issuerId}"/>
+                        <h:outputText value="#{guaranteesController.selected.issuerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGuaranteesLabel_loanId}"/>
+                        <h:outputText value="#{guaranteesController.selected.loanId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('GuaranteesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

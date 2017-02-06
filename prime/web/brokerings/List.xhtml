@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="BrokeringsListForm">
+
+        <p:panel header="#{myBundle.ListBrokeringsTitle}">
+            <p:contextMenu id="BrokeringsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('BrokeringsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('BrokeringsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('BrokeringsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('BrokeringsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.BrokeringsMenuItem_brokerCommissionContractsCollection}" icon="ui-icon-search"  action="#{brokeringsController.navigateBrokerCommissionContractsCollection}" disabled="#{empty brokeringsController.selected.brokerCommissionContractsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.BrokeringsMenuItem_brokeringCommissionStatusCollection}" icon="ui-icon-search"  action="#{brokeringsController.navigateBrokeringCommissionStatusCollection}" disabled="#{empty brokeringsController.selected.brokeringCommissionStatusCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.BrokeringsMenuItem_brokerId}" icon="ui-icon-search"  actionListener="#{brokeringsController.prepareBrokerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty brokeringsController.selected.brokerId}"/>  
+                <p:menuitem value="#{myBundle.BrokeringsMenuItem_brokeredId}" icon="ui-icon-search"  actionListener="#{brokeringsController.prepareBrokeredId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty brokeringsController.selected.brokeredId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{brokeringsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{brokeringsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{brokeringsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BrokeringsDataTableContextMenu" listener="#{brokeringsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BrokeringsDataTableContextMenu" listener="#{brokeringsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{brokeringsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('BrokeringsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.startDate}" filterBy="#{item.startDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringsTitle_startDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringsTitle_endDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.brokerId.name}" filterBy="#{item.brokerId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringsTitle_brokerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.brokerId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.brokeredId.name}" filterBy="#{item.brokeredId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringsTitle_brokeredId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.brokeredId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{brokeringsController.prepareCreate}" update=":BrokeringsCreateForm" oncomplete="PF('BrokeringsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":BrokeringsViewForm" oncomplete="PF('BrokeringsViewDialog').show()" disabled="#{empty brokeringsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":BrokeringsEditForm" oncomplete="PF('BrokeringsEditDialog').show()" disabled="#{empty brokeringsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{brokeringsController.delete}" update=":growl,datalist" disabled="#{empty brokeringsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

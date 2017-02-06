@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PaymentObligationsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPaymentObligationsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PaymentObligationsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PaymentObligationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{paymentObligationsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_id}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.id}" title="#{myBundle.ViewPaymentObligationsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_status}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.status}" title="#{myBundle.ViewPaymentObligationsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_amount}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.amount}" title="#{myBundle.ViewPaymentObligationsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_expirationDate}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.expirationDate}" title="#{myBundle.ViewPaymentObligationsTitle_expirationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_maxPublishDate}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.maxPublishDate}" title="#{myBundle.ViewPaymentObligationsTitle_maxPublishDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_registrationDate}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.registrationDate}" title="#{myBundle.ViewPaymentObligationsTitle_registrationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_description}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.description}" title="#{myBundle.ViewPaymentObligationsTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_guaranteeId}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.guaranteeId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_sellerId}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.sellerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_buyerId}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.buyerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_currencyId}"/>
+                            <h:outputText value="#{paymentObligationsController.selected.currencyId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

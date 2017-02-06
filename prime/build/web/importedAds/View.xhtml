@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedAdsViewDlg" widgetVar="ImportedAdsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewImportedAdsTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedAdsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{importedAdsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_id}"/>
+                        <h:outputText value="#{importedAdsController.selected.id}" title="#{myBundle.ViewImportedAdsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_lineNumber}"/>
+                        <h:outputText value="#{importedAdsController.selected.lineNumber}" title="#{myBundle.ViewImportedAdsTitle_lineNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_status}"/>
+                        <h:outputText value="#{importedAdsController.selected.status}" title="#{myBundle.ViewImportedAdsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_errorArgument1}"/>
+                        <h:outputText value="#{importedAdsController.selected.errorArgument1}" title="#{myBundle.ViewImportedAdsTitle_errorArgument1}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_errorArgument2}"/>
+                        <h:outputText value="#{importedAdsController.selected.errorArgument2}" title="#{myBundle.ViewImportedAdsTitle_errorArgument2}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_permanent}"/>
+                        <h:selectBooleanCheckbox id="permanent" value="#{importedAdsController.selected.permanent}" title="#{myBundle.EditImportedAdsTitle_permanent}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_permanent}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_externalPublication}"/>
+                        <h:selectBooleanCheckbox id="externalPublication" value="#{importedAdsController.selected.externalPublication}" title="#{myBundle.EditImportedAdsTitle_externalPublication}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_externalPublication}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_title}"/>
+                        <h:outputText value="#{importedAdsController.selected.title}" title="#{myBundle.ViewImportedAdsTitle_title}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_tradeType}"/>
+                        <h:outputText value="#{importedAdsController.selected.tradeType}" title="#{myBundle.ViewImportedAdsTitle_tradeType}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_price}"/>
+                        <h:outputText value="#{importedAdsController.selected.price}" title="#{myBundle.ViewImportedAdsTitle_price}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_publicationStart}"/>
+                        <h:outputText value="#{importedAdsController.selected.publicationStart}" title="#{myBundle.ViewImportedAdsTitle_publicationStart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_publicationEnd}"/>
+                        <h:outputText value="#{importedAdsController.selected.publicationEnd}" title="#{myBundle.ViewImportedAdsTitle_publicationEnd}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_description}"/>
+                        <h:outputText value="#{importedAdsController.selected.description}" title="#{myBundle.ViewImportedAdsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_isHtml}"/>
+                        <h:selectBooleanCheckbox id="isHtml" value="#{importedAdsController.selected.isHtml}" title="#{myBundle.EditImportedAdsTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_isHtml}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_importedCategoryId}"/>
+                        <h:outputText value="#{importedAdsController.selected.importedCategoryId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_existingCategoryId}"/>
+                        <h:outputText value="#{importedAdsController.selected.existingCategoryId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_importId}"/>
+                        <h:outputText value="#{importedAdsController.selected.importId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdsLabel_ownerId}"/>
+                        <h:outputText value="#{importedAdsController.selected.ownerId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ImportedAdsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

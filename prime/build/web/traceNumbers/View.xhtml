@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TraceNumbersViewDlg" widgetVar="TraceNumbersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTraceNumbersTitle}" closeOnEscape="true">
+
+            <h:form id="TraceNumbersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{traceNumbersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTraceNumbersLabel_id}"/>
+                        <h:outputText value="#{traceNumbersController.selected.id}" title="#{myBundle.ViewTraceNumbersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewTraceNumbersLabel_date}"/>
+                        <h:outputText value="#{traceNumbersController.selected.date}" title="#{myBundle.ViewTraceNumbersTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTraceNumbersLabel_traceNumber}"/>
+                        <h:outputText value="#{traceNumbersController.selected.traceNumber}" title="#{myBundle.ViewTraceNumbersTitle_traceNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewTraceNumbersLabel_clientId}"/>
+                        <h:outputText value="#{traceNumbersController.selected.clientId}" title="#{myBundle.ViewTraceNumbersTitle_clientId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TraceNumbersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ChannelsEditDlg" widgetVar="ChannelsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditChannelsTitle}" closeOnEscape="true">
+
+            <h:form id="ChannelsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{channelsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditChannelsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{channelsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_internalName}" for="internalName" />
+                        <p:inputText id="internalName" value="#{channelsController.selected.internalName}" title="#{myBundle.EditChannelsTitle_internalName}" required="true" requiredMessage="#{myBundle.EditChannelsRequiredMessage_internalName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_displayName}" for="displayName" />
+                        <p:inputText id="displayName" value="#{channelsController.selected.displayName}" title="#{myBundle.EditChannelsTitle_displayName}" required="true" requiredMessage="#{myBundle.EditChannelsRequiredMessage_displayName}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_credentials}" for="credentials" />
+                        <p:inputText id="credentials" value="#{channelsController.selected.credentials}" title="#{myBundle.EditChannelsTitle_credentials}" required="true" requiredMessage="#{myBundle.EditChannelsRequiredMessage_credentials}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_pmtReqWsUrl}" for="pmtReqWsUrl" />
+                        <p:inputText id="pmtReqWsUrl" value="#{channelsController.selected.pmtReqWsUrl}" title="#{myBundle.EditChannelsTitle_pmtReqWsUrl}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_transferTypesCollection}" for="transferTypesCollection" />
+                        <p:selectManyMenu id="transferTypesCollection" value="#{channelsController.selected.transferTypesCollection}"  converter="transferTypesConverter">
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="transferTypesCollectionItem"
+                                           itemValue="#{transferTypesCollectionItem}"
+                                           itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{channelsController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_groupsCollection1}" for="groupsCollection1" />
+                        <p:selectManyMenu id="groupsCollection1" value="#{channelsController.selected.groupsCollection1}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollection1Item"
+                                           itemValue="#{groupsCollection1Item}"
+                                           itemLabel="#{groupsCollection1Item.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_membersCollection}" for="membersCollection" />
+                        <p:selectManyMenu id="membersCollection" value="#{channelsController.selected.membersCollection}"  converter="membersConverter">
+                            <f:selectItems value="#{membersController.items}"
+                                           var="membersCollectionItem"
+                                           itemValue="#{membersCollectionItem}"
+                                           itemLabel="#{membersCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsLabel_groupsCollection2}" for="groupsCollection2" />
+                        <p:selectManyMenu id="groupsCollection2" value="#{channelsController.selected.groupsCollection2}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollection2Item"
+                                           itemValue="#{groupsCollection2Item}"
+                                           itemLabel="#{groupsCollection2Item.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{channelsController.save}" value="#{myBundle.Save}" update="display,:ChannelsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ChannelsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ChannelsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

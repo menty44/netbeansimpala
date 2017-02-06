@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedAdsCreateDlg" widgetVar="ImportedAdsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateImportedAdsTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedAdsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{importedAdsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_lineNumber}" for="lineNumber" />
+                        <p:inputText id="lineNumber" value="#{importedAdsController.selected.lineNumber}" title="#{myBundle.CreateImportedAdsTitle_lineNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{importedAdsController.selected.status}" title="#{myBundle.CreateImportedAdsTitle_status}" required="true" requiredMessage="#{myBundle.CreateImportedAdsRequiredMessage_status}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_errorArgument1}" for="errorArgument1" />
+                        <p:inputText id="errorArgument1" value="#{importedAdsController.selected.errorArgument1}" title="#{myBundle.CreateImportedAdsTitle_errorArgument1}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_errorArgument2}" for="errorArgument2" />
+                        <p:inputText id="errorArgument2" value="#{importedAdsController.selected.errorArgument2}" title="#{myBundle.CreateImportedAdsTitle_errorArgument2}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_permanent}" for="permanent" />
+                        <p:selectBooleanCheckbox id="permanent" value="#{importedAdsController.selected.permanent}" required="true" requiredMessage="#{myBundle.CreateImportedAdsRequiredMessage_permanent}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_externalPublication}" for="externalPublication" />
+                        <p:selectBooleanCheckbox id="externalPublication" value="#{importedAdsController.selected.externalPublication}" required="true" requiredMessage="#{myBundle.CreateImportedAdsRequiredMessage_externalPublication}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{importedAdsController.selected.title}" title="#{myBundle.CreateImportedAdsTitle_title}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_tradeType}" for="tradeType" />
+                        <p:inputText id="tradeType" value="#{importedAdsController.selected.tradeType}" title="#{myBundle.CreateImportedAdsTitle_tradeType}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_price}" for="price" />
+                        <p:inputText id="price" value="#{importedAdsController.selected.price}" title="#{myBundle.CreateImportedAdsTitle_price}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_publicationStart}" for="publicationStart" />
+                        <p:calendar id="publicationStart" pattern="MM/dd/yyyy" value="#{importedAdsController.selected.publicationStart}" title="#{myBundle.CreateImportedAdsTitle_publicationStart}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_publicationEnd}" for="publicationEnd" />
+                        <p:calendar id="publicationEnd" pattern="MM/dd/yyyy" value="#{importedAdsController.selected.publicationEnd}" title="#{myBundle.CreateImportedAdsTitle_publicationEnd}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{importedAdsController.selected.description}" title="#{myBundle.CreateImportedAdsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_isHtml}" for="isHtml" />
+                        <p:selectBooleanCheckbox id="isHtml" value="#{importedAdsController.selected.isHtml}" required="true" requiredMessage="#{myBundle.CreateImportedAdsRequiredMessage_isHtml}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_importedCategoryId}" for="importedCategoryId" />
+                        <p:selectOneMenu id="importedCategoryId" value="#{importedAdsController.selected.importedCategoryId}"  converter="importedAdCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{importedAdCategoriesController.items}"
+                                           var="importedCategoryIdItem"
+                                           itemValue="#{importedCategoryIdItem}"
+                                           itemLabel="#{importedCategoryIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_existingCategoryId}" for="existingCategoryId" />
+                        <p:selectOneMenu id="existingCategoryId" value="#{importedAdsController.selected.existingCategoryId}"  converter="adCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adCategoriesController.items}"
+                                           var="existingCategoryIdItem"
+                                           itemValue="#{existingCategoryIdItem}"
+                                           itemLabel="#{existingCategoryIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_importId}" for="importId" />
+                        <p:selectOneMenu id="importId" value="#{importedAdsController.selected.importId}" required="true" requiredMessage="#{myBundle.CreateImportedAdsRequiredMessage_importId}" converter="adImportsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adImportsController.items}"
+                                           var="importIdItem"
+                                           itemValue="#{importIdItem}"
+                                           itemLabel="#{importIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedAdsLabel_ownerId}" for="ownerId" />
+                        <p:selectOneMenu id="ownerId" value="#{importedAdsController.selected.ownerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="ownerIdItem"
+                                           itemValue="#{ownerIdItem}"
+                                           itemLabel="#{ownerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{importedAdsController.saveNew}" value="#{myBundle.Save}" update="display,:ImportedAdsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ImportedAdsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ImportedAdsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

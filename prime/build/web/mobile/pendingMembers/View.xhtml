@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PendingMembersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPendingMembersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PendingMembersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PendingMembersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{pendingMembersController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_id}"/>
+                            <h:outputText value="#{pendingMembersController.selected.id}" title="#{myBundle.ViewPendingMembersTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_creationDate}"/>
+                            <h:outputText value="#{pendingMembersController.selected.creationDate}" title="#{myBundle.ViewPendingMembersTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_name}"/>
+                            <h:outputText value="#{pendingMembersController.selected.name}" title="#{myBundle.ViewPendingMembersTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_salt}"/>
+                            <h:outputText value="#{pendingMembersController.selected.salt}" title="#{myBundle.ViewPendingMembersTitle_salt}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_username}"/>
+                            <h:outputText value="#{pendingMembersController.selected.username}" title="#{myBundle.ViewPendingMembersTitle_username}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_password}"/>
+                            <h:outputText value="#{pendingMembersController.selected.password}" title="#{myBundle.ViewPendingMembersTitle_password}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_forceChangePassword}"/>
+                            <h:selectBooleanCheckbox id="forceChangePassword" value="#{pendingMembersController.selected.forceChangePassword}" title="#{myBundle.EditPendingMembersTitle_forceChangePassword}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_forceChangePassword}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_email}"/>
+                            <h:outputText value="#{pendingMembersController.selected.email}" title="#{myBundle.ViewPendingMembersTitle_email}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_pin}"/>
+                            <h:outputText value="#{pendingMembersController.selected.pin}" title="#{myBundle.ViewPendingMembersTitle_pin}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_validationKey}"/>
+                            <h:outputText value="#{pendingMembersController.selected.validationKey}" title="#{myBundle.ViewPendingMembersTitle_validationKey}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_hideEmail}"/>
+                            <h:selectBooleanCheckbox id="hideEmail" value="#{pendingMembersController.selected.hideEmail}" title="#{myBundle.EditPendingMembersTitle_hideEmail}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_hideEmail}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_lastEmailDate}"/>
+                            <h:outputText value="#{pendingMembersController.selected.lastEmailDate}" title="#{myBundle.ViewPendingMembersTitle_lastEmailDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_registrationAgreementDate}"/>
+                            <h:outputText value="#{pendingMembersController.selected.registrationAgreementDate}" title="#{myBundle.ViewPendingMembersTitle_registrationAgreementDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_remoteAddress}"/>
+                            <h:outputText value="#{pendingMembersController.selected.remoteAddress}" title="#{myBundle.ViewPendingMembersTitle_remoteAddress}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_registrationAgreementId}"/>
+                            <h:outputText value="#{pendingMembersController.selected.registrationAgreementId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_brokerId}"/>
+                            <h:outputText value="#{pendingMembersController.selected.brokerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_groupId}"/>
+                            <h:outputText value="#{pendingMembersController.selected.groupId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingMembersLabel_memberId}"/>
+                            <h:outputText value="#{pendingMembersController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

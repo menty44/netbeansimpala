@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="LoansListForm">
+
+        <p:panel header="#{myBundle.ListLoansTitle}">
+            <p:contextMenu id="LoansDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('LoansListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('LoansListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('LoansListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('LoansListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.LoansMenuItem_membersCollection}" icon="ui-icon-search"  action="#{loansController.navigateMembersCollection}" disabled="#{empty loansController.selected.membersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.LoansMenuItem_guarantees}" icon="ui-icon-search"  actionListener="#{loansController.prepareGuarantees}" update=":GuaranteesViewForm" oncomplete="PF('GuaranteesViewDialog').show()" disabled="#{empty loansController.selected.guarantees}"/>  
+                <p:menuitem value="#{myBundle.LoansMenuItem_transferId}" icon="ui-icon-search"  actionListener="#{loansController.prepareTransferId}" update=":TransfersViewForm" oncomplete="PF('TransfersViewDialog').show()" disabled="#{empty loansController.selected.transferId}"/>  
+                <p:menuitem value="#{myBundle.LoansMenuItem_loanGroupId}" icon="ui-icon-search"  actionListener="#{loansController.prepareLoanGroupId}" update=":LoanGroupsViewForm" oncomplete="PF('LoanGroupsViewDialog').show()" disabled="#{empty loansController.selected.loanGroupId}"/>  
+                <p:menuitem value="#{myBundle.LoansMenuItem_loanPaymentsCollection}" icon="ui-icon-search"  action="#{loansController.navigateLoanPaymentsCollection}" disabled="#{empty loansController.selected.loanPaymentsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{loansController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{loansController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{loansController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:LoansDataTableContextMenu" listener="#{loansController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:LoansDataTableContextMenu" listener="#{loansController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{loansController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('LoansListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.totalAmount}" filterBy="#{item.totalAmount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_totalAmount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.totalAmount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.type}" filterBy="#{item.type}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_type}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.type}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.grantFeeValue}" filterBy="#{item.grantFeeValue}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_grantFeeValue}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.grantFeeValue}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.grantFeeType}" filterBy="#{item.grantFeeType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_grantFeeType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.grantFeeType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.monthlyInterest}" filterBy="#{item.monthlyInterest}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListLoansTitle_monthlyInterest}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.monthlyInterest}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.expirationFeeValue}" filterBy="#{item.expirationFeeValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_expirationFeeValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expirationFeeValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.expirationFeeType}" filterBy="#{item.expirationFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_expirationFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expirationFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.expirationDailyInterest}" filterBy="#{item.expirationDailyInterest}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_expirationDailyInterest}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expirationDailyInterest}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.guarantees.id}" filterBy="#{item.guarantees.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_guarantees}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.guarantees.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transferId.description}" filterBy="#{item.transferId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_transferId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanGroupId.name}" filterBy="#{item.loanGroupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListLoansTitle_loanGroupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanGroupId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{loansController.prepareCreate}" update=":LoansCreateForm" oncomplete="PF('LoansCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":LoansViewForm" oncomplete="PF('LoansViewDialog').show()" disabled="#{empty loansController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":LoansEditForm" oncomplete="PF('LoansEditDialog').show()" disabled="#{empty loansController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{loansController.delete}" update=":growl,datalist" disabled="#{empty loansController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

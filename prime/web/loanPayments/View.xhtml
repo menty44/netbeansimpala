@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LoanPaymentsViewDlg" widgetVar="LoanPaymentsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewLoanPaymentsTitle}" closeOnEscape="true">
+
+            <h:form id="LoanPaymentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{loanPaymentsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_id}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.id}" title="#{myBundle.ViewLoanPaymentsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_paymentIndex}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.paymentIndex}" title="#{myBundle.ViewLoanPaymentsTitle_paymentIndex}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_expirationDate}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.expirationDate}" title="#{myBundle.ViewLoanPaymentsTitle_expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_amount}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.amount}" title="#{myBundle.ViewLoanPaymentsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_repaidAmount}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.repaidAmount}" title="#{myBundle.ViewLoanPaymentsTitle_repaidAmount}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_status}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.status}" title="#{myBundle.ViewLoanPaymentsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_repaymentDate}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.repaymentDate}" title="#{myBundle.ViewLoanPaymentsTitle_repaymentDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_externalTransferId}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.externalTransferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_loanId}"/>
+                        <h:outputText value="#{loanPaymentsController.selected.loanId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('LoanPaymentsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

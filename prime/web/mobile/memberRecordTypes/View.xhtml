@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberRecordTypesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMemberRecordTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberRecordTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberRecordTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MemberRecordTypesTabView">
+
+                        <p:tab id="MemberRecordTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{memberRecordTypesController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_id}"/>
+                                    <h:outputText value="#{memberRecordTypesController.selected.id}" title="#{myBundle.ViewMemberRecordTypesTitle_id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_name}"/>
+                                    <h:outputText value="#{memberRecordTypesController.selected.name}" title="#{myBundle.ViewMemberRecordTypesTitle_name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_label}"/>
+                                    <h:outputText value="#{memberRecordTypesController.selected.label}" title="#{myBundle.ViewMemberRecordTypesTitle_label}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_editable}"/>
+                                    <h:selectBooleanCheckbox id="editable" value="#{memberRecordTypesController.selected.editable}" title="#{myBundle.EditMemberRecordTypesTitle_editable}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_editable}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_showMenuItem}"/>
+                                    <h:selectBooleanCheckbox id="showMenuItem" value="#{memberRecordTypesController.selected.showMenuItem}" title="#{myBundle.EditMemberRecordTypesTitle_showMenuItem}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_showMenuItem}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_layout}"/>
+                                    <h:outputText value="#{memberRecordTypesController.selected.layout}" title="#{myBundle.ViewMemberRecordTypesTitle_layout}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_description}"/>
+                                    <h:outputText value="#{memberRecordTypesController.selected.description}" title="#{myBundle.ViewMemberRecordTypesTitle_description}"/>
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

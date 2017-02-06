@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="FieldMappingsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewFieldMappingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:FieldMappingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="FieldMappingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{fieldMappingsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_id}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.id}" title="#{myBundle.ViewFieldMappingsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_orderIndex}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.orderIndex}" title="#{myBundle.ViewFieldMappingsTitle_orderIndex}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_name}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.name}" title="#{myBundle.ViewFieldMappingsTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_field}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.field}" title="#{myBundle.ViewFieldMappingsTitle_field}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_fileMappingId}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.fileMappingId.classname}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFieldMappingsLabel_memberFieldId}"/>
+                            <h:outputText value="#{fieldMappingsController.selected.memberFieldId.internalName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedMembersViewDlg" widgetVar="ImportedMembersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewImportedMembersTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedMembersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{importedMembersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_id}"/>
+                        <h:outputText value="#{importedMembersController.selected.id}" title="#{myBundle.ViewImportedMembersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_status}"/>
+                        <h:outputText value="#{importedMembersController.selected.status}" title="#{myBundle.ViewImportedMembersTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_lineNumber}"/>
+                        <h:outputText value="#{importedMembersController.selected.lineNumber}" title="#{myBundle.ViewImportedMembersTitle_lineNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_errorArgument1}"/>
+                        <h:outputText value="#{importedMembersController.selected.errorArgument1}" title="#{myBundle.ViewImportedMembersTitle_errorArgument1}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_errorArgument2}"/>
+                        <h:outputText value="#{importedMembersController.selected.errorArgument2}" title="#{myBundle.ViewImportedMembersTitle_errorArgument2}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_name}"/>
+                        <h:outputText value="#{importedMembersController.selected.name}" title="#{myBundle.ViewImportedMembersTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_salt}"/>
+                        <h:outputText value="#{importedMembersController.selected.salt}" title="#{myBundle.ViewImportedMembersTitle_salt}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_username}"/>
+                        <h:outputText value="#{importedMembersController.selected.username}" title="#{myBundle.ViewImportedMembersTitle_username}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_password}"/>
+                        <h:outputText value="#{importedMembersController.selected.password}" title="#{myBundle.ViewImportedMembersTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_email}"/>
+                        <h:outputText value="#{importedMembersController.selected.email}" title="#{myBundle.ViewImportedMembersTitle_email}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_creationDate}"/>
+                        <h:outputText value="#{importedMembersController.selected.creationDate}" title="#{myBundle.ViewImportedMembersTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_creditLimit}"/>
+                        <h:outputText value="#{importedMembersController.selected.creditLimit}" title="#{myBundle.ViewImportedMembersTitle_creditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_upperCreditLimit}"/>
+                        <h:outputText value="#{importedMembersController.selected.upperCreditLimit}" title="#{myBundle.ViewImportedMembersTitle_upperCreditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_initialBalance}"/>
+                        <h:outputText value="#{importedMembersController.selected.initialBalance}" title="#{myBundle.ViewImportedMembersTitle_initialBalance}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedMembersLabel_importId}"/>
+                        <h:outputText value="#{importedMembersController.selected.importId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ImportedMembersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

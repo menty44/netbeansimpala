@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupsViewDlg" widgetVar="GroupsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGroupsTitle}" closeOnEscape="true">
+
+            <h:form id="GroupsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="GroupsTabView">
+
+                        <p:tab id="GroupsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{groupsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_id}"/>
+                                <h:outputText value="#{groupsController.selected.id}" title="#{myBundle.ViewGroupsTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_subclass}"/>
+                                <h:outputText value="#{groupsController.selected.subclass}" title="#{myBundle.ViewGroupsTitle_subclass}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_status}"/>
+                                <h:outputText value="#{groupsController.selected.status}" title="#{myBundle.ViewGroupsTitle_status}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_name}"/>
+                                <h:outputText value="#{groupsController.selected.name}" title="#{myBundle.ViewGroupsTitle_name}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_description}"/>
+                                <h:outputText value="#{groupsController.selected.description}" title="#{myBundle.ViewGroupsTitle_description}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_maxPasswordTries}"/>
+                                <h:outputText value="#{groupsController.selected.maxPasswordTries}" title="#{myBundle.ViewGroupsTitle_maxPasswordTries}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_minPasswordLength}"/>
+                                <h:outputText value="#{groupsController.selected.minPasswordLength}" title="#{myBundle.ViewGroupsTitle_minPasswordLength}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_maxPasswordLength}"/>
+                                <h:outputText value="#{groupsController.selected.maxPasswordLength}" title="#{myBundle.ViewGroupsTitle_maxPasswordLength}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_passwordPolicy}"/>
+                                <h:outputText value="#{groupsController.selected.passwordPolicy}" title="#{myBundle.ViewGroupsTitle_passwordPolicy}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_deactivationNumber}"/>
+                                <h:outputText value="#{groupsController.selected.deactivationNumber}" title="#{myBundle.ViewGroupsTitle_deactivationNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_deactivationField}"/>
+                                <h:outputText value="#{groupsController.selected.deactivationField}" title="#{myBundle.ViewGroupsTitle_deactivationField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_passwordExpirationNumber}"/>
+                                <h:outputText value="#{groupsController.selected.passwordExpirationNumber}" title="#{myBundle.ViewGroupsTitle_passwordExpirationNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_passwordExpirationField}"/>
+                                <h:outputText value="#{groupsController.selected.passwordExpirationField}" title="#{myBundle.ViewGroupsTitle_passwordExpirationField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transactionPassword}"/>
+                                <h:outputText value="#{groupsController.selected.transactionPassword}" title="#{myBundle.ViewGroupsTitle_transactionPassword}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transactionPasswordLength}"/>
+                                <h:outputText value="#{groupsController.selected.transactionPasswordLength}" title="#{myBundle.ViewGroupsTitle_transactionPasswordLength}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_maxTpTries}"/>
+                                <h:outputText value="#{groupsController.selected.maxTpTries}" title="#{myBundle.ViewGroupsTitle_maxTpTries}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_hideCurrencyOnPmt}"/>
+                                <h:selectBooleanCheckbox id="hideCurrencyOnPmt" value="#{groupsController.selected.hideCurrencyOnPmt}" title="#{myBundle.EditGroupsTitle_hideCurrencyOnPmt}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_hideCurrencyOnPmt}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_rootUrl}"/>
+                                <h:outputText value="#{groupsController.selected.rootUrl}" title="#{myBundle.ViewGroupsTitle_rootUrl}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_loginPageName}"/>
+                                <h:outputText value="#{groupsController.selected.loginPageName}" title="#{myBundle.ViewGroupsTitle_loginPageName}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_containerUrl}"/>
+                                <h:outputText value="#{groupsController.selected.containerUrl}" title="#{myBundle.ViewGroupsTitle_containerUrl}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{groupsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsChargeAmount}"/>
+                                <h:outputText value="#{groupsController.selected.smsChargeAmount}" title="#{myBundle.ViewGroupsTitle_smsChargeAmount}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsFreeCount}"/>
+                                <h:outputText value="#{groupsController.selected.smsFreeCount}" title="#{myBundle.ViewGroupsTitle_smsFreeCount}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsAdditionalChargedCount}"/>
+                                <h:outputText value="#{groupsController.selected.smsAdditionalChargedCount}" title="#{myBundle.ViewGroupsTitle_smsAdditionalChargedCount}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsAdditionalChargedPeriodNumber}"/>
+                                <h:outputText value="#{groupsController.selected.smsAdditionalChargedPeriodNumber}" title="#{myBundle.ViewGroupsTitle_smsAdditionalChargedPeriodNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsAdditionalChargedPeriodField}"/>
+                                <h:outputText value="#{groupsController.selected.smsAdditionalChargedPeriodField}" title="#{myBundle.ViewGroupsTitle_smsAdditionalChargedPeriodField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsShowFreeThreshold}"/>
+                                <h:outputText value="#{groupsController.selected.smsShowFreeThreshold}" title="#{myBundle.ViewGroupsTitle_smsShowFreeThreshold}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsContextClassName}"/>
+                                <h:outputText value="#{groupsController.selected.smsContextClassName}" title="#{myBundle.ViewGroupsTitle_smsContextClassName}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxImagesPerMember}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxImagesPerMember}" title="#{myBundle.ViewGroupsTitle_memberMaxImagesPerMember}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxAdsPerMember}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxAdsPerMember}" title="#{myBundle.ViewGroupsTitle_memberMaxAdsPerMember}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxAdDescriptionSize}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxAdDescriptionSize}" title="#{myBundle.ViewGroupsTitle_memberMaxAdDescriptionSize}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxAdImagesPerMember}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxAdImagesPerMember}" title="#{myBundle.ViewGroupsTitle_memberMaxAdImagesPerMember}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberDefaultAdPublicationNumber}"/>
+                                <h:outputText value="#{groupsController.selected.memberDefaultAdPublicationNumber}" title="#{myBundle.ViewGroupsTitle_memberDefaultAdPublicationNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberDefaultAdPublicationField}"/>
+                                <h:outputText value="#{groupsController.selected.memberDefaultAdPublicationField}" title="#{myBundle.ViewGroupsTitle_memberDefaultAdPublicationField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxAdPublicationNumber}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxAdPublicationNumber}" title="#{myBundle.ViewGroupsTitle_memberMaxAdPublicationNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxAdPublicationField}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxAdPublicationField}" title="#{myBundle.ViewGroupsTitle_memberMaxAdPublicationField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberEnablePermanentAds}"/>
+                                <h:selectBooleanCheckbox id="memberEnablePermanentAds" value="#{groupsController.selected.memberEnablePermanentAds}" title="#{myBundle.EditGroupsTitle_memberEnablePermanentAds}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberEnablePermanentAds}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberShowPoswebPmtDsc}"/>
+                                <h:selectBooleanCheckbox id="memberShowPoswebPmtDsc" value="#{groupsController.selected.memberShowPoswebPmtDsc}" title="#{myBundle.EditGroupsTitle_memberShowPoswebPmtDsc}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberShowPoswebPmtDsc}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberExternalAdPublication}"/>
+                                <h:outputText value="#{groupsController.selected.memberExternalAdPublication}" title="#{myBundle.ViewGroupsTitle_memberExternalAdPublication}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberSendPasswordByEmail}"/>
+                                <h:selectBooleanCheckbox id="memberSendPasswordByEmail" value="#{groupsController.selected.memberSendPasswordByEmail}" title="#{myBundle.EditGroupsTitle_memberSendPasswordByEmail}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberSendPasswordByEmail}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberViewLoansByGroup}"/>
+                                <h:selectBooleanCheckbox id="memberViewLoansByGroup" value="#{groupsController.selected.memberViewLoansByGroup}" title="#{myBundle.EditGroupsTitle_memberViewLoansByGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberViewLoansByGroup}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRepayLoanByGroup}"/>
+                                <h:selectBooleanCheckbox id="memberRepayLoanByGroup" value="#{groupsController.selected.memberRepayLoanByGroup}" title="#{myBundle.EditGroupsTitle_memberRepayLoanByGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberRepayLoanByGroup}" disabled="true"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab3" title="#{myBundle.TabHeaderPrefix} 3">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{groupsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxSchedulingPayments}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxSchedulingPayments}" title="#{myBundle.ViewGroupsTitle_memberMaxSchedulingPayments}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxSchedulingPeriodNumber}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxSchedulingPeriodNumber}" title="#{myBundle.ViewGroupsTitle_memberMaxSchedulingPeriodNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxSchedulingPeriodField}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxSchedulingPeriodField}" title="#{myBundle.ViewGroupsTitle_memberMaxSchedulingPeriodField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_minPinLength}"/>
+                                <h:outputText value="#{groupsController.selected.minPinLength}" title="#{myBundle.ViewGroupsTitle_minPinLength}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_maxPinLength}"/>
+                                <h:outputText value="#{groupsController.selected.maxPinLength}" title="#{myBundle.ViewGroupsTitle_maxPinLength}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxPinTries}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxPinTries}" title="#{myBundle.ViewGroupsTitle_memberMaxPinTries}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberPinBlockNumber}"/>
+                                <h:outputText value="#{groupsController.selected.memberPinBlockNumber}" title="#{myBundle.ViewGroupsTitle_memberPinBlockNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberPinBlockField}"/>
+                                <h:outputText value="#{groupsController.selected.memberPinBlockField}" title="#{myBundle.ViewGroupsTitle_memberPinBlockField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberExpireNumber}"/>
+                                <h:outputText value="#{groupsController.selected.memberExpireNumber}" title="#{myBundle.ViewGroupsTitle_memberExpireNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberExpireField}"/>
+                                <h:outputText value="#{groupsController.selected.memberExpireField}" title="#{myBundle.ViewGroupsTitle_memberExpireField}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberMaxPosSchedulingPayments}"/>
+                                <h:outputText value="#{groupsController.selected.memberMaxPosSchedulingPayments}" title="#{myBundle.ViewGroupsTitle_memberMaxPosSchedulingPayments}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberNumberOfCopies}"/>
+                                <h:outputText value="#{groupsController.selected.memberNumberOfCopies}" title="#{myBundle.ViewGroupsTitle_memberNumberOfCopies}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberResultPageSize}"/>
+                                <h:outputText value="#{groupsController.selected.memberResultPageSize}" title="#{myBundle.ViewGroupsTitle_memberResultPageSize}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberAllowMakePayment}"/>
+                                <h:selectBooleanCheckbox id="memberAllowMakePayment" value="#{groupsController.selected.memberAllowMakePayment}" title="#{myBundle.EditGroupsTitle_memberAllowMakePayment}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberAllowMakePayment}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberActive}"/>
+                                <h:selectBooleanCheckbox id="memberActive" value="#{groupsController.selected.memberActive}" title="#{myBundle.EditGroupsTitle_memberActive}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberActive}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_initialGroupShow}"/>
+                                <h:outputText value="#{groupsController.selected.initialGroupShow}" title="#{myBundle.ViewGroupsTitle_initialGroupShow}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_initialGroup}"/>
+                                <h:selectBooleanCheckbox id="initialGroup" value="#{groupsController.selected.initialGroup}" title="#{myBundle.EditGroupsTitle_initialGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_initialGroup}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberDefaultAllowChargingSms}"/>
+                                <h:selectBooleanCheckbox id="memberDefaultAllowChargingSms" value="#{groupsController.selected.memberDefaultAllowChargingSms}" title="#{myBundle.EditGroupsTitle_memberDefaultAllowChargingSms}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAllowChargingSms}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberDefaultAcceptFreeMailing}"/>
+                                <h:selectBooleanCheckbox id="memberDefaultAcceptFreeMailing" value="#{groupsController.selected.memberDefaultAcceptFreeMailing}" title="#{myBundle.EditGroupsTitle_memberDefaultAcceptFreeMailing}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAcceptFreeMailing}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberDefaultAcceptPaidMailing}"/>
+                                <h:selectBooleanCheckbox id="memberDefaultAcceptPaidMailing" value="#{groupsController.selected.memberDefaultAcceptPaidMailing}" title="#{myBundle.EditGroupsTitle_memberDefaultAcceptPaidMailing}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAcceptPaidMailing}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transferTypesCollection}"/>
+                                <h:selectManyMenu converter="transferTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transferTypesCollection}"
+                                                   var="transferTypesCollectionItem"
+                                                   itemValue="#{transferTypesCollectionItem}"
+                                                   itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab4" title="#{myBundle.TabHeaderPrefix} 4">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{groupsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection}"
+                                                   var="memberRecordTypesCollectionItem"
+                                                   itemValue="#{memberRecordTypesCollectionItem}"
+                                                   itemLabel="#{memberRecordTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_accountFeesCollection}"/>
+                                <h:selectManyMenu converter="accountFeesConverter">
+                                    <f:selectItems value="#{groupsController.selected.accountFeesCollection}"
+                                                   var="accountFeesCollectionItem"
+                                                   itemValue="#{accountFeesCollectionItem}"
+                                                   itemLabel="#{accountFeesCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transactionFeesCollection}"/>
+                                <h:selectManyMenu converter="transactionFeesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transactionFeesCollection}"
+                                                   var="transactionFeesCollectionItem"
+                                                   itemValue="#{transactionFeesCollectionItem}"
+                                                   itemLabel="#{transactionFeesCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection1}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection1}"
+                                                   var="memberRecordTypesCollection1Item"
+                                                   itemValue="#{memberRecordTypesCollection1Item}"
+                                                   itemLabel="#{memberRecordTypesCollection1Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transferTypesCollection1}"/>
+                                <h:selectManyMenu converter="transferTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transferTypesCollection1}"
+                                                   var="transferTypesCollection1Item"
+                                                   itemValue="#{transferTypesCollection1Item}"
+                                                   itemLabel="#{transferTypesCollection1Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection2}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection2}"
+                                                   var="memberRecordTypesCollection2Item"
+                                                   itemValue="#{memberRecordTypesCollection2Item}"
+                                                   itemLabel="#{memberRecordTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection3}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection3}"
+                                                   var="memberRecordTypesCollection3Item"
+                                                   itemValue="#{memberRecordTypesCollection3Item}"
+                                                   itemLabel="#{memberRecordTypesCollection3Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection4}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection4}"
+                                                   var="memberRecordTypesCollection4Item"
+                                                   itemValue="#{memberRecordTypesCollection4Item}"
+                                                   itemLabel="#{memberRecordTypesCollection4Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection5}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection5}"
+                                                   var="memberRecordTypesCollection5Item"
+                                                   itemValue="#{memberRecordTypesCollection5Item}"
+                                                   itemLabel="#{memberRecordTypesCollection5Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection}"
+                                                   var="groupsCollectionItem"
+                                                   itemValue="#{groupsCollectionItem}"
+                                                   itemLabel="#{groupsCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transactionFeesCollection1}"/>
+                                <h:selectManyMenu converter="transactionFeesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transactionFeesCollection1}"
+                                                   var="transactionFeesCollection1Item"
+                                                   itemValue="#{transactionFeesCollection1Item}"
+                                                   itemLabel="#{transactionFeesCollection1Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection2}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection2}"
+                                                   var="groupsCollection2Item"
+                                                   itemValue="#{groupsCollection2Item}"
+                                                   itemLabel="#{groupsCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_accountTypesCollection2}"/>
+                                <h:selectManyMenu converter="accountTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.accountTypesCollection2}"
+                                                   var="accountTypesCollection2Item"
+                                                   itemValue="#{accountTypesCollection2Item}"
+                                                   itemLabel="#{accountTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_documentsCollection}"/>
+                                <h:selectManyMenu converter="documentsConverter">
+                                    <f:selectItems value="#{groupsController.selected.documentsCollection}"
+                                                   var="documentsCollectionItem"
+                                                   itemValue="#{documentsCollectionItem}"
+                                                   itemLabel="#{documentsCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_paymentFiltersCollection}"/>
+                                <h:selectManyMenu converter="paymentFiltersConverter">
+                                    <f:selectItems value="#{groupsController.selected.paymentFiltersCollection}"
+                                                   var="paymentFiltersCollectionItem"
+                                                   itemValue="#{paymentFiltersCollectionItem}"
+                                                   itemLabel="#{paymentFiltersCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection6}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection6}"
+                                                   var="memberRecordTypesCollection6Item"
+                                                   itemValue="#{memberRecordTypesCollection6Item}"
+                                                   itemLabel="#{memberRecordTypesCollection6Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection7}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection7}"
+                                                   var="memberRecordTypesCollection7Item"
+                                                   itemValue="#{memberRecordTypesCollection7Item}"
+                                                   itemLabel="#{memberRecordTypesCollection7Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection8}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection8}"
+                                                   var="memberRecordTypesCollection8Item"
+                                                   itemValue="#{memberRecordTypesCollection8Item}"
+                                                   itemLabel="#{memberRecordTypesCollection8Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection4}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection4}"
+                                                   var="groupsCollection4Item"
+                                                   itemValue="#{groupsCollection4Item}"
+                                                   itemLabel="#{groupsCollection4Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_authorizationLevelsCollection}"/>
+                                <h:selectManyMenu converter="authorizationLevelsConverter">
+                                    <f:selectItems value="#{groupsController.selected.authorizationLevelsCollection}"
+                                                   var="authorizationLevelsCollectionItem"
+                                                   itemValue="#{authorizationLevelsCollectionItem}"
+                                                   itemLabel="#{authorizationLevelsCollectionItem.id.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection9}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection9}"
+                                                   var="memberRecordTypesCollection9Item"
+                                                   itemValue="#{memberRecordTypesCollection9Item}"
+                                                   itemLabel="#{memberRecordTypesCollection9Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab5" title="#{myBundle.TabHeaderPrefix} 5">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{groupsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_serviceClientsCollection}"/>
+                                <h:selectManyMenu converter="serviceClientsConverter">
+                                    <f:selectItems value="#{groupsController.selected.serviceClientsCollection}"
+                                                   var="serviceClientsCollectionItem"
+                                                   itemValue="#{serviceClientsCollectionItem}"
+                                                   itemLabel="#{serviceClientsCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection6}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection6}"
+                                                   var="groupsCollection6Item"
+                                                   itemValue="#{groupsCollection6Item}"
+                                                   itemLabel="#{groupsCollection6Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transactionFeesCollection2}"/>
+                                <h:selectManyMenu converter="transactionFeesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transactionFeesCollection2}"
+                                                   var="transactionFeesCollection2Item"
+                                                   itemValue="#{transactionFeesCollection2Item}"
+                                                   itemLabel="#{transactionFeesCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection8}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection8}"
+                                                   var="groupsCollection8Item"
+                                                   itemValue="#{groupsCollection8Item}"
+                                                   itemLabel="#{groupsCollection8Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_documentsCollection1}"/>
+                                <h:selectManyMenu converter="documentsConverter">
+                                    <f:selectItems value="#{groupsController.selected.documentsCollection1}"
+                                                   var="documentsCollection1Item"
+                                                   itemValue="#{documentsCollection1Item}"
+                                                   itemLabel="#{documentsCollection1Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection10}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection10}"
+                                                   var="memberRecordTypesCollection10Item"
+                                                   itemValue="#{memberRecordTypesCollection10Item}"
+                                                   itemLabel="#{memberRecordTypesCollection10Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection11}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection11}"
+                                                   var="memberRecordTypesCollection11Item"
+                                                   itemValue="#{memberRecordTypesCollection11Item}"
+                                                   itemLabel="#{memberRecordTypesCollection11Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transferTypesCollection2}"/>
+                                <h:selectManyMenu converter="transferTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transferTypesCollection2}"
+                                                   var="transferTypesCollection2Item"
+                                                   itemValue="#{transferTypesCollection2Item}"
+                                                   itemLabel="#{transferTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_transferTypesCollection3}"/>
+                                <h:selectManyMenu converter="transferTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.transferTypesCollection3}"
+                                                   var="transferTypesCollection3Item"
+                                                   itemValue="#{transferTypesCollection3Item}"
+                                                   itemLabel="#{transferTypesCollection3Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection10}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection10}"
+                                                   var="groupsCollection10Item"
+                                                   itemValue="#{groupsCollection10Item}"
+                                                   itemLabel="#{groupsCollection10Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_guaranteeTypesCollection}"/>
+                                <h:selectManyMenu converter="guaranteeTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.guaranteeTypesCollection}"
+                                                   var="guaranteeTypesCollectionItem"
+                                                   itemValue="#{guaranteeTypesCollectionItem}"
+                                                   itemLabel="#{guaranteeTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberRecordTypesCollection12}"/>
+                                <h:selectManyMenu converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{groupsController.selected.memberRecordTypesCollection12}"
+                                                   var="memberRecordTypesCollection12Item"
+                                                   itemValue="#{memberRecordTypesCollection12Item}"
+                                                   itemLabel="#{memberRecordTypesCollection12Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_groupsCollection12}"/>
+                                <h:selectManyMenu converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.selected.groupsCollection12}"
+                                                   var="groupsCollection12Item"
+                                                   itemValue="#{groupsCollection12Item}"
+                                                   itemLabel="#{groupsCollection12Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_customFieldsCollection}"/>
+                                <h:selectManyMenu converter="customFieldsConverter">
+                                    <f:selectItems value="#{groupsController.selected.customFieldsCollection}"
+                                                   var="customFieldsCollectionItem"
+                                                   itemValue="#{customFieldsCollectionItem}"
+                                                   itemLabel="#{customFieldsCollectionItem.internalName.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_adminNotificationPreferencesCollection}"/>
+                                <h:selectManyMenu converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{groupsController.selected.adminNotificationPreferencesCollection}"
+                                                   var="adminNotificationPreferencesCollectionItem"
+                                                   itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                   itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_registrationAgreementId}"/>
+                                <h:outputText value="#{groupsController.selected.registrationAgreementId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberExpireGroupId}"/>
+                                <h:outputText value="#{groupsController.selected.memberExpireGroupId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_cardTypeId}"/>
+                                <h:outputText value="#{groupsController.selected.cardTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_smsChargeTransferTypeId}"/>
+                                <h:outputText value="#{groupsController.selected.smsChargeTransferTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewGroupsLabel_memberId}"/>
+                                <h:outputText value="#{groupsController.selected.memberId.name}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('GroupsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

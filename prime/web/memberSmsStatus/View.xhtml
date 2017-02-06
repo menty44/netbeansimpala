@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberSmsStatusViewDlg" widgetVar="MemberSmsStatusViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberSmsStatusTitle}" closeOnEscape="true">
+
+            <h:form id="MemberSmsStatusViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberSmsStatusController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_id}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.id}" title="#{myBundle.ViewMemberSmsStatusTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_freeSmsSent}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.freeSmsSent}" title="#{myBundle.ViewMemberSmsStatusTitle_freeSmsSent}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_freeSmsExpiration}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.freeSmsExpiration}" title="#{myBundle.ViewMemberSmsStatusTitle_freeSmsExpiration}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_paidSmsLeft}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.paidSmsLeft}" title="#{myBundle.ViewMemberSmsStatusTitle_paidSmsLeft}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_paidSmsExpiration}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.paidSmsExpiration}" title="#{myBundle.ViewMemberSmsStatusTitle_paidSmsExpiration}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_allowChargingSms}"/>
+                        <h:selectBooleanCheckbox id="allowChargingSms" value="#{memberSmsStatusController.selected.allowChargingSms}" title="#{myBundle.EditMemberSmsStatusTitle_allowChargingSms}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_allowChargingSms}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_acceptFreeMailing}"/>
+                        <h:selectBooleanCheckbox id="acceptFreeMailing" value="#{memberSmsStatusController.selected.acceptFreeMailing}" title="#{myBundle.EditMemberSmsStatusTitle_acceptFreeMailing}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_acceptFreeMailing}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_acceptPaidMailing}"/>
+                        <h:selectBooleanCheckbox id="acceptPaidMailing" value="#{memberSmsStatusController.selected.acceptPaidMailing}" title="#{myBundle.EditMemberSmsStatusTitle_acceptPaidMailing}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_acceptPaidMailing}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_memberId}"/>
+                        <h:outputText value="#{memberSmsStatusController.selected.memberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberSmsStatusViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

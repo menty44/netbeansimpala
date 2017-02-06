@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CardTypesViewDlg" widgetVar="CardTypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCardTypesTitle}" closeOnEscape="true">
+
+            <h:form id="CardTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cardTypesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_id}"/>
+                        <h:outputText value="#{cardTypesController.selected.id}" title="#{myBundle.ViewCardTypesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_name}"/>
+                        <h:outputText value="#{cardTypesController.selected.name}" title="#{myBundle.ViewCardTypesTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_cardFormatNumber}"/>
+                        <h:outputText value="#{cardTypesController.selected.cardFormatNumber}" title="#{myBundle.ViewCardTypesTitle_cardFormatNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_defaultExpirationNumber}"/>
+                        <h:outputText value="#{cardTypesController.selected.defaultExpirationNumber}" title="#{myBundle.ViewCardTypesTitle_defaultExpirationNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_defaultExpirationField}"/>
+                        <h:outputText value="#{cardTypesController.selected.defaultExpirationField}" title="#{myBundle.ViewCardTypesTitle_defaultExpirationField}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_cardSecurityCode}"/>
+                        <h:outputText value="#{cardTypesController.selected.cardSecurityCode}" title="#{myBundle.ViewCardTypesTitle_cardSecurityCode}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_showCardSecurityCode}"/>
+                        <h:selectBooleanCheckbox id="showCardSecurityCode" value="#{cardTypesController.selected.showCardSecurityCode}" title="#{myBundle.EditCardTypesTitle_showCardSecurityCode}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_showCardSecurityCode}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_ignoreDayInExpirationDate}"/>
+                        <h:selectBooleanCheckbox id="ignoreDayInExpirationDate" value="#{cardTypesController.selected.ignoreDayInExpirationDate}" title="#{myBundle.EditCardTypesTitle_ignoreDayInExpirationDate}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_ignoreDayInExpirationDate}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_minCardSecurityCodeLength}"/>
+                        <h:outputText value="#{cardTypesController.selected.minCardSecurityCodeLength}" title="#{myBundle.ViewCardTypesTitle_minCardSecurityCodeLength}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_maxCardSecurityCodeLength}"/>
+                        <h:outputText value="#{cardTypesController.selected.maxCardSecurityCodeLength}" title="#{myBundle.ViewCardTypesTitle_maxCardSecurityCodeLength}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_securityCodeBlockTimeNumber}"/>
+                        <h:outputText value="#{cardTypesController.selected.securityCodeBlockTimeNumber}" title="#{myBundle.ViewCardTypesTitle_securityCodeBlockTimeNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_securityCodeBlockTimeField}"/>
+                        <h:outputText value="#{cardTypesController.selected.securityCodeBlockTimeField}" title="#{myBundle.ViewCardTypesTitle_securityCodeBlockTimeField}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardTypesLabel_maxSecurityCodeTries}"/>
+                        <h:outputText value="#{cardTypesController.selected.maxSecurityCodeTries}" title="#{myBundle.ViewCardTypesTitle_maxSecurityCodeTries}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CardTypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

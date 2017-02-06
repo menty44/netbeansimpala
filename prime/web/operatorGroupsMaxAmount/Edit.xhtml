@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OperatorGroupsMaxAmountEditDlg" widgetVar="OperatorGroupsMaxAmountEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditOperatorGroupsMaxAmountTitle}" closeOnEscape="true">
+
+            <h:form id="OperatorGroupsMaxAmountEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{operatorGroupsMaxAmountController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_operatorGroupsMaxAmountPK_groupId}" for="operatorGroupsMaxAmountPK_groupId" />
+                        <h:outputText id="operatorGroupsMaxAmountPK_groupId" value="#{operatorGroupsMaxAmountController.selected.operatorGroupsMaxAmountPK.groupId}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_operatorGroupsMaxAmountPK_transferTypeId}" for="operatorGroupsMaxAmountPK_transferTypeId" />
+                        <h:outputText id="operatorGroupsMaxAmountPK_transferTypeId" value="#{operatorGroupsMaxAmountController.selected.operatorGroupsMaxAmountPK.transferTypeId}" />
+
+                        <p:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{operatorGroupsMaxAmountController.selected.amount}" title="#{myBundle.EditOperatorGroupsMaxAmountTitle_amount}" required="true" requiredMessage="#{myBundle.EditOperatorGroupsMaxAmountRequiredMessage_amount}"/>
+
+
+                        <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_groups}" for="groups" />
+                        <h:outputText id="groups" value="#{operatorGroupsMaxAmountController.selected.groups}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_transferTypes}" for="transferTypes" />
+                        <h:outputText id="transferTypes" value="#{operatorGroupsMaxAmountController.selected.transferTypes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{operatorGroupsMaxAmountController.save}" value="#{myBundle.Save}" update="display,:OperatorGroupsMaxAmountListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OperatorGroupsMaxAmountEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('OperatorGroupsMaxAmountEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

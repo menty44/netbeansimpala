@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountFeeLogsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAccountFeeLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountFeeLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountFeeLogsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountFeeLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{accountFeeLogsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountFeeLogsController.selected.date}" title="#{myBundle.EditAccountFeeLogsTitle_date}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_rechargingFailed}" for="rechargingFailed" />
+                            <p:selectBooleanCheckbox id="rechargingFailed" value="#{accountFeeLogsController.selected.rechargingFailed}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_rechargingFailed}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_rechargeAttempt}" for="rechargeAttempt" />
+                            <p:inputText id="rechargeAttempt" value="#{accountFeeLogsController.selected.rechargeAttempt}" title="#{myBundle.EditAccountFeeLogsTitle_rechargeAttempt}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_rechargeAttempt}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_failedMembers}" for="failedMembers" />
+                            <p:inputText id="failedMembers" value="#{accountFeeLogsController.selected.failedMembers}" title="#{myBundle.EditAccountFeeLogsTitle_failedMembers}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_failedMembers}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_totalMembers}" for="totalMembers" />
+                            <p:inputText id="totalMembers" value="#{accountFeeLogsController.selected.totalMembers}" title="#{myBundle.EditAccountFeeLogsTitle_totalMembers}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_finishDate}" for="finishDate" />
+                            <p:calendar id="finishDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountFeeLogsController.selected.finishDate}" title="#{myBundle.EditAccountFeeLogsTitle_finishDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{accountFeeLogsController.selected.amount}" title="#{myBundle.EditAccountFeeLogsTitle_amount}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_freeBase}" for="freeBase" />
+                            <p:inputText id="freeBase" value="#{accountFeeLogsController.selected.freeBase}" title="#{myBundle.EditAccountFeeLogsTitle_freeBase}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_beginDate}" for="beginDate" />
+                            <p:calendar id="beginDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountFeeLogsController.selected.beginDate}" title="#{myBundle.EditAccountFeeLogsTitle_beginDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountFeeLogsController.selected.endDate}" title="#{myBundle.EditAccountFeeLogsTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_membersCollection}" for="membersCollection" />
+                            <p:selectManyMenu id="membersCollection" value="#{accountFeeLogsController.selected.membersCollection}"  converter="membersConverter">
+                                <f:selectItems value="#{membersController.items}"
+                                               var="membersCollectionItem"
+                                               itemValue="#{membersCollectionItem}"
+                                               itemLabel="#{membersCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountFeeLogsLabel_accountFeeId}" for="accountFeeId" />
+                            <p:selectOneMenu id="accountFeeId" value="#{accountFeeLogsController.selected.accountFeeId}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_accountFeeId}" converter="accountFeesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountFeesController.items}"
+                                               var="accountFeeIdItem"
+                                               itemValue="#{accountFeeIdItem}"
+                                               itemLabel="#{accountFeeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{accountFeeLogsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AccountFeeLogsListPage:AccountFeeLogsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AccountFeeLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

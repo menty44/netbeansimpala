@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="LoanPaymentsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewLoanPaymentsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:LoanPaymentsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="LoanPaymentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{loanPaymentsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_id}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.id}" title="#{myBundle.ViewLoanPaymentsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_paymentIndex}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.paymentIndex}" title="#{myBundle.ViewLoanPaymentsTitle_paymentIndex}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_expirationDate}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.expirationDate}" title="#{myBundle.ViewLoanPaymentsTitle_expirationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_amount}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.amount}" title="#{myBundle.ViewLoanPaymentsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_repaidAmount}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.repaidAmount}" title="#{myBundle.ViewLoanPaymentsTitle_repaidAmount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_status}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.status}" title="#{myBundle.ViewLoanPaymentsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_repaymentDate}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.repaymentDate}" title="#{myBundle.ViewLoanPaymentsTitle_repaymentDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_externalTransferId}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.externalTransferId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoanPaymentsLabel_loanId}"/>
+                            <h:outputText value="#{loanPaymentsController.selected.loanId.id}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

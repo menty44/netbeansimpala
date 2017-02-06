@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="LoanPaymentsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateLoanPaymentsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:LoanPaymentsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="LoanPaymentsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{loanPaymentsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_paymentIndex}" for="paymentIndex" />
+                            <p:inputText id="paymentIndex" value="#{loanPaymentsController.selected.paymentIndex}" title="#{myBundle.CreateLoanPaymentsTitle_paymentIndex}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_paymentIndex}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_expirationDate}" for="expirationDate" />
+                            <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{loanPaymentsController.selected.expirationDate}" title="#{myBundle.CreateLoanPaymentsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_expirationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{loanPaymentsController.selected.amount}" title="#{myBundle.CreateLoanPaymentsTitle_amount}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_repaidAmount}" for="repaidAmount" />
+                            <p:inputText id="repaidAmount" value="#{loanPaymentsController.selected.repaidAmount}" title="#{myBundle.CreateLoanPaymentsTitle_repaidAmount}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_repaidAmount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{loanPaymentsController.selected.status}" title="#{myBundle.CreateLoanPaymentsTitle_status}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_status}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_repaymentDate}" for="repaymentDate" />
+                            <p:calendar id="repaymentDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{loanPaymentsController.selected.repaymentDate}" title="#{myBundle.CreateLoanPaymentsTitle_repaymentDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_externalTransferId}" for="externalTransferId" />
+                            <p:selectOneMenu id="externalTransferId" value="#{loanPaymentsController.selected.externalTransferId}"  converter="externalTransfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalTransfersController.items}"
+                                               var="externalTransferIdItem"
+                                               itemValue="#{externalTransferIdItem}"
+                                               itemLabel="#{externalTransferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanPaymentsLabel_loanId}" for="loanId" />
+                            <p:selectOneMenu id="loanId" value="#{loanPaymentsController.selected.loanId}" required="true" requiredMessage="#{myBundle.CreateLoanPaymentsRequiredMessage_loanId}" converter="loansConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{loansController.items}"
+                                               var="loanIdItem"
+                                               itemValue="#{loanIdItem}"
+                                               itemLabel="#{loanIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{loanPaymentsController.saveNew}" value="#{myBundle.Save}" update="display,:LoanPaymentsListPage:LoanPaymentsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:LoanPaymentsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

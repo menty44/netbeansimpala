@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AmountReservationsListForm">
+
+        <p:panel header="#{myBundle.ListAmountReservationsTitle}">
+            <p:contextMenu id="AmountReservationsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AmountReservationsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AmountReservationsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AmountReservationsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AmountReservationsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AmountReservationsMenuItem_transferAuthorizationId}" icon="ui-icon-search"  actionListener="#{amountReservationsController.prepareTransferAuthorizationId}" update=":TransferAuthorizationsViewForm" oncomplete="PF('TransferAuthorizationsViewDialog').show()" disabled="#{empty amountReservationsController.selected.transferAuthorizationId}"/>  
+                <p:menuitem value="#{myBundle.AmountReservationsMenuItem_transferId}" icon="ui-icon-search"  actionListener="#{amountReservationsController.prepareTransferId}" update=":TransfersViewForm" oncomplete="PF('TransfersViewDialog').show()" disabled="#{empty amountReservationsController.selected.transferId}"/>  
+                <p:menuitem value="#{myBundle.AmountReservationsMenuItem_accountId}" icon="ui-icon-search"  actionListener="#{amountReservationsController.prepareAccountId}" update=":AccountsViewForm" oncomplete="PF('AccountsViewDialog').show()" disabled="#{empty amountReservationsController.selected.accountId}"/>  
+                <p:menuitem value="#{myBundle.AmountReservationsMenuItem_scheduledPaymentId}" icon="ui-icon-search"  actionListener="#{amountReservationsController.prepareScheduledPaymentId}" update=":ScheduledPaymentsViewForm" oncomplete="PF('ScheduledPaymentsViewDialog').show()" disabled="#{empty amountReservationsController.selected.scheduledPaymentId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{amountReservationsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{amountReservationsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{amountReservationsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AmountReservationsDataTableContextMenu" listener="#{amountReservationsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AmountReservationsDataTableContextMenu" listener="#{amountReservationsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{amountReservationsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AmountReservationsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.transferAuthorizationId.id}" filterBy="#{item.transferAuthorizationId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_transferAuthorizationId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.transferAuthorizationId.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.transferId.description}" filterBy="#{item.transferId.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAmountReservationsTitle_transferId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.transferId.description}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.accountId.ownerName}" filterBy="#{item.accountId.ownerName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAmountReservationsTitle_accountId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.accountId.ownerName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.scheduledPaymentId.description}" filterBy="#{item.scheduledPaymentId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAmountReservationsTitle_scheduledPaymentId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.scheduledPaymentId.description}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{amountReservationsController.prepareCreate}" update=":AmountReservationsCreateForm" oncomplete="PF('AmountReservationsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AmountReservationsViewForm" oncomplete="PF('AmountReservationsViewDialog').show()" disabled="#{empty amountReservationsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AmountReservationsEditForm" oncomplete="PF('AmountReservationsEditDialog').show()" disabled="#{empty amountReservationsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{amountReservationsController.delete}" update=":growl,datalist" disabled="#{empty amountReservationsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

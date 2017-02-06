@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ScheduledPaymentsViewDlg" widgetVar="ScheduledPaymentsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewScheduledPaymentsTitle}" closeOnEscape="true">
+
+            <h:form id="ScheduledPaymentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{scheduledPaymentsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_id}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.id}" title="#{myBundle.ViewScheduledPaymentsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_date}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.date}" title="#{myBundle.ViewScheduledPaymentsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_amount}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.amount}" title="#{myBundle.ViewScheduledPaymentsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_status}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.status}" title="#{myBundle.ViewScheduledPaymentsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_processDate}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.processDate}" title="#{myBundle.ViewScheduledPaymentsTitle_processDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_feedbackDeadline}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.feedbackDeadline}" title="#{myBundle.ViewScheduledPaymentsTitle_feedbackDeadline}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_description}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.description}" title="#{myBundle.ViewScheduledPaymentsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_reserveAmount}"/>
+                        <h:selectBooleanCheckbox id="reserveAmount" value="#{scheduledPaymentsController.selected.reserveAmount}" title="#{myBundle.EditScheduledPaymentsTitle_reserveAmount}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_reserveAmount}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_showToReceiver}"/>
+                        <h:selectBooleanCheckbox id="showToReceiver" value="#{scheduledPaymentsController.selected.showToReceiver}" title="#{myBundle.EditScheduledPaymentsTitle_showToReceiver}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_showToReceiver}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_byId}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_fromAccountId}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.fromAccountId.ownerName}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_typeId}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.typeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewScheduledPaymentsLabel_toAccountId}"/>
+                        <h:outputText value="#{scheduledPaymentsController.selected.toAccountId.ownerName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ScheduledPaymentsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

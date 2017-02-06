@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RemarksViewDlg" widgetVar="RemarksViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRemarksTitle}" closeOnEscape="true">
+
+            <h:form id="RemarksViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{remarksController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_id}"/>
+                        <h:outputText value="#{remarksController.selected.id}" title="#{myBundle.ViewRemarksTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_subclass}"/>
+                        <h:outputText value="#{remarksController.selected.subclass}" title="#{myBundle.ViewRemarksTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_date}"/>
+                        <h:outputText value="#{remarksController.selected.date}" title="#{myBundle.ViewRemarksTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_comments}"/>
+                        <h:outputText value="#{remarksController.selected.comments}" title="#{myBundle.ViewRemarksTitle_comments}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_subjectId}"/>
+                        <h:outputText value="#{remarksController.selected.subjectId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_newBrokerId}"/>
+                        <h:outputText value="#{remarksController.selected.newBrokerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_oldGroupId}"/>
+                        <h:outputText value="#{remarksController.selected.oldGroupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_newGroupId}"/>
+                        <h:outputText value="#{remarksController.selected.newGroupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_oldBrokerId}"/>
+                        <h:outputText value="#{remarksController.selected.oldBrokerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRemarksLabel_writerId}"/>
+                        <h:outputText value="#{remarksController.selected.writerId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RemarksViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

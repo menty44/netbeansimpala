@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FieldMappingsViewDlg" widgetVar="FieldMappingsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewFieldMappingsTitle}" closeOnEscape="true">
+
+            <h:form id="FieldMappingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{fieldMappingsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_id}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.id}" title="#{myBundle.ViewFieldMappingsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_orderIndex}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.orderIndex}" title="#{myBundle.ViewFieldMappingsTitle_orderIndex}"/>
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_name}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.name}" title="#{myBundle.ViewFieldMappingsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_field}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.field}" title="#{myBundle.ViewFieldMappingsTitle_field}"/>
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_fileMappingId}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.fileMappingId.classname}"/>
+
+                        <h:outputText value="#{myBundle.ViewFieldMappingsLabel_memberFieldId}"/>
+                        <h:outputText value="#{fieldMappingsController.selected.memberFieldId.internalName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('FieldMappingsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

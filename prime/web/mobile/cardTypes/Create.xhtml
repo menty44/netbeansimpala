@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CardTypesCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateCardTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CardTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CardTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cardTypesController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{cardTypesController.selected.name}" title="#{myBundle.CreateCardTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_name}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_cardFormatNumber}" for="cardFormatNumber" />
+                            <p:inputText id="cardFormatNumber" value="#{cardTypesController.selected.cardFormatNumber}" title="#{myBundle.CreateCardTypesTitle_cardFormatNumber}" size="56" maxlength="56"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_defaultExpirationNumber}" for="defaultExpirationNumber" />
+                            <p:inputText id="defaultExpirationNumber" value="#{cardTypesController.selected.defaultExpirationNumber}" title="#{myBundle.CreateCardTypesTitle_defaultExpirationNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_defaultExpirationField}" for="defaultExpirationField" />
+                            <p:inputText id="defaultExpirationField" value="#{cardTypesController.selected.defaultExpirationField}" title="#{myBundle.CreateCardTypesTitle_defaultExpirationField}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_cardSecurityCode}" for="cardSecurityCode" />
+                            <p:inputText id="cardSecurityCode" value="#{cardTypesController.selected.cardSecurityCode}" title="#{myBundle.CreateCardTypesTitle_cardSecurityCode}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_showCardSecurityCode}" for="showCardSecurityCode" />
+                            <p:selectBooleanCheckbox id="showCardSecurityCode" value="#{cardTypesController.selected.showCardSecurityCode}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_showCardSecurityCode}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_ignoreDayInExpirationDate}" for="ignoreDayInExpirationDate" />
+                            <p:selectBooleanCheckbox id="ignoreDayInExpirationDate" value="#{cardTypesController.selected.ignoreDayInExpirationDate}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_ignoreDayInExpirationDate}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_minCardSecurityCodeLength}" for="minCardSecurityCodeLength" />
+                            <p:inputText id="minCardSecurityCodeLength" value="#{cardTypesController.selected.minCardSecurityCodeLength}" title="#{myBundle.CreateCardTypesTitle_minCardSecurityCodeLength}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_maxCardSecurityCodeLength}" for="maxCardSecurityCodeLength" />
+                            <p:inputText id="maxCardSecurityCodeLength" value="#{cardTypesController.selected.maxCardSecurityCodeLength}" title="#{myBundle.CreateCardTypesTitle_maxCardSecurityCodeLength}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_securityCodeBlockTimeNumber}" for="securityCodeBlockTimeNumber" />
+                            <p:inputText id="securityCodeBlockTimeNumber" value="#{cardTypesController.selected.securityCodeBlockTimeNumber}" title="#{myBundle.CreateCardTypesTitle_securityCodeBlockTimeNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_securityCodeBlockTimeField}" for="securityCodeBlockTimeField" />
+                            <p:inputText id="securityCodeBlockTimeField" value="#{cardTypesController.selected.securityCodeBlockTimeField}" title="#{myBundle.CreateCardTypesTitle_securityCodeBlockTimeField}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateCardTypesLabel_maxSecurityCodeTries}" for="maxSecurityCodeTries" />
+                            <p:inputText id="maxSecurityCodeTries" value="#{cardTypesController.selected.maxSecurityCodeTries}" title="#{myBundle.CreateCardTypesTitle_maxSecurityCodeTries}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{cardTypesController.saveNew}" value="#{myBundle.Save}" update="display,:CardTypesListPage:CardTypesListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:CardTypesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

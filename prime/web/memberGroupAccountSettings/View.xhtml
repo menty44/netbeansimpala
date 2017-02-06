@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberGroupAccountSettingsViewDlg" widgetVar="MemberGroupAccountSettingsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberGroupAccountSettingsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberGroupAccountSettingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberGroupAccountSettingsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_id}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.id}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultType}"/>
+                        <h:selectBooleanCheckbox id="defaultType" value="#{memberGroupAccountSettingsController.selected.defaultType}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_defaultType}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_defaultType}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_transactionPasswordRequired}"/>
+                        <h:selectBooleanCheckbox id="transactionPasswordRequired" value="#{memberGroupAccountSettingsController.selected.transactionPasswordRequired}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_transactionPasswordRequired}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_transactionPasswordRequired}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_hideWhenNoCreditLimit}"/>
+                        <h:selectBooleanCheckbox id="hideWhenNoCreditLimit" value="#{memberGroupAccountSettingsController.selected.hideWhenNoCreditLimit}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_hideWhenNoCreditLimit}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_hideWhenNoCreditLimit}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultCreditLimit}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.defaultCreditLimit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_defaultCreditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_defaultUpperCreditLimit}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.defaultUpperCreditLimit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_defaultUpperCreditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_initialCredit}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.initialCredit}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_initialCredit}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_lowUnits}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.lowUnits}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_lowUnits}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_lowUnitsMessage}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.lowUnitsMessage}" title="#{myBundle.ViewMemberGroupAccountSettingsTitle_lowUnitsMessage}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_initialCreditTransferTypeId}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.initialCreditTransferTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_groupId}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.groupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberGroupAccountSettingsLabel_typeId}"/>
+                        <h:outputText value="#{memberGroupAccountSettingsController.selected.typeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberGroupAccountSettingsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

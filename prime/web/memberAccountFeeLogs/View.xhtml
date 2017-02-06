@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberAccountFeeLogsViewDlg" widgetVar="MemberAccountFeeLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberAccountFeeLogsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberAccountFeeLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberAccountFeeLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_id}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.id}" title="#{myBundle.ViewMemberAccountFeeLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_date}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.date}" title="#{myBundle.ViewMemberAccountFeeLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_amount}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.amount}" title="#{myBundle.ViewMemberAccountFeeLogsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_success}"/>
+                        <h:selectBooleanCheckbox id="success" value="#{memberAccountFeeLogsController.selected.success}" title="#{myBundle.EditMemberAccountFeeLogsTitle_success}" required="true" requiredMessage="#{myBundle.EditMemberAccountFeeLogsRequiredMessage_success}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_rechargeAttempt}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.rechargeAttempt}" title="#{myBundle.ViewMemberAccountFeeLogsTitle_rechargeAttempt}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_transferId}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.transferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_accountFeeLogId}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.accountFeeLogId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_invoiceId}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.invoiceId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberAccountFeeLogsLabel_memberId}"/>
+                        <h:outputText value="#{memberAccountFeeLogsController.selected.memberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberAccountFeeLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

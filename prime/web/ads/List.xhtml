@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AdsListForm">
+
+        <p:panel header="#{myBundle.ListAdsTitle}">
+            <p:contextMenu id="AdsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AdsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AdsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AdsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AdsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AdsMenuItem_imagesCollection}" icon="ui-icon-search"  action="#{adsController.navigateImagesCollection}" disabled="#{empty adsController.selected.imagesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdsMenuItem_categoryId}" icon="ui-icon-search"  actionListener="#{adsController.prepareCategoryId}" update=":AdCategoriesViewForm" oncomplete="PF('AdCategoriesViewDialog').show()" disabled="#{empty adsController.selected.categoryId}"/>  
+                <p:menuitem value="#{myBundle.AdsMenuItem_currencyId}" icon="ui-icon-search"  actionListener="#{adsController.prepareCurrencyId}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty adsController.selected.currencyId}"/>  
+                <p:menuitem value="#{myBundle.AdsMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{adsController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty adsController.selected.ownerId}"/>  
+                <p:menuitem value="#{myBundle.AdsMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{adsController.navigateCustomFieldValuesCollection}" disabled="#{empty adsController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{adsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{adsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{adsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdsDataTableContextMenu" listener="#{adsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdsDataTableContextMenu" listener="#{adsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{adsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AdsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.permanent}" filterBy="#{item.permanent}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_permanent}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="permanent" value="#{item.permanent}" title="#{myBundle.EditAdsTitle_permanent}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_permanent}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.externalPublication}" filterBy="#{item.externalPublication}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_externalPublication}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="externalPublication" value="#{item.externalPublication}" title="#{myBundle.EditAdsTitle_externalPublication}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_externalPublication}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.title}" filterBy="#{item.title}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_title}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.title}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tradeType}" filterBy="#{item.tradeType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_tradeType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tradeType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.price}" filterBy="#{item.price}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle_price}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.price}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.publicationStart}" filterBy="#{item.publicationStart}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_publicationStart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.publicationStart}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.publicationEnd}" filterBy="#{item.publicationEnd}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_publicationEnd}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.publicationEnd}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.deleteDate}" filterBy="#{item.deleteDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_deleteDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.deleteDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_creationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creationDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.isHtml}" filterBy="#{item.isHtml}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_isHtml}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="isHtml" value="#{item.isHtml}" title="#{myBundle.EditAdsTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_isHtml}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.membersNotified}" filterBy="#{item.membersNotified}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_membersNotified}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="membersNotified" value="#{item.membersNotified}" title="#{myBundle.EditAdsTitle_membersNotified}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_membersNotified}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.categoryId.name}" filterBy="#{item.categoryId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_categoryId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.categoryId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.currencyId.name}" filterBy="#{item.currencyId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_currencyId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.currencyId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdsTitle_ownerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ownerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{adsController.prepareCreate}" update=":AdsCreateForm" oncomplete="PF('AdsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AdsViewForm" oncomplete="PF('AdsViewDialog').show()" disabled="#{empty adsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AdsEditForm" oncomplete="PF('AdsEditDialog').show()" disabled="#{empty adsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{adsController.delete}" update=":growl,datalist" disabled="#{empty adsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

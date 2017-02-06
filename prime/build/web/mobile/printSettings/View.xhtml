@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PrintSettingsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPrintSettingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PrintSettingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PrintSettingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{printSettingsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_id}"/>
+                            <h:outputText value="#{printSettingsController.selected.id}" title="#{myBundle.ViewPrintSettingsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_name}"/>
+                            <h:outputText value="#{printSettingsController.selected.name}" title="#{myBundle.ViewPrintSettingsTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_printerName}"/>
+                            <h:outputText value="#{printSettingsController.selected.printerName}" title="#{myBundle.ViewPrintSettingsTitle_printerName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_beginDocCmd}"/>
+                            <h:outputText value="#{printSettingsController.selected.beginDocCmd}" title="#{myBundle.ViewPrintSettingsTitle_beginDocCmd}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_endDocCmd}"/>
+                            <h:outputText value="#{printSettingsController.selected.endDocCmd}" title="#{myBundle.ViewPrintSettingsTitle_endDocCmd}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_paymentMessage}"/>
+                            <h:outputText value="#{printSettingsController.selected.paymentMessage}" title="#{myBundle.ViewPrintSettingsTitle_paymentMessage}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPrintSettingsLabel_member1}"/>
+                            <h:outputText value="#{printSettingsController.selected.member1.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

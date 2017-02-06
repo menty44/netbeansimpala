@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAdsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{adsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_id}"/>
+                            <h:outputText value="#{adsController.selected.id}" title="#{myBundle.ViewAdsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_permanent}"/>
+                            <h:selectBooleanCheckbox id="permanent" value="#{adsController.selected.permanent}" title="#{myBundle.EditAdsTitle_permanent}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_permanent}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_externalPublication}"/>
+                            <h:selectBooleanCheckbox id="externalPublication" value="#{adsController.selected.externalPublication}" title="#{myBundle.EditAdsTitle_externalPublication}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_externalPublication}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_title}"/>
+                            <h:outputText value="#{adsController.selected.title}" title="#{myBundle.ViewAdsTitle_title}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_tradeType}"/>
+                            <h:outputText value="#{adsController.selected.tradeType}" title="#{myBundle.ViewAdsTitle_tradeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_price}"/>
+                            <h:outputText value="#{adsController.selected.price}" title="#{myBundle.ViewAdsTitle_price}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_publicationStart}"/>
+                            <h:outputText value="#{adsController.selected.publicationStart}" title="#{myBundle.ViewAdsTitle_publicationStart}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_publicationEnd}"/>
+                            <h:outputText value="#{adsController.selected.publicationEnd}" title="#{myBundle.ViewAdsTitle_publicationEnd}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_description}"/>
+                            <h:outputText value="#{adsController.selected.description}" title="#{myBundle.ViewAdsTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_deleteDate}"/>
+                            <h:outputText value="#{adsController.selected.deleteDate}" title="#{myBundle.ViewAdsTitle_deleteDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_creationDate}"/>
+                            <h:outputText value="#{adsController.selected.creationDate}" title="#{myBundle.ViewAdsTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_isHtml}"/>
+                            <h:selectBooleanCheckbox id="isHtml" value="#{adsController.selected.isHtml}" title="#{myBundle.EditAdsTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_isHtml}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_membersNotified}"/>
+                            <h:selectBooleanCheckbox id="membersNotified" value="#{adsController.selected.membersNotified}" title="#{myBundle.EditAdsTitle_membersNotified}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_membersNotified}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_categoryId}"/>
+                            <h:outputText value="#{adsController.selected.categoryId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_currencyId}"/>
+                            <h:outputText value="#{adsController.selected.currencyId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdsLabel_ownerId}"/>
+                            <h:outputText value="#{adsController.selected.ownerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

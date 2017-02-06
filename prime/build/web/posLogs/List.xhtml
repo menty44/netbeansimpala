@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PosLogsListForm">
+
+        <p:panel header="#{myBundle.ListPosLogsTitle}">
+            <p:contextMenu id="PosLogsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PosLogsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PosLogsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PosLogsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PosLogsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PosLogsMenuItem_byId}" icon="ui-icon-search"  actionListener="#{posLogsController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty posLogsController.selected.byId}"/>  
+                <p:menuitem value="#{myBundle.PosLogsMenuItem_assignedTo}" icon="ui-icon-search"  actionListener="#{posLogsController.prepareAssignedTo}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty posLogsController.selected.assignedTo}"/>  
+                <p:menuitem value="#{myBundle.PosLogsMenuItem_posId}" icon="ui-icon-search"  actionListener="#{posLogsController.preparePosId}" update=":PosViewForm" oncomplete="PF('PosViewDialog').show()" disabled="#{empty posLogsController.selected.posId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{posLogsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{posLogsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{posLogsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PosLogsDataTableContextMenu" listener="#{posLogsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PosLogsDataTableContextMenu" listener="#{posLogsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{posLogsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PosLogsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.posStatus}" filterBy="#{item.posStatus}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_posStatus}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.posStatus}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.memberPosStatus}" filterBy="#{item.memberPosStatus}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_memberPosStatus}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.memberPosStatus}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_byId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.byId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.assignedTo.name}" filterBy="#{item.assignedTo.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPosLogsTitle_assignedTo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.assignedTo.name}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.posId.description}" filterBy="#{item.posId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPosLogsTitle_posId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.posId.description}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{posLogsController.prepareCreate}" update=":PosLogsCreateForm" oncomplete="PF('PosLogsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PosLogsViewForm" oncomplete="PF('PosLogsViewDialog').show()" disabled="#{empty posLogsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PosLogsEditForm" oncomplete="PF('PosLogsEditDialog').show()" disabled="#{empty posLogsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{posLogsController.delete}" update=":growl,datalist" disabled="#{empty posLogsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

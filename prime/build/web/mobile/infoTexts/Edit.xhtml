@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="InfoTextsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditInfoTextsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:InfoTextsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="InfoTextsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{infoTextsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditInfoTextsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{infoTextsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditInfoTextsLabel_subject}" for="subject" />
+                            <p:inputText id="subject" value="#{infoTextsController.selected.subject}" title="#{myBundle.EditInfoTextsTitle_subject}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_subject}" size="160" maxlength="160"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditInfoTextsLabel_body}" for="body" />
+                            <p:inputTextarea rows="4" cols="30" id="body" value="#{infoTextsController.selected.body}" title="#{myBundle.EditInfoTextsTitle_body}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditInfoTextsLabel_enabled}" for="enabled" />
+                            <p:selectBooleanCheckbox id="enabled" value="#{infoTextsController.selected.enabled}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_enabled}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditInfoTextsLabel_beginDate}" for="beginDate" />
+                            <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.beginDate}" title="#{myBundle.EditInfoTextsTitle_beginDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditInfoTextsLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.endDate}" title="#{myBundle.EditInfoTextsTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{infoTextsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:InfoTextsListPage:InfoTextsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:InfoTextsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

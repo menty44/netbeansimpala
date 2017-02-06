@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RemarksListForm">
+
+        <p:panel header="#{myBundle.ListRemarksTitle}">
+            <p:contextMenu id="RemarksDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('RemarksListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('RemarksListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('RemarksListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('RemarksListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.RemarksMenuItem_subjectId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareSubjectId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty remarksController.selected.subjectId}"/>  
+                <p:menuitem value="#{myBundle.RemarksMenuItem_newBrokerId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareNewBrokerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty remarksController.selected.newBrokerId}"/>  
+                <p:menuitem value="#{myBundle.RemarksMenuItem_oldGroupId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareOldGroupId}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty remarksController.selected.oldGroupId}"/>  
+                <p:menuitem value="#{myBundle.RemarksMenuItem_newGroupId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareNewGroupId}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty remarksController.selected.newGroupId}"/>  
+                <p:menuitem value="#{myBundle.RemarksMenuItem_oldBrokerId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareOldBrokerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty remarksController.selected.oldBrokerId}"/>  
+                <p:menuitem value="#{myBundle.RemarksMenuItem_writerId}" icon="ui-icon-search"  actionListener="#{remarksController.prepareWriterId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty remarksController.selected.writerId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{remarksController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{remarksController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{remarksController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RemarksDataTableContextMenu" listener="#{remarksController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RemarksDataTableContextMenu" listener="#{remarksController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{remarksController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RemarksListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.comments}" filterBy="#{item.comments}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_comments}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.comments}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subjectId.name}" filterBy="#{item.subjectId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_subjectId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subjectId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.newBrokerId.name}" filterBy="#{item.newBrokerId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRemarksTitle_newBrokerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.newBrokerId.name}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.oldGroupId.name}" filterBy="#{item.oldGroupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRemarksTitle_oldGroupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.oldGroupId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.newGroupId.name}" filterBy="#{item.newGroupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRemarksTitle_newGroupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.newGroupId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.oldBrokerId.name}" filterBy="#{item.oldBrokerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRemarksTitle_oldBrokerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.oldBrokerId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.writerId.name}" filterBy="#{item.writerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRemarksTitle_writerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.writerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{remarksController.prepareCreate}" update=":RemarksCreateForm" oncomplete="PF('RemarksCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":RemarksViewForm" oncomplete="PF('RemarksViewDialog').show()" disabled="#{empty remarksController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RemarksEditForm" oncomplete="PF('RemarksEditDialog').show()" disabled="#{empty remarksController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{remarksController.delete}" update=":growl,datalist" disabled="#{empty remarksController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

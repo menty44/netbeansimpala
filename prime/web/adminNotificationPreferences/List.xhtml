@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AdminNotificationPreferencesListForm">
+
+        <p:panel header="#{myBundle.ListAdminNotificationPreferencesTitle}">
+            <p:contextMenu id="AdminNotificationPreferencesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AdminNotificationPreferencesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AdminNotificationPreferencesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AdminNotificationPreferencesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AdminNotificationPreferencesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_transferTypesCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateTransferTypesCollection}" disabled="#{empty adminNotificationPreferencesController.selected.transferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_transferTypesCollection1}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateTransferTypesCollection1}" disabled="#{empty adminNotificationPreferencesController.selected.transferTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateGroupsCollection}" disabled="#{empty adminNotificationPreferencesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_messageCategoriesCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateMessageCategoriesCollection}" disabled="#{empty adminNotificationPreferencesController.selected.messageCategoriesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_guaranteeTypesCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateGuaranteeTypesCollection}" disabled="#{empty adminNotificationPreferencesController.selected.guaranteeTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_adminPreferencesMemberAlertsCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateAdminPreferencesMemberAlertsCollection}" disabled="#{empty adminNotificationPreferencesController.selected.adminPreferencesMemberAlertsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_adminId}" icon="ui-icon-search"  actionListener="#{adminNotificationPreferencesController.prepareAdminId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty adminNotificationPreferencesController.selected.adminId}"/>  
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesMenuItem_adminPreferencesSystemAlertsCollection}" icon="ui-icon-search"  action="#{adminNotificationPreferencesController.navigateAdminPreferencesSystemAlertsCollection}" disabled="#{empty adminNotificationPreferencesController.selected.adminPreferencesSystemAlertsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{adminNotificationPreferencesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{adminNotificationPreferencesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{adminNotificationPreferencesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdminNotificationPreferencesDataTableContextMenu" listener="#{adminNotificationPreferencesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdminNotificationPreferencesDataTableContextMenu" listener="#{adminNotificationPreferencesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{adminNotificationPreferencesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AdminNotificationPreferencesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdminNotificationPreferencesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.applicationErrors}" filterBy="#{item.applicationErrors}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdminNotificationPreferencesTitle_applicationErrors}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="applicationErrors" value="#{item.applicationErrors}" title="#{myBundle.EditAdminNotificationPreferencesTitle_applicationErrors}" required="true" requiredMessage="#{myBundle.EditAdminNotificationPreferencesRequiredMessage_applicationErrors}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.systemInvoices}" filterBy="#{item.systemInvoices}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdminNotificationPreferencesTitle_systemInvoices}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="systemInvoices" value="#{item.systemInvoices}" title="#{myBundle.EditAdminNotificationPreferencesTitle_systemInvoices}" required="true" requiredMessage="#{myBundle.EditAdminNotificationPreferencesRequiredMessage_systemInvoices}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.adminId.name}" filterBy="#{item.adminId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdminNotificationPreferencesTitle_adminId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.adminId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{adminNotificationPreferencesController.prepareCreate}" update=":AdminNotificationPreferencesCreateForm" oncomplete="PF('AdminNotificationPreferencesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AdminNotificationPreferencesViewForm" oncomplete="PF('AdminNotificationPreferencesViewDialog').show()" disabled="#{empty adminNotificationPreferencesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AdminNotificationPreferencesEditForm" oncomplete="PF('AdminNotificationPreferencesEditDialog').show()" disabled="#{empty adminNotificationPreferencesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{adminNotificationPreferencesController.delete}" update=":growl,datalist" disabled="#{empty adminNotificationPreferencesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

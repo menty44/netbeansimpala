@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsernameChangeLogsViewDlg" widgetVar="UsernameChangeLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUsernameChangeLogsTitle}" closeOnEscape="true">
+
+            <h:form id="UsernameChangeLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usernameChangeLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_id}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.id}" title="#{myBundle.ViewUsernameChangeLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_date}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.date}" title="#{myBundle.ViewUsernameChangeLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_previousUsername}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.previousUsername}" title="#{myBundle.ViewUsernameChangeLogsTitle_previousUsername}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_newUsername}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.newUsername}" title="#{myBundle.ViewUsernameChangeLogsTitle_newUsername}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_byId}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsernameChangeLogsLabel_userId}"/>
+                        <h:outputText value="#{usernameChangeLogsController.selected.userId.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UsernameChangeLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

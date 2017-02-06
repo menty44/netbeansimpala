@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountFeeAmountsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateAccountFeeAmountsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountFeeAmountsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountFeeAmountsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{accountFeeAmountsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountFeeAmountsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy" value="#{accountFeeAmountsController.selected.date}" title="#{myBundle.CreateAccountFeeAmountsTitle_date}" required="true" requiredMessage="#{myBundle.CreateAccountFeeAmountsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountFeeAmountsLabel_availableBalance}" for="availableBalance" />
+                            <p:inputText id="availableBalance" value="#{accountFeeAmountsController.selected.availableBalance}" title="#{myBundle.CreateAccountFeeAmountsTitle_availableBalance}" required="true" requiredMessage="#{myBundle.CreateAccountFeeAmountsRequiredMessage_availableBalance}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountFeeAmountsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{accountFeeAmountsController.selected.amount}" title="#{myBundle.CreateAccountFeeAmountsTitle_amount}" required="true" requiredMessage="#{myBundle.CreateAccountFeeAmountsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountFeeAmountsLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{accountFeeAmountsController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateAccountFeeAmountsRequiredMessage_accountId}" converter="accountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.ownerName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountFeeAmountsLabel_accountFeeId}" for="accountFeeId" />
+                            <p:selectOneMenu id="accountFeeId" value="#{accountFeeAmountsController.selected.accountFeeId}" required="true" requiredMessage="#{myBundle.CreateAccountFeeAmountsRequiredMessage_accountFeeId}" converter="accountFeesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountFeesController.items}"
+                                               var="accountFeeIdItem"
+                                               itemValue="#{accountFeeIdItem}"
+                                               itemLabel="#{accountFeeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{accountFeeAmountsController.saveNew}" value="#{myBundle.Save}" update="display,:AccountFeeAmountsListPage:AccountFeeAmountsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:AccountFeeAmountsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

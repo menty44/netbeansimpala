@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ServiceClientPermissionsListForm">
+
+        <p:panel header="#{myBundle.ListServiceClientPermissionsTitle}">
+            <p:contextMenu id="ServiceClientPermissionsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ServiceClientPermissionsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ServiceClientPermissionsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ServiceClientPermissionsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ServiceClientPermissionsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ServiceClientPermissionsMenuItem_serviceClients}" icon="ui-icon-search"  actionListener="#{serviceClientPermissionsController.prepareServiceClients}" update=":ServiceClientsViewForm" oncomplete="PF('ServiceClientsViewDialog').show()" disabled="#{empty serviceClientPermissionsController.selected.serviceClients}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{serviceClientPermissionsController.items}"
+                         lazy="false"
+                         rowKey="#{item.serviceClientPermissionsPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{serviceClientPermissionsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{serviceClientPermissionsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.serviceClientPermissionsPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ServiceClientPermissionsDataTableContextMenu" listener="#{serviceClientPermissionsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ServiceClientPermissionsDataTableContextMenu" listener="#{serviceClientPermissionsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{serviceClientPermissionsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ServiceClientPermissionsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.serviceClientPermissionsPK.serviceClientId}" filterBy="#{item.serviceClientPermissionsPK.serviceClientId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientPermissionsTitle_serviceClientPermissionsPK_serviceClientId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.serviceClientPermissionsPK.serviceClientId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.serviceClientPermissionsPK.operation}" filterBy="#{item.serviceClientPermissionsPK.operation}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientPermissionsTitle_serviceClientPermissionsPK_operation}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.serviceClientPermissionsPK.operation}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.serviceClients.name}" filterBy="#{item.serviceClients.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientPermissionsTitle_serviceClients}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.serviceClients.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{serviceClientPermissionsController.prepareCreate}" update=":ServiceClientPermissionsCreateForm" oncomplete="PF('ServiceClientPermissionsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ServiceClientPermissionsViewForm" oncomplete="PF('ServiceClientPermissionsViewDialog').show()" disabled="#{empty serviceClientPermissionsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ServiceClientPermissionsEditForm" oncomplete="PF('ServiceClientPermissionsEditDialog').show()" disabled="#{empty serviceClientPermissionsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{serviceClientPermissionsController.delete}" update=":growl,datalist" disabled="#{empty serviceClientPermissionsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

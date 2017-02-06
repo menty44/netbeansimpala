@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WrongUsernameAttemptsViewDlg" widgetVar="WrongUsernameAttemptsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewWrongUsernameAttemptsTitle}" closeOnEscape="true">
+
+            <h:form id="WrongUsernameAttemptsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{wrongUsernameAttemptsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewWrongUsernameAttemptsLabel_id}"/>
+                        <h:outputText value="#{wrongUsernameAttemptsController.selected.id}" title="#{myBundle.ViewWrongUsernameAttemptsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewWrongUsernameAttemptsLabel_date}"/>
+                        <h:outputText value="#{wrongUsernameAttemptsController.selected.date}" title="#{myBundle.ViewWrongUsernameAttemptsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewWrongUsernameAttemptsLabel_remoteAddress}"/>
+                        <h:outputText value="#{wrongUsernameAttemptsController.selected.remoteAddress}" title="#{myBundle.ViewWrongUsernameAttemptsTitle_remoteAddress}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('WrongUsernameAttemptsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="FileMappingsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewFileMappingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:FileMappingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="FileMappingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{fileMappingsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_id}"/>
+                            <h:outputText value="#{fileMappingsController.selected.id}" title="#{myBundle.ViewFileMappingsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_subclass}"/>
+                            <h:outputText value="#{fileMappingsController.selected.subclass}" title="#{myBundle.ViewFileMappingsTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_dateFormat}"/>
+                            <h:outputText value="#{fileMappingsController.selected.dateFormat}" title="#{myBundle.ViewFileMappingsTitle_dateFormat}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_numberFormat}"/>
+                            <h:outputText value="#{fileMappingsController.selected.numberFormat}" title="#{myBundle.ViewFileMappingsTitle_numberFormat}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_decimalPlaces}"/>
+                            <h:outputText value="#{fileMappingsController.selected.decimalPlaces}" title="#{myBundle.ViewFileMappingsTitle_decimalPlaces}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_decimalSeparator}"/>
+                            <h:outputText value="#{fileMappingsController.selected.decimalSeparator}" title="#{myBundle.ViewFileMappingsTitle_decimalSeparator}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_negativeAmountValue}"/>
+                            <h:outputText value="#{fileMappingsController.selected.negativeAmountValue}" title="#{myBundle.ViewFileMappingsTitle_negativeAmountValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_classname}"/>
+                            <h:outputText value="#{fileMappingsController.selected.classname}" title="#{myBundle.ViewFileMappingsTitle_classname}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_stringQuote}"/>
+                            <h:outputText value="#{fileMappingsController.selected.stringQuote}" title="#{myBundle.ViewFileMappingsTitle_stringQuote}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_columnSeparator}"/>
+                            <h:outputText value="#{fileMappingsController.selected.columnSeparator}" title="#{myBundle.ViewFileMappingsTitle_columnSeparator}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_headerLines}"/>
+                            <h:outputText value="#{fileMappingsController.selected.headerLines}" title="#{myBundle.ViewFileMappingsTitle_headerLines}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewFileMappingsLabel_accountId}"/>
+                            <h:outputText value="#{fileMappingsController.selected.accountId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

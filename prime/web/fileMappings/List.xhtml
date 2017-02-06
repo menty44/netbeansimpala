@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FileMappingsListForm">
+
+        <p:panel header="#{myBundle.ListFileMappingsTitle}">
+            <p:contextMenu id="FileMappingsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FileMappingsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FileMappingsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FileMappingsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FileMappingsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.FileMappingsMenuItem_accountId}" icon="ui-icon-search"  actionListener="#{fileMappingsController.prepareAccountId}" update=":ExternalAccountsViewForm" oncomplete="PF('ExternalAccountsViewDialog').show()" disabled="#{empty fileMappingsController.selected.accountId}"/>  
+                <p:menuitem value="#{myBundle.FileMappingsMenuItem_fieldMappingsCollection}" icon="ui-icon-search"  action="#{fileMappingsController.navigateFieldMappingsCollection}" disabled="#{empty fileMappingsController.selected.fieldMappingsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FileMappingsMenuItem_externalAccountsCollection}" icon="ui-icon-search"  action="#{fileMappingsController.navigateExternalAccountsCollection}" disabled="#{empty fileMappingsController.selected.externalAccountsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{fileMappingsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{fileMappingsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{fileMappingsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FileMappingsDataTableContextMenu" listener="#{fileMappingsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FileMappingsDataTableContextMenu" listener="#{fileMappingsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{fileMappingsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FileMappingsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dateFormat}" filterBy="#{item.dateFormat}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_dateFormat}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dateFormat}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.numberFormat}" filterBy="#{item.numberFormat}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_numberFormat}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numberFormat}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.decimalPlaces}" filterBy="#{item.decimalPlaces}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_decimalPlaces}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.decimalPlaces}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.decimalSeparator}" filterBy="#{item.decimalSeparator}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFileMappingsTitle_decimalSeparator}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.decimalSeparator}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.negativeAmountValue}" filterBy="#{item.negativeAmountValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_negativeAmountValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.negativeAmountValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.classname}" filterBy="#{item.classname}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_classname}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.classname}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.stringQuote}" filterBy="#{item.stringQuote}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_stringQuote}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.stringQuote}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.columnSeparator}" filterBy="#{item.columnSeparator}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_columnSeparator}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.columnSeparator}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.headerLines}" filterBy="#{item.headerLines}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_headerLines}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.headerLines}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.accountId.name}" filterBy="#{item.accountId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFileMappingsTitle_accountId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.accountId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{fileMappingsController.prepareCreate}" update=":FileMappingsCreateForm" oncomplete="PF('FileMappingsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FileMappingsViewForm" oncomplete="PF('FileMappingsViewDialog').show()" disabled="#{empty fileMappingsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FileMappingsEditForm" oncomplete="PF('FileMappingsEditDialog').show()" disabled="#{empty fileMappingsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{fileMappingsController.delete}" update=":growl,datalist" disabled="#{empty fileMappingsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

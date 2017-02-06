@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AdsEditDlg" widgetVar="AdsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAdsTitle}" closeOnEscape="true">
+
+            <h:form id="AdsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{adsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAdsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{adsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_permanent}" for="permanent" />
+                        <p:selectBooleanCheckbox id="permanent" value="#{adsController.selected.permanent}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_permanent}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_externalPublication}" for="externalPublication" />
+                        <p:selectBooleanCheckbox id="externalPublication" value="#{adsController.selected.externalPublication}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_externalPublication}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{adsController.selected.title}" title="#{myBundle.EditAdsTitle_title}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_title}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_tradeType}" for="tradeType" />
+                        <p:inputText id="tradeType" value="#{adsController.selected.tradeType}" title="#{myBundle.EditAdsTitle_tradeType}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_tradeType}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_price}" for="price" />
+                        <p:inputText id="price" value="#{adsController.selected.price}" title="#{myBundle.EditAdsTitle_price}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_publicationStart}" for="publicationStart" />
+                        <p:calendar id="publicationStart" pattern="MM/dd/yyyy" value="#{adsController.selected.publicationStart}" title="#{myBundle.EditAdsTitle_publicationStart}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_publicationEnd}" for="publicationEnd" />
+                        <p:calendar id="publicationEnd" pattern="MM/dd/yyyy" value="#{adsController.selected.publicationEnd}" title="#{myBundle.EditAdsTitle_publicationEnd}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{adsController.selected.description}" title="#{myBundle.EditAdsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_deleteDate}" for="deleteDate" />
+                        <p:calendar id="deleteDate" pattern="MM/dd/yyyy" value="#{adsController.selected.deleteDate}" title="#{myBundle.EditAdsTitle_deleteDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{adsController.selected.creationDate}" title="#{myBundle.EditAdsTitle_creationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_isHtml}" for="isHtml" />
+                        <p:selectBooleanCheckbox id="isHtml" value="#{adsController.selected.isHtml}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_isHtml}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_membersNotified}" for="membersNotified" />
+                        <p:selectBooleanCheckbox id="membersNotified" value="#{adsController.selected.membersNotified}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_membersNotified}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_categoryId}" for="categoryId" />
+                        <p:selectOneMenu id="categoryId" value="#{adsController.selected.categoryId}"  converter="adCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adCategoriesController.items}"
+                                           var="categoryIdItem"
+                                           itemValue="#{categoryIdItem}"
+                                           itemLabel="#{categoryIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{adsController.selected.currencyId}"  converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditAdsLabel_ownerId}" for="ownerId" />
+                        <p:selectOneMenu id="ownerId" value="#{adsController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_ownerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="ownerIdItem"
+                                           itemValue="#{ownerIdItem}"
+                                           itemLabel="#{ownerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adsController.save}" value="#{myBundle.Save}" update="display,:AdsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AdsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupHistoryLogsViewDlg" widgetVar="GroupHistoryLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGroupHistoryLogsTitle}" closeOnEscape="true">
+
+            <h:form id="GroupHistoryLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{groupHistoryLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewGroupHistoryLogsLabel_id}"/>
+                        <h:outputText value="#{groupHistoryLogsController.selected.id}" title="#{myBundle.ViewGroupHistoryLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupHistoryLogsLabel_startDate}"/>
+                        <h:outputText value="#{groupHistoryLogsController.selected.startDate}" title="#{myBundle.ViewGroupHistoryLogsTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGroupHistoryLogsLabel_endDate}"/>
+                        <h:outputText value="#{groupHistoryLogsController.selected.endDate}" title="#{myBundle.ViewGroupHistoryLogsTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewGroupHistoryLogsLabel_groupId}"/>
+                        <h:outputText value="#{groupHistoryLogsController.selected.groupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupHistoryLogsLabel_elementId}"/>
+                        <h:outputText value="#{groupHistoryLogsController.selected.elementId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('GroupHistoryLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

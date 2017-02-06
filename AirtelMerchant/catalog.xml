@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://41.223.58.41:8446/MerchantPaymentService.asmx?wsdl" uri="src/conf/xml-resources/web-service-references/MerchantPaymentService/wsdl/41.223.58.41_8446/MerchantPaymentService.asmx.wsdl"/>
+</catalog>

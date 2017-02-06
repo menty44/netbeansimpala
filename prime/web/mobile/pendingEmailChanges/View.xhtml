@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PendingEmailChangesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPendingEmailChangesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PendingEmailChangesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PendingEmailChangesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{pendingEmailChangesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_id}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.id}" title="#{myBundle.ViewPendingEmailChangesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_creationDate}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.creationDate}" title="#{myBundle.ViewPendingEmailChangesTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_newEmail}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.newEmail}" title="#{myBundle.ViewPendingEmailChangesTitle_newEmail}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_validationKey}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.validationKey}" title="#{myBundle.ViewPendingEmailChangesTitle_validationKey}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_lastEmailDate}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.lastEmailDate}" title="#{myBundle.ViewPendingEmailChangesTitle_lastEmailDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_remoteAddress}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.remoteAddress}" title="#{myBundle.ViewPendingEmailChangesTitle_remoteAddress}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_byId}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.byId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPendingEmailChangesLabel_memberId}"/>
+                            <h:outputText value="#{pendingEmailChangesController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

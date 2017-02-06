@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RefsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewRefsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RefsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RefsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{refsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_id}"/>
+                            <h:outputText value="#{refsController.selected.id}" title="#{myBundle.ViewRefsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_subclass}"/>
+                            <h:outputText value="#{refsController.selected.subclass}" title="#{myBundle.ViewRefsTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_level}"/>
+                            <h:outputText value="#{refsController.selected.level}" title="#{myBundle.ViewRefsTitle_level}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_date}"/>
+                            <h:outputText value="#{refsController.selected.date}" title="#{myBundle.ViewRefsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_comments}"/>
+                            <h:outputText value="#{refsController.selected.comments}" title="#{myBundle.ViewRefsTitle_comments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_replyCommentsDate}"/>
+                            <h:outputText value="#{refsController.selected.replyCommentsDate}" title="#{myBundle.ViewRefsTitle_replyCommentsDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_replyComments}"/>
+                            <h:outputText value="#{refsController.selected.replyComments}" title="#{myBundle.ViewRefsTitle_replyComments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_adminCommentsDate}"/>
+                            <h:outputText value="#{refsController.selected.adminCommentsDate}" title="#{myBundle.ViewRefsTitle_adminCommentsDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_adminComments}"/>
+                            <h:outputText value="#{refsController.selected.adminComments}" title="#{myBundle.ViewRefsTitle_adminComments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_transferId}"/>
+                            <h:outputText value="#{refsController.selected.transferId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_fromMemberId}"/>
+                            <h:outputText value="#{refsController.selected.fromMemberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_toMemberId}"/>
+                            <h:outputText value="#{refsController.selected.toMemberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRefsLabel_scheduledPaymentId}"/>
+                            <h:outputText value="#{refsController.selected.scheduledPaymentId.description}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

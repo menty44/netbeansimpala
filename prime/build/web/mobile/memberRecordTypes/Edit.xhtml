@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberRecordTypesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditMemberRecordTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberRecordTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberRecordTypesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MemberRecordTypesTabView">
+
+                        <p:tab id="MemberRecordTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{memberRecordTypesController.selected != null}">
+                                <pm:field>
+                                    <h:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_id}" for="id" />
+                                    <h:outputText id="id" value="#{memberRecordTypesController.selected.id}" />
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{memberRecordTypesController.selected.name}" title="#{myBundle.EditMemberRecordTypesTitle_name}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_name}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_label}" for="label" />
+                                    <p:inputText id="label" value="#{memberRecordTypesController.selected.label}" title="#{myBundle.EditMemberRecordTypesTitle_label}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_label}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_editable}" for="editable" />
+                                    <p:selectBooleanCheckbox id="editable" value="#{memberRecordTypesController.selected.editable}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_editable}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_showMenuItem}" for="showMenuItem" />
+                                    <p:selectBooleanCheckbox id="showMenuItem" value="#{memberRecordTypesController.selected.showMenuItem}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_showMenuItem}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_layout}" for="layout" />
+                                    <p:inputText id="layout" value="#{memberRecordTypesController.selected.layout}" title="#{myBundle.EditMemberRecordTypesTitle_layout}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_layout}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_description}" for="description" />
+                                    <p:inputTextarea rows="4" cols="30" id="description" value="#{memberRecordTypesController.selected.description}" title="#{myBundle.EditMemberRecordTypesTitle_description}" />
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{memberRecordTypesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:MemberRecordTypesListPage:MemberRecordTypesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:MemberRecordTypesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

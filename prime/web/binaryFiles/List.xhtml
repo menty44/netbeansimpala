@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="BinaryFilesListForm">
+
+        <p:panel header="#{myBundle.ListBinaryFilesTitle}">
+            <p:contextMenu id="BinaryFilesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('BinaryFilesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('BinaryFilesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('BinaryFilesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('BinaryFilesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.BinaryFilesMenuItem_documentsCollection}" icon="ui-icon-search"  action="#{binaryFilesController.navigateDocumentsCollection}" disabled="#{empty binaryFilesController.selected.documentsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{binaryFilesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{binaryFilesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{binaryFilesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BinaryFilesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BinaryFilesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('BinaryFilesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contentType}" filterBy="#{item.contentType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_contentType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contentType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.size}" filterBy="#{item.size}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_size}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.size}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastModified}" filterBy="#{item.lastModified}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_lastModified}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastModified}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contents}" filterBy="#{item.contents}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBinaryFilesTitle_contents}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contents}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{binaryFilesController.prepareCreate}" update=":BinaryFilesCreateForm" oncomplete="PF('BinaryFilesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":BinaryFilesViewForm" oncomplete="PF('BinaryFilesViewDialog').show()" disabled="#{empty binaryFilesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":BinaryFilesEditForm" oncomplete="PF('BinaryFilesEditDialog').show()" disabled="#{empty binaryFilesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{binaryFilesController.delete}" update=":growl,datalist" disabled="#{empty binaryFilesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

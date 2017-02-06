@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageCategoriesCreateDlg" widgetVar="MessageCategoriesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMessageCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="MessageCategoriesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{messageCategoriesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMessageCategoriesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{messageCategoriesController.selected.name}" title="#{myBundle.CreateMessageCategoriesTitle_name}" required="true" requiredMessage="#{myBundle.CreateMessageCategoriesRequiredMessage_name}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMessageCategoriesLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{messageCategoriesController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMessageCategoriesLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                        <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{messageCategoriesController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                            <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                           var="adminNotificationPreferencesCollectionItem"
+                                           itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                           itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageCategoriesController.saveNew}" value="#{myBundle.Save}" update="display,:MessageCategoriesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MessageCategoriesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MessageCategoriesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

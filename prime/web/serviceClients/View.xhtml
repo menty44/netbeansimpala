@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServiceClientsViewDlg" widgetVar="ServiceClientsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewServiceClientsTitle}" closeOnEscape="true">
+
+            <h:form id="ServiceClientsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{serviceClientsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_id}"/>
+                        <h:outputText value="#{serviceClientsController.selected.id}" title="#{myBundle.ViewServiceClientsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_name}"/>
+                        <h:outputText value="#{serviceClientsController.selected.name}" title="#{myBundle.ViewServiceClientsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_hostname}"/>
+                        <h:outputText value="#{serviceClientsController.selected.hostname}" title="#{myBundle.ViewServiceClientsTitle_hostname}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_addressBegin}"/>
+                        <h:outputText value="#{serviceClientsController.selected.addressBegin}" title="#{myBundle.ViewServiceClientsTitle_addressBegin}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_addressEnd}"/>
+                        <h:outputText value="#{serviceClientsController.selected.addressEnd}" title="#{myBundle.ViewServiceClientsTitle_addressEnd}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_username}"/>
+                        <h:outputText value="#{serviceClientsController.selected.username}" title="#{myBundle.ViewServiceClientsTitle_username}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_password}"/>
+                        <h:outputText value="#{serviceClientsController.selected.password}" title="#{myBundle.ViewServiceClientsTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_credentialsRequired}"/>
+                        <h:selectBooleanCheckbox id="credentialsRequired" value="#{serviceClientsController.selected.credentialsRequired}" title="#{myBundle.EditServiceClientsTitle_credentialsRequired}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_credentialsRequired}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_ignoreRegistrationValidations}"/>
+                        <h:selectBooleanCheckbox id="ignoreRegistrationValidations" value="#{serviceClientsController.selected.ignoreRegistrationValidations}" title="#{myBundle.EditServiceClientsTitle_ignoreRegistrationValidations}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_ignoreRegistrationValidations}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_channelId}"/>
+                        <h:outputText value="#{serviceClientsController.selected.channelId.internalName}"/>
+
+                        <h:outputText value="#{myBundle.ViewServiceClientsLabel_memberId}"/>
+                        <h:outputText value="#{serviceClientsController.selected.memberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ServiceClientsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

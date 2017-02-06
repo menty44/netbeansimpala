@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DefaultBrokerCommissionsViewDlg" widgetVar="DefaultBrokerCommissionsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDefaultBrokerCommissionsTitle}" closeOnEscape="true">
+
+            <h:form id="DefaultBrokerCommissionsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{defaultBrokerCommissionsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_id}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.id}" title="#{myBundle.ViewDefaultBrokerCommissionsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_amount}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.amount}" title="#{myBundle.ViewDefaultBrokerCommissionsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_amountType}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.amountType}" title="#{myBundle.ViewDefaultBrokerCommissionsTitle_amountType}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_whenApply}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.whenApply}" title="#{myBundle.ViewDefaultBrokerCommissionsTitle_whenApply}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_whenCount}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.whenCount}" title="#{myBundle.ViewDefaultBrokerCommissionsTitle_whenCount}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_setByBroker}"/>
+                        <h:selectBooleanCheckbox id="setByBroker" value="#{defaultBrokerCommissionsController.selected.setByBroker}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_setByBroker}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_suspended}"/>
+                        <h:selectBooleanCheckbox id="suspended" value="#{defaultBrokerCommissionsController.selected.suspended}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_suspended}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_brokerId}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.brokerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewDefaultBrokerCommissionsLabel_brokerCommissionId}"/>
+                        <h:outputText value="#{defaultBrokerCommissionsController.selected.brokerCommissionId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DefaultBrokerCommissionsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ChannelsPrincipalsEditDlg" widgetVar="ChannelsPrincipalsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditChannelsPrincipalsTitle}" closeOnEscape="true">
+
+            <h:form id="ChannelsPrincipalsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{channelsPrincipalsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditChannelsPrincipalsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{channelsPrincipalsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditChannelsPrincipalsLabel_principal}" for="principal" />
+                        <p:inputText id="principal" value="#{channelsPrincipalsController.selected.principal}" title="#{myBundle.EditChannelsPrincipalsTitle_principal}" required="true" requiredMessage="#{myBundle.EditChannelsPrincipalsRequiredMessage_principal}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsPrincipalsLabel_isDefault}" for="isDefault" />
+                        <p:selectBooleanCheckbox id="isDefault" value="#{channelsPrincipalsController.selected.isDefault}" required="true" requiredMessage="#{myBundle.EditChannelsPrincipalsRequiredMessage_isDefault}"/>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsPrincipalsLabel_customFieldId}" for="customFieldId" />
+                        <p:selectOneMenu id="customFieldId" value="#{channelsPrincipalsController.selected.customFieldId}"  converter="customFieldsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customFieldsController.items}"
+                                           var="customFieldIdItem"
+                                           itemValue="#{customFieldIdItem}"
+                                           itemLabel="#{customFieldIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditChannelsPrincipalsLabel_channelId}" for="channelId" />
+                        <p:selectOneMenu id="channelId" value="#{channelsPrincipalsController.selected.channelId}" required="true" requiredMessage="#{myBundle.EditChannelsPrincipalsRequiredMessage_channelId}" converter="channelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{channelsController.items}"
+                                           var="channelIdItem"
+                                           itemValue="#{channelIdItem}"
+                                           itemLabel="#{channelIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{channelsPrincipalsController.save}" value="#{myBundle.Save}" update="display,:ChannelsPrincipalsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ChannelsPrincipalsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ChannelsPrincipalsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

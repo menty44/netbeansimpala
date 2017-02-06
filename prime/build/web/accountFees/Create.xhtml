@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountFeesCreateDlg" widgetVar="AccountFeesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAccountFeesTitle}" closeOnEscape="true">
+
+            <h:form id="AccountFeesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{accountFeesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{accountFeesController.selected.name}" title="#{myBundle.CreateAccountFeesTitle_name}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_chargeMode}" for="chargeMode" />
+                        <p:inputText id="chargeMode" value="#{accountFeesController.selected.chargeMode}" title="#{myBundle.CreateAccountFeesTitle_chargeMode}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_chargeMode}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_runMode}" for="runMode" />
+                        <p:inputText id="runMode" value="#{accountFeesController.selected.runMode}" title="#{myBundle.CreateAccountFeesTitle_runMode}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_runMode}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_paymentDirection}" for="paymentDirection" />
+                        <p:inputText id="paymentDirection" value="#{accountFeesController.selected.paymentDirection}" title="#{myBundle.CreateAccountFeesTitle_paymentDirection}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_paymentDirection}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_enabled}" for="enabled" />
+                        <p:selectBooleanCheckbox id="enabled" value="#{accountFeesController.selected.enabled}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_enabled}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{accountFeesController.selected.amount}" title="#{myBundle.CreateAccountFeesTitle_amount}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_invoiceMode}" for="invoiceMode" />
+                        <p:inputText id="invoiceMode" value="#{accountFeesController.selected.invoiceMode}" title="#{myBundle.CreateAccountFeesTitle_invoiceMode}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{accountFeesController.selected.description}" title="#{myBundle.CreateAccountFeesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_enabledSince}" for="enabledSince" />
+                        <p:calendar id="enabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountFeesController.selected.enabledSince}" title="#{myBundle.CreateAccountFeesTitle_enabledSince}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_day}" for="day" />
+                        <p:inputText id="day" value="#{accountFeesController.selected.day}" title="#{myBundle.CreateAccountFeesTitle_day}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_hour}" for="hour" />
+                        <p:inputText id="hour" value="#{accountFeesController.selected.hour}" title="#{myBundle.CreateAccountFeesTitle_hour}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_freeBase}" for="freeBase" />
+                        <p:inputText id="freeBase" value="#{accountFeesController.selected.freeBase}" title="#{myBundle.CreateAccountFeesTitle_freeBase}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_recurrenceNumber}" for="recurrenceNumber" />
+                        <p:inputText id="recurrenceNumber" value="#{accountFeesController.selected.recurrenceNumber}" title="#{myBundle.CreateAccountFeesTitle_recurrenceNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_recurrenceField}" for="recurrenceField" />
+                        <p:inputText id="recurrenceField" value="#{accountFeesController.selected.recurrenceField}" title="#{myBundle.CreateAccountFeesTitle_recurrenceField}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_transferTypeId}" for="transferTypeId" />
+                        <p:selectOneMenu id="transferTypeId" value="#{accountFeesController.selected.transferTypeId}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_transferTypeId}" converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="transferTypeIdItem"
+                                           itemValue="#{transferTypeIdItem}"
+                                           itemLabel="#{transferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountFeesLabel_accountTypeId}" for="accountTypeId" />
+                        <p:selectOneMenu id="accountTypeId" value="#{accountFeesController.selected.accountTypeId}" required="true" requiredMessage="#{myBundle.CreateAccountFeesRequiredMessage_accountTypeId}" converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="accountTypeIdItem"
+                                           itemValue="#{accountTypeIdItem}"
+                                           itemLabel="#{accountTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{accountFeesController.saveNew}" value="#{myBundle.Save}" update="display,:AccountFeesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccountFeesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccountFeesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

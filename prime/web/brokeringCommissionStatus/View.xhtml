@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BrokeringCommissionStatusViewDlg" widgetVar="BrokeringCommissionStatusViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewBrokeringCommissionStatusTitle}" closeOnEscape="true">
+
+            <h:form id="BrokeringCommissionStatusViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{brokeringCommissionStatusController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_id}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.id}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_whenApply}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.whenApply}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_whenApply}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_amount}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.amount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_amountType}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.amountType}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_amountType}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_startDate}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.startDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_endDate}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.endDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_creationDate}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.creationDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_expiryDate}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.expiryDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_expiryDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_maxCount}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.maxCount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_maxCount}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_totalCount}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.totalCount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_totalCount}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_totalAmount}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.totalAmount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_totalAmount}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_brokeringId}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.brokeringId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_brokerCommissionId}"/>
+                        <h:outputText value="#{brokeringCommissionStatusController.selected.brokerCommissionId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('BrokeringCommissionStatusViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

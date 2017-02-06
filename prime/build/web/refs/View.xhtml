@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RefsViewDlg" widgetVar="RefsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRefsTitle}" closeOnEscape="true">
+
+            <h:form id="RefsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{refsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_id}"/>
+                        <h:outputText value="#{refsController.selected.id}" title="#{myBundle.ViewRefsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_subclass}"/>
+                        <h:outputText value="#{refsController.selected.subclass}" title="#{myBundle.ViewRefsTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_level}"/>
+                        <h:outputText value="#{refsController.selected.level}" title="#{myBundle.ViewRefsTitle_level}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_date}"/>
+                        <h:outputText value="#{refsController.selected.date}" title="#{myBundle.ViewRefsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_comments}"/>
+                        <h:outputText value="#{refsController.selected.comments}" title="#{myBundle.ViewRefsTitle_comments}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_replyCommentsDate}"/>
+                        <h:outputText value="#{refsController.selected.replyCommentsDate}" title="#{myBundle.ViewRefsTitle_replyCommentsDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_replyComments}"/>
+                        <h:outputText value="#{refsController.selected.replyComments}" title="#{myBundle.ViewRefsTitle_replyComments}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_adminCommentsDate}"/>
+                        <h:outputText value="#{refsController.selected.adminCommentsDate}" title="#{myBundle.ViewRefsTitle_adminCommentsDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_adminComments}"/>
+                        <h:outputText value="#{refsController.selected.adminComments}" title="#{myBundle.ViewRefsTitle_adminComments}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_transferId}"/>
+                        <h:outputText value="#{refsController.selected.transferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_fromMemberId}"/>
+                        <h:outputText value="#{refsController.selected.fromMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_toMemberId}"/>
+                        <h:outputText value="#{refsController.selected.toMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewRefsLabel_scheduledPaymentId}"/>
+                        <h:outputText value="#{refsController.selected.scheduledPaymentId.description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RefsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

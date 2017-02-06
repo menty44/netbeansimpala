@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MemberRecordTypesListForm">
+
+        <p:panel header="#{myBundle.ListMemberRecordTypesTitle}">
+            <p:contextMenu id="MemberRecordTypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MemberRecordTypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MemberRecordTypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MemberRecordTypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MemberRecordTypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection}" disabled="#{empty memberRecordTypesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection1}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection1}" disabled="#{empty memberRecordTypesController.selected.groupsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection2}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection2}" disabled="#{empty memberRecordTypesController.selected.groupsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection3}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection3}" disabled="#{empty memberRecordTypesController.selected.groupsCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection4}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection4}" disabled="#{empty memberRecordTypesController.selected.groupsCollection4}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection5}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection5}" disabled="#{empty memberRecordTypesController.selected.groupsCollection5}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection6}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection6}" disabled="#{empty memberRecordTypesController.selected.groupsCollection6}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection7}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection7}" disabled="#{empty memberRecordTypesController.selected.groupsCollection7}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection8}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection8}" disabled="#{empty memberRecordTypesController.selected.groupsCollection8}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection9}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection9}" disabled="#{empty memberRecordTypesController.selected.groupsCollection9}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection10}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection10}" disabled="#{empty memberRecordTypesController.selected.groupsCollection10}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection11}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection11}" disabled="#{empty memberRecordTypesController.selected.groupsCollection11}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_groupsCollection12}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateGroupsCollection12}" disabled="#{empty memberRecordTypesController.selected.groupsCollection12}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_memberRecordsCollection}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateMemberRecordsCollection}" disabled="#{empty memberRecordTypesController.selected.memberRecordsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_customFieldsCollection}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateCustomFieldsCollection}" disabled="#{empty memberRecordTypesController.selected.customFieldsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberRecordTypesMenuItem_importedMemberRecordsCollection}" icon="ui-icon-search"  action="#{memberRecordTypesController.navigateImportedMemberRecordsCollection}" disabled="#{empty memberRecordTypesController.selected.importedMemberRecordsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{memberRecordTypesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{memberRecordTypesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{memberRecordTypesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberRecordTypesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberRecordTypesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MemberRecordTypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.label}" filterBy="#{item.label}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_label}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.label}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.editable}" filterBy="#{item.editable}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_editable}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="editable" value="#{item.editable}" title="#{myBundle.EditMemberRecordTypesTitle_editable}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_editable}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.showMenuItem}" filterBy="#{item.showMenuItem}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_showMenuItem}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="showMenuItem" value="#{item.showMenuItem}" title="#{myBundle.EditMemberRecordTypesTitle_showMenuItem}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_showMenuItem}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.layout}" filterBy="#{item.layout}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_layout}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.layout}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberRecordTypesTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{memberRecordTypesController.prepareCreate}" update=":MemberRecordTypesCreateForm" oncomplete="PF('MemberRecordTypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MemberRecordTypesViewForm" oncomplete="PF('MemberRecordTypesViewDialog').show()" disabled="#{empty memberRecordTypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MemberRecordTypesEditForm" oncomplete="PF('MemberRecordTypesEditDialog').show()" disabled="#{empty memberRecordTypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{memberRecordTypesController.delete}" update=":growl,datalist" disabled="#{empty memberRecordTypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

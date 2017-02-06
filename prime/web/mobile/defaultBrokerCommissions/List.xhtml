@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DefaultBrokerCommissionsListPage">
+        <pm:header title="#{myBundle.ListDefaultBrokerCommissionsTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":DefaultBrokerCommissionsCreatePage:DefaultBrokerCommissionsCreateForm" actionListener="#{defaultBrokerCommissionsController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:DefaultBrokerCommissionsCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DefaultBrokerCommissionsListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{defaultBrokerCommissionsController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":DefaultBrokerCommissionsEditPage:DefaultBrokerCommissionsEditForm" action="pm:DefaultBrokerCommissionsEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.amount}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.amountType}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.whenApply}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.whenCount}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="setByBroker" value="#{item.setByBroker}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_setByBroker}"  disabled="true"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="suspended" value="#{item.suspended}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_suspended}"  disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.brokerId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.brokerCommissionId.name}"/>
+                            -->
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{defaultBrokerCommissionsController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListDefaultBrokerCommissionsTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

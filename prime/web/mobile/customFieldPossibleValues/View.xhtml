@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CustomFieldPossibleValuesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCustomFieldPossibleValuesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CustomFieldPossibleValuesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CustomFieldPossibleValuesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{customFieldPossibleValuesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_id}"/>
+                            <h:outputText value="#{customFieldPossibleValuesController.selected.id}" title="#{myBundle.ViewCustomFieldPossibleValuesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_value}"/>
+                            <h:outputText value="#{customFieldPossibleValuesController.selected.value}" title="#{myBundle.ViewCustomFieldPossibleValuesTitle_value}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_isEnabled}"/>
+                            <h:selectBooleanCheckbox id="isEnabled" value="#{customFieldPossibleValuesController.selected.isEnabled}" title="#{myBundle.EditCustomFieldPossibleValuesTitle_isEnabled}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isEnabled}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_isDefault}"/>
+                            <h:selectBooleanCheckbox id="isDefault" value="#{customFieldPossibleValuesController.selected.isDefault}" title="#{myBundle.EditCustomFieldPossibleValuesTitle_isDefault}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isDefault}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_parentId}"/>
+                            <h:outputText value="#{customFieldPossibleValuesController.selected.parentId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCustomFieldPossibleValuesLabel_fieldId}"/>
+                            <h:outputText value="#{customFieldPossibleValuesController.selected.fieldId.internalName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

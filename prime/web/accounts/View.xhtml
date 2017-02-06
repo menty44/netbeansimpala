@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountsViewDlg" widgetVar="AccountsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAccountsTitle}" closeOnEscape="true">
+
+            <h:form id="AccountsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="AccountsTabView">
+
+                        <p:tab id="AccountsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{accountsController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_id}"/>
+                                <h:outputText value="#{accountsController.selected.id}" title="#{myBundle.ViewAccountsTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_subclass}"/>
+                                <h:outputText value="#{accountsController.selected.subclass}" title="#{myBundle.ViewAccountsTitle_subclass}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_creationDate}"/>
+                                <h:outputText value="#{accountsController.selected.creationDate}" title="#{myBundle.ViewAccountsTitle_creationDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_lastClosingDate}"/>
+                                <h:outputText value="#{accountsController.selected.lastClosingDate}" title="#{myBundle.ViewAccountsTitle_lastClosingDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_ownerName}"/>
+                                <h:outputText value="#{accountsController.selected.ownerName}" title="#{myBundle.ViewAccountsTitle_ownerName}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_creditLimit}"/>
+                                <h:outputText value="#{accountsController.selected.creditLimit}" title="#{myBundle.ViewAccountsTitle_creditLimit}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_upperCreditLimit}"/>
+                                <h:outputText value="#{accountsController.selected.upperCreditLimit}" title="#{myBundle.ViewAccountsTitle_upperCreditLimit}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_memberStatus}"/>
+                                <h:outputText value="#{accountsController.selected.memberStatus}" title="#{myBundle.ViewAccountsTitle_memberStatus}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_lastLowUnitsSent}"/>
+                                <h:outputText value="#{accountsController.selected.lastLowUnitsSent}" title="#{myBundle.ViewAccountsTitle_lastLowUnitsSent}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_memberAction}"/>
+                                <h:outputText value="#{accountsController.selected.memberAction}" title="#{myBundle.ViewAccountsTitle_memberAction}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_typeId}"/>
+                                <h:outputText value="#{accountsController.selected.typeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewAccountsLabel_memberId}"/>
+                                <h:outputText value="#{accountsController.selected.memberId.name}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AccountsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

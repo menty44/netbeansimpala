@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdsListPage">
+        <pm:header title="#{myBundle.ListAdsTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":AdsCreatePage:AdsCreateForm" actionListener="#{adsController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:AdsCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdsListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{adsController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdsTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":AdsEditPage:AdsEditForm" action="pm:AdsEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="permanent" value="#{item.permanent}" title="#{myBundle.EditAdsTitle_permanent}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_permanent}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="externalPublication" value="#{item.externalPublication}" title="#{myBundle.EditAdsTitle_externalPublication}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_externalPublication}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.title}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.tradeType}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.price}"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.publicationStart}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.publicationEnd}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.description}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.deleteDate}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.creationDate}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="isHtml" value="#{item.isHtml}" title="#{myBundle.EditAdsTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_isHtml}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="membersNotified" value="#{item.membersNotified}" title="#{myBundle.EditAdsTitle_membersNotified}" required="true" requiredMessage="#{myBundle.EditAdsRequiredMessage_membersNotified}" disabled="true"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.categoryId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.currencyId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.ownerId.name}"/>
+                            -->
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{adsController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListAdsTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

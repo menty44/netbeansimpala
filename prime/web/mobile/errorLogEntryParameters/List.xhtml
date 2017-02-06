@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ErrorLogEntryParametersListPage">
+        <pm:header title="#{myBundle.ListErrorLogEntryParametersTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":ErrorLogEntryParametersCreatePage:ErrorLogEntryParametersCreateForm" actionListener="#{errorLogEntryParametersController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:ErrorLogEntryParametersCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ErrorLogEntryParametersListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{errorLogEntryParametersController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntryParametersTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":ErrorLogEntryParametersEditPage:ErrorLogEntryParametersEditForm" action="pm:ErrorLogEntryParametersEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.errorLogEntryParametersPK.errorLogEntryId}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.errorLogEntryParametersPK.name}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.value}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.errorLogEntries.id}"/>
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{errorLogEntryParametersController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListErrorLogEntryParametersTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

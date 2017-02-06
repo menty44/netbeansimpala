@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FilesListForm">
+
+        <p:panel header="#{myBundle.ListFilesTitle}">
+            <p:contextMenu id="FilesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FilesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FilesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FilesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FilesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.FilesMenuItem_documentsCollection}" icon="ui-icon-search"  action="#{filesController.navigateDocumentsCollection}" disabled="#{empty filesController.selected.documentsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FilesMenuItem_documentsCollection1}" icon="ui-icon-search"  action="#{filesController.navigateDocumentsCollection1}" disabled="#{empty filesController.selected.documentsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.FilesMenuItem_groupId}" icon="ui-icon-search"  actionListener="#{filesController.prepareGroupId}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty filesController.selected.groupId}"/>  
+                <p:menuitem value="#{myBundle.FilesMenuItem_groupFilterId}" icon="ui-icon-search"  actionListener="#{filesController.prepareGroupFilterId}" update=":GroupFiltersViewForm" oncomplete="PF('GroupFiltersViewDialog').show()" disabled="#{empty filesController.selected.groupFilterId}"/>  
+                <p:menuitem value="#{myBundle.FilesMenuItem_documentId}" icon="ui-icon-search"  actionListener="#{filesController.prepareDocumentId}" update=":DocumentsViewForm" oncomplete="PF('DocumentsViewDialog').show()" disabled="#{empty filesController.selected.documentId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{filesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{filesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{filesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FilesDataTableContextMenu" listener="#{filesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FilesDataTableContextMenu" listener="#{filesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{filesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FilesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastModified}" filterBy="#{item.lastModified}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_lastModified}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastModified}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contents}" filterBy="#{item.contents}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_contents}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contents}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.type}" filterBy="#{item.type}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilesTitle_type}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.type}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.originalContents}" filterBy="#{item.originalContents}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFilesTitle_originalContents}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.originalContents}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.newContents}" filterBy="#{item.newContents}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFilesTitle_newContents}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.newContents}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.groupId.name}" filterBy="#{item.groupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFilesTitle_groupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.groupId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.groupFilterId.name}" filterBy="#{item.groupFilterId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFilesTitle_groupFilterId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.groupFilterId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.documentId.name}" filterBy="#{item.documentId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListFilesTitle_documentId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.documentId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{filesController.prepareCreate}" update=":FilesCreateForm" oncomplete="PF('FilesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FilesViewForm" oncomplete="PF('FilesViewDialog').show()" disabled="#{empty filesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FilesEditForm" oncomplete="PF('FilesEditDialog').show()" disabled="#{empty filesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{filesController.delete}" update=":growl,datalist" disabled="#{empty filesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberRecordTypesViewDlg" widgetVar="MemberRecordTypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberRecordTypesTitle}" closeOnEscape="true">
+
+            <h:form id="MemberRecordTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MemberRecordTypesTabView">
+
+                        <p:tab id="MemberRecordTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{memberRecordTypesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_id}"/>
+                                <h:outputText value="#{memberRecordTypesController.selected.id}" title="#{myBundle.ViewMemberRecordTypesTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_name}"/>
+                                <h:outputText value="#{memberRecordTypesController.selected.name}" title="#{myBundle.ViewMemberRecordTypesTitle_name}"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_label}"/>
+                                <h:outputText value="#{memberRecordTypesController.selected.label}" title="#{myBundle.ViewMemberRecordTypesTitle_label}"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_editable}"/>
+                                <h:selectBooleanCheckbox id="editable" value="#{memberRecordTypesController.selected.editable}" title="#{myBundle.EditMemberRecordTypesTitle_editable}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_editable}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_showMenuItem}"/>
+                                <h:selectBooleanCheckbox id="showMenuItem" value="#{memberRecordTypesController.selected.showMenuItem}" title="#{myBundle.EditMemberRecordTypesTitle_showMenuItem}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_showMenuItem}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_layout}"/>
+                                <h:outputText value="#{memberRecordTypesController.selected.layout}" title="#{myBundle.ViewMemberRecordTypesTitle_layout}"/>
+
+                                <h:outputText value="#{myBundle.ViewMemberRecordTypesLabel_description}"/>
+                                <h:outputText value="#{memberRecordTypesController.selected.description}" title="#{myBundle.ViewMemberRecordTypesTitle_description}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberRecordTypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

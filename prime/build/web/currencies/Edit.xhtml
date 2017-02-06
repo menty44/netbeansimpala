@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CurrenciesEditDlg" widgetVar="CurrenciesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCurrenciesTitle}" closeOnEscape="true">
+
+            <h:form id="CurrenciesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{currenciesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCurrenciesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{currenciesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{currenciesController.selected.name}" title="#{myBundle.EditCurrenciesTitle_name}" required="true" requiredMessage="#{myBundle.EditCurrenciesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_symbol}" for="symbol" />
+                        <p:inputText id="symbol" value="#{currenciesController.selected.symbol}" title="#{myBundle.EditCurrenciesTitle_symbol}" required="true" requiredMessage="#{myBundle.EditCurrenciesRequiredMessage_symbol}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_pattern}" for="pattern" />
+                        <p:inputText id="pattern" value="#{currenciesController.selected.pattern}" title="#{myBundle.EditCurrenciesTitle_pattern}" required="true" requiredMessage="#{myBundle.EditCurrenciesRequiredMessage_pattern}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{currenciesController.selected.description}" title="#{myBundle.EditCurrenciesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_ARateParamsId}" for="ARateParamsId" />
+                        <p:selectOneMenu id="ARateParamsId" value="#{currenciesController.selected.ARateParamsId}"  converter="rateParametersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rateParametersController.items}"
+                                           var="ARateParamsIdItem"
+                                           itemValue="#{ARateParamsIdItem}"
+                                           itemLabel="#{ARateParamsIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_DRateParamsId}" for="DRateParamsId" />
+                        <p:selectOneMenu id="DRateParamsId" value="#{currenciesController.selected.DRateParamsId}"  converter="rateParametersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rateParametersController.items}"
+                                           var="DRateParamsIdItem"
+                                           itemValue="#{DRateParamsIdItem}"
+                                           itemLabel="#{DRateParamsIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCurrenciesLabel_IRateParamsId}" for="IRateParamsId" />
+                        <p:selectOneMenu id="IRateParamsId" value="#{currenciesController.selected.IRateParamsId}"  converter="rateParametersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rateParametersController.items}"
+                                           var="IRateParamsIdItem"
+                                           itemValue="#{IRateParamsIdItem}"
+                                           itemLabel="#{IRateParamsIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{currenciesController.save}" value="#{myBundle.Save}" update="display,:CurrenciesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CurrenciesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CurrenciesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentsCreateDlg" widgetVar="DocumentsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDocumentsTitle}" closeOnEscape="true">
+
+            <h:form id="DocumentsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{documentsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{documentsController.selected.subclass}" title="#{myBundle.CreateDocumentsTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateDocumentsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{documentsController.selected.name}" title="#{myBundle.CreateDocumentsTitle_name}" required="true" requiredMessage="#{myBundle.CreateDocumentsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{documentsController.selected.description}" title="#{myBundle.CreateDocumentsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_visibility}" for="visibility" />
+                        <p:inputText id="visibility" value="#{documentsController.selected.visibility}" title="#{myBundle.CreateDocumentsTitle_visibility}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_documentPageId}" for="documentPageId" />
+                        <p:selectOneMenu id="documentPageId" value="#{documentsController.selected.documentPageId}"  converter="filesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{filesController.items}"
+                                           var="documentPageIdItem"
+                                           itemValue="#{documentPageIdItem}"
+                                           itemLabel="#{documentPageIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{documentsController.selected.memberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_formPageId}" for="formPageId" />
+                        <p:selectOneMenu id="formPageId" value="#{documentsController.selected.formPageId}"  converter="filesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{filesController.items}"
+                                           var="formPageIdItem"
+                                           itemValue="#{formPageIdItem}"
+                                           itemLabel="#{formPageIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDocumentsLabel_binaryFileId}" for="binaryFileId" />
+                        <p:selectOneMenu id="binaryFileId" value="#{documentsController.selected.binaryFileId}"  converter="binaryFilesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{binaryFilesController.items}"
+                                           var="binaryFileIdItem"
+                                           itemValue="#{binaryFileIdItem}"
+                                           itemLabel="#{binaryFileIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentsController.saveNew}" value="#{myBundle.Save}" update="display,:DocumentsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DocumentsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DocumentsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

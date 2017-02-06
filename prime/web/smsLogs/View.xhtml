@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SmsLogsViewDlg" widgetVar="SmsLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSmsLogsTitle}" closeOnEscape="true">
+
+            <h:form id="SmsLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{smsLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_id}"/>
+                        <h:outputText value="#{smsLogsController.selected.id}" title="#{myBundle.ViewSmsLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_date}"/>
+                        <h:outputText value="#{smsLogsController.selected.date}" title="#{myBundle.ViewSmsLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_freeBaseUsed}"/>
+                        <h:selectBooleanCheckbox id="freeBaseUsed" value="#{smsLogsController.selected.freeBaseUsed}" title="#{myBundle.EditSmsLogsTitle_freeBaseUsed}" required="true" requiredMessage="#{myBundle.EditSmsLogsRequiredMessage_freeBaseUsed}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_messageType}"/>
+                        <h:outputText value="#{smsLogsController.selected.messageType}" title="#{myBundle.ViewSmsLogsTitle_messageType}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_errorType}"/>
+                        <h:outputText value="#{smsLogsController.selected.errorType}" title="#{myBundle.ViewSmsLogsTitle_errorType}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_arg0}"/>
+                        <h:outputText value="#{smsLogsController.selected.arg0}" title="#{myBundle.ViewSmsLogsTitle_arg0}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_arg1}"/>
+                        <h:outputText value="#{smsLogsController.selected.arg1}" title="#{myBundle.ViewSmsLogsTitle_arg1}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_arg2}"/>
+                        <h:outputText value="#{smsLogsController.selected.arg2}" title="#{myBundle.ViewSmsLogsTitle_arg2}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_arg3}"/>
+                        <h:outputText value="#{smsLogsController.selected.arg3}" title="#{myBundle.ViewSmsLogsTitle_arg3}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_arg4}"/>
+                        <h:outputText value="#{smsLogsController.selected.arg4}" title="#{myBundle.ViewSmsLogsTitle_arg4}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_chargedMemberId}"/>
+                        <h:outputText value="#{smsLogsController.selected.chargedMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_smsMailingId}"/>
+                        <h:outputText value="#{smsLogsController.selected.smsMailingId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_smsTypeId}"/>
+                        <h:outputText value="#{smsLogsController.selected.smsTypeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsLogsLabel_targetMemberId}"/>
+                        <h:outputText value="#{smsLogsController.selected.targetMemberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SmsLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

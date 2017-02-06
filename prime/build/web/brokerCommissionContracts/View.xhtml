@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BrokerCommissionContractsViewDlg" widgetVar="BrokerCommissionContractsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewBrokerCommissionContractsTitle}" closeOnEscape="true">
+
+            <h:form id="BrokerCommissionContractsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{brokerCommissionContractsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_id}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.id}" title="#{myBundle.ViewBrokerCommissionContractsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_amountValue}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.amountValue}" title="#{myBundle.ViewBrokerCommissionContractsTitle_amountValue}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_amountType}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.amountType}" title="#{myBundle.ViewBrokerCommissionContractsTitle_amountType}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_startDate}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.startDate}" title="#{myBundle.ViewBrokerCommissionContractsTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_endDate}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.endDate}" title="#{myBundle.ViewBrokerCommissionContractsTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_status}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.status}" title="#{myBundle.ViewBrokerCommissionContractsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_statusBeforeSuspension}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.statusBeforeSuspension}" title="#{myBundle.ViewBrokerCommissionContractsTitle_statusBeforeSuspension}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_cancelledById}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.cancelledById.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_brokeringId}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.brokeringId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_brokerCommissionId}"/>
+                        <h:outputText value="#{brokerCommissionContractsController.selected.brokerCommissionId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('BrokerCommissionContractsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

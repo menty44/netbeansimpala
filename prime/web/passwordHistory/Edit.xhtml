@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PasswordHistoryEditDlg" widgetVar="PasswordHistoryEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPasswordHistoryTitle}" closeOnEscape="true">
+
+            <h:form id="PasswordHistoryEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{passwordHistoryController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPasswordHistoryLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{passwordHistoryController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPasswordHistoryLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy" value="#{passwordHistoryController.selected.date}" title="#{myBundle.EditPasswordHistoryTitle_date}" required="true" requiredMessage="#{myBundle.EditPasswordHistoryRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPasswordHistoryLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{passwordHistoryController.selected.type}" title="#{myBundle.EditPasswordHistoryTitle_type}" required="true" requiredMessage="#{myBundle.EditPasswordHistoryRequiredMessage_type}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditPasswordHistoryLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{passwordHistoryController.selected.password}" title="#{myBundle.EditPasswordHistoryTitle_password}" required="true" requiredMessage="#{myBundle.EditPasswordHistoryRequiredMessage_password}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPasswordHistoryLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{passwordHistoryController.selected.userId}" required="true" requiredMessage="#{myBundle.EditPasswordHistoryRequiredMessage_userId}" converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"
+                                           itemLabel="#{userIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{passwordHistoryController.save}" value="#{myBundle.Save}" update="display,:PasswordHistoryListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PasswordHistoryEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PasswordHistoryEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

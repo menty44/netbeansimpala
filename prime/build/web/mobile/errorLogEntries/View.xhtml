@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ErrorLogEntriesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewErrorLogEntriesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ErrorLogEntriesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ErrorLogEntriesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{errorLogEntriesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_id}"/>
+                            <h:outputText value="#{errorLogEntriesController.selected.id}" title="#{myBundle.ViewErrorLogEntriesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_date}"/>
+                            <h:outputText value="#{errorLogEntriesController.selected.date}" title="#{myBundle.ViewErrorLogEntriesTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_path}"/>
+                            <h:outputText value="#{errorLogEntriesController.selected.path}" title="#{myBundle.ViewErrorLogEntriesTitle_path}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_removed}"/>
+                            <h:selectBooleanCheckbox id="removed" value="#{errorLogEntriesController.selected.removed}" title="#{myBundle.EditErrorLogEntriesTitle_removed}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_removed}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_stackTrace}"/>
+                            <h:outputText value="#{errorLogEntriesController.selected.stackTrace}" title="#{myBundle.ViewErrorLogEntriesTitle_stackTrace}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_loggedUserId}"/>
+                            <h:outputText value="#{errorLogEntriesController.selected.loggedUserId.username}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

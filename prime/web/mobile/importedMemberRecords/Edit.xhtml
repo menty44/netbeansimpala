@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ImportedMemberRecordsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditImportedMemberRecordsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ImportedMemberRecordsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ImportedMemberRecordsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{importedMemberRecordsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditImportedMemberRecordsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{importedMemberRecordsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditImportedMemberRecordsLabel_importedMemberId}" for="importedMemberId" />
+                            <p:selectOneMenu id="importedMemberId" value="#{importedMemberRecordsController.selected.importedMemberId}"  converter="importedMembersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{importedMembersController.items}"
+                                               var="importedMemberIdItem"
+                                               itemValue="#{importedMemberIdItem}"
+                                               itemLabel="#{importedMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditImportedMemberRecordsLabel_memberRecordTypeId}" for="memberRecordTypeId" />
+                            <p:selectOneMenu id="memberRecordTypeId" value="#{importedMemberRecordsController.selected.memberRecordTypeId}" required="true" requiredMessage="#{myBundle.EditImportedMemberRecordsRequiredMessage_memberRecordTypeId}" converter="memberRecordTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{memberRecordTypesController.items}"
+                                               var="memberRecordTypeIdItem"
+                                               itemValue="#{memberRecordTypeIdItem}"
+                                               itemLabel="#{memberRecordTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{importedMemberRecordsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ImportedMemberRecordsListPage:ImportedMemberRecordsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ImportedMemberRecordsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

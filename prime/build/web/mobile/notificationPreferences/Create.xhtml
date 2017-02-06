@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="NotificationPreferencesCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateNotificationPreferencesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:NotificationPreferencesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="NotificationPreferencesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{notificationPreferencesController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_type}" for="type" />
+                            <p:inputText id="type" value="#{notificationPreferencesController.selected.type}" title="#{myBundle.CreateNotificationPreferencesTitle_type}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_type}" size="3" maxlength="3"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isMessage}" for="isMessage" />
+                            <p:selectBooleanCheckbox id="isMessage" value="#{notificationPreferencesController.selected.isMessage}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isMessage}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isEmail}" for="isEmail" />
+                            <p:selectBooleanCheckbox id="isEmail" value="#{notificationPreferencesController.selected.isEmail}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isEmail}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isSms}" for="isSms" />
+                            <p:selectBooleanCheckbox id="isSms" value="#{notificationPreferencesController.selected.isSms}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isSms}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_member1}" for="member1" />
+                            <p:selectOneMenu id="member1" value="#{notificationPreferencesController.selected.member1}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="member1Item"
+                                               itemValue="#{member1Item}"
+                                               itemLabel="#{member1Item.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{notificationPreferencesController.saveNew}" value="#{myBundle.Save}" update="display,:NotificationPreferencesListPage:NotificationPreferencesListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:NotificationPreferencesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

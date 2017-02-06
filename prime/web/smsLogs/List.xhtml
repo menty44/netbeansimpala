@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SmsLogsListForm">
+
+        <p:panel header="#{myBundle.ListSmsLogsTitle}">
+            <p:contextMenu id="SmsLogsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('SmsLogsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('SmsLogsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('SmsLogsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('SmsLogsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.SmsLogsMenuItem_chargedMemberId}" icon="ui-icon-search"  actionListener="#{smsLogsController.prepareChargedMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty smsLogsController.selected.chargedMemberId}"/>  
+                <p:menuitem value="#{myBundle.SmsLogsMenuItem_smsMailingId}" icon="ui-icon-search"  actionListener="#{smsLogsController.prepareSmsMailingId}" update=":SmsMailingsViewForm" oncomplete="PF('SmsMailingsViewDialog').show()" disabled="#{empty smsLogsController.selected.smsMailingId}"/>  
+                <p:menuitem value="#{myBundle.SmsLogsMenuItem_smsTypeId}" icon="ui-icon-search"  actionListener="#{smsLogsController.prepareSmsTypeId}" update=":SmsTypesViewForm" oncomplete="PF('SmsTypesViewDialog').show()" disabled="#{empty smsLogsController.selected.smsTypeId}"/>  
+                <p:menuitem value="#{myBundle.SmsLogsMenuItem_targetMemberId}" icon="ui-icon-search"  actionListener="#{smsLogsController.prepareTargetMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty smsLogsController.selected.targetMemberId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{smsLogsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{smsLogsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{smsLogsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SmsLogsDataTableContextMenu" listener="#{smsLogsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SmsLogsDataTableContextMenu" listener="#{smsLogsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{smsLogsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('SmsLogsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.freeBaseUsed}" filterBy="#{item.freeBaseUsed}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_freeBaseUsed}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="freeBaseUsed" value="#{item.freeBaseUsed}" title="#{myBundle.EditSmsLogsTitle_freeBaseUsed}" required="true" requiredMessage="#{myBundle.EditSmsLogsRequiredMessage_freeBaseUsed}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.messageType}" filterBy="#{item.messageType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_messageType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.messageType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.errorType}" filterBy="#{item.errorType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_errorType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.errorType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.arg0}" filterBy="#{item.arg0}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsLogsTitle_arg0}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arg0}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.arg1}" filterBy="#{item.arg1}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_arg1}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg1}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.arg2}" filterBy="#{item.arg2}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_arg2}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg2}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.arg3}" filterBy="#{item.arg3}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_arg3}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg3}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.arg4}" filterBy="#{item.arg4}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_arg4}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg4}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.chargedMemberId.name}" filterBy="#{item.chargedMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_chargedMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.chargedMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsMailingId.id}" filterBy="#{item.smsMailingId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_smsMailingId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsMailingId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsTypeId.id}" filterBy="#{item.smsTypeId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_smsTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsTypeId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.targetMemberId.name}" filterBy="#{item.targetMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsLogsTitle_targetMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.targetMemberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{smsLogsController.prepareCreate}" update=":SmsLogsCreateForm" oncomplete="PF('SmsLogsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":SmsLogsViewForm" oncomplete="PF('SmsLogsViewDialog').show()" disabled="#{empty smsLogsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":SmsLogsEditForm" oncomplete="PF('SmsLogsEditDialog').show()" disabled="#{empty smsLogsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{smsLogsController.delete}" update=":growl,datalist" disabled="#{empty smsLogsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

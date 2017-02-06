@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberGroupAccountSettingsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateMemberGroupAccountSettingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberGroupAccountSettingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberGroupAccountSettingsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{memberGroupAccountSettingsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_defaultType}" for="defaultType" />
+                            <p:selectBooleanCheckbox id="defaultType" value="#{memberGroupAccountSettingsController.selected.defaultType}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_defaultType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_transactionPasswordRequired}" for="transactionPasswordRequired" />
+                            <p:selectBooleanCheckbox id="transactionPasswordRequired" value="#{memberGroupAccountSettingsController.selected.transactionPasswordRequired}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_transactionPasswordRequired}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_hideWhenNoCreditLimit}" for="hideWhenNoCreditLimit" />
+                            <p:selectBooleanCheckbox id="hideWhenNoCreditLimit" value="#{memberGroupAccountSettingsController.selected.hideWhenNoCreditLimit}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_hideWhenNoCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_defaultCreditLimit}" for="defaultCreditLimit" />
+                            <p:inputText id="defaultCreditLimit" value="#{memberGroupAccountSettingsController.selected.defaultCreditLimit}" title="#{myBundle.CreateMemberGroupAccountSettingsTitle_defaultCreditLimit}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_defaultCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_defaultUpperCreditLimit}" for="defaultUpperCreditLimit" />
+                            <p:inputText id="defaultUpperCreditLimit" value="#{memberGroupAccountSettingsController.selected.defaultUpperCreditLimit}" title="#{myBundle.CreateMemberGroupAccountSettingsTitle_defaultUpperCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_initialCredit}" for="initialCredit" />
+                            <p:inputText id="initialCredit" value="#{memberGroupAccountSettingsController.selected.initialCredit}" title="#{myBundle.CreateMemberGroupAccountSettingsTitle_initialCredit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_lowUnits}" for="lowUnits" />
+                            <p:inputText id="lowUnits" value="#{memberGroupAccountSettingsController.selected.lowUnits}" title="#{myBundle.CreateMemberGroupAccountSettingsTitle_lowUnits}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_lowUnitsMessage}" for="lowUnitsMessage" />
+                            <p:inputTextarea rows="4" cols="30" id="lowUnitsMessage" value="#{memberGroupAccountSettingsController.selected.lowUnitsMessage}" title="#{myBundle.CreateMemberGroupAccountSettingsTitle_lowUnitsMessage}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_initialCreditTransferTypeId}" for="initialCreditTransferTypeId" />
+                            <p:selectOneMenu id="initialCreditTransferTypeId" value="#{memberGroupAccountSettingsController.selected.initialCreditTransferTypeId}"  converter="transferTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transferTypesController.items}"
+                                               var="initialCreditTransferTypeIdItem"
+                                               itemValue="#{initialCreditTransferTypeIdItem}"
+                                               itemLabel="#{initialCreditTransferTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_groupId}" for="groupId" />
+                            <p:selectOneMenu id="groupId" value="#{memberGroupAccountSettingsController.selected.groupId}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_groupId}" converter="groupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupIdItem"
+                                               itemValue="#{groupIdItem}"
+                                               itemLabel="#{groupIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberGroupAccountSettingsLabel_typeId}" for="typeId" />
+                            <p:selectOneMenu id="typeId" value="#{memberGroupAccountSettingsController.selected.typeId}" required="true" requiredMessage="#{myBundle.CreateMemberGroupAccountSettingsRequiredMessage_typeId}" converter="accountTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountTypesController.items}"
+                                               var="typeIdItem"
+                                               itemValue="#{typeIdItem}"
+                                               itemLabel="#{typeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{memberGroupAccountSettingsController.saveNew}" value="#{myBundle.Save}" update="display,:MemberGroupAccountSettingsListPage:MemberGroupAccountSettingsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MemberGroupAccountSettingsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

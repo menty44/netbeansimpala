@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MessagesListForm">
+
+        <p:panel header="#{myBundle.ListMessagesTitle}">
+            <p:contextMenu id="MessagesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MessagesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MessagesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MessagesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MessagesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MessagesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{messagesController.navigateGroupsCollection}" disabled="#{empty messagesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MessagesMenuItem_categoryId}" icon="ui-icon-search"  actionListener="#{messagesController.prepareCategoryId}" update=":MessageCategoriesViewForm" oncomplete="PF('MessageCategoriesViewDialog').show()" disabled="#{empty messagesController.selected.categoryId}"/>  
+                <p:menuitem value="#{myBundle.MessagesMenuItem_fromMemberId}" icon="ui-icon-search"  actionListener="#{messagesController.prepareFromMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty messagesController.selected.fromMemberId}"/>  
+                <p:menuitem value="#{myBundle.MessagesMenuItem_toMemberId}" icon="ui-icon-search"  actionListener="#{messagesController.prepareToMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty messagesController.selected.toMemberId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{messagesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{messagesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{messagesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MessagesDataTableContextMenu" listener="#{messagesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MessagesDataTableContextMenu" listener="#{messagesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{messagesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MessagesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subject}" filterBy="#{item.subject}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_subject}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subject}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.type}" filterBy="#{item.type}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_type}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.type}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.direction}" filterBy="#{item.direction}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_direction}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.direction}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.isRead}" filterBy="#{item.isRead}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle_isRead}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="isRead" value="#{item.isRead}" title="#{myBundle.EditMessagesTitle_isRead}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isRead}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.isReplied}" filterBy="#{item.isReplied}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_isReplied}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="isReplied" value="#{item.isReplied}" title="#{myBundle.EditMessagesTitle_isReplied}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isReplied}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.isHtml}" filterBy="#{item.isHtml}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_isHtml}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="isHtml" value="#{item.isHtml}" title="#{myBundle.EditMessagesTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isHtml}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.removedAt}" filterBy="#{item.removedAt}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_removedAt}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.removedAt}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.body}" filterBy="#{item.body}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_body}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.body}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.emailSent}" filterBy="#{item.emailSent}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_emailSent}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="emailSent" value="#{item.emailSent}" title="#{myBundle.EditMessagesTitle_emailSent}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_emailSent}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.categoryId.name}" filterBy="#{item.categoryId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_categoryId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.categoryId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromMemberId.name}" filterBy="#{item.fromMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_fromMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toMemberId.name}" filterBy="#{item.toMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMessagesTitle_toMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toMemberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{messagesController.prepareCreate}" update=":MessagesCreateForm" oncomplete="PF('MessagesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MessagesViewForm" oncomplete="PF('MessagesViewDialog').show()" disabled="#{empty messagesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MessagesEditForm" oncomplete="PF('MessagesEditDialog').show()" disabled="#{empty messagesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{messagesController.delete}" update=":growl,datalist" disabled="#{empty messagesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

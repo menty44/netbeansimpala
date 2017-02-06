@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="IndexOperationsEditDlg" widgetVar="IndexOperationsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditIndexOperationsTitle}" closeOnEscape="true">
+
+            <h:form id="IndexOperationsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{indexOperationsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditIndexOperationsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{indexOperationsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditIndexOperationsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{indexOperationsController.selected.date}" title="#{myBundle.EditIndexOperationsTitle_date}" required="true" requiredMessage="#{myBundle.EditIndexOperationsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditIndexOperationsLabel_entityType}" for="entityType" />
+                        <p:inputText id="entityType" value="#{indexOperationsController.selected.entityType}" title="#{myBundle.EditIndexOperationsTitle_entityType}" required="true" requiredMessage="#{myBundle.EditIndexOperationsRequiredMessage_entityType}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.EditIndexOperationsLabel_operationType}" for="operationType" />
+                        <p:inputText id="operationType" value="#{indexOperationsController.selected.operationType}" title="#{myBundle.EditIndexOperationsTitle_operationType}" required="true" requiredMessage="#{myBundle.EditIndexOperationsRequiredMessage_operationType}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.EditIndexOperationsLabel_entityId}" for="entityId" />
+                        <p:inputText id="entityId" value="#{indexOperationsController.selected.entityId}" title="#{myBundle.EditIndexOperationsTitle_entityId}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indexOperationsController.save}" value="#{myBundle.Save}" update="display,:IndexOperationsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('IndexOperationsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('IndexOperationsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

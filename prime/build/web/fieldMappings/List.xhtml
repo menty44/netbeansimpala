@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="FieldMappingsListForm">
+
+        <p:panel header="#{myBundle.ListFieldMappingsTitle}">
+            <p:contextMenu id="FieldMappingsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('FieldMappingsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('FieldMappingsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('FieldMappingsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('FieldMappingsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.FieldMappingsMenuItem_fileMappingId}" icon="ui-icon-search"  actionListener="#{fieldMappingsController.prepareFileMappingId}" update=":FileMappingsViewForm" oncomplete="PF('FileMappingsViewDialog').show()" disabled="#{empty fieldMappingsController.selected.fileMappingId}"/>  
+                <p:menuitem value="#{myBundle.FieldMappingsMenuItem_memberFieldId}" icon="ui-icon-search"  actionListener="#{fieldMappingsController.prepareMemberFieldId}" update=":CustomFieldsViewForm" oncomplete="PF('CustomFieldsViewDialog').show()" disabled="#{empty fieldMappingsController.selected.memberFieldId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{fieldMappingsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{fieldMappingsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{fieldMappingsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FieldMappingsDataTableContextMenu" listener="#{fieldMappingsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:FieldMappingsDataTableContextMenu" listener="#{fieldMappingsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{fieldMappingsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('FieldMappingsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.orderIndex}" filterBy="#{item.orderIndex}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_orderIndex}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.orderIndex}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.field}" filterBy="#{item.field}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_field}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.field}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fileMappingId.classname}" filterBy="#{item.fileMappingId.classname}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_fileMappingId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fileMappingId.classname}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.memberFieldId.internalName}" filterBy="#{item.memberFieldId.internalName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFieldMappingsTitle_memberFieldId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.memberFieldId.internalName}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{fieldMappingsController.prepareCreate}" update=":FieldMappingsCreateForm" oncomplete="PF('FieldMappingsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":FieldMappingsViewForm" oncomplete="PF('FieldMappingsViewDialog').show()" disabled="#{empty fieldMappingsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":FieldMappingsEditForm" oncomplete="PF('FieldMappingsEditDialog').show()" disabled="#{empty fieldMappingsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{fieldMappingsController.delete}" update=":growl,datalist" disabled="#{empty fieldMappingsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountRatesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAccountRatesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountRatesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountRatesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountRatesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAccountRatesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{accountRatesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_emissionDate}" for="emissionDate" />
+                            <p:calendar id="emissionDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountRatesController.selected.emissionDate}" title="#{myBundle.EditAccountRatesTitle_emissionDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_expirationDate}" for="expirationDate" />
+                            <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountRatesController.selected.expirationDate}" title="#{myBundle.EditAccountRatesTitle_expirationDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_IRate}" for="IRate" />
+                            <p:inputText id="IRate" value="#{accountRatesController.selected.IRate}" title="#{myBundle.EditAccountRatesTitle_IRate}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_rateBalanceCorrection}" for="rateBalanceCorrection" />
+                            <p:inputText id="rateBalanceCorrection" value="#{accountRatesController.selected.rateBalanceCorrection}" title="#{myBundle.EditAccountRatesTitle_rateBalanceCorrection}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_transferId}" for="transferId" />
+                            <p:selectOneMenu id="transferId" value="#{accountRatesController.selected.transferId}" required="true" requiredMessage="#{myBundle.EditAccountRatesRequiredMessage_transferId}" converter="transfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transfersController.items}"
+                                               var="transferIdItem"
+                                               itemValue="#{transferIdItem}"
+                                               itemLabel="#{transferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAccountRatesLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{accountRatesController.selected.accountId}" required="true" requiredMessage="#{myBundle.EditAccountRatesRequiredMessage_accountId}" converter="accountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.ownerName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{accountRatesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AccountRatesListPage:AccountRatesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AccountRatesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

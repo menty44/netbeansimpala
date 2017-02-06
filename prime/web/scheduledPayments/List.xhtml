@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ScheduledPaymentsListForm">
+
+        <p:panel header="#{myBundle.ListScheduledPaymentsTitle}">
+            <p:contextMenu id="ScheduledPaymentsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ScheduledPaymentsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ScheduledPaymentsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ScheduledPaymentsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ScheduledPaymentsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_invoicesCollection}" icon="ui-icon-search"  action="#{scheduledPaymentsController.navigateInvoicesCollection}" disabled="#{empty scheduledPaymentsController.selected.invoicesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_byId}" icon="ui-icon-search"  actionListener="#{scheduledPaymentsController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty scheduledPaymentsController.selected.byId}"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_fromAccountId}" icon="ui-icon-search"  actionListener="#{scheduledPaymentsController.prepareFromAccountId}" update=":AccountsViewForm" oncomplete="PF('AccountsViewDialog').show()" disabled="#{empty scheduledPaymentsController.selected.fromAccountId}"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_typeId}" icon="ui-icon-search"  actionListener="#{scheduledPaymentsController.prepareTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty scheduledPaymentsController.selected.typeId}"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_toAccountId}" icon="ui-icon-search"  actionListener="#{scheduledPaymentsController.prepareToAccountId}" update=":AccountsViewForm" oncomplete="PF('AccountsViewDialog').show()" disabled="#{empty scheduledPaymentsController.selected.toAccountId}"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_transfersCollection}" icon="ui-icon-search"  action="#{scheduledPaymentsController.navigateTransfersCollection}" disabled="#{empty scheduledPaymentsController.selected.transfersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_refsCollection}" icon="ui-icon-search"  action="#{scheduledPaymentsController.navigateRefsCollection}" disabled="#{empty scheduledPaymentsController.selected.refsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_amountReservationsCollection}" icon="ui-icon-search"  action="#{scheduledPaymentsController.navigateAmountReservationsCollection}" disabled="#{empty scheduledPaymentsController.selected.amountReservationsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ScheduledPaymentsMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{scheduledPaymentsController.navigateCustomFieldValuesCollection}" disabled="#{empty scheduledPaymentsController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{scheduledPaymentsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{scheduledPaymentsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{scheduledPaymentsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ScheduledPaymentsDataTableContextMenu" listener="#{scheduledPaymentsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ScheduledPaymentsDataTableContextMenu" listener="#{scheduledPaymentsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{scheduledPaymentsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ScheduledPaymentsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.processDate}" filterBy="#{item.processDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_processDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.processDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.feedbackDeadline}" filterBy="#{item.feedbackDeadline}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_feedbackDeadline}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.feedbackDeadline}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.reserveAmount}" filterBy="#{item.reserveAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_reserveAmount}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="reserveAmount" value="#{item.reserveAmount}" title="#{myBundle.EditScheduledPaymentsTitle_reserveAmount}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_reserveAmount}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.showToReceiver}" filterBy="#{item.showToReceiver}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_showToReceiver}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="showToReceiver" value="#{item.showToReceiver}" title="#{myBundle.EditScheduledPaymentsTitle_showToReceiver}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_showToReceiver}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_byId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.byId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromAccountId.ownerName}" filterBy="#{item.fromAccountId.ownerName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_fromAccountId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromAccountId.ownerName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.typeId.name}" filterBy="#{item.typeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_typeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.typeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toAccountId.ownerName}" filterBy="#{item.toAccountId.ownerName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListScheduledPaymentsTitle_toAccountId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toAccountId.ownerName}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{scheduledPaymentsController.prepareCreate}" update=":ScheduledPaymentsCreateForm" oncomplete="PF('ScheduledPaymentsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ScheduledPaymentsViewForm" oncomplete="PF('ScheduledPaymentsViewDialog').show()" disabled="#{empty scheduledPaymentsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ScheduledPaymentsEditForm" oncomplete="PF('ScheduledPaymentsEditDialog').show()" disabled="#{empty scheduledPaymentsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{scheduledPaymentsController.delete}" update=":growl,datalist" disabled="#{empty scheduledPaymentsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

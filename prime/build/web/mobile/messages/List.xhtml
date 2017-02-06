@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MessagesListPage">
+        <pm:header title="#{myBundle.ListMessagesTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":MessagesCreatePage:MessagesCreateForm" actionListener="#{messagesController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:MessagesCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MessagesListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{messagesController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMessagesTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":MessagesEditPage:MessagesEditForm" action="pm:MessagesEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.subject}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.type}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.direction}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="isRead" value="#{item.isRead}" title="#{myBundle.EditMessagesTitle_isRead}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isRead}" disabled="true"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="isReplied" value="#{item.isReplied}" title="#{myBundle.EditMessagesTitle_isReplied}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isReplied}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="isHtml" value="#{item.isHtml}" title="#{myBundle.EditMessagesTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isHtml}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.removedAt}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.body}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="emailSent" value="#{item.emailSent}" title="#{myBundle.EditMessagesTitle_emailSent}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_emailSent}" disabled="true"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.categoryId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.fromMemberId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.toMemberId.name}"/>
+                            -->
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{messagesController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListMessagesTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

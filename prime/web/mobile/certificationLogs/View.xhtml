@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CertificationLogsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCertificationLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CertificationLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CertificationLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{certificationLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationLogsLabel_id}"/>
+                            <h:outputText value="#{certificationLogsController.selected.id}" title="#{myBundle.ViewCertificationLogsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationLogsLabel_date}"/>
+                            <h:outputText value="#{certificationLogsController.selected.date}" title="#{myBundle.ViewCertificationLogsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationLogsLabel_status}"/>
+                            <h:outputText value="#{certificationLogsController.selected.status}" title="#{myBundle.ViewCertificationLogsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationLogsLabel_certificationId}"/>
+                            <h:outputText value="#{certificationLogsController.selected.certificationId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewCertificationLogsLabel_byId}"/>
+                            <h:outputText value="#{certificationLogsController.selected.byId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="BrokerCommissionContractsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewBrokerCommissionContractsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:BrokerCommissionContractsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="BrokerCommissionContractsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{brokerCommissionContractsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_id}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.id}" title="#{myBundle.ViewBrokerCommissionContractsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_amountValue}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.amountValue}" title="#{myBundle.ViewBrokerCommissionContractsTitle_amountValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_amountType}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.amountType}" title="#{myBundle.ViewBrokerCommissionContractsTitle_amountType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_startDate}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.startDate}" title="#{myBundle.ViewBrokerCommissionContractsTitle_startDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_endDate}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.endDate}" title="#{myBundle.ViewBrokerCommissionContractsTitle_endDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_status}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.status}" title="#{myBundle.ViewBrokerCommissionContractsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_statusBeforeSuspension}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.statusBeforeSuspension}" title="#{myBundle.ViewBrokerCommissionContractsTitle_statusBeforeSuspension}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_cancelledById}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.cancelledById.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_brokeringId}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.brokeringId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokerCommissionContractsLabel_brokerCommissionId}"/>
+                            <h:outputText value="#{brokerCommissionContractsController.selected.brokerCommissionId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

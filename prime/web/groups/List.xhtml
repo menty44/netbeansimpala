@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="GroupsListForm">
+
+        <p:panel header="#{myBundle.ListGroupsTitle}">
+            <p:contextMenu id="GroupsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('GroupsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('GroupsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('GroupsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('GroupsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transferTypesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateTransferTypesCollection}" disabled="#{empty groupsController.selected.transferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection}" disabled="#{empty groupsController.selected.memberRecordTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_accountFeesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateAccountFeesCollection}" disabled="#{empty groupsController.selected.accountFeesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_channelsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateChannelsCollection}" disabled="#{empty groupsController.selected.channelsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transactionFeesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateTransactionFeesCollection}" disabled="#{empty groupsController.selected.transactionFeesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection1}" disabled="#{empty groupsController.selected.memberRecordTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupFiltersCollection}" icon="ui-icon-search"  action="#{groupsController.navigateGroupFiltersCollection}" disabled="#{empty groupsController.selected.groupFiltersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_accountTypesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateAccountTypesCollection}" disabled="#{empty groupsController.selected.accountTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transferTypesCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateTransferTypesCollection1}" disabled="#{empty groupsController.selected.transferTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection2}" disabled="#{empty groupsController.selected.memberRecordTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_channelsCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateChannelsCollection1}" disabled="#{empty groupsController.selected.channelsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection3}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection3}" disabled="#{empty groupsController.selected.memberRecordTypesCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_accountTypesCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateAccountTypesCollection1}" disabled="#{empty groupsController.selected.accountTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection4}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection4}" disabled="#{empty groupsController.selected.memberRecordTypesCollection4}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection5}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection5}" disabled="#{empty groupsController.selected.memberRecordTypesCollection5}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection}" disabled="#{empty groupsController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection1}" disabled="#{empty groupsController.selected.groupsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transactionFeesCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateTransactionFeesCollection1}" disabled="#{empty groupsController.selected.transactionFeesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection2}" disabled="#{empty groupsController.selected.groupsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection3}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection3}" disabled="#{empty groupsController.selected.groupsCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_accountTypesCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateAccountTypesCollection2}" disabled="#{empty groupsController.selected.accountTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_accountTypesCollection3}" icon="ui-icon-search"  action="#{groupsController.navigateAccountTypesCollection3}" disabled="#{empty groupsController.selected.accountTypesCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_documentsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateDocumentsCollection}" disabled="#{empty groupsController.selected.documentsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_paymentFiltersCollection}" icon="ui-icon-search"  action="#{groupsController.navigatePaymentFiltersCollection}" disabled="#{empty groupsController.selected.paymentFiltersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_messageCategoriesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMessageCategoriesCollection}" disabled="#{empty groupsController.selected.messageCategoriesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection6}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection6}" disabled="#{empty groupsController.selected.memberRecordTypesCollection6}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_messagesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMessagesCollection}" disabled="#{empty groupsController.selected.messagesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection7}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection7}" disabled="#{empty groupsController.selected.memberRecordTypesCollection7}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection8}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection8}" disabled="#{empty groupsController.selected.memberRecordTypesCollection8}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection4}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection4}" disabled="#{empty groupsController.selected.groupsCollection4}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection5}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection5}" disabled="#{empty groupsController.selected.groupsCollection5}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_authorizationLevelsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateAuthorizationLevelsCollection}" disabled="#{empty groupsController.selected.authorizationLevelsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection9}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection9}" disabled="#{empty groupsController.selected.memberRecordTypesCollection9}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_serviceClientsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateServiceClientsCollection}" disabled="#{empty groupsController.selected.serviceClientsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection6}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection6}" disabled="#{empty groupsController.selected.groupsCollection6}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection7}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection7}" disabled="#{empty groupsController.selected.groupsCollection7}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transactionFeesCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateTransactionFeesCollection2}" disabled="#{empty groupsController.selected.transactionFeesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection8}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection8}" disabled="#{empty groupsController.selected.groupsCollection8}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection9}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection9}" disabled="#{empty groupsController.selected.groupsCollection9}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_documentsCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateDocumentsCollection1}" disabled="#{empty groupsController.selected.documentsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection10}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection10}" disabled="#{empty groupsController.selected.memberRecordTypesCollection10}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection11}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection11}" disabled="#{empty groupsController.selected.memberRecordTypesCollection11}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transferTypesCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateTransferTypesCollection2}" disabled="#{empty groupsController.selected.transferTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_transferTypesCollection3}" icon="ui-icon-search"  action="#{groupsController.navigateTransferTypesCollection3}" disabled="#{empty groupsController.selected.transferTypesCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_channelsCollection2}" icon="ui-icon-search"  action="#{groupsController.navigateChannelsCollection2}" disabled="#{empty groupsController.selected.channelsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection10}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection10}" disabled="#{empty groupsController.selected.groupsCollection10}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection11}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection11}" disabled="#{empty groupsController.selected.groupsCollection11}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_guaranteeTypesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateGuaranteeTypesCollection}" disabled="#{empty groupsController.selected.guaranteeTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberRecordTypesCollection12}" icon="ui-icon-search"  action="#{groupsController.navigateMemberRecordTypesCollection12}" disabled="#{empty groupsController.selected.memberRecordTypesCollection12}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection12}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection12}" disabled="#{empty groupsController.selected.groupsCollection12}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection13}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection13}" disabled="#{empty groupsController.selected.groupsCollection13}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_customFieldsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateCustomFieldsCollection}" disabled="#{empty groupsController.selected.customFieldsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_adminNotificationPreferencesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateAdminNotificationPreferencesCollection}" disabled="#{empty groupsController.selected.adminNotificationPreferencesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_smsMailingsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateSmsMailingsCollection}" disabled="#{empty groupsController.selected.smsMailingsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_permissionsCollection}" icon="ui-icon-search"  action="#{groupsController.navigatePermissionsCollection}" disabled="#{empty groupsController.selected.permissionsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_pendingMembersCollection}" icon="ui-icon-search"  action="#{groupsController.navigatePendingMembersCollection}" disabled="#{empty groupsController.selected.pendingMembersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberGroupAccountSettingsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMemberGroupAccountSettingsCollection}" disabled="#{empty groupsController.selected.memberGroupAccountSettingsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_membersCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMembersCollection}" disabled="#{empty groupsController.selected.membersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberGroupsEmailValidationCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMemberGroupsEmailValidationCollection}" disabled="#{empty groupsController.selected.memberGroupsEmailValidationCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupHistoryLogsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateGroupHistoryLogsCollection}" disabled="#{empty groupsController.selected.groupHistoryLogsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_filesCollection}" icon="ui-icon-search"  action="#{groupsController.navigateFilesCollection}" disabled="#{empty groupsController.selected.filesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberImportsCollection}" icon="ui-icon-search"  action="#{groupsController.navigateMemberImportsCollection}" disabled="#{empty groupsController.selected.memberImportsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_registrationAgreementId}" icon="ui-icon-search"  actionListener="#{groupsController.prepareRegistrationAgreementId}" update=":RegistrationAgreementsViewForm" oncomplete="PF('RegistrationAgreementsViewDialog').show()" disabled="#{empty groupsController.selected.registrationAgreementId}"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_groupsCollection14}" icon="ui-icon-search"  action="#{groupsController.navigateGroupsCollection14}" disabled="#{empty groupsController.selected.groupsCollection14}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberExpireGroupId}" icon="ui-icon-search"  actionListener="#{groupsController.prepareMemberExpireGroupId}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty groupsController.selected.memberExpireGroupId}"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_cardTypeId}" icon="ui-icon-search"  actionListener="#{groupsController.prepareCardTypeId}" update=":CardTypesViewForm" oncomplete="PF('CardTypesViewDialog').show()" disabled="#{empty groupsController.selected.cardTypeId}"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_smsChargeTransferTypeId}" icon="ui-icon-search"  actionListener="#{groupsController.prepareSmsChargeTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty groupsController.selected.smsChargeTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{groupsController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty groupsController.selected.memberId}"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_operatorGroupsMaxAmountCollection}" icon="ui-icon-search"  action="#{groupsController.navigateOperatorGroupsMaxAmountCollection}" disabled="#{empty groupsController.selected.operatorGroupsMaxAmountCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_remarksCollection}" icon="ui-icon-search"  action="#{groupsController.navigateRemarksCollection}" disabled="#{empty groupsController.selected.remarksCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GroupsMenuItem_remarksCollection1}" icon="ui-icon-search"  action="#{groupsController.navigateRemarksCollection1}" disabled="#{empty groupsController.selected.remarksCollection1}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{groupsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{groupsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{groupsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GroupsDataTableContextMenu" listener="#{groupsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GroupsDataTableContextMenu" listener="#{groupsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{groupsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('GroupsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.maxPasswordTries}" filterBy="#{item.maxPasswordTries}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGroupsTitle_maxPasswordTries}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.maxPasswordTries}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.minPasswordLength}" filterBy="#{item.minPasswordLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_minPasswordLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.minPasswordLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxPasswordLength}" filterBy="#{item.maxPasswordLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_maxPasswordLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxPasswordLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.passwordPolicy}" filterBy="#{item.passwordPolicy}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_passwordPolicy}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.passwordPolicy}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.deactivationNumber}" filterBy="#{item.deactivationNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_deactivationNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.deactivationNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.deactivationField}" filterBy="#{item.deactivationField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_deactivationField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.deactivationField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.passwordExpirationNumber}" filterBy="#{item.passwordExpirationNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_passwordExpirationNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.passwordExpirationNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.passwordExpirationField}" filterBy="#{item.passwordExpirationField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_passwordExpirationField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.passwordExpirationField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transactionPassword}" filterBy="#{item.transactionPassword}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_transactionPassword}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transactionPassword}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transactionPasswordLength}" filterBy="#{item.transactionPasswordLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_transactionPasswordLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transactionPasswordLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxTpTries}" filterBy="#{item.maxTpTries}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_maxTpTries}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxTpTries}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.hideCurrencyOnPmt}" filterBy="#{item.hideCurrencyOnPmt}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_hideCurrencyOnPmt}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="hideCurrencyOnPmt" value="#{item.hideCurrencyOnPmt}" title="#{myBundle.EditGroupsTitle_hideCurrencyOnPmt}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_hideCurrencyOnPmt}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.rootUrl}" filterBy="#{item.rootUrl}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_rootUrl}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.rootUrl}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loginPageName}" filterBy="#{item.loginPageName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_loginPageName}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loginPageName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.containerUrl}" filterBy="#{item.containerUrl}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_containerUrl}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.containerUrl}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsChargeAmount}" filterBy="#{item.smsChargeAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsChargeAmount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsChargeAmount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsFreeCount}" filterBy="#{item.smsFreeCount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsFreeCount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsFreeCount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsAdditionalChargedCount}" filterBy="#{item.smsAdditionalChargedCount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsAdditionalChargedCount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsAdditionalChargedCount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsAdditionalChargedPeriodNumber}" filterBy="#{item.smsAdditionalChargedPeriodNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsAdditionalChargedPeriodNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsAdditionalChargedPeriodNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsAdditionalChargedPeriodField}" filterBy="#{item.smsAdditionalChargedPeriodField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsAdditionalChargedPeriodField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsAdditionalChargedPeriodField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsShowFreeThreshold}" filterBy="#{item.smsShowFreeThreshold}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsShowFreeThreshold}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsShowFreeThreshold}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsContextClassName}" filterBy="#{item.smsContextClassName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsContextClassName}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsContextClassName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxImagesPerMember}" filterBy="#{item.memberMaxImagesPerMember}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxImagesPerMember}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxImagesPerMember}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxAdsPerMember}" filterBy="#{item.memberMaxAdsPerMember}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxAdsPerMember}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxAdsPerMember}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxAdDescriptionSize}" filterBy="#{item.memberMaxAdDescriptionSize}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxAdDescriptionSize}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxAdDescriptionSize}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxAdImagesPerMember}" filterBy="#{item.memberMaxAdImagesPerMember}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxAdImagesPerMember}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxAdImagesPerMember}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberDefaultAdPublicationNumber}" filterBy="#{item.memberDefaultAdPublicationNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberDefaultAdPublicationNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberDefaultAdPublicationNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberDefaultAdPublicationField}" filterBy="#{item.memberDefaultAdPublicationField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberDefaultAdPublicationField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberDefaultAdPublicationField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxAdPublicationNumber}" filterBy="#{item.memberMaxAdPublicationNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxAdPublicationNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxAdPublicationNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxAdPublicationField}" filterBy="#{item.memberMaxAdPublicationField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxAdPublicationField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxAdPublicationField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberEnablePermanentAds}" filterBy="#{item.memberEnablePermanentAds}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberEnablePermanentAds}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberEnablePermanentAds" value="#{item.memberEnablePermanentAds}" title="#{myBundle.EditGroupsTitle_memberEnablePermanentAds}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberEnablePermanentAds}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberShowPoswebPmtDsc}" filterBy="#{item.memberShowPoswebPmtDsc}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberShowPoswebPmtDsc}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberShowPoswebPmtDsc" value="#{item.memberShowPoswebPmtDsc}" title="#{myBundle.EditGroupsTitle_memberShowPoswebPmtDsc}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberShowPoswebPmtDsc}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberExternalAdPublication}" filterBy="#{item.memberExternalAdPublication}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberExternalAdPublication}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberExternalAdPublication}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberSendPasswordByEmail}" filterBy="#{item.memberSendPasswordByEmail}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberSendPasswordByEmail}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberSendPasswordByEmail" value="#{item.memberSendPasswordByEmail}" title="#{myBundle.EditGroupsTitle_memberSendPasswordByEmail}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberSendPasswordByEmail}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberViewLoansByGroup}" filterBy="#{item.memberViewLoansByGroup}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberViewLoansByGroup}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberViewLoansByGroup" value="#{item.memberViewLoansByGroup}" title="#{myBundle.EditGroupsTitle_memberViewLoansByGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberViewLoansByGroup}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberRepayLoanByGroup}" filterBy="#{item.memberRepayLoanByGroup}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberRepayLoanByGroup}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberRepayLoanByGroup" value="#{item.memberRepayLoanByGroup}" title="#{myBundle.EditGroupsTitle_memberRepayLoanByGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberRepayLoanByGroup}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxSchedulingPayments}" filterBy="#{item.memberMaxSchedulingPayments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxSchedulingPayments}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxSchedulingPayments}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxSchedulingPeriodNumber}" filterBy="#{item.memberMaxSchedulingPeriodNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxSchedulingPeriodNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxSchedulingPeriodNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxSchedulingPeriodField}" filterBy="#{item.memberMaxSchedulingPeriodField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxSchedulingPeriodField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxSchedulingPeriodField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.minPinLength}" filterBy="#{item.minPinLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_minPinLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.minPinLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxPinLength}" filterBy="#{item.maxPinLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_maxPinLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxPinLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxPinTries}" filterBy="#{item.memberMaxPinTries}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxPinTries}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxPinTries}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberPinBlockNumber}" filterBy="#{item.memberPinBlockNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberPinBlockNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberPinBlockNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberPinBlockField}" filterBy="#{item.memberPinBlockField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberPinBlockField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberPinBlockField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberExpireNumber}" filterBy="#{item.memberExpireNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberExpireNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberExpireNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberExpireField}" filterBy="#{item.memberExpireField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberExpireField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberExpireField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberMaxPosSchedulingPayments}" filterBy="#{item.memberMaxPosSchedulingPayments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberMaxPosSchedulingPayments}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberMaxPosSchedulingPayments}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberNumberOfCopies}" filterBy="#{item.memberNumberOfCopies}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberNumberOfCopies}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberNumberOfCopies}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberResultPageSize}" filterBy="#{item.memberResultPageSize}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberResultPageSize}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberResultPageSize}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberAllowMakePayment}" filterBy="#{item.memberAllowMakePayment}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberAllowMakePayment}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberAllowMakePayment" value="#{item.memberAllowMakePayment}" title="#{myBundle.EditGroupsTitle_memberAllowMakePayment}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberAllowMakePayment}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberActive}" filterBy="#{item.memberActive}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberActive}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberActive" value="#{item.memberActive}" title="#{myBundle.EditGroupsTitle_memberActive}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberActive}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initialGroupShow}" filterBy="#{item.initialGroupShow}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_initialGroupShow}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initialGroupShow}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initialGroup}" filterBy="#{item.initialGroup}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_initialGroup}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="initialGroup" value="#{item.initialGroup}" title="#{myBundle.EditGroupsTitle_initialGroup}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_initialGroup}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberDefaultAllowChargingSms}" filterBy="#{item.memberDefaultAllowChargingSms}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberDefaultAllowChargingSms}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberDefaultAllowChargingSms" value="#{item.memberDefaultAllowChargingSms}" title="#{myBundle.EditGroupsTitle_memberDefaultAllowChargingSms}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAllowChargingSms}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberDefaultAcceptFreeMailing}" filterBy="#{item.memberDefaultAcceptFreeMailing}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberDefaultAcceptFreeMailing}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberDefaultAcceptFreeMailing" value="#{item.memberDefaultAcceptFreeMailing}" title="#{myBundle.EditGroupsTitle_memberDefaultAcceptFreeMailing}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAcceptFreeMailing}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberDefaultAcceptPaidMailing}" filterBy="#{item.memberDefaultAcceptPaidMailing}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberDefaultAcceptPaidMailing}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="memberDefaultAcceptPaidMailing" value="#{item.memberDefaultAcceptPaidMailing}" title="#{myBundle.EditGroupsTitle_memberDefaultAcceptPaidMailing}" required="true" requiredMessage="#{myBundle.EditGroupsRequiredMessage_memberDefaultAcceptPaidMailing}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.registrationAgreementId.name}" filterBy="#{item.registrationAgreementId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_registrationAgreementId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.registrationAgreementId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberExpireGroupId.name}" filterBy="#{item.memberExpireGroupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberExpireGroupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberExpireGroupId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.cardTypeId.name}" filterBy="#{item.cardTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_cardTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cardTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.smsChargeTransferTypeId.name}" filterBy="#{item.smsChargeTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_smsChargeTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.smsChargeTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGroupsTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{groupsController.prepareCreate}" update=":GroupsCreateForm" oncomplete="PF('GroupsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty groupsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":GroupsEditForm" oncomplete="PF('GroupsEditDialog').show()" disabled="#{empty groupsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{groupsController.delete}" update=":growl,datalist" disabled="#{empty groupsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

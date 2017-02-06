@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SmsTypesViewDlg" widgetVar="SmsTypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSmsTypesTitle}" closeOnEscape="true">
+
+            <h:form id="SmsTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{smsTypesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewSmsTypesLabel_id}"/>
+                        <h:outputText value="#{smsTypesController.selected.id}" title="#{myBundle.ViewSmsTypesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsTypesLabel_code}"/>
+                        <h:outputText value="#{smsTypesController.selected.code}" title="#{myBundle.ViewSmsTypesTitle_code}"/>
+
+                        <h:outputText value="#{myBundle.ViewSmsTypesLabel_orderIndex}"/>
+                        <h:outputText value="#{smsTypesController.selected.orderIndex}" title="#{myBundle.ViewSmsTypesTitle_orderIndex}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SmsTypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

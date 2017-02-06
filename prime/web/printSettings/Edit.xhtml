@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PrintSettingsEditDlg" widgetVar="PrintSettingsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPrintSettingsTitle}" closeOnEscape="true">
+
+            <h:form id="PrintSettingsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{printSettingsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPrintSettingsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{printSettingsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{printSettingsController.selected.name}" title="#{myBundle.EditPrintSettingsTitle_name}" required="true" requiredMessage="#{myBundle.EditPrintSettingsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_printerName}" for="printerName" />
+                        <p:inputText id="printerName" value="#{printSettingsController.selected.printerName}" title="#{myBundle.EditPrintSettingsTitle_printerName}" required="true" requiredMessage="#{myBundle.EditPrintSettingsRequiredMessage_printerName}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_beginDocCmd}" for="beginDocCmd" />
+                        <p:inputText id="beginDocCmd" value="#{printSettingsController.selected.beginDocCmd}" title="#{myBundle.EditPrintSettingsTitle_beginDocCmd}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_endDocCmd}" for="endDocCmd" />
+                        <p:inputText id="endDocCmd" value="#{printSettingsController.selected.endDocCmd}" title="#{myBundle.EditPrintSettingsTitle_endDocCmd}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_paymentMessage}" for="paymentMessage" />
+                        <p:inputTextarea rows="4" cols="30" id="paymentMessage" value="#{printSettingsController.selected.paymentMessage}" title="#{myBundle.EditPrintSettingsTitle_paymentMessage}" />
+
+                        <p:outputLabel value="#{myBundle.EditPrintSettingsLabel_member1}" for="member1" />
+                        <p:selectOneMenu id="member1" value="#{printSettingsController.selected.member1}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="member1Item"
+                                           itemValue="#{member1Item}"
+                                           itemLabel="#{member1Item.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{printSettingsController.save}" value="#{myBundle.Save}" update="display,:PrintSettingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PrintSettingsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PrintSettingsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

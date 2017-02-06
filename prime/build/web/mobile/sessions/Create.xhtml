@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="SessionsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateSessionsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:SessionsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="SessionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{sessionsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_identifier}" for="identifier" />
+                            <p:inputText id="identifier" value="#{sessionsController.selected.identifier}" title="#{myBundle.CreateSessionsTitle_identifier}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_identifier}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_creationDate}" for="creationDate" />
+                            <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.creationDate}" title="#{myBundle.CreateSessionsTitle_creationDate}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_creationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_expirationDate}" for="expirationDate" />
+                            <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.expirationDate}" title="#{myBundle.CreateSessionsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_expirationDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_posWeb}" for="posWeb" />
+                            <p:selectBooleanCheckbox id="posWeb" value="#{sessionsController.selected.posWeb}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_remoteAddr}" for="remoteAddr" />
+                            <p:inputText id="remoteAddr" value="#{sessionsController.selected.remoteAddr}" title="#{myBundle.CreateSessionsTitle_remoteAddr}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_remoteAddr}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSessionsLabel_userId}" for="userId" />
+                            <p:selectOneMenu id="userId" value="#{sessionsController.selected.userId}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_userId}" converter="usersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{usersController.items}"
+                                               var="userIdItem"
+                                               itemValue="#{userIdItem}"
+                                               itemLabel="#{userIdItem.username.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{sessionsController.saveNew}" value="#{myBundle.Save}" update="display,:SessionsListPage:SessionsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:SessionsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

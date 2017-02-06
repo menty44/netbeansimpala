@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="https://www.neosurf.info/soap/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:get_dtickets soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+         <currency xsi:type="xsd:string">EUR</currency>
+         <hash xsi:type="xsd:string">fde089690ff4d38082338b7f32870f78b601b5c9</hash>
+         <IDProduct xsi:type="xsd:int">106</IDProduct>
+         <IDReseller xsi:type="xsd:string">impalapay.reseller.test@neosurf.com+soked3dpme</IDReseller>
+         <IDTransaction xsi:type="xsd:string">TRX002</IDTransaction>
+         <IDUser xsi:type="xsd:int">225</IDUser>
+         <quantity xsi:type="xsd:int">1</quantity>
+      </soap:get_dtickets>
+   </soapenv:Body>
+</soapenv:Envelope>

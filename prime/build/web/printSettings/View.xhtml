@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrintSettingsViewDlg" widgetVar="PrintSettingsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPrintSettingsTitle}" closeOnEscape="true">
+
+            <h:form id="PrintSettingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{printSettingsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_id}"/>
+                        <h:outputText value="#{printSettingsController.selected.id}" title="#{myBundle.ViewPrintSettingsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_name}"/>
+                        <h:outputText value="#{printSettingsController.selected.name}" title="#{myBundle.ViewPrintSettingsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_printerName}"/>
+                        <h:outputText value="#{printSettingsController.selected.printerName}" title="#{myBundle.ViewPrintSettingsTitle_printerName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_beginDocCmd}"/>
+                        <h:outputText value="#{printSettingsController.selected.beginDocCmd}" title="#{myBundle.ViewPrintSettingsTitle_beginDocCmd}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_endDocCmd}"/>
+                        <h:outputText value="#{printSettingsController.selected.endDocCmd}" title="#{myBundle.ViewPrintSettingsTitle_endDocCmd}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_paymentMessage}"/>
+                        <h:outputText value="#{printSettingsController.selected.paymentMessage}" title="#{myBundle.ViewPrintSettingsTitle_paymentMessage}"/>
+
+                        <h:outputText value="#{myBundle.ViewPrintSettingsLabel_member1}"/>
+                        <h:outputText value="#{printSettingsController.selected.member1.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PrintSettingsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

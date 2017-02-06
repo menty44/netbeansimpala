@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentObligationsViewDlg" widgetVar="PaymentObligationsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPaymentObligationsTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentObligationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{paymentObligationsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_id}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.id}" title="#{myBundle.ViewPaymentObligationsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_status}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.status}" title="#{myBundle.ViewPaymentObligationsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_amount}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.amount}" title="#{myBundle.ViewPaymentObligationsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_expirationDate}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.expirationDate}" title="#{myBundle.ViewPaymentObligationsTitle_expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_maxPublishDate}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.maxPublishDate}" title="#{myBundle.ViewPaymentObligationsTitle_maxPublishDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_registrationDate}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.registrationDate}" title="#{myBundle.ViewPaymentObligationsTitle_registrationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_description}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.description}" title="#{myBundle.ViewPaymentObligationsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_guaranteeId}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.guaranteeId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_sellerId}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.sellerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_buyerId}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.buyerId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentObligationsLabel_currencyId}"/>
+                        <h:outputText value="#{paymentObligationsController.selected.currencyId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PaymentObligationsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ChannelsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewChannelsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ChannelsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ChannelsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{channelsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_id}"/>
+                            <h:outputText value="#{channelsController.selected.id}" title="#{myBundle.ViewChannelsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_internalName}"/>
+                            <h:outputText value="#{channelsController.selected.internalName}" title="#{myBundle.ViewChannelsTitle_internalName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_displayName}"/>
+                            <h:outputText value="#{channelsController.selected.displayName}" title="#{myBundle.ViewChannelsTitle_displayName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_credentials}"/>
+                            <h:outputText value="#{channelsController.selected.credentials}" title="#{myBundle.ViewChannelsTitle_credentials}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_pmtReqWsUrl}"/>
+                            <h:outputText value="#{channelsController.selected.pmtReqWsUrl}" title="#{myBundle.ViewChannelsTitle_pmtReqWsUrl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_transferTypesCollection}"/>
+                            <h:selectManyMenu converter="transferTypesConverter">
+                                <f:selectItems value="#{channelsController.selected.transferTypesCollection}"
+                                               var="transferTypesCollectionItem"
+                                               itemValue="#{transferTypesCollectionItem}"
+                                               itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_groupsCollection}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{channelsController.selected.groupsCollection}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_groupsCollection1}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{channelsController.selected.groupsCollection1}"
+                                               var="groupsCollection1Item"
+                                               itemValue="#{groupsCollection1Item}"
+                                               itemLabel="#{groupsCollection1Item.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_membersCollection}"/>
+                            <h:selectManyMenu converter="membersConverter">
+                                <f:selectItems value="#{channelsController.selected.membersCollection}"
+                                               var="membersCollectionItem"
+                                               itemValue="#{membersCollectionItem}"
+                                               itemLabel="#{membersCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewChannelsLabel_groupsCollection2}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{channelsController.selected.groupsCollection2}"
+                                               var="groupsCollection2Item"
+                                               itemValue="#{groupsCollection2Item}"
+                                               itemLabel="#{groupsCollection2Item.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

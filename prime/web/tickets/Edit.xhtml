@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TicketsEditDlg" widgetVar="TicketsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTicketsTitle}" closeOnEscape="true">
+
+            <h:form id="TicketsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ticketsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTicketsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{ticketsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{ticketsController.selected.subclass}" title="#{myBundle.EditTicketsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditTicketsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{ticketsController.selected.status}" title="#{myBundle.EditTicketsTitle_status}" required="true" requiredMessage="#{myBundle.EditTicketsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_ticket}" for="ticket" />
+                        <p:inputText id="ticket" value="#{ticketsController.selected.ticket}" title="#{myBundle.EditTicketsTitle_ticket}" required="true" requiredMessage="#{myBundle.EditTicketsRequiredMessage_ticket}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{ticketsController.selected.creationDate}" title="#{myBundle.EditTicketsTitle_creationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{ticketsController.selected.amount}" title="#{myBundle.EditTicketsTitle_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{ticketsController.selected.description}" title="#{myBundle.EditTicketsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_returnUrl}" for="returnUrl" />
+                        <p:inputText id="returnUrl" value="#{ticketsController.selected.returnUrl}" title="#{myBundle.EditTicketsTitle_returnUrl}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_clientAddress}" for="clientAddress" />
+                        <p:inputText id="clientAddress" value="#{ticketsController.selected.clientAddress}" title="#{myBundle.EditTicketsTitle_clientAddress}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_memberAddress}" for="memberAddress" />
+                        <p:inputText id="memberAddress" value="#{ticketsController.selected.memberAddress}" title="#{myBundle.EditTicketsTitle_memberAddress}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_traceData}" for="traceData" />
+                        <p:inputText id="traceData" value="#{ticketsController.selected.traceData}" title="#{myBundle.EditTicketsTitle_traceData}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{ticketsController.selected.transferId}"  converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_toChannelId}" for="toChannelId" />
+                        <p:selectOneMenu id="toChannelId" value="#{ticketsController.selected.toChannelId}"  converter="channelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{channelsController.items}"
+                                           var="toChannelIdItem"
+                                           itemValue="#{toChannelIdItem}"
+                                           itemLabel="#{toChannelIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_fromMemberId}" for="fromMemberId" />
+                        <p:selectOneMenu id="fromMemberId" value="#{ticketsController.selected.fromMemberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="fromMemberIdItem"
+                                           itemValue="#{fromMemberIdItem}"
+                                           itemLabel="#{fromMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_toMemberId}" for="toMemberId" />
+                        <p:selectOneMenu id="toMemberId" value="#{ticketsController.selected.toMemberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="toMemberIdItem"
+                                           itemValue="#{toMemberIdItem}"
+                                           itemLabel="#{toMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_transferTypeId}" for="transferTypeId" />
+                        <p:selectOneMenu id="transferTypeId" value="#{ticketsController.selected.transferTypeId}"  converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="transferTypeIdItem"
+                                           itemValue="#{transferTypeIdItem}"
+                                           itemLabel="#{transferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{ticketsController.selected.currencyId}"  converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditTicketsLabel_fromChannelId}" for="fromChannelId" />
+                        <p:selectOneMenu id="fromChannelId" value="#{ticketsController.selected.fromChannelId}"  converter="channelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{channelsController.items}"
+                                           var="fromChannelIdItem"
+                                           itemValue="#{fromChannelIdItem}"
+                                           itemLabel="#{fromChannelIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ticketsController.save}" value="#{myBundle.Save}" update="display,:TicketsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TicketsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TicketsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

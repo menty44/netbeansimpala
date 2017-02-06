@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PermissionsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditPermissionsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PermissionsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PermissionsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{permissionsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditPermissionsLabel_permissionsPK_groupId}" for="permissionsPK_groupId" />
+                            <h:outputText id="permissionsPK_groupId" value="#{permissionsController.selected.permissionsPK.groupId}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditPermissionsLabel_permissionsPK_permission}" for="permissionsPK_permission" />
+                            <h:outputText id="permissionsPK_permission" value="#{permissionsController.selected.permissionsPK.permission}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditPermissionsLabel_groups}" for="groups" />
+                            <h:outputText id="groups" value="#{permissionsController.selected.groups}" />
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{permissionsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:PermissionsListPage:PermissionsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:PermissionsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

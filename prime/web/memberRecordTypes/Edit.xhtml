@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MemberRecordTypesEditDlg" widgetVar="MemberRecordTypesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMemberRecordTypesTitle}" closeOnEscape="true">
+
+            <h:form id="MemberRecordTypesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MemberRecordTypesTabView">
+
+                        <p:tab id="MemberRecordTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{memberRecordTypesController.selected != null}">
+
+                                <h:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_id}" for="id" />
+                                <h:outputText id="id" value="#{memberRecordTypesController.selected.id}" />
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{memberRecordTypesController.selected.name}" title="#{myBundle.EditMemberRecordTypesTitle_name}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_label}" for="label" />
+                                <p:inputText id="label" value="#{memberRecordTypesController.selected.label}" title="#{myBundle.EditMemberRecordTypesTitle_label}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_label}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_editable}" for="editable" />
+                                <p:selectBooleanCheckbox id="editable" value="#{memberRecordTypesController.selected.editable}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_editable}"/>
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_showMenuItem}" for="showMenuItem" />
+                                <p:selectBooleanCheckbox id="showMenuItem" value="#{memberRecordTypesController.selected.showMenuItem}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_showMenuItem}"/>
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_layout}" for="layout" />
+                                <p:inputText id="layout" value="#{memberRecordTypesController.selected.layout}" title="#{myBundle.EditMemberRecordTypesTitle_layout}" required="true" requiredMessage="#{myBundle.EditMemberRecordTypesRequiredMessage_layout}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.EditMemberRecordTypesLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{memberRecordTypesController.selected.description}" title="#{myBundle.EditMemberRecordTypesTitle_description}" />
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{memberRecordTypesController.save}" value="#{myBundle.Save}" update="display,:MemberRecordTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MemberRecordTypesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MemberRecordTypesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

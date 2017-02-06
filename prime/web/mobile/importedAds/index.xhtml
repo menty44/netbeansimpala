@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile"
+                template="/mobile/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.ImportedAdsTitle}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <ui:include src="/mobile/importedAds/List.xhtml"/>
+        <ui:include src="/mobile/importedAds/Edit.xhtml"/>
+        <ui:include src="/mobile/importedAds/Create.xhtml"/>
+        <ui:include src="/mobile/adImports/Edit.xhtml"/>
+        <ui:include src="/mobile/importedAdCategories/Edit.xhtml"/>
+        <ui:include src="/mobile/adCategories/Edit.xhtml"/>
+        <ui:include src="/mobile/members/Edit.xhtml"/>
+
+    </ui:define>
+
+</ui:composition>

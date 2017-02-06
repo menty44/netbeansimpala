@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountTypesCreateDlg" widgetVar="AccountTypesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAccountTypesTitle}" closeOnEscape="true">
+
+            <h:form id="AccountTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{accountTypesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{accountTypesController.selected.subclass}" title="#{myBundle.CreateAccountTypesTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateAccountTypesRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{accountTypesController.selected.name}" title="#{myBundle.CreateAccountTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateAccountTypesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{accountTypesController.selected.description}" title="#{myBundle.CreateAccountTypesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{accountTypesController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_groupsCollection1}" for="groupsCollection1" />
+                        <p:selectManyMenu id="groupsCollection1" value="#{accountTypesController.selected.groupsCollection1}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollection1Item"
+                                           itemValue="#{groupsCollection1Item}"
+                                           itemLabel="#{groupsCollection1Item.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_groupsCollection3}" for="groupsCollection3" />
+                        <p:selectManyMenu id="groupsCollection3" value="#{accountTypesController.selected.groupsCollection3}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollection3Item"
+                                           itemValue="#{groupsCollection3Item}"
+                                           itemLabel="#{groupsCollection3Item.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_systemAccountId}" for="systemAccountId" />
+                        <p:selectOneMenu id="systemAccountId" value="#{accountTypesController.selected.systemAccountId}"  converter="accountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountsController.items}"
+                                           var="systemAccountIdItem"
+                                           itemValue="#{systemAccountIdItem}"
+                                           itemLabel="#{systemAccountIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateAccountTypesLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{accountTypesController.selected.currencyId}" required="true" requiredMessage="#{myBundle.CreateAccountTypesRequiredMessage_currencyId}" converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{accountTypesController.saveNew}" value="#{myBundle.Save}" update="display,:AccountTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccountTypesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccountTypesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountRatesViewDlg" widgetVar="AccountRatesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAccountRatesTitle}" closeOnEscape="true">
+
+            <h:form id="AccountRatesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{accountRatesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_id}"/>
+                        <h:outputText value="#{accountRatesController.selected.id}" title="#{myBundle.ViewAccountRatesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_emissionDate}"/>
+                        <h:outputText value="#{accountRatesController.selected.emissionDate}" title="#{myBundle.ViewAccountRatesTitle_emissionDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_expirationDate}"/>
+                        <h:outputText value="#{accountRatesController.selected.expirationDate}" title="#{myBundle.ViewAccountRatesTitle_expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_IRate}"/>
+                        <h:outputText value="#{accountRatesController.selected.IRate}" title="#{myBundle.ViewAccountRatesTitle_IRate}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_rateBalanceCorrection}"/>
+                        <h:outputText value="#{accountRatesController.selected.rateBalanceCorrection}" title="#{myBundle.ViewAccountRatesTitle_rateBalanceCorrection}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_transferId}"/>
+                        <h:outputText value="#{accountRatesController.selected.transferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountRatesLabel_accountId}"/>
+                        <h:outputText value="#{accountRatesController.selected.accountId.ownerName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AccountRatesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

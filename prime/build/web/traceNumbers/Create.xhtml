@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TraceNumbersCreateDlg" widgetVar="TraceNumbersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTraceNumbersTitle}" closeOnEscape="true">
+
+            <h:form id="TraceNumbersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{traceNumbersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTraceNumbersLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{traceNumbersController.selected.date}" title="#{myBundle.CreateTraceNumbersTitle_date}" required="true" requiredMessage="#{myBundle.CreateTraceNumbersRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTraceNumbersLabel_traceNumber}" for="traceNumber" />
+                        <p:inputText id="traceNumber" value="#{traceNumbersController.selected.traceNumber}" title="#{myBundle.CreateTraceNumbersTitle_traceNumber}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTraceNumbersLabel_clientId}" for="clientId" />
+                        <p:inputText id="clientId" value="#{traceNumbersController.selected.clientId}" title="#{myBundle.CreateTraceNumbersTitle_clientId}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{traceNumbersController.saveNew}" value="#{myBundle.Save}" update="display,:TraceNumbersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TraceNumbersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TraceNumbersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

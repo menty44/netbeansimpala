@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="InvoicePaymentsEditDlg" widgetVar="InvoicePaymentsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditInvoicePaymentsTitle}" closeOnEscape="true">
+
+            <h:form id="InvoicePaymentsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{invoicePaymentsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditInvoicePaymentsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{invoicePaymentsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditInvoicePaymentsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{invoicePaymentsController.selected.date}" title="#{myBundle.EditInvoicePaymentsTitle_date}" required="true" requiredMessage="#{myBundle.EditInvoicePaymentsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicePaymentsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{invoicePaymentsController.selected.amount}" title="#{myBundle.EditInvoicePaymentsTitle_amount}" required="true" requiredMessage="#{myBundle.EditInvoicePaymentsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicePaymentsLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{invoicePaymentsController.selected.transferId}"  converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicePaymentsLabel_invoiceId}" for="invoiceId" />
+                        <p:selectOneMenu id="invoiceId" value="#{invoicePaymentsController.selected.invoiceId}"  converter="invoicesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{invoicesController.items}"
+                                           var="invoiceIdItem"
+                                           itemValue="#{invoiceIdItem}"
+                                           itemLabel="#{invoiceIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{invoicePaymentsController.save}" value="#{myBundle.Save}" update="display,:InvoicePaymentsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InvoicePaymentsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('InvoicePaymentsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountFeeAmountsViewDlg" widgetVar="AccountFeeAmountsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAccountFeeAmountsTitle}" closeOnEscape="true">
+
+            <h:form id="AccountFeeAmountsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{accountFeeAmountsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_id}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.id}" title="#{myBundle.ViewAccountFeeAmountsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_date}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.date}" title="#{myBundle.ViewAccountFeeAmountsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_availableBalance}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.availableBalance}" title="#{myBundle.ViewAccountFeeAmountsTitle_availableBalance}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_amount}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.amount}" title="#{myBundle.ViewAccountFeeAmountsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_accountId}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.accountId.ownerName}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeAmountsLabel_accountFeeId}"/>
+                        <h:outputText value="#{accountFeeAmountsController.selected.accountFeeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AccountFeeAmountsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

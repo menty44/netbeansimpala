@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MemberRecordsListForm">
+
+        <p:panel header="#{myBundle.ListMemberRecordsTitle}">
+            <p:contextMenu id="MemberRecordsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MemberRecordsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MemberRecordsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MemberRecordsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MemberRecordsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MemberRecordsMenuItem_byId}" icon="ui-icon-search"  actionListener="#{memberRecordsController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty memberRecordsController.selected.byId}"/>  
+                <p:menuitem value="#{myBundle.MemberRecordsMenuItem_modifiedById}" icon="ui-icon-search"  actionListener="#{memberRecordsController.prepareModifiedById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty memberRecordsController.selected.modifiedById}"/>  
+                <p:menuitem value="#{myBundle.MemberRecordsMenuItem_elementId}" icon="ui-icon-search"  actionListener="#{memberRecordsController.prepareElementId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty memberRecordsController.selected.elementId}"/>  
+                <p:menuitem value="#{myBundle.MemberRecordsMenuItem_memberRecordTypeId}" icon="ui-icon-search"  actionListener="#{memberRecordsController.prepareMemberRecordTypeId}" update=":MemberRecordTypesViewForm" oncomplete="PF('MemberRecordTypesViewDialog').show()" disabled="#{empty memberRecordsController.selected.memberRecordTypeId}"/>  
+                <p:menuitem value="#{myBundle.MemberRecordsMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{memberRecordsController.navigateCustomFieldValuesCollection}" disabled="#{empty memberRecordsController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{memberRecordsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{memberRecordsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{memberRecordsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberRecordsDataTableContextMenu" listener="#{memberRecordsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberRecordsDataTableContextMenu" listener="#{memberRecordsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{memberRecordsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MemberRecordsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastModified}" filterBy="#{item.lastModified}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_lastModified}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastModified}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_byId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.byId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.modifiedById.name}" filterBy="#{item.modifiedById.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_modifiedById}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.modifiedById.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.elementId.name}" filterBy="#{item.elementId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberRecordsTitle_elementId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.elementId.name}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.memberRecordTypeId.name}" filterBy="#{item.memberRecordTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberRecordsTitle_memberRecordTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberRecordTypeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{memberRecordsController.prepareCreate}" update=":MemberRecordsCreateForm" oncomplete="PF('MemberRecordsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MemberRecordsViewForm" oncomplete="PF('MemberRecordsViewDialog').show()" disabled="#{empty memberRecordsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MemberRecordsEditForm" oncomplete="PF('MemberRecordsEditDialog').show()" disabled="#{empty memberRecordsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{memberRecordsController.delete}" update=":growl,datalist" disabled="#{empty memberRecordsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

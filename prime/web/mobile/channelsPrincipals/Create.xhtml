@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ChannelsPrincipalsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateChannelsPrincipalsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ChannelsPrincipalsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ChannelsPrincipalsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{channelsPrincipalsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsPrincipalsLabel_principal}" for="principal" />
+                            <p:inputText id="principal" value="#{channelsPrincipalsController.selected.principal}" title="#{myBundle.CreateChannelsPrincipalsTitle_principal}" required="true" requiredMessage="#{myBundle.CreateChannelsPrincipalsRequiredMessage_principal}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsPrincipalsLabel_isDefault}" for="isDefault" />
+                            <p:selectBooleanCheckbox id="isDefault" value="#{channelsPrincipalsController.selected.isDefault}" required="true" requiredMessage="#{myBundle.CreateChannelsPrincipalsRequiredMessage_isDefault}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsPrincipalsLabel_customFieldId}" for="customFieldId" />
+                            <p:selectOneMenu id="customFieldId" value="#{channelsPrincipalsController.selected.customFieldId}"  converter="customFieldsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{customFieldsController.items}"
+                                               var="customFieldIdItem"
+                                               itemValue="#{customFieldIdItem}"
+                                               itemLabel="#{customFieldIdItem.internalName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsPrincipalsLabel_channelId}" for="channelId" />
+                            <p:selectOneMenu id="channelId" value="#{channelsPrincipalsController.selected.channelId}" required="true" requiredMessage="#{myBundle.CreateChannelsPrincipalsRequiredMessage_channelId}" converter="channelsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{channelsController.items}"
+                                               var="channelIdItem"
+                                               itemValue="#{channelIdItem}"
+                                               itemLabel="#{channelIdItem.internalName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{channelsPrincipalsController.saveNew}" value="#{myBundle.Save}" update="display,:ChannelsPrincipalsListPage:ChannelsPrincipalsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ChannelsPrincipalsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

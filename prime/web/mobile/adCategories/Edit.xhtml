@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdCategoriesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAdCategoriesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdCategoriesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdCategoriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{adCategoriesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAdCategoriesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{adCategoriesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_orderIndex}" for="orderIndex" />
+                            <p:inputText id="orderIndex" value="#{adCategoriesController.selected.orderIndex}" title="#{myBundle.EditAdCategoriesTitle_orderIndex}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_orderIndex}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{adCategoriesController.selected.name}" title="#{myBundle.EditAdCategoriesTitle_name}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_name}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_active}" for="active" />
+                            <p:selectBooleanCheckbox id="active" value="#{adCategoriesController.selected.active}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_active}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_parentId}" for="parentId" />
+                            <p:selectOneMenu id="parentId" value="#{adCategoriesController.selected.parentId}"  converter="adCategoriesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{adCategoriesController.items}"
+                                               var="parentIdItem"
+                                               itemValue="#{parentIdItem}"
+                                               itemLabel="#{parentIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{adCategoriesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AdCategoriesListPage:AdCategoriesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AdCategoriesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

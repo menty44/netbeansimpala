@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TransactionFeesListForm">
+
+        <p:panel header="#{myBundle.ListTransactionFeesTitle}">
+            <p:contextMenu id="TransactionFeesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TransactionFeesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TransactionFeesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TransactionFeesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TransactionFeesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{transactionFeesController.navigateGroupsCollection}" disabled="#{empty transactionFeesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_groupsCollection1}" icon="ui-icon-search"  action="#{transactionFeesController.navigateGroupsCollection1}" disabled="#{empty transactionFeesController.selected.groupsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_groupsCollection2}" icon="ui-icon-search"  action="#{transactionFeesController.navigateGroupsCollection2}" disabled="#{empty transactionFeesController.selected.groupsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_defaultBrokerCommissionsCollection}" icon="ui-icon-search"  action="#{transactionFeesController.navigateDefaultBrokerCommissionsCollection}" disabled="#{empty transactionFeesController.selected.defaultBrokerCommissionsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_brokerCommissionContractsCollection}" icon="ui-icon-search"  action="#{transactionFeesController.navigateBrokerCommissionContractsCollection}" disabled="#{empty transactionFeesController.selected.brokerCommissionContractsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_brokeringCommissionStatusCollection}" icon="ui-icon-search"  action="#{transactionFeesController.navigateBrokeringCommissionStatusCollection}" disabled="#{empty transactionFeesController.selected.brokeringCommissionStatusCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_generatedTypeId}" icon="ui-icon-search"  actionListener="#{transactionFeesController.prepareGeneratedTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transactionFeesController.selected.generatedTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_fromMemberId}" icon="ui-icon-search"  actionListener="#{transactionFeesController.prepareFromMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty transactionFeesController.selected.fromMemberId}"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_toMemberId}" icon="ui-icon-search"  actionListener="#{transactionFeesController.prepareToMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty transactionFeesController.selected.toMemberId}"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_originalTypeId}" icon="ui-icon-search"  actionListener="#{transactionFeesController.prepareOriginalTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transactionFeesController.selected.originalTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_transfersCollection}" icon="ui-icon-search"  action="#{transactionFeesController.navigateTransfersCollection}" disabled="#{empty transactionFeesController.selected.transfersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransactionFeesMenuItem_transfersCollection1}" icon="ui-icon-search"  action="#{transactionFeesController.navigateTransfersCollection1}" disabled="#{empty transactionFeesController.selected.transfersCollection1}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{transactionFeesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{transactionFeesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{transactionFeesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TransactionFeesDataTableContextMenu" listener="#{transactionFeesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TransactionFeesDataTableContextMenu" listener="#{transactionFeesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{transactionFeesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TransactionFeesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.payer}" filterBy="#{item.payer}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_payer}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.payer}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.enabled}" filterBy="#{item.enabled}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_enabled}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="enabled" value="#{item.enabled}" title="#{myBundle.EditTransactionFeesTitle_enabled}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_enabled}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fromAllGroups}" filterBy="#{item.fromAllGroups}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransactionFeesTitle_fromAllGroups}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="fromAllGroups" value="#{item.fromAllGroups}" title="#{myBundle.EditTransactionFeesTitle_fromAllGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_fromAllGroups}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.toAllGroups}" filterBy="#{item.toAllGroups}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_toAllGroups}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="toAllGroups" value="#{item.toAllGroups}" title="#{myBundle.EditTransactionFeesTitle_toAllGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_toAllGroups}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.deductAmount}" filterBy="#{item.deductAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_deductAmount}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="deductAmount" value="#{item.deductAmount}" title="#{myBundle.EditTransactionFeesTitle_deductAmount}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_deductAmount}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_amount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.amount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.amountType}" filterBy="#{item.amountType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_amountType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.amountType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxFixedValue}" filterBy="#{item.maxFixedValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_maxFixedValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxFixedValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxPercentageValue}" filterBy="#{item.maxPercentageValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_maxPercentageValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxPercentageValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initialAmount}" filterBy="#{item.initialAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_initialAmount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initialAmount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.finalAmount}" filterBy="#{item.finalAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_finalAmount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.finalAmount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.receiver}" filterBy="#{item.receiver}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_receiver}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.receiver}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.h}" filterBy="#{item.h}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_h}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.h}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.AFIsZero}" filterBy="#{item.AFIsZero}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_AFIsZero}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.AFIsZero}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.f1}" filterBy="#{item.f1}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_f1}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.f1}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.FInfinite}" filterBy="#{item.FInfinite}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_FInfinite}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.FInfinite}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.FMinimal}" filterBy="#{item.FMinimal}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_FMinimal}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.FMinimal}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.GFIsZero}" filterBy="#{item.GFIsZero}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_GFIsZero}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.GFIsZero}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.whichBroker}" filterBy="#{item.whichBroker}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_whichBroker}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.whichBroker}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.whenApply}" filterBy="#{item.whenApply}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_whenApply}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.whenApply}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.whenCount}" filterBy="#{item.whenCount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_whenCount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.whenCount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.allBrokerGroups}" filterBy="#{item.allBrokerGroups}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_allBrokerGroups}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="allBrokerGroups" value="#{item.allBrokerGroups}" title="#{myBundle.EditTransactionFeesTitle_allBrokerGroups}" required="true" requiredMessage="#{myBundle.EditTransactionFeesRequiredMessage_allBrokerGroups}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.generatedTypeId.name}" filterBy="#{item.generatedTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_generatedTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.generatedTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromMemberId.name}" filterBy="#{item.fromMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_fromMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toMemberId.name}" filterBy="#{item.toMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_toMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.originalTypeId.name}" filterBy="#{item.originalTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransactionFeesTitle_originalTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.originalTypeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{transactionFeesController.prepareCreate}" update=":TransactionFeesCreateForm" oncomplete="PF('TransactionFeesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TransactionFeesViewForm" oncomplete="PF('TransactionFeesViewDialog').show()" disabled="#{empty transactionFeesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TransactionFeesEditForm" oncomplete="PF('TransactionFeesEditDialog').show()" disabled="#{empty transactionFeesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{transactionFeesController.delete}" update=":growl,datalist" disabled="#{empty transactionFeesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

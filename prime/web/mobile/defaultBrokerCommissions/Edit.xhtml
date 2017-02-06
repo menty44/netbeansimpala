@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DefaultBrokerCommissionsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditDefaultBrokerCommissionsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DefaultBrokerCommissionsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DefaultBrokerCommissionsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{defaultBrokerCommissionsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{defaultBrokerCommissionsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{defaultBrokerCommissionsController.selected.amount}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_amount}" required="true" requiredMessage="#{myBundle.EditDefaultBrokerCommissionsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_amountType}" for="amountType" />
+                            <p:inputText id="amountType" value="#{defaultBrokerCommissionsController.selected.amountType}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_amountType}" required="true" requiredMessage="#{myBundle.EditDefaultBrokerCommissionsRequiredMessage_amountType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_whenApply}" for="whenApply" />
+                            <p:inputText id="whenApply" value="#{defaultBrokerCommissionsController.selected.whenApply}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_whenApply}" required="true" requiredMessage="#{myBundle.EditDefaultBrokerCommissionsRequiredMessage_whenApply}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_whenCount}" for="whenCount" />
+                            <p:inputText id="whenCount" value="#{defaultBrokerCommissionsController.selected.whenCount}" title="#{myBundle.EditDefaultBrokerCommissionsTitle_whenCount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_setByBroker}" for="setByBroker" />
+                            <p:selectBooleanCheckbox id="setByBroker" value="#{defaultBrokerCommissionsController.selected.setByBroker}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_suspended}" for="suspended" />
+                            <p:selectBooleanCheckbox id="suspended" value="#{defaultBrokerCommissionsController.selected.suspended}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_brokerId}" for="brokerId" />
+                            <p:selectOneMenu id="brokerId" value="#{defaultBrokerCommissionsController.selected.brokerId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="brokerIdItem"
+                                               itemValue="#{brokerIdItem}"
+                                               itemLabel="#{brokerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditDefaultBrokerCommissionsLabel_brokerCommissionId}" for="brokerCommissionId" />
+                            <p:selectOneMenu id="brokerCommissionId" value="#{defaultBrokerCommissionsController.selected.brokerCommissionId}"  converter="transactionFeesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transactionFeesController.items}"
+                                               var="brokerCommissionIdItem"
+                                               itemValue="#{brokerCommissionIdItem}"
+                                               itemLabel="#{brokerCommissionIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{defaultBrokerCommissionsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DefaultBrokerCommissionsListPage:DefaultBrokerCommissionsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DefaultBrokerCommissionsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

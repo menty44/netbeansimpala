@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdminPreferencesSystemAlertsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateAdminPreferencesSystemAlertsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdminPreferencesSystemAlertsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdminPreferencesSystemAlertsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{adminPreferencesSystemAlertsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_preferenceId}" for="adminPreferencesSystemAlertsPK_preferenceId" />
+                            <p:inputText id="adminPreferencesSystemAlertsPK_preferenceId" value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.preferenceId}" title="#{myBundle.CreateAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_preferenceId}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminPreferencesSystemAlertsPK_preferenceId}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_type}" for="adminPreferencesSystemAlertsPK_type" />
+                            <p:inputText id="adminPreferencesSystemAlertsPK_type" value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.type}" title="#{myBundle.CreateAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_type}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminPreferencesSystemAlertsPK_type}" size="70" maxlength="70"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminNotificationPreferences}" for="adminNotificationPreferences" />
+                            <p:selectOneMenu id="adminNotificationPreferences" value="#{adminPreferencesSystemAlertsController.selected.adminNotificationPreferences}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminNotificationPreferences}" converter="adminNotificationPreferencesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                               var="adminNotificationPreferencesItem"
+                                               itemValue="#{adminNotificationPreferencesItem}"
+                                               itemLabel="#{adminNotificationPreferencesItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{adminPreferencesSystemAlertsController.saveNew}" value="#{myBundle.Save}" update="display,:AdminPreferencesSystemAlertsListPage:AdminPreferencesSystemAlertsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:AdminPreferencesSystemAlertsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

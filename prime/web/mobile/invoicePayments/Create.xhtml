@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="InvoicePaymentsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateInvoicePaymentsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:InvoicePaymentsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="InvoicePaymentsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{invoicePaymentsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicePaymentsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{invoicePaymentsController.selected.date}" title="#{myBundle.CreateInvoicePaymentsTitle_date}" required="true" requiredMessage="#{myBundle.CreateInvoicePaymentsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicePaymentsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{invoicePaymentsController.selected.amount}" title="#{myBundle.CreateInvoicePaymentsTitle_amount}" required="true" requiredMessage="#{myBundle.CreateInvoicePaymentsRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicePaymentsLabel_transferId}" for="transferId" />
+                            <p:selectOneMenu id="transferId" value="#{invoicePaymentsController.selected.transferId}"  converter="transfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transfersController.items}"
+                                               var="transferIdItem"
+                                               itemValue="#{transferIdItem}"
+                                               itemLabel="#{transferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicePaymentsLabel_invoiceId}" for="invoiceId" />
+                            <p:selectOneMenu id="invoiceId" value="#{invoicePaymentsController.selected.invoiceId}"  converter="invoicesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{invoicesController.items}"
+                                               var="invoiceIdItem"
+                                               itemValue="#{invoiceIdItem}"
+                                               itemLabel="#{invoiceIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{invoicePaymentsController.saveNew}" value="#{myBundle.Save}" update="display,:InvoicePaymentsListPage:InvoicePaymentsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:InvoicePaymentsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

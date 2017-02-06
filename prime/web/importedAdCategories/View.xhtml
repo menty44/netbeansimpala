@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedAdCategoriesViewDlg" widgetVar="ImportedAdCategoriesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewImportedAdCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedAdCategoriesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{importedAdCategoriesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewImportedAdCategoriesLabel_id}"/>
+                        <h:outputText value="#{importedAdCategoriesController.selected.id}" title="#{myBundle.ViewImportedAdCategoriesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdCategoriesLabel_name}"/>
+                        <h:outputText value="#{importedAdCategoriesController.selected.name}" title="#{myBundle.ViewImportedAdCategoriesTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdCategoriesLabel_existingParentId}"/>
+                        <h:outputText value="#{importedAdCategoriesController.selected.existingParentId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdCategoriesLabel_importedParentId}"/>
+                        <h:outputText value="#{importedAdCategoriesController.selected.importedParentId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewImportedAdCategoriesLabel_adImportId}"/>
+                        <h:outputText value="#{importedAdCategoriesController.selected.adImportId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ImportedAdCategoriesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

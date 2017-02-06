@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AlertsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAlertsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AlertsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AlertsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{alertsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_id}"/>
+                            <h:outputText value="#{alertsController.selected.id}" title="#{myBundle.ViewAlertsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_subclass}"/>
+                            <h:outputText value="#{alertsController.selected.subclass}" title="#{myBundle.ViewAlertsTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_removed}"/>
+                            <h:selectBooleanCheckbox id="removed" value="#{alertsController.selected.removed}" title="#{myBundle.EditAlertsTitle_removed}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_removed}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_msgKey}"/>
+                            <h:outputText value="#{alertsController.selected.msgKey}" title="#{myBundle.ViewAlertsTitle_msgKey}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_arg0}"/>
+                            <h:outputText value="#{alertsController.selected.arg0}" title="#{myBundle.ViewAlertsTitle_arg0}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_arg1}"/>
+                            <h:outputText value="#{alertsController.selected.arg1}" title="#{myBundle.ViewAlertsTitle_arg1}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_arg2}"/>
+                            <h:outputText value="#{alertsController.selected.arg2}" title="#{myBundle.ViewAlertsTitle_arg2}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_arg3}"/>
+                            <h:outputText value="#{alertsController.selected.arg3}" title="#{myBundle.ViewAlertsTitle_arg3}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_arg4}"/>
+                            <h:outputText value="#{alertsController.selected.arg4}" title="#{myBundle.ViewAlertsTitle_arg4}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_date}"/>
+                            <h:outputText value="#{alertsController.selected.date}" title="#{myBundle.ViewAlertsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAlertsLabel_memberId}"/>
+                            <h:outputText value="#{alertsController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

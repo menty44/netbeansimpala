@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RemarksEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditRemarksTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RemarksListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RemarksEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{remarksController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditRemarksLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{remarksController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{remarksController.selected.subclass}" title="#{myBundle.EditRemarksTitle_subclass}" required="true" requiredMessage="#{myBundle.EditRemarksRequiredMessage_subclass}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{remarksController.selected.date}" title="#{myBundle.EditRemarksTitle_date}" required="true" requiredMessage="#{myBundle.EditRemarksRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_comments}" for="comments" />
+                            <p:inputTextarea rows="4" cols="30" id="comments" value="#{remarksController.selected.comments}" title="#{myBundle.EditRemarksTitle_comments}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_subjectId}" for="subjectId" />
+                            <p:selectOneMenu id="subjectId" value="#{remarksController.selected.subjectId}" required="true" requiredMessage="#{myBundle.EditRemarksRequiredMessage_subjectId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="subjectIdItem"
+                                               itemValue="#{subjectIdItem}"
+                                               itemLabel="#{subjectIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_newBrokerId}" for="newBrokerId" />
+                            <p:selectOneMenu id="newBrokerId" value="#{remarksController.selected.newBrokerId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="newBrokerIdItem"
+                                               itemValue="#{newBrokerIdItem}"
+                                               itemLabel="#{newBrokerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_oldGroupId}" for="oldGroupId" />
+                            <p:selectOneMenu id="oldGroupId" value="#{remarksController.selected.oldGroupId}"  converter="groupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="oldGroupIdItem"
+                                               itemValue="#{oldGroupIdItem}"
+                                               itemLabel="#{oldGroupIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_newGroupId}" for="newGroupId" />
+                            <p:selectOneMenu id="newGroupId" value="#{remarksController.selected.newGroupId}"  converter="groupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="newGroupIdItem"
+                                               itemValue="#{newGroupIdItem}"
+                                               itemLabel="#{newGroupIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_oldBrokerId}" for="oldBrokerId" />
+                            <p:selectOneMenu id="oldBrokerId" value="#{remarksController.selected.oldBrokerId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="oldBrokerIdItem"
+                                               itemValue="#{oldBrokerIdItem}"
+                                               itemLabel="#{oldBrokerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRemarksLabel_writerId}" for="writerId" />
+                            <p:selectOneMenu id="writerId" value="#{remarksController.selected.writerId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="writerIdItem"
+                                               itemValue="#{writerIdItem}"
+                                               itemLabel="#{writerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{remarksController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:RemarksListPage:RemarksListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:RemarksListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

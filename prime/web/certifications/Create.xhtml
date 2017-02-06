@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CertificationsCreateDlg" widgetVar="CertificationsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCertificationsTitle}" closeOnEscape="true">
+
+            <h:form id="CertificationsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{certificationsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{certificationsController.selected.amount}" title="#{myBundle.CreateCertificationsTitle_amount}" required="true" requiredMessage="#{myBundle.CreateCertificationsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_beginDate}" for="beginDate" />
+                        <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{certificationsController.selected.beginDate}" title="#{myBundle.CreateCertificationsTitle_beginDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{certificationsController.selected.endDate}" title="#{myBundle.CreateCertificationsTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{certificationsController.selected.status}" title="#{myBundle.CreateCertificationsTitle_status}" required="true" requiredMessage="#{myBundle.CreateCertificationsRequiredMessage_status}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_buyerId}" for="buyerId" />
+                        <p:selectOneMenu id="buyerId" value="#{certificationsController.selected.buyerId}" required="true" requiredMessage="#{myBundle.CreateCertificationsRequiredMessage_buyerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="buyerIdItem"
+                                           itemValue="#{buyerIdItem}"
+                                           itemLabel="#{buyerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_guaranteeTypeId}" for="guaranteeTypeId" />
+                        <p:selectOneMenu id="guaranteeTypeId" value="#{certificationsController.selected.guaranteeTypeId}" required="true" requiredMessage="#{myBundle.CreateCertificationsRequiredMessage_guaranteeTypeId}" converter="guaranteeTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{guaranteeTypesController.items}"
+                                           var="guaranteeTypeIdItem"
+                                           itemValue="#{guaranteeTypeIdItem}"
+                                           itemLabel="#{guaranteeTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateCertificationsLabel_issuerId}" for="issuerId" />
+                        <p:selectOneMenu id="issuerId" value="#{certificationsController.selected.issuerId}" required="true" requiredMessage="#{myBundle.CreateCertificationsRequiredMessage_issuerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="issuerIdItem"
+                                           itemValue="#{issuerIdItem}"
+                                           itemLabel="#{issuerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{certificationsController.saveNew}" value="#{myBundle.Save}" update="display,:CertificationsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CertificationsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CertificationsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

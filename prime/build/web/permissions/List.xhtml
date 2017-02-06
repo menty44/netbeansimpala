@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PermissionsListForm">
+
+        <p:panel header="#{myBundle.ListPermissionsTitle}">
+            <p:contextMenu id="PermissionsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PermissionsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PermissionsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PermissionsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PermissionsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PermissionsMenuItem_groups}" icon="ui-icon-search"  actionListener="#{permissionsController.prepareGroups}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty permissionsController.selected.groups}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{permissionsController.items}"
+                         lazy="false"
+                         rowKey="#{item.permissionsPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{permissionsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{permissionsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.permissionsPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PermissionsDataTableContextMenu" listener="#{permissionsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PermissionsDataTableContextMenu" listener="#{permissionsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{permissionsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PermissionsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.permissionsPK.groupId}" filterBy="#{item.permissionsPK.groupId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermissionsTitle_permissionsPK_groupId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.permissionsPK.groupId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.permissionsPK.permission}" filterBy="#{item.permissionsPK.permission}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermissionsTitle_permissionsPK_permission}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.permissionsPK.permission}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.groups.name}" filterBy="#{item.groups.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermissionsTitle_groups}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.groups.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{permissionsController.prepareCreate}" update=":PermissionsCreateForm" oncomplete="PF('PermissionsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PermissionsViewForm" oncomplete="PF('PermissionsViewDialog').show()" disabled="#{empty permissionsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PermissionsEditForm" oncomplete="PF('PermissionsEditDialog').show()" disabled="#{empty permissionsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{permissionsController.delete}" update=":growl,datalist" disabled="#{empty permissionsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

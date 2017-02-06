@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberPosViewDlg" widgetVar="MemberPosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberPosTitle}" closeOnEscape="true">
+
+            <h:form id="MemberPosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberPosController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_id}"/>
+                        <h:outputText value="#{memberPosController.selected.id}" title="#{myBundle.ViewMemberPosTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_posName}"/>
+                        <h:outputText value="#{memberPosController.selected.posName}" title="#{myBundle.ViewMemberPosTitle_posName}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_posPin}"/>
+                        <h:outputText value="#{memberPosController.selected.posPin}" title="#{myBundle.ViewMemberPosTitle_posPin}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_date}"/>
+                        <h:outputText value="#{memberPosController.selected.date}" title="#{myBundle.ViewMemberPosTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_allowMakePayment}"/>
+                        <h:selectBooleanCheckbox id="allowMakePayment" value="#{memberPosController.selected.allowMakePayment}" title="#{myBundle.EditMemberPosTitle_allowMakePayment}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_allowMakePayment}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_maxSchedulingPayments}"/>
+                        <h:outputText value="#{memberPosController.selected.maxSchedulingPayments}" title="#{myBundle.ViewMemberPosTitle_maxSchedulingPayments}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_numberOfCopies}"/>
+                        <h:outputText value="#{memberPosController.selected.numberOfCopies}" title="#{myBundle.ViewMemberPosTitle_numberOfCopies}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_resultPageSize}"/>
+                        <h:outputText value="#{memberPosController.selected.resultPageSize}" title="#{myBundle.ViewMemberPosTitle_resultPageSize}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_status}"/>
+                        <h:outputText value="#{memberPosController.selected.status}" title="#{myBundle.ViewMemberPosTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_posId}"/>
+                        <h:outputText value="#{memberPosController.selected.posId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberPosLabel_ownerId}"/>
+                        <h:outputText value="#{memberPosController.selected.ownerId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberPosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

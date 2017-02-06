@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RateParametersEditDlg" widgetVar="RateParametersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRateParametersTitle}" closeOnEscape="true">
+
+            <h:form id="RateParametersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rateParametersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRateParametersLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{rateParametersController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{rateParametersController.selected.subclass}" title="#{myBundle.EditRateParametersTitle_subclass}" required="true" requiredMessage="#{myBundle.EditRateParametersRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.date}" title="#{myBundle.EditRateParametersTitle_date}" required="true" requiredMessage="#{myBundle.EditRateParametersRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_creationValue}" for="creationValue" />
+                        <p:inputText id="creationValue" value="#{rateParametersController.selected.creationValue}" title="#{myBundle.EditRateParametersTitle_creationValue}" required="true" requiredMessage="#{myBundle.EditRateParametersRequiredMessage_creationValue}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_enabledSince}" for="enabledSince" />
+                        <p:calendar id="enabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.enabledSince}" title="#{myBundle.EditRateParametersTitle_enabledSince}" required="true" requiredMessage="#{myBundle.EditRateParametersRequiredMessage_enabledSince}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_disabledSince}" for="disabledSince" />
+                        <p:calendar id="disabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.disabledSince}" title="#{myBundle.EditRateParametersTitle_disabledSince}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_reinitDate}" for="reinitDate" />
+                        <p:calendar id="reinitDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.reinitDate}" title="#{myBundle.EditRateParametersTitle_reinitDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_initValue}" for="initValue" />
+                        <p:inputText id="initValue" value="#{rateParametersController.selected.initValue}" title="#{myBundle.EditRateParametersTitle_initValue}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_initDate}" for="initDate" />
+                        <p:calendar id="initDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.initDate}" title="#{myBundle.EditRateParametersTitle_initDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_interest}" for="interest" />
+                        <p:inputText id="interest" value="#{rateParametersController.selected.interest}" title="#{myBundle.EditRateParametersTitle_interest}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_baseMalus}" for="baseMalus" />
+                        <p:inputText id="baseMalus" value="#{rateParametersController.selected.baseMalus}" title="#{myBundle.EditRateParametersTitle_baseMalus}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_minimalD}" for="minimalD" />
+                        <p:inputText id="minimalD" value="#{rateParametersController.selected.minimalD}" title="#{myBundle.EditRateParametersTitle_minimalD}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRateParametersLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{rateParametersController.selected.currencyId}" required="true" requiredMessage="#{myBundle.EditRateParametersRequiredMessage_currencyId}" converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rateParametersController.save}" value="#{myBundle.Save}" update="display,:RateParametersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RateParametersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RateParametersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

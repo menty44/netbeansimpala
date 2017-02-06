@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ReferenceHistoryEditDlg" widgetVar="ReferenceHistoryEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditReferenceHistoryTitle}" closeOnEscape="true">
+
+            <h:form id="ReferenceHistoryEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{referenceHistoryController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditReferenceHistoryLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{referenceHistoryController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_level}" for="level" />
+                        <p:inputText id="level" value="#{referenceHistoryController.selected.level}" title="#{myBundle.EditReferenceHistoryTitle_level}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_level}"/>
+
+                        <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{referenceHistoryController.selected.startDate}" title="#{myBundle.EditReferenceHistoryTitle_startDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{referenceHistoryController.selected.endDate}" title="#{myBundle.EditReferenceHistoryTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_fromMemberId}" for="fromMemberId" />
+                        <p:selectOneMenu id="fromMemberId" value="#{referenceHistoryController.selected.fromMemberId}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_fromMemberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="fromMemberIdItem"
+                                           itemValue="#{fromMemberIdItem}"
+                                           itemLabel="#{fromMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditReferenceHistoryLabel_toMemberId}" for="toMemberId" />
+                        <p:selectOneMenu id="toMemberId" value="#{referenceHistoryController.selected.toMemberId}" required="true" requiredMessage="#{myBundle.EditReferenceHistoryRequiredMessage_toMemberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="toMemberIdItem"
+                                           itemValue="#{toMemberIdItem}"
+                                           itemLabel="#{toMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{referenceHistoryController.save}" value="#{myBundle.Save}" update="display,:ReferenceHistoryListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ReferenceHistoryEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ReferenceHistoryEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

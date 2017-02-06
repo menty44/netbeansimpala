@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClosedAccountBalancesCreateDlg" widgetVar="ClosedAccountBalancesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateClosedAccountBalancesTitle}" closeOnEscape="true">
+
+            <h:form id="ClosedAccountBalancesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{closedAccountBalancesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateClosedAccountBalancesLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy" value="#{closedAccountBalancesController.selected.date}" title="#{myBundle.CreateClosedAccountBalancesTitle_date}" required="true" requiredMessage="#{myBundle.CreateClosedAccountBalancesRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClosedAccountBalancesLabel_balance}" for="balance" />
+                        <p:inputText id="balance" value="#{closedAccountBalancesController.selected.balance}" title="#{myBundle.CreateClosedAccountBalancesTitle_balance}" required="true" requiredMessage="#{myBundle.CreateClosedAccountBalancesRequiredMessage_balance}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClosedAccountBalancesLabel_reserved}" for="reserved" />
+                        <p:inputText id="reserved" value="#{closedAccountBalancesController.selected.reserved}" title="#{myBundle.CreateClosedAccountBalancesTitle_reserved}" required="true" requiredMessage="#{myBundle.CreateClosedAccountBalancesRequiredMessage_reserved}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateClosedAccountBalancesLabel_accountId}" for="accountId" />
+                        <p:selectOneMenu id="accountId" value="#{closedAccountBalancesController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateClosedAccountBalancesRequiredMessage_accountId}" converter="accountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountsController.items}"
+                                           var="accountIdItem"
+                                           itemValue="#{accountIdItem}"
+                                           itemLabel="#{accountIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{closedAccountBalancesController.saveNew}" value="#{myBundle.Save}" update="display,:ClosedAccountBalancesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ClosedAccountBalancesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ClosedAccountBalancesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

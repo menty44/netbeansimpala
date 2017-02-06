@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CardTypesListForm">
+
+        <p:panel header="#{myBundle.ListCardTypesTitle}">
+            <p:contextMenu id="CardTypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CardTypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CardTypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CardTypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CardTypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CardTypesMenuItem_cardsCollection}" icon="ui-icon-search"  action="#{cardTypesController.navigateCardsCollection}" disabled="#{empty cardTypesController.selected.cardsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CardTypesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{cardTypesController.navigateGroupsCollection}" disabled="#{empty cardTypesController.selected.groupsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{cardTypesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cardTypesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cardTypesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CardTypesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CardTypesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CardTypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cardFormatNumber}" filterBy="#{item.cardFormatNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_cardFormatNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cardFormatNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.defaultExpirationNumber}" filterBy="#{item.defaultExpirationNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_defaultExpirationNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.defaultExpirationNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.defaultExpirationField}" filterBy="#{item.defaultExpirationField}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_defaultExpirationField}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.defaultExpirationField}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cardSecurityCode}" filterBy="#{item.cardSecurityCode}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCardTypesTitle_cardSecurityCode}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cardSecurityCode}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.showCardSecurityCode}" filterBy="#{item.showCardSecurityCode}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_showCardSecurityCode}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="showCardSecurityCode" value="#{item.showCardSecurityCode}" title="#{myBundle.EditCardTypesTitle_showCardSecurityCode}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_showCardSecurityCode}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ignoreDayInExpirationDate}" filterBy="#{item.ignoreDayInExpirationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_ignoreDayInExpirationDate}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="ignoreDayInExpirationDate" value="#{item.ignoreDayInExpirationDate}" title="#{myBundle.EditCardTypesTitle_ignoreDayInExpirationDate}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_ignoreDayInExpirationDate}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.minCardSecurityCodeLength}" filterBy="#{item.minCardSecurityCodeLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_minCardSecurityCodeLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.minCardSecurityCodeLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxCardSecurityCodeLength}" filterBy="#{item.maxCardSecurityCodeLength}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_maxCardSecurityCodeLength}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxCardSecurityCodeLength}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.securityCodeBlockTimeNumber}" filterBy="#{item.securityCodeBlockTimeNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_securityCodeBlockTimeNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.securityCodeBlockTimeNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.securityCodeBlockTimeField}" filterBy="#{item.securityCodeBlockTimeField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_securityCodeBlockTimeField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.securityCodeBlockTimeField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxSecurityCodeTries}" filterBy="#{item.maxSecurityCodeTries}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCardTypesTitle_maxSecurityCodeTries}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxSecurityCodeTries}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cardTypesController.prepareCreate}" update=":CardTypesCreateForm" oncomplete="PF('CardTypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CardTypesViewForm" oncomplete="PF('CardTypesViewDialog').show()" disabled="#{empty cardTypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CardTypesEditForm" oncomplete="PF('CardTypesEditDialog').show()" disabled="#{empty cardTypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cardTypesController.delete}" update=":growl,datalist" disabled="#{empty cardTypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BrokeringCommissionStatusEditDlg" widgetVar="BrokeringCommissionStatusEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditBrokeringCommissionStatusTitle}" closeOnEscape="true">
+
+            <h:form id="BrokeringCommissionStatusEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{brokeringCommissionStatusController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{brokeringCommissionStatusController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_whenApply}" for="whenApply" />
+                        <p:inputText id="whenApply" value="#{brokeringCommissionStatusController.selected.whenApply}" title="#{myBundle.EditBrokeringCommissionStatusTitle_whenApply}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_whenApply}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{brokeringCommissionStatusController.selected.amount}" title="#{myBundle.EditBrokeringCommissionStatusTitle_amount}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_amountType}" for="amountType" />
+                        <p:inputText id="amountType" value="#{brokeringCommissionStatusController.selected.amountType}" title="#{myBundle.EditBrokeringCommissionStatusTitle_amountType}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_amountType}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{brokeringCommissionStatusController.selected.startDate}" title="#{myBundle.EditBrokeringCommissionStatusTitle_startDate}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_startDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{brokeringCommissionStatusController.selected.endDate}" title="#{myBundle.EditBrokeringCommissionStatusTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{brokeringCommissionStatusController.selected.creationDate}" title="#{myBundle.EditBrokeringCommissionStatusTitle_creationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_expiryDate}" for="expiryDate" />
+                        <p:calendar id="expiryDate" pattern="MM/dd/yyyy" value="#{brokeringCommissionStatusController.selected.expiryDate}" title="#{myBundle.EditBrokeringCommissionStatusTitle_expiryDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_maxCount}" for="maxCount" />
+                        <p:inputText id="maxCount" value="#{brokeringCommissionStatusController.selected.maxCount}" title="#{myBundle.EditBrokeringCommissionStatusTitle_maxCount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_totalCount}" for="totalCount" />
+                        <p:inputText id="totalCount" value="#{brokeringCommissionStatusController.selected.totalCount}" title="#{myBundle.EditBrokeringCommissionStatusTitle_totalCount}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_totalCount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_totalAmount}" for="totalAmount" />
+                        <p:inputText id="totalAmount" value="#{brokeringCommissionStatusController.selected.totalAmount}" title="#{myBundle.EditBrokeringCommissionStatusTitle_totalAmount}" required="true" requiredMessage="#{myBundle.EditBrokeringCommissionStatusRequiredMessage_totalAmount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_brokeringId}" for="brokeringId" />
+                        <p:selectOneMenu id="brokeringId" value="#{brokeringCommissionStatusController.selected.brokeringId}"  converter="brokeringsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{brokeringsController.items}"
+                                           var="brokeringIdItem"
+                                           itemValue="#{brokeringIdItem}"
+                                           itemLabel="#{brokeringIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditBrokeringCommissionStatusLabel_brokerCommissionId}" for="brokerCommissionId" />
+                        <p:selectOneMenu id="brokerCommissionId" value="#{brokeringCommissionStatusController.selected.brokerCommissionId}"  converter="transactionFeesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transactionFeesController.items}"
+                                           var="brokerCommissionIdItem"
+                                           itemValue="#{brokerCommissionIdItem}"
+                                           itemLabel="#{brokerCommissionIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{brokeringCommissionStatusController.save}" value="#{myBundle.Save}" update="display,:BrokeringCommissionStatusListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('BrokeringCommissionStatusEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('BrokeringCommissionStatusEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

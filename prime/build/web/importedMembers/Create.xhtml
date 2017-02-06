@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedMembersCreateDlg" widgetVar="ImportedMembersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateImportedMembersTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedMembersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{importedMembersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{importedMembersController.selected.status}" title="#{myBundle.CreateImportedMembersTitle_status}" required="true" requiredMessage="#{myBundle.CreateImportedMembersRequiredMessage_status}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_lineNumber}" for="lineNumber" />
+                        <p:inputText id="lineNumber" value="#{importedMembersController.selected.lineNumber}" title="#{myBundle.CreateImportedMembersTitle_lineNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_errorArgument1}" for="errorArgument1" />
+                        <p:inputText id="errorArgument1" value="#{importedMembersController.selected.errorArgument1}" title="#{myBundle.CreateImportedMembersTitle_errorArgument1}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_errorArgument2}" for="errorArgument2" />
+                        <p:inputText id="errorArgument2" value="#{importedMembersController.selected.errorArgument2}" title="#{myBundle.CreateImportedMembersTitle_errorArgument2}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{importedMembersController.selected.name}" title="#{myBundle.CreateImportedMembersTitle_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_salt}" for="salt" />
+                        <p:inputText id="salt" value="#{importedMembersController.selected.salt}" title="#{myBundle.CreateImportedMembersTitle_salt}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{importedMembersController.selected.username}" title="#{myBundle.CreateImportedMembersTitle_username}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{importedMembersController.selected.password}" title="#{myBundle.CreateImportedMembersTitle_password}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{importedMembersController.selected.email}" title="#{myBundle.CreateImportedMembersTitle_email}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{importedMembersController.selected.creationDate}" title="#{myBundle.CreateImportedMembersTitle_creationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_creditLimit}" for="creditLimit" />
+                        <p:inputText id="creditLimit" value="#{importedMembersController.selected.creditLimit}" title="#{myBundle.CreateImportedMembersTitle_creditLimit}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_upperCreditLimit}" for="upperCreditLimit" />
+                        <p:inputText id="upperCreditLimit" value="#{importedMembersController.selected.upperCreditLimit}" title="#{myBundle.CreateImportedMembersTitle_upperCreditLimit}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_initialBalance}" for="initialBalance" />
+                        <p:inputText id="initialBalance" value="#{importedMembersController.selected.initialBalance}" title="#{myBundle.CreateImportedMembersTitle_initialBalance}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMembersLabel_importId}" for="importId" />
+                        <p:selectOneMenu id="importId" value="#{importedMembersController.selected.importId}" required="true" requiredMessage="#{myBundle.CreateImportedMembersRequiredMessage_importId}" converter="memberImportsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{memberImportsController.items}"
+                                           var="importIdItem"
+                                           itemValue="#{importIdItem}"
+                                           itemLabel="#{importIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{importedMembersController.saveNew}" value="#{myBundle.Save}" update="display,:ImportedMembersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ImportedMembersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ImportedMembersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

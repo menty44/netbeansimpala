@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SessionsCreateDlg" widgetVar="SessionsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateSessionsTitle}" closeOnEscape="true">
+
+            <h:form id="SessionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{sessionsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_identifier}" for="identifier" />
+                        <p:inputText id="identifier" value="#{sessionsController.selected.identifier}" title="#{myBundle.CreateSessionsTitle_identifier}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_identifier}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.creationDate}" title="#{myBundle.CreateSessionsTitle_creationDate}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_creationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{sessionsController.selected.expirationDate}" title="#{myBundle.CreateSessionsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_expirationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_posWeb}" for="posWeb" />
+                        <p:selectBooleanCheckbox id="posWeb" value="#{sessionsController.selected.posWeb}" />
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_remoteAddr}" for="remoteAddr" />
+                        <p:inputText id="remoteAddr" value="#{sessionsController.selected.remoteAddr}" title="#{myBundle.CreateSessionsTitle_remoteAddr}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_remoteAddr}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSessionsLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{sessionsController.selected.userId}" required="true" requiredMessage="#{myBundle.CreateSessionsRequiredMessage_userId}" converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"
+                                           itemLabel="#{userIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sessionsController.saveNew}" value="#{myBundle.Save}" update="display,:SessionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SessionsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SessionsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

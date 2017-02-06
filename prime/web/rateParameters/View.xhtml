@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RateParametersViewDlg" widgetVar="RateParametersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRateParametersTitle}" closeOnEscape="true">
+
+            <h:form id="RateParametersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{rateParametersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_id}"/>
+                        <h:outputText value="#{rateParametersController.selected.id}" title="#{myBundle.ViewRateParametersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_subclass}"/>
+                        <h:outputText value="#{rateParametersController.selected.subclass}" title="#{myBundle.ViewRateParametersTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_date}"/>
+                        <h:outputText value="#{rateParametersController.selected.date}" title="#{myBundle.ViewRateParametersTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_creationValue}"/>
+                        <h:outputText value="#{rateParametersController.selected.creationValue}" title="#{myBundle.ViewRateParametersTitle_creationValue}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_enabledSince}"/>
+                        <h:outputText value="#{rateParametersController.selected.enabledSince}" title="#{myBundle.ViewRateParametersTitle_enabledSince}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_disabledSince}"/>
+                        <h:outputText value="#{rateParametersController.selected.disabledSince}" title="#{myBundle.ViewRateParametersTitle_disabledSince}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_reinitDate}"/>
+                        <h:outputText value="#{rateParametersController.selected.reinitDate}" title="#{myBundle.ViewRateParametersTitle_reinitDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_initValue}"/>
+                        <h:outputText value="#{rateParametersController.selected.initValue}" title="#{myBundle.ViewRateParametersTitle_initValue}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_initDate}"/>
+                        <h:outputText value="#{rateParametersController.selected.initDate}" title="#{myBundle.ViewRateParametersTitle_initDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_interest}"/>
+                        <h:outputText value="#{rateParametersController.selected.interest}" title="#{myBundle.ViewRateParametersTitle_interest}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_baseMalus}"/>
+                        <h:outputText value="#{rateParametersController.selected.baseMalus}" title="#{myBundle.ViewRateParametersTitle_baseMalus}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_minimalD}"/>
+                        <h:outputText value="#{rateParametersController.selected.minimalD}" title="#{myBundle.ViewRateParametersTitle_minimalD}"/>
+
+                        <h:outputText value="#{myBundle.ViewRateParametersLabel_currencyId}"/>
+                        <h:outputText value="#{rateParametersController.selected.currencyId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RateParametersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

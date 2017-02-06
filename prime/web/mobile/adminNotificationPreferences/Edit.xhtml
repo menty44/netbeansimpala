@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdminNotificationPreferencesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAdminNotificationPreferencesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdminNotificationPreferencesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdminNotificationPreferencesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{adminNotificationPreferencesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAdminNotificationPreferencesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{adminNotificationPreferencesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdminNotificationPreferencesLabel_applicationErrors}" for="applicationErrors" />
+                            <p:selectBooleanCheckbox id="applicationErrors" value="#{adminNotificationPreferencesController.selected.applicationErrors}" required="true" requiredMessage="#{myBundle.EditAdminNotificationPreferencesRequiredMessage_applicationErrors}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdminNotificationPreferencesLabel_systemInvoices}" for="systemInvoices" />
+                            <p:selectBooleanCheckbox id="systemInvoices" value="#{adminNotificationPreferencesController.selected.systemInvoices}" required="true" requiredMessage="#{myBundle.EditAdminNotificationPreferencesRequiredMessage_systemInvoices}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdminNotificationPreferencesLabel_adminId}" for="adminId" />
+                            <p:selectOneMenu id="adminId" value="#{adminNotificationPreferencesController.selected.adminId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="adminIdItem"
+                                               itemValue="#{adminIdItem}"
+                                               itemLabel="#{adminIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{adminNotificationPreferencesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AdminNotificationPreferencesListPage:AdminNotificationPreferencesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AdminNotificationPreferencesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

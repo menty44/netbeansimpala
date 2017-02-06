@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CardLogsViewDlg" widgetVar="CardLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCardLogsTitle}" closeOnEscape="true">
+
+            <h:form id="CardLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cardLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCardLogsLabel_id}"/>
+                        <h:outputText value="#{cardLogsController.selected.id}" title="#{myBundle.ViewCardLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardLogsLabel_date}"/>
+                        <h:outputText value="#{cardLogsController.selected.date}" title="#{myBundle.ViewCardLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCardLogsLabel_status}"/>
+                        <h:outputText value="#{cardLogsController.selected.status}" title="#{myBundle.ViewCardLogsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardLogsLabel_cardId}"/>
+                        <h:outputText value="#{cardLogsController.selected.cardId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardLogsLabel_byId}"/>
+                        <h:outputText value="#{cardLogsController.selected.byId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CardLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

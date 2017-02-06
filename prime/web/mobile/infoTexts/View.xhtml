@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="InfoTextsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewInfoTextsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:InfoTextsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="InfoTextsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{infoTextsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_id}"/>
+                            <h:outputText value="#{infoTextsController.selected.id}" title="#{myBundle.ViewInfoTextsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_subject}"/>
+                            <h:outputText value="#{infoTextsController.selected.subject}" title="#{myBundle.ViewInfoTextsTitle_subject}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_body}"/>
+                            <h:outputText value="#{infoTextsController.selected.body}" title="#{myBundle.ViewInfoTextsTitle_body}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_enabled}"/>
+                            <h:selectBooleanCheckbox id="enabled" value="#{infoTextsController.selected.enabled}" title="#{myBundle.EditInfoTextsTitle_enabled}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_enabled}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_beginDate}"/>
+                            <h:outputText value="#{infoTextsController.selected.beginDate}" title="#{myBundle.ViewInfoTextsTitle_beginDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewInfoTextsLabel_endDate}"/>
+                            <h:outputText value="#{infoTextsController.selected.endDate}" title="#{myBundle.ViewInfoTextsTitle_endDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

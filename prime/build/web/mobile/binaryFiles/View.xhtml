@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="BinaryFilesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewBinaryFilesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:BinaryFilesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="BinaryFilesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{binaryFilesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_id}"/>
+                            <h:outputText value="#{binaryFilesController.selected.id}" title="#{myBundle.ViewBinaryFilesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_name}"/>
+                            <h:outputText value="#{binaryFilesController.selected.name}" title="#{myBundle.ViewBinaryFilesTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_contentType}"/>
+                            <h:outputText value="#{binaryFilesController.selected.contentType}" title="#{myBundle.ViewBinaryFilesTitle_contentType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_size}"/>
+                            <h:outputText value="#{binaryFilesController.selected.size}" title="#{myBundle.ViewBinaryFilesTitle_size}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_lastModified}"/>
+                            <h:outputText value="#{binaryFilesController.selected.lastModified}" title="#{myBundle.ViewBinaryFilesTitle_lastModified}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBinaryFilesLabel_contents}"/>
+                            <h:outputText value="#{binaryFilesController.selected.contents}" title="#{myBundle.ViewBinaryFilesTitle_contents}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

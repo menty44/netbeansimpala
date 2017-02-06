@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InfoTextsViewDlg" widgetVar="InfoTextsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewInfoTextsTitle}" closeOnEscape="true">
+
+            <h:form id="InfoTextsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{infoTextsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_id}"/>
+                        <h:outputText value="#{infoTextsController.selected.id}" title="#{myBundle.ViewInfoTextsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_subject}"/>
+                        <h:outputText value="#{infoTextsController.selected.subject}" title="#{myBundle.ViewInfoTextsTitle_subject}"/>
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_body}"/>
+                        <h:outputText value="#{infoTextsController.selected.body}" title="#{myBundle.ViewInfoTextsTitle_body}"/>
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_enabled}"/>
+                        <h:selectBooleanCheckbox id="enabled" value="#{infoTextsController.selected.enabled}" title="#{myBundle.EditInfoTextsTitle_enabled}" required="true" requiredMessage="#{myBundle.EditInfoTextsRequiredMessage_enabled}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_beginDate}"/>
+                        <h:outputText value="#{infoTextsController.selected.beginDate}" title="#{myBundle.ViewInfoTextsTitle_beginDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewInfoTextsLabel_endDate}"/>
+                        <h:outputText value="#{infoTextsController.selected.endDate}" title="#{myBundle.ViewInfoTextsTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('InfoTextsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

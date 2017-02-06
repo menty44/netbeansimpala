@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberImportsCreateDlg" widgetVar="MemberImportsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMemberImportsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberImportsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{memberImportsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberImportsController.selected.date}" title="#{myBundle.CreateMemberImportsTitle_date}" required="true" requiredMessage="#{myBundle.CreateMemberImportsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{memberImportsController.selected.byId}" required="true" requiredMessage="#{myBundle.CreateMemberImportsRequiredMessage_byId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_initialCreditTransferTypeId}" for="initialCreditTransferTypeId" />
+                        <p:selectOneMenu id="initialCreditTransferTypeId" value="#{memberImportsController.selected.initialCreditTransferTypeId}"  converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="initialCreditTransferTypeIdItem"
+                                           itemValue="#{initialCreditTransferTypeIdItem}"
+                                           itemLabel="#{initialCreditTransferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_initialDebitTransferTypeId}" for="initialDebitTransferTypeId" />
+                        <p:selectOneMenu id="initialDebitTransferTypeId" value="#{memberImportsController.selected.initialDebitTransferTypeId}"  converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="initialDebitTransferTypeIdItem"
+                                           itemValue="#{initialDebitTransferTypeIdItem}"
+                                           itemLabel="#{initialDebitTransferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_groupId}" for="groupId" />
+                        <p:selectOneMenu id="groupId" value="#{memberImportsController.selected.groupId}" required="true" requiredMessage="#{myBundle.CreateMemberImportsRequiredMessage_groupId}" converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupIdItem"
+                                           itemValue="#{groupIdItem}"
+                                           itemLabel="#{groupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberImportsLabel_accountTypeId}" for="accountTypeId" />
+                        <p:selectOneMenu id="accountTypeId" value="#{memberImportsController.selected.accountTypeId}"  converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="accountTypeIdItem"
+                                           itemValue="#{accountTypeIdItem}"
+                                           itemLabel="#{accountTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{memberImportsController.saveNew}" value="#{myBundle.Save}" update="display,:MemberImportsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MemberImportsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MemberImportsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

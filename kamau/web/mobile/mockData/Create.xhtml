@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MockDataCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateMockDataTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MockDataListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MockDataCreateForm">
+
+                <h:panelGroup id="display" rendered="#{mockDataController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMockDataLabel_firstName}" for="firstName" />
+                            <p:inputText id="firstName" value="#{mockDataController.selected.firstName}" title="#{myBundle.CreateMockDataTitle_firstName}" required="true" requiredMessage="#{myBundle.CreateMockDataRequiredMessage_firstName}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMockDataLabel_lastName}" for="lastName" />
+                            <p:inputText id="lastName" value="#{mockDataController.selected.lastName}" title="#{myBundle.CreateMockDataTitle_lastName}" required="true" requiredMessage="#{myBundle.CreateMockDataRequiredMessage_lastName}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMockDataLabel_email}" for="email" />
+                            <p:inputText id="email" value="#{mockDataController.selected.email}" title="#{myBundle.CreateMockDataTitle_email}" required="true" requiredMessage="#{myBundle.CreateMockDataRequiredMessage_email}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMockDataLabel_gender}" for="gender" />
+                            <p:inputText id="gender" value="#{mockDataController.selected.gender}" title="#{myBundle.CreateMockDataTitle_gender}" required="true" requiredMessage="#{myBundle.CreateMockDataRequiredMessage_gender}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMockDataLabel_ipAddress}" for="ipAddress" />
+                            <p:inputText id="ipAddress" value="#{mockDataController.selected.ipAddress}" title="#{myBundle.CreateMockDataTitle_ipAddress}" required="true" requiredMessage="#{myBundle.CreateMockDataRequiredMessage_ipAddress}" size="200" maxlength="200"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{mockDataController.saveNew}" value="#{myBundle.Save}" update="display,:MockDataListPage:MockDataListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MockDataListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FileMappingsViewDlg" widgetVar="FileMappingsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewFileMappingsTitle}" closeOnEscape="true">
+
+            <h:form id="FileMappingsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{fileMappingsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_id}"/>
+                        <h:outputText value="#{fileMappingsController.selected.id}" title="#{myBundle.ViewFileMappingsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_subclass}"/>
+                        <h:outputText value="#{fileMappingsController.selected.subclass}" title="#{myBundle.ViewFileMappingsTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_dateFormat}"/>
+                        <h:outputText value="#{fileMappingsController.selected.dateFormat}" title="#{myBundle.ViewFileMappingsTitle_dateFormat}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_numberFormat}"/>
+                        <h:outputText value="#{fileMappingsController.selected.numberFormat}" title="#{myBundle.ViewFileMappingsTitle_numberFormat}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_decimalPlaces}"/>
+                        <h:outputText value="#{fileMappingsController.selected.decimalPlaces}" title="#{myBundle.ViewFileMappingsTitle_decimalPlaces}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_decimalSeparator}"/>
+                        <h:outputText value="#{fileMappingsController.selected.decimalSeparator}" title="#{myBundle.ViewFileMappingsTitle_decimalSeparator}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_negativeAmountValue}"/>
+                        <h:outputText value="#{fileMappingsController.selected.negativeAmountValue}" title="#{myBundle.ViewFileMappingsTitle_negativeAmountValue}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_classname}"/>
+                        <h:outputText value="#{fileMappingsController.selected.classname}" title="#{myBundle.ViewFileMappingsTitle_classname}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_stringQuote}"/>
+                        <h:outputText value="#{fileMappingsController.selected.stringQuote}" title="#{myBundle.ViewFileMappingsTitle_stringQuote}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_columnSeparator}"/>
+                        <h:outputText value="#{fileMappingsController.selected.columnSeparator}" title="#{myBundle.ViewFileMappingsTitle_columnSeparator}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_headerLines}"/>
+                        <h:outputText value="#{fileMappingsController.selected.headerLines}" title="#{myBundle.ViewFileMappingsTitle_headerLines}"/>
+
+                        <h:outputText value="#{myBundle.ViewFileMappingsLabel_accountId}"/>
+                        <h:outputText value="#{fileMappingsController.selected.accountId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('FileMappingsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

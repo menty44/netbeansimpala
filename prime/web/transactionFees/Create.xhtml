@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransactionFeesCreateDlg" widgetVar="TransactionFeesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTransactionFeesTitle}" closeOnEscape="true">
+
+            <h:form id="TransactionFeesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{transactionFeesController.selected != null}">
+                    <p:tabView id="TransactionFeesTabView">
+
+                        <p:tab id="TransactionFeesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_subclass}" for="subclass" />
+                                <p:inputText id="subclass" value="#{transactionFeesController.selected.subclass}" title="#{myBundle.CreateTransactionFeesTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_payer}" for="payer" />
+                                <p:inputText id="payer" value="#{transactionFeesController.selected.payer}" title="#{myBundle.CreateTransactionFeesTitle_payer}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_payer}" size="3" maxlength="3"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_enabled}" for="enabled" />
+                                <p:selectBooleanCheckbox id="enabled" value="#{transactionFeesController.selected.enabled}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_enabled}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{transactionFeesController.selected.name}" title="#{myBundle.CreateTransactionFeesTitle_name}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_fromAllGroups}" for="fromAllGroups" />
+                                <p:selectBooleanCheckbox id="fromAllGroups" value="#{transactionFeesController.selected.fromAllGroups}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_fromAllGroups}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_toAllGroups}" for="toAllGroups" />
+                                <p:selectBooleanCheckbox id="toAllGroups" value="#{transactionFeesController.selected.toAllGroups}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_toAllGroups}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{transactionFeesController.selected.description}" title="#{myBundle.CreateTransactionFeesTitle_description}" />
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_deductAmount}" for="deductAmount" />
+                                <p:selectBooleanCheckbox id="deductAmount" value="#{transactionFeesController.selected.deductAmount}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_deductAmount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_amount}" for="amount" />
+                                <p:inputText id="amount" value="#{transactionFeesController.selected.amount}" title="#{myBundle.CreateTransactionFeesTitle_amount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_amountType}" for="amountType" />
+                                <p:inputText id="amountType" value="#{transactionFeesController.selected.amountType}" title="#{myBundle.CreateTransactionFeesTitle_amountType}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_amountType}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_maxFixedValue}" for="maxFixedValue" />
+                                <p:inputText id="maxFixedValue" value="#{transactionFeesController.selected.maxFixedValue}" title="#{myBundle.CreateTransactionFeesTitle_maxFixedValue}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_maxPercentageValue}" for="maxPercentageValue" />
+                                <p:inputText id="maxPercentageValue" value="#{transactionFeesController.selected.maxPercentageValue}" title="#{myBundle.CreateTransactionFeesTitle_maxPercentageValue}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_initialAmount}" for="initialAmount" />
+                                <p:inputText id="initialAmount" value="#{transactionFeesController.selected.initialAmount}" title="#{myBundle.CreateTransactionFeesTitle_initialAmount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_finalAmount}" for="finalAmount" />
+                                <p:inputText id="finalAmount" value="#{transactionFeesController.selected.finalAmount}" title="#{myBundle.CreateTransactionFeesTitle_finalAmount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_receiver}" for="receiver" />
+                                <p:inputText id="receiver" value="#{transactionFeesController.selected.receiver}" title="#{myBundle.CreateTransactionFeesTitle_receiver}" size="3" maxlength="3"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_h}" for="h" />
+                                <p:inputText id="h" value="#{transactionFeesController.selected.h}" title="#{myBundle.CreateTransactionFeesTitle_h}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_AFIsZero}" for="AFIsZero" />
+                                <p:inputText id="AFIsZero" value="#{transactionFeesController.selected.AFIsZero}" title="#{myBundle.CreateTransactionFeesTitle_AFIsZero}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_f1}" for="f1" />
+                                <p:inputText id="f1" value="#{transactionFeesController.selected.f1}" title="#{myBundle.CreateTransactionFeesTitle_f1}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_FInfinite}" for="FInfinite" />
+                                <p:inputText id="FInfinite" value="#{transactionFeesController.selected.FInfinite}" title="#{myBundle.CreateTransactionFeesTitle_FInfinite}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_FMinimal}" for="FMinimal" />
+                                <p:inputText id="FMinimal" value="#{transactionFeesController.selected.FMinimal}" title="#{myBundle.CreateTransactionFeesTitle_FMinimal}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransactionFeesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_GFIsZero}" for="GFIsZero" />
+                                <p:inputText id="GFIsZero" value="#{transactionFeesController.selected.GFIsZero}" title="#{myBundle.CreateTransactionFeesTitle_GFIsZero}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_whichBroker}" for="whichBroker" />
+                                <p:inputText id="whichBroker" value="#{transactionFeesController.selected.whichBroker}" title="#{myBundle.CreateTransactionFeesTitle_whichBroker}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_whenApply}" for="whenApply" />
+                                <p:inputText id="whenApply" value="#{transactionFeesController.selected.whenApply}" title="#{myBundle.CreateTransactionFeesTitle_whenApply}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_whenCount}" for="whenCount" />
+                                <p:inputText id="whenCount" value="#{transactionFeesController.selected.whenCount}" title="#{myBundle.CreateTransactionFeesTitle_whenCount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_allBrokerGroups}" for="allBrokerGroups" />
+                                <p:selectBooleanCheckbox id="allBrokerGroups" value="#{transactionFeesController.selected.allBrokerGroups}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_allBrokerGroups}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_generatedTypeId}" for="generatedTypeId" />
+                                <p:selectOneMenu id="generatedTypeId" value="#{transactionFeesController.selected.generatedTypeId}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_generatedTypeId}" converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="generatedTypeIdItem"
+                                                   itemValue="#{generatedTypeIdItem}"
+                                                   itemLabel="#{generatedTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_fromMemberId}" for="fromMemberId" />
+                                <p:selectOneMenu id="fromMemberId" value="#{transactionFeesController.selected.fromMemberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="fromMemberIdItem"
+                                                   itemValue="#{fromMemberIdItem}"
+                                                   itemLabel="#{fromMemberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_toMemberId}" for="toMemberId" />
+                                <p:selectOneMenu id="toMemberId" value="#{transactionFeesController.selected.toMemberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="toMemberIdItem"
+                                                   itemValue="#{toMemberIdItem}"
+                                                   itemLabel="#{toMemberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransactionFeesLabel_originalTypeId}" for="originalTypeId" />
+                                <p:selectOneMenu id="originalTypeId" value="#{transactionFeesController.selected.originalTypeId}" required="true" requiredMessage="#{myBundle.CreateTransactionFeesRequiredMessage_originalTypeId}" converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="originalTypeIdItem"
+                                                   itemValue="#{originalTypeIdItem}"
+                                                   itemLabel="#{originalTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{transactionFeesController.saveNew}" value="#{myBundle.Save}" update="display,:TransactionFeesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TransactionFeesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TransactionFeesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AdInterestsListForm">
+
+        <p:panel header="#{myBundle.ListAdInterestsTitle}">
+            <p:contextMenu id="AdInterestsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AdInterestsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AdInterestsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AdInterestsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AdInterestsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AdInterestsMenuItem_categoryId}" icon="ui-icon-search"  actionListener="#{adInterestsController.prepareCategoryId}" update=":AdCategoriesViewForm" oncomplete="PF('AdCategoriesViewDialog').show()" disabled="#{empty adInterestsController.selected.categoryId}"/>  
+                <p:menuitem value="#{myBundle.AdInterestsMenuItem_groupFilterId}" icon="ui-icon-search"  actionListener="#{adInterestsController.prepareGroupFilterId}" update=":GroupFiltersViewForm" oncomplete="PF('GroupFiltersViewDialog').show()" disabled="#{empty adInterestsController.selected.groupFilterId}"/>  
+                <p:menuitem value="#{myBundle.AdInterestsMenuItem_currencyId}" icon="ui-icon-search"  actionListener="#{adInterestsController.prepareCurrencyId}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty adInterestsController.selected.currencyId}"/>  
+                <p:menuitem value="#{myBundle.AdInterestsMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{adInterestsController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty adInterestsController.selected.memberId}"/>  
+                <p:menuitem value="#{myBundle.AdInterestsMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{adInterestsController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty adInterestsController.selected.ownerId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{adInterestsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{adInterestsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{adInterestsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdInterestsDataTableContextMenu" listener="#{adInterestsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdInterestsDataTableContextMenu" listener="#{adInterestsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{adInterestsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AdInterestsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.title}" filterBy="#{item.title}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_title}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.title}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tradeType}" filterBy="#{item.tradeType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_tradeType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tradeType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.initialPrice}" filterBy="#{item.initialPrice}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_initialPrice}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.initialPrice}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.finalPrice}" filterBy="#{item.finalPrice}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_finalPrice}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.finalPrice}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.keywords}" filterBy="#{item.keywords}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdInterestsTitle_keywords}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.keywords}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.categoryId.name}" filterBy="#{item.categoryId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdInterestsTitle_categoryId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.categoryId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.groupFilterId.name}" filterBy="#{item.groupFilterId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdInterestsTitle_groupFilterId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.groupFilterId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.currencyId.name}" filterBy="#{item.currencyId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdInterestsTitle_currencyId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.currencyId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdInterestsTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAdInterestsTitle_ownerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ownerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{adInterestsController.prepareCreate}" update=":AdInterestsCreateForm" oncomplete="PF('AdInterestsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AdInterestsViewForm" oncomplete="PF('AdInterestsViewDialog').show()" disabled="#{empty adInterestsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AdInterestsEditForm" oncomplete="PF('AdInterestsEditDialog').show()" disabled="#{empty adInterestsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{adInterestsController.delete}" update=":growl,datalist" disabled="#{empty adInterestsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

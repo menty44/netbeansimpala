@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AccountRatesEditDlg" widgetVar="AccountRatesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAccountRatesTitle}" closeOnEscape="true">
+
+            <h:form id="AccountRatesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{accountRatesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAccountRatesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{accountRatesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_emissionDate}" for="emissionDate" />
+                        <p:calendar id="emissionDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountRatesController.selected.emissionDate}" title="#{myBundle.EditAccountRatesTitle_emissionDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountRatesController.selected.expirationDate}" title="#{myBundle.EditAccountRatesTitle_expirationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_IRate}" for="IRate" />
+                        <p:inputText id="IRate" value="#{accountRatesController.selected.IRate}" title="#{myBundle.EditAccountRatesTitle_IRate}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_rateBalanceCorrection}" for="rateBalanceCorrection" />
+                        <p:inputText id="rateBalanceCorrection" value="#{accountRatesController.selected.rateBalanceCorrection}" title="#{myBundle.EditAccountRatesTitle_rateBalanceCorrection}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{accountRatesController.selected.transferId}" required="true" requiredMessage="#{myBundle.EditAccountRatesRequiredMessage_transferId}" converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditAccountRatesLabel_accountId}" for="accountId" />
+                        <p:selectOneMenu id="accountId" value="#{accountRatesController.selected.accountId}" required="true" requiredMessage="#{myBundle.EditAccountRatesRequiredMessage_accountId}" converter="accountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountsController.items}"
+                                           var="accountIdItem"
+                                           itemValue="#{accountIdItem}"
+                                           itemLabel="#{accountIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{accountRatesController.save}" value="#{myBundle.Save}" update="display,:AccountRatesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccountRatesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccountRatesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

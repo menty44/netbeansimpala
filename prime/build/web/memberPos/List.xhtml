@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MemberPosListForm">
+
+        <p:panel header="#{myBundle.ListMemberPosTitle}">
+            <p:contextMenu id="MemberPosDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MemberPosListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MemberPosListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MemberPosListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MemberPosListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MemberPosMenuItem_posId}" icon="ui-icon-search"  actionListener="#{memberPosController.preparePosId}" update=":PosViewForm" oncomplete="PF('PosViewDialog').show()" disabled="#{empty memberPosController.selected.posId}"/>  
+                <p:menuitem value="#{myBundle.MemberPosMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{memberPosController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty memberPosController.selected.ownerId}"/>  
+                <p:menuitem value="#{myBundle.MemberPosMenuItem_posCollection}" icon="ui-icon-search"  action="#{memberPosController.navigatePosCollection}" disabled="#{empty memberPosController.selected.posCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MemberPosMenuItem_wrongCredentialAttemptsCollection}" icon="ui-icon-search"  action="#{memberPosController.navigateWrongCredentialAttemptsCollection}" disabled="#{empty memberPosController.selected.wrongCredentialAttemptsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{memberPosController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{memberPosController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{memberPosController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberPosDataTableContextMenu" listener="#{memberPosController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberPosDataTableContextMenu" listener="#{memberPosController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{memberPosController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MemberPosListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.posName}" filterBy="#{item.posName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_posName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.posName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.posPin}" filterBy="#{item.posPin}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_posPin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.posPin}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.allowMakePayment}" filterBy="#{item.allowMakePayment}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_allowMakePayment}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="allowMakePayment" value="#{item.allowMakePayment}" title="#{myBundle.EditMemberPosTitle_allowMakePayment}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_allowMakePayment}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.maxSchedulingPayments}" filterBy="#{item.maxSchedulingPayments}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberPosTitle_maxSchedulingPayments}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.maxSchedulingPayments}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.numberOfCopies}" filterBy="#{item.numberOfCopies}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberPosTitle_numberOfCopies}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numberOfCopies}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.resultPageSize}" filterBy="#{item.resultPageSize}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberPosTitle_resultPageSize}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.resultPageSize}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberPosTitle_status}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.status}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.posId.description}" filterBy="#{item.posId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberPosTitle_posId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.posId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberPosTitle_ownerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ownerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{memberPosController.prepareCreate}" update=":MemberPosCreateForm" oncomplete="PF('MemberPosCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MemberPosViewForm" oncomplete="PF('MemberPosViewDialog').show()" disabled="#{empty memberPosController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MemberPosEditForm" oncomplete="PF('MemberPosEditDialog').show()" disabled="#{empty memberPosController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{memberPosController.delete}" update=":growl,datalist" disabled="#{empty memberPosController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

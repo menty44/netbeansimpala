@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RegistrationAgreementLogsEditDlg" widgetVar="RegistrationAgreementLogsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRegistrationAgreementLogsTitle}" closeOnEscape="true">
+
+            <h:form id="RegistrationAgreementLogsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{registrationAgreementLogsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{registrationAgreementLogsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{registrationAgreementLogsController.selected.date}" title="#{myBundle.EditRegistrationAgreementLogsTitle_date}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_remoteAddress}" for="remoteAddress" />
+                        <p:inputText id="remoteAddress" value="#{registrationAgreementLogsController.selected.remoteAddress}" title="#{myBundle.EditRegistrationAgreementLogsTitle_remoteAddress}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_registrationAgreementId}" for="registrationAgreementId" />
+                        <p:selectOneMenu id="registrationAgreementId" value="#{registrationAgreementLogsController.selected.registrationAgreementId}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_registrationAgreementId}" converter="registrationAgreementsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{registrationAgreementsController.items}"
+                                           var="registrationAgreementIdItem"
+                                           itemValue="#{registrationAgreementIdItem}"
+                                           itemLabel="#{registrationAgreementIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{registrationAgreementLogsController.selected.memberId}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_memberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{registrationAgreementLogsController.save}" value="#{myBundle.Save}" update="display,:RegistrationAgreementLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RegistrationAgreementLogsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RegistrationAgreementLogsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

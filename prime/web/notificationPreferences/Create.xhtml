@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationPreferencesCreateDlg" widgetVar="NotificationPreferencesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateNotificationPreferencesTitle}" closeOnEscape="true">
+
+            <h:form id="NotificationPreferencesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{notificationPreferencesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{notificationPreferencesController.selected.type}" title="#{myBundle.CreateNotificationPreferencesTitle_type}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_type}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isMessage}" for="isMessage" />
+                        <p:selectBooleanCheckbox id="isMessage" value="#{notificationPreferencesController.selected.isMessage}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isMessage}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isEmail}" for="isEmail" />
+                        <p:selectBooleanCheckbox id="isEmail" value="#{notificationPreferencesController.selected.isEmail}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isEmail}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_isSms}" for="isSms" />
+                        <p:selectBooleanCheckbox id="isSms" value="#{notificationPreferencesController.selected.isSms}" required="true" requiredMessage="#{myBundle.CreateNotificationPreferencesRequiredMessage_isSms}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateNotificationPreferencesLabel_member1}" for="member1" />
+                        <p:selectOneMenu id="member1" value="#{notificationPreferencesController.selected.member1}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="member1Item"
+                                           itemValue="#{member1Item}"
+                                           itemLabel="#{member1Item.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationPreferencesController.saveNew}" value="#{myBundle.Save}" update="display,:NotificationPreferencesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotificationPreferencesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('NotificationPreferencesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

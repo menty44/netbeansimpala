@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransferAuthorizationsViewDlg" widgetVar="TransferAuthorizationsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTransferAuthorizationsTitle}" closeOnEscape="true">
+
+            <h:form id="TransferAuthorizationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{transferAuthorizationsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_id}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.id}" title="#{myBundle.ViewTransferAuthorizationsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_date}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.date}" title="#{myBundle.ViewTransferAuthorizationsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_action}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.action}" title="#{myBundle.ViewTransferAuthorizationsTitle_action}"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_comments}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.comments}" title="#{myBundle.ViewTransferAuthorizationsTitle_comments}"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_showToMember}"/>
+                        <h:selectBooleanCheckbox id="showToMember" value="#{transferAuthorizationsController.selected.showToMember}" title="#{myBundle.EditTransferAuthorizationsTitle_showToMember}" required="true" requiredMessage="#{myBundle.EditTransferAuthorizationsRequiredMessage_showToMember}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_levelId}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.levelId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_byId}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewTransferAuthorizationsLabel_transferId}"/>
+                        <h:outputText value="#{transferAuthorizationsController.selected.transferId.description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TransferAuthorizationsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

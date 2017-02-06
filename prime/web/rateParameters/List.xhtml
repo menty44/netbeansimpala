@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RateParametersListForm">
+
+        <p:panel header="#{myBundle.ListRateParametersTitle}">
+            <p:contextMenu id="RateParametersDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('RateParametersListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('RateParametersListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('RateParametersListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('RateParametersListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.RateParametersMenuItem_currenciesCollection}" icon="ui-icon-search"  action="#{rateParametersController.navigateCurrenciesCollection}" disabled="#{empty rateParametersController.selected.currenciesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.RateParametersMenuItem_currenciesCollection1}" icon="ui-icon-search"  action="#{rateParametersController.navigateCurrenciesCollection1}" disabled="#{empty rateParametersController.selected.currenciesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.RateParametersMenuItem_currenciesCollection2}" icon="ui-icon-search"  action="#{rateParametersController.navigateCurrenciesCollection2}" disabled="#{empty rateParametersController.selected.currenciesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.RateParametersMenuItem_currencyId}" icon="ui-icon-search"  actionListener="#{rateParametersController.prepareCurrencyId}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty rateParametersController.selected.currencyId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{rateParametersController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{rateParametersController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{rateParametersController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RateParametersDataTableContextMenu" listener="#{rateParametersController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RateParametersDataTableContextMenu" listener="#{rateParametersController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{rateParametersController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RateParametersListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creationValue}" filterBy="#{item.creationValue}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_creationValue}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creationValue}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.enabledSince}" filterBy="#{item.enabledSince}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_enabledSince}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.enabledSince}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.disabledSince}" filterBy="#{item.disabledSince}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRateParametersTitle_disabledSince}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.disabledSince}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.reinitDate}" filterBy="#{item.reinitDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_reinitDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.reinitDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initValue}" filterBy="#{item.initValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_initValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initDate}" filterBy="#{item.initDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_initDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.interest}" filterBy="#{item.interest}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_interest}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.interest}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.baseMalus}" filterBy="#{item.baseMalus}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_baseMalus}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.baseMalus}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.minimalD}" filterBy="#{item.minimalD}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_minimalD}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.minimalD}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.currencyId.name}" filterBy="#{item.currencyId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListRateParametersTitle_currencyId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.currencyId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{rateParametersController.prepareCreate}" update=":RateParametersCreateForm" oncomplete="PF('RateParametersCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":RateParametersViewForm" oncomplete="PF('RateParametersViewDialog').show()" disabled="#{empty rateParametersController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RateParametersEditForm" oncomplete="PF('RateParametersEditDialog').show()" disabled="#{empty rateParametersController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{rateParametersController.delete}" update=":growl,datalist" disabled="#{empty rateParametersController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

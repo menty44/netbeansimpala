@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ScheduledPaymentsEditDlg" widgetVar="ScheduledPaymentsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditScheduledPaymentsTitle}" closeOnEscape="true">
+
+            <h:form id="ScheduledPaymentsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{scheduledPaymentsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{scheduledPaymentsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{scheduledPaymentsController.selected.date}" title="#{myBundle.EditScheduledPaymentsTitle_date}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{scheduledPaymentsController.selected.amount}" title="#{myBundle.EditScheduledPaymentsTitle_amount}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{scheduledPaymentsController.selected.status}" title="#{myBundle.EditScheduledPaymentsTitle_status}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_processDate}" for="processDate" />
+                        <p:calendar id="processDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{scheduledPaymentsController.selected.processDate}" title="#{myBundle.EditScheduledPaymentsTitle_processDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_feedbackDeadline}" for="feedbackDeadline" />
+                        <p:calendar id="feedbackDeadline" pattern="MM/dd/yyyy HH:mm:ss" value="#{scheduledPaymentsController.selected.feedbackDeadline}" title="#{myBundle.EditScheduledPaymentsTitle_feedbackDeadline}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{scheduledPaymentsController.selected.description}" title="#{myBundle.EditScheduledPaymentsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_reserveAmount}" for="reserveAmount" />
+                        <p:selectBooleanCheckbox id="reserveAmount" value="#{scheduledPaymentsController.selected.reserveAmount}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_reserveAmount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_showToReceiver}" for="showToReceiver" />
+                        <p:selectBooleanCheckbox id="showToReceiver" value="#{scheduledPaymentsController.selected.showToReceiver}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_showToReceiver}"/>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{scheduledPaymentsController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_fromAccountId}" for="fromAccountId" />
+                        <p:selectOneMenu id="fromAccountId" value="#{scheduledPaymentsController.selected.fromAccountId}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_fromAccountId}" converter="accountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountsController.items}"
+                                           var="fromAccountIdItem"
+                                           itemValue="#{fromAccountIdItem}"
+                                           itemLabel="#{fromAccountIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_typeId}" for="typeId" />
+                        <p:selectOneMenu id="typeId" value="#{scheduledPaymentsController.selected.typeId}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_typeId}" converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="typeIdItem"
+                                           itemValue="#{typeIdItem}"
+                                           itemLabel="#{typeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditScheduledPaymentsLabel_toAccountId}" for="toAccountId" />
+                        <p:selectOneMenu id="toAccountId" value="#{scheduledPaymentsController.selected.toAccountId}" required="true" requiredMessage="#{myBundle.EditScheduledPaymentsRequiredMessage_toAccountId}" converter="accountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountsController.items}"
+                                           var="toAccountIdItem"
+                                           itemValue="#{toAccountIdItem}"
+                                           itemLabel="#{toAccountIdItem.ownerName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{scheduledPaymentsController.save}" value="#{myBundle.Save}" update="display,:ScheduledPaymentsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ScheduledPaymentsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ScheduledPaymentsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="infoTexts">
+      <implementation-class>nl.strohalm.cyclos.webservices.infotexts.InfoTextWebServiceImpl</implementation-class>
+    </service>
+    <service name="payment">
+      <implementation-class>nl.strohalm.cyclos.webservices.payments.PaymentWebServiceImpl</implementation-class>
+    </service>
+    <service name="pos">
+      <implementation-class>nl.strohalm.cyclos.webservices.pos.PosWebServiceImpl</implementation-class>
+    </service>
+    <service name="members">
+      <implementation-class>nl.strohalm.cyclos.webservices.members.MemberWebServiceImpl</implementation-class>
+    </service>
+    <service name="access">
+      <implementation-class>nl.strohalm.cyclos.webservices.access.AccessWebServiceImpl</implementation-class>
+    </service>
+    <service name="fields">
+      <implementation-class>nl.strohalm.cyclos.webservices.fields.FieldWebServiceImpl</implementation-class>
+    </service>
+    <service name="account">
+      <implementation-class>nl.strohalm.cyclos.webservices.accounts.AccountWebServiceImpl</implementation-class>
+    </service>
+    <service name="sms">
+      <implementation-class>nl.strohalm.cyclos.webservices.sms.SmsWebServiceImpl</implementation-class>
+    </service>
+    <service name="webshop">
+      <implementation-class>nl.strohalm.cyclos.webservices.webshop.WebShopWebServiceImpl</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

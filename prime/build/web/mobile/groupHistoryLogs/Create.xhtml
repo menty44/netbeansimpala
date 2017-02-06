@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GroupHistoryLogsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateGroupHistoryLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GroupHistoryLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GroupHistoryLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{groupHistoryLogsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateGroupHistoryLogsLabel_startDate}" for="startDate" />
+                            <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{groupHistoryLogsController.selected.startDate}" title="#{myBundle.CreateGroupHistoryLogsTitle_startDate}" required="true" requiredMessage="#{myBundle.CreateGroupHistoryLogsRequiredMessage_startDate}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateGroupHistoryLogsLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{groupHistoryLogsController.selected.endDate}" title="#{myBundle.CreateGroupHistoryLogsTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateGroupHistoryLogsLabel_groupId}" for="groupId" />
+                            <p:selectOneMenu id="groupId" value="#{groupHistoryLogsController.selected.groupId}" required="true" requiredMessage="#{myBundle.CreateGroupHistoryLogsRequiredMessage_groupId}" converter="groupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupIdItem"
+                                               itemValue="#{groupIdItem}"
+                                               itemLabel="#{groupIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateGroupHistoryLogsLabel_elementId}" for="elementId" />
+                            <p:selectOneMenu id="elementId" value="#{groupHistoryLogsController.selected.elementId}" required="true" requiredMessage="#{myBundle.CreateGroupHistoryLogsRequiredMessage_elementId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="elementIdItem"
+                                               itemValue="#{elementIdItem}"
+                                               itemLabel="#{elementIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{groupHistoryLogsController.saveNew}" value="#{myBundle.Save}" update="display,:GroupHistoryLogsListPage:GroupHistoryLogsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:GroupHistoryLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

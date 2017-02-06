@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuthorizationLevelsCreateDlg" widgetVar="AuthorizationLevelsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAuthorizationLevelsTitle}" closeOnEscape="true">
+
+            <h:form id="AuthorizationLevelsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{authorizationLevelsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAuthorizationLevelsLabel_level}" for="level" />
+                        <p:inputText id="level" value="#{authorizationLevelsController.selected.level}" title="#{myBundle.CreateAuthorizationLevelsTitle_level}" required="true" requiredMessage="#{myBundle.CreateAuthorizationLevelsRequiredMessage_level}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAuthorizationLevelsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{authorizationLevelsController.selected.amount}" title="#{myBundle.CreateAuthorizationLevelsTitle_amount}" required="true" requiredMessage="#{myBundle.CreateAuthorizationLevelsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAuthorizationLevelsLabel_authorizer}" for="authorizer" />
+                        <p:inputText id="authorizer" value="#{authorizationLevelsController.selected.authorizer}" title="#{myBundle.CreateAuthorizationLevelsTitle_authorizer}" required="true" requiredMessage="#{myBundle.CreateAuthorizationLevelsRequiredMessage_authorizer}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAuthorizationLevelsLabel_typeId}" for="typeId" />
+                        <p:selectOneMenu id="typeId" value="#{authorizationLevelsController.selected.typeId}" required="true" requiredMessage="#{myBundle.CreateAuthorizationLevelsRequiredMessage_typeId}" converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="typeIdItem"
+                                           itemValue="#{typeIdItem}"
+                                           itemLabel="#{typeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{authorizationLevelsController.saveNew}" value="#{myBundle.Save}" update="display,:AuthorizationLevelsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AuthorizationLevelsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AuthorizationLevelsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

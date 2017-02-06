@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="GroupHistoryLogsEditDlg" widgetVar="GroupHistoryLogsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditGroupHistoryLogsTitle}" closeOnEscape="true">
+
+            <h:form id="GroupHistoryLogsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{groupHistoryLogsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditGroupHistoryLogsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{groupHistoryLogsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditGroupHistoryLogsLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{groupHistoryLogsController.selected.startDate}" title="#{myBundle.EditGroupHistoryLogsTitle_startDate}" required="true" requiredMessage="#{myBundle.EditGroupHistoryLogsRequiredMessage_startDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupHistoryLogsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{groupHistoryLogsController.selected.endDate}" title="#{myBundle.EditGroupHistoryLogsTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditGroupHistoryLogsLabel_groupId}" for="groupId" />
+                        <p:selectOneMenu id="groupId" value="#{groupHistoryLogsController.selected.groupId}" required="true" requiredMessage="#{myBundle.EditGroupHistoryLogsRequiredMessage_groupId}" converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupIdItem"
+                                           itemValue="#{groupIdItem}"
+                                           itemLabel="#{groupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditGroupHistoryLogsLabel_elementId}" for="elementId" />
+                        <p:selectOneMenu id="elementId" value="#{groupHistoryLogsController.selected.elementId}" required="true" requiredMessage="#{myBundle.EditGroupHistoryLogsRequiredMessage_elementId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="elementIdItem"
+                                           itemValue="#{elementIdItem}"
+                                           itemLabel="#{elementIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{groupHistoryLogsController.save}" value="#{myBundle.Save}" update="display,:GroupHistoryLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GroupHistoryLogsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('GroupHistoryLogsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

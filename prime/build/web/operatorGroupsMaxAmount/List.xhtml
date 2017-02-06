@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="OperatorGroupsMaxAmountListForm">
+
+        <p:panel header="#{myBundle.ListOperatorGroupsMaxAmountTitle}">
+            <p:contextMenu id="OperatorGroupsMaxAmountDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('OperatorGroupsMaxAmountListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('OperatorGroupsMaxAmountListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('OperatorGroupsMaxAmountListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('OperatorGroupsMaxAmountListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.OperatorGroupsMaxAmountMenuItem_groups}" icon="ui-icon-search"  actionListener="#{operatorGroupsMaxAmountController.prepareGroups}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty operatorGroupsMaxAmountController.selected.groups}"/>  
+                <p:menuitem value="#{myBundle.OperatorGroupsMaxAmountMenuItem_transferTypes}" icon="ui-icon-search"  actionListener="#{operatorGroupsMaxAmountController.prepareTransferTypes}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty operatorGroupsMaxAmountController.selected.transferTypes}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{operatorGroupsMaxAmountController.items}"
+                         lazy="false"
+                         rowKey="#{item.operatorGroupsMaxAmountPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{operatorGroupsMaxAmountController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{operatorGroupsMaxAmountController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.operatorGroupsMaxAmountPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OperatorGroupsMaxAmountDataTableContextMenu" listener="#{operatorGroupsMaxAmountController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OperatorGroupsMaxAmountDataTableContextMenu" listener="#{operatorGroupsMaxAmountController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{operatorGroupsMaxAmountController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('OperatorGroupsMaxAmountListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.operatorGroupsMaxAmountPK.groupId}" filterBy="#{item.operatorGroupsMaxAmountPK.groupId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOperatorGroupsMaxAmountTitle_operatorGroupsMaxAmountPK_groupId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.operatorGroupsMaxAmountPK.groupId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.operatorGroupsMaxAmountPK.transferTypeId}" filterBy="#{item.operatorGroupsMaxAmountPK.transferTypeId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOperatorGroupsMaxAmountTitle_operatorGroupsMaxAmountPK_transferTypeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.operatorGroupsMaxAmountPK.transferTypeId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOperatorGroupsMaxAmountTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.groups.name}" filterBy="#{item.groups.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOperatorGroupsMaxAmountTitle_groups}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.groups.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.transferTypes.name}" filterBy="#{item.transferTypes.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOperatorGroupsMaxAmountTitle_transferTypes}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.transferTypes.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{operatorGroupsMaxAmountController.prepareCreate}" update=":OperatorGroupsMaxAmountCreateForm" oncomplete="PF('OperatorGroupsMaxAmountCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":OperatorGroupsMaxAmountViewForm" oncomplete="PF('OperatorGroupsMaxAmountViewDialog').show()" disabled="#{empty operatorGroupsMaxAmountController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":OperatorGroupsMaxAmountEditForm" oncomplete="PF('OperatorGroupsMaxAmountEditDialog').show()" disabled="#{empty operatorGroupsMaxAmountController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{operatorGroupsMaxAmountController.delete}" update=":growl,datalist" disabled="#{empty operatorGroupsMaxAmountController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

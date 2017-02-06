@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImportedMemberRecordsCreateDlg" widgetVar="ImportedMemberRecordsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateImportedMemberRecordsTitle}" closeOnEscape="true">
+
+            <h:form id="ImportedMemberRecordsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{importedMemberRecordsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMemberRecordsLabel_importedMemberId}" for="importedMemberId" />
+                        <p:selectOneMenu id="importedMemberId" value="#{importedMemberRecordsController.selected.importedMemberId}"  converter="importedMembersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{importedMembersController.items}"
+                                           var="importedMemberIdItem"
+                                           itemValue="#{importedMemberIdItem}"
+                                           itemLabel="#{importedMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateImportedMemberRecordsLabel_memberRecordTypeId}" for="memberRecordTypeId" />
+                        <p:selectOneMenu id="memberRecordTypeId" value="#{importedMemberRecordsController.selected.memberRecordTypeId}" required="true" requiredMessage="#{myBundle.CreateImportedMemberRecordsRequiredMessage_memberRecordTypeId}" converter="memberRecordTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{memberRecordTypesController.items}"
+                                           var="memberRecordTypeIdItem"
+                                           itemValue="#{memberRecordTypeIdItem}"
+                                           itemLabel="#{memberRecordTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{importedMemberRecordsController.saveNew}" value="#{myBundle.Save}" update="display,:ImportedMemberRecordsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ImportedMemberRecordsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ImportedMemberRecordsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

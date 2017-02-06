@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExternalAccountsCreateDlg" widgetVar="ExternalAccountsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateExternalAccountsTitle}" closeOnEscape="true">
+
+            <h:form id="ExternalAccountsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{externalAccountsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateExternalAccountsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{externalAccountsController.selected.name}" title="#{myBundle.CreateExternalAccountsTitle_name}" required="true" requiredMessage="#{myBundle.CreateExternalAccountsRequiredMessage_name}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalAccountsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{externalAccountsController.selected.description}" title="#{myBundle.CreateExternalAccountsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateExternalAccountsLabel_systemAccountId}" for="systemAccountId" />
+                        <p:selectOneMenu id="systemAccountId" value="#{externalAccountsController.selected.systemAccountId}" required="true" requiredMessage="#{myBundle.CreateExternalAccountsRequiredMessage_systemAccountId}" converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="systemAccountIdItem"
+                                           itemValue="#{systemAccountIdItem}"
+                                           itemLabel="#{systemAccountIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalAccountsLabel_memberAccountId}" for="memberAccountId" />
+                        <p:selectOneMenu id="memberAccountId" value="#{externalAccountsController.selected.memberAccountId}" required="true" requiredMessage="#{myBundle.CreateExternalAccountsRequiredMessage_memberAccountId}" converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="memberAccountIdItem"
+                                           itemValue="#{memberAccountIdItem}"
+                                           itemLabel="#{memberAccountIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalAccountsLabel_fileMappingId}" for="fileMappingId" />
+                        <p:selectOneMenu id="fileMappingId" value="#{externalAccountsController.selected.fileMappingId}"  converter="fileMappingsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fileMappingsController.items}"
+                                           var="fileMappingIdItem"
+                                           itemValue="#{fileMappingIdItem}"
+                                           itemLabel="#{fileMappingIdItem.classname.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{externalAccountsController.saveNew}" value="#{myBundle.Save}" update="display,:ExternalAccountsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ExternalAccountsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ExternalAccountsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

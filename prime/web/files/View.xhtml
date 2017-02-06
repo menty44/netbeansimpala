@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilesViewDlg" widgetVar="FilesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewFilesTitle}" closeOnEscape="true">
+
+            <h:form id="FilesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{filesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_id}"/>
+                        <h:outputText value="#{filesController.selected.id}" title="#{myBundle.ViewFilesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_subclass}"/>
+                        <h:outputText value="#{filesController.selected.subclass}" title="#{myBundle.ViewFilesTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_name}"/>
+                        <h:outputText value="#{filesController.selected.name}" title="#{myBundle.ViewFilesTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_lastModified}"/>
+                        <h:outputText value="#{filesController.selected.lastModified}" title="#{myBundle.ViewFilesTitle_lastModified}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_contents}"/>
+                        <h:outputText value="#{filesController.selected.contents}" title="#{myBundle.ViewFilesTitle_contents}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_type}"/>
+                        <h:outputText value="#{filesController.selected.type}" title="#{myBundle.ViewFilesTitle_type}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_originalContents}"/>
+                        <h:outputText value="#{filesController.selected.originalContents}" title="#{myBundle.ViewFilesTitle_originalContents}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_newContents}"/>
+                        <h:outputText value="#{filesController.selected.newContents}" title="#{myBundle.ViewFilesTitle_newContents}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_groupId}"/>
+                        <h:outputText value="#{filesController.selected.groupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_groupFilterId}"/>
+                        <h:outputText value="#{filesController.selected.groupFilterId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilesLabel_documentId}"/>
+                        <h:outputText value="#{filesController.selected.documentId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('FilesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

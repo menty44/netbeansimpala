@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="WrongCredentialAttemptsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewWrongCredentialAttemptsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:WrongCredentialAttemptsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="WrongCredentialAttemptsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{wrongCredentialAttemptsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_id}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.id}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_date}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.date}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_credentialType}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.credentialType}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_credentialType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_memberPosId}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.memberPosId.posName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_cardId}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.cardId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_userId}"/>
+                            <h:outputText value="#{wrongCredentialAttemptsController.selected.userId.username}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

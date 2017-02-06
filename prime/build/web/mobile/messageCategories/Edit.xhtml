@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MessageCategoriesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditMessageCategoriesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MessageCategoriesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MessageCategoriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{messageCategoriesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditMessageCategoriesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{messageCategoriesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{messageCategoriesController.selected.name}" title="#{myBundle.EditMessageCategoriesTitle_name}" required="true" requiredMessage="#{myBundle.EditMessageCategoriesRequiredMessage_name}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_groupsCollection}" for="groupsCollection" />
+                            <p:selectManyMenu id="groupsCollection" value="#{messageCategoriesController.selected.groupsCollection}"  converter="groupsConverter">
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                            <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{messageCategoriesController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                                <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                               var="adminNotificationPreferencesCollectionItem"
+                                               itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                               itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{messageCategoriesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:MessageCategoriesListPage:MessageCategoriesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:MessageCategoriesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="LoanGroupsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateLoanGroupsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:LoanGroupsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="LoanGroupsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{loanGroupsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanGroupsLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{loanGroupsController.selected.name}" title="#{myBundle.CreateLoanGroupsTitle_name}" required="true" requiredMessage="#{myBundle.CreateLoanGroupsRequiredMessage_name}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanGroupsLabel_description}" for="description" />
+                            <p:inputTextarea rows="4" cols="30" id="description" value="#{loanGroupsController.selected.description}" title="#{myBundle.CreateLoanGroupsTitle_description}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateLoanGroupsLabel_membersCollection}" for="membersCollection" />
+                            <p:selectManyMenu id="membersCollection" value="#{loanGroupsController.selected.membersCollection}"  converter="membersConverter">
+                                <f:selectItems value="#{membersController.items}"
+                                               var="membersCollectionItem"
+                                               itemValue="#{membersCollectionItem}"
+                                               itemLabel="#{membersCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{loanGroupsController.saveNew}" value="#{myBundle.Save}" update="display,:LoanGroupsListPage:LoanGroupsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:LoanGroupsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

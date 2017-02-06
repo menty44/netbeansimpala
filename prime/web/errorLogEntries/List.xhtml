@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ErrorLogEntriesListForm">
+
+        <p:panel header="#{myBundle.ListErrorLogEntriesTitle}">
+            <p:contextMenu id="ErrorLogEntriesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ErrorLogEntriesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ErrorLogEntriesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ErrorLogEntriesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ErrorLogEntriesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ErrorLogEntriesMenuItem_errorLogEntryParametersCollection}" icon="ui-icon-search"  action="#{errorLogEntriesController.navigateErrorLogEntryParametersCollection}" disabled="#{empty errorLogEntriesController.selected.errorLogEntryParametersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ErrorLogEntriesMenuItem_loggedUserId}" icon="ui-icon-search"  actionListener="#{errorLogEntriesController.prepareLoggedUserId}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty errorLogEntriesController.selected.loggedUserId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{errorLogEntriesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{errorLogEntriesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{errorLogEntriesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ErrorLogEntriesDataTableContextMenu" listener="#{errorLogEntriesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ErrorLogEntriesDataTableContextMenu" listener="#{errorLogEntriesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{errorLogEntriesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ErrorLogEntriesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.path}" filterBy="#{item.path}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_path}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.path}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.removed}" filterBy="#{item.removed}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_removed}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="removed" value="#{item.removed}" title="#{myBundle.EditErrorLogEntriesTitle_removed}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_removed}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.stackTrace}" filterBy="#{item.stackTrace}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_stackTrace}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.stackTrace}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.loggedUserId.username}" filterBy="#{item.loggedUserId.username}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListErrorLogEntriesTitle_loggedUserId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.loggedUserId.username}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{errorLogEntriesController.prepareCreate}" update=":ErrorLogEntriesCreateForm" oncomplete="PF('ErrorLogEntriesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ErrorLogEntriesViewForm" oncomplete="PF('ErrorLogEntriesViewDialog').show()" disabled="#{empty errorLogEntriesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ErrorLogEntriesEditForm" oncomplete="PF('ErrorLogEntriesEditDialog').show()" disabled="#{empty errorLogEntriesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{errorLogEntriesController.delete}" update=":growl,datalist" disabled="#{empty errorLogEntriesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

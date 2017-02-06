@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PosLogsCreateDlg" widgetVar="PosLogsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePosLogsTitle}" closeOnEscape="true">
+
+            <h:form id="PosLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{posLogsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{posLogsController.selected.date}" title="#{myBundle.CreatePosLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreatePosLogsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_posStatus}" for="posStatus" />
+                        <p:inputText id="posStatus" value="#{posLogsController.selected.posStatus}" title="#{myBundle.CreatePosLogsTitle_posStatus}" required="true" requiredMessage="#{myBundle.CreatePosLogsRequiredMessage_posStatus}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_memberPosStatus}" for="memberPosStatus" />
+                        <p:inputText id="memberPosStatus" value="#{posLogsController.selected.memberPosStatus}" title="#{myBundle.CreatePosLogsTitle_memberPosStatus}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{posLogsController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_assignedTo}" for="assignedTo" />
+                        <p:selectOneMenu id="assignedTo" value="#{posLogsController.selected.assignedTo}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="assignedToItem"
+                                           itemValue="#{assignedToItem}"
+                                           itemLabel="#{assignedToItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreatePosLogsLabel_posId}" for="posId" />
+                        <p:selectOneMenu id="posId" value="#{posLogsController.selected.posId}" required="true" requiredMessage="#{myBundle.CreatePosLogsRequiredMessage_posId}" converter="posConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{posController.items}"
+                                           var="posIdItem"
+                                           itemValue="#{posIdItem}"
+                                           itemLabel="#{posIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{posLogsController.saveNew}" value="#{myBundle.Save}" update="display,:PosLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PosLogsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PosLogsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

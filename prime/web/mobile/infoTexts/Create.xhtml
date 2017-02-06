@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="InfoTextsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateInfoTextsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:InfoTextsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="InfoTextsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{infoTextsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInfoTextsLabel_subject}" for="subject" />
+                            <p:inputText id="subject" value="#{infoTextsController.selected.subject}" title="#{myBundle.CreateInfoTextsTitle_subject}" required="true" requiredMessage="#{myBundle.CreateInfoTextsRequiredMessage_subject}" size="160" maxlength="160"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInfoTextsLabel_body}" for="body" />
+                            <p:inputTextarea rows="4" cols="30" id="body" value="#{infoTextsController.selected.body}" title="#{myBundle.CreateInfoTextsTitle_body}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInfoTextsLabel_enabled}" for="enabled" />
+                            <p:selectBooleanCheckbox id="enabled" value="#{infoTextsController.selected.enabled}" required="true" requiredMessage="#{myBundle.CreateInfoTextsRequiredMessage_enabled}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInfoTextsLabel_beginDate}" for="beginDate" />
+                            <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.beginDate}" title="#{myBundle.CreateInfoTextsTitle_beginDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInfoTextsLabel_endDate}" for="endDate" />
+                            <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{infoTextsController.selected.endDate}" title="#{myBundle.CreateInfoTextsTitle_endDate}"  showOn="button"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{infoTextsController.saveNew}" value="#{myBundle.Save}" update="display,:InfoTextsListPage:InfoTextsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:InfoTextsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

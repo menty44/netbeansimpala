@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FieldMappingsCreateDlg" widgetVar="FieldMappingsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateFieldMappingsTitle}" closeOnEscape="true">
+
+            <h:form id="FieldMappingsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{fieldMappingsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateFieldMappingsLabel_orderIndex}" for="orderIndex" />
+                        <p:inputText id="orderIndex" value="#{fieldMappingsController.selected.orderIndex}" title="#{myBundle.CreateFieldMappingsTitle_orderIndex}" required="true" requiredMessage="#{myBundle.CreateFieldMappingsRequiredMessage_orderIndex}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFieldMappingsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{fieldMappingsController.selected.name}" title="#{myBundle.CreateFieldMappingsTitle_name}" required="true" requiredMessage="#{myBundle.CreateFieldMappingsRequiredMessage_name}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFieldMappingsLabel_field}" for="field" />
+                        <p:inputText id="field" value="#{fieldMappingsController.selected.field}" title="#{myBundle.CreateFieldMappingsTitle_field}" required="true" requiredMessage="#{myBundle.CreateFieldMappingsRequiredMessage_field}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateFieldMappingsLabel_fileMappingId}" for="fileMappingId" />
+                        <p:selectOneMenu id="fileMappingId" value="#{fieldMappingsController.selected.fileMappingId}" required="true" requiredMessage="#{myBundle.CreateFieldMappingsRequiredMessage_fileMappingId}" converter="fileMappingsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fileMappingsController.items}"
+                                           var="fileMappingIdItem"
+                                           itemValue="#{fileMappingIdItem}"
+                                           itemLabel="#{fileMappingIdItem.classname.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateFieldMappingsLabel_memberFieldId}" for="memberFieldId" />
+                        <p:selectOneMenu id="memberFieldId" value="#{fieldMappingsController.selected.memberFieldId}"  converter="customFieldsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customFieldsController.items}"
+                                           var="memberFieldIdItem"
+                                           itemValue="#{memberFieldIdItem}"
+                                           itemLabel="#{memberFieldIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fieldMappingsController.saveNew}" value="#{myBundle.Save}" update="display,:FieldMappingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FieldMappingsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('FieldMappingsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

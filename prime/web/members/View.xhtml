@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MembersViewDlg" widgetVar="MembersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMembersTitle}" closeOnEscape="true">
+
+            <h:form id="MembersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MembersTabView">
+
+                        <p:tab id="MembersTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{membersController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewMembersLabel_id}"/>
+                                <h:outputText value="#{membersController.selected.id}" title="#{myBundle.ViewMembersTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_subclass}"/>
+                                <h:outputText value="#{membersController.selected.subclass}" title="#{myBundle.ViewMembersTitle_subclass}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_name}"/>
+                                <h:outputText value="#{membersController.selected.name}" title="#{myBundle.ViewMembersTitle_name}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_creationDate}"/>
+                                <h:outputText value="#{membersController.selected.creationDate}" title="#{myBundle.ViewMembersTitle_creationDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_email}"/>
+                                <h:outputText value="#{membersController.selected.email}" title="#{myBundle.ViewMembersTitle_email}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_memberActivationDate}"/>
+                                <h:outputText value="#{membersController.selected.memberActivationDate}" title="#{myBundle.ViewMembersTitle_memberActivationDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_hideEmail}"/>
+                                <h:selectBooleanCheckbox id="hideEmail" value="#{membersController.selected.hideEmail}" title="#{myBundle.EditMembersTitle_hideEmail}" required="true" requiredMessage="#{myBundle.EditMembersRequiredMessage_hideEmail}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_loansCollection}"/>
+                                <h:selectManyMenu converter="loansConverter">
+                                    <f:selectItems value="#{membersController.selected.loansCollection}"
+                                                   var="loansCollectionItem"
+                                                   itemValue="#{loansCollectionItem}"
+                                                   itemLabel="#{loansCollectionItem.id.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_memberSmsStatus}"/>
+                                <h:outputText value="#{membersController.selected.memberSmsStatus.id}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_groupId}"/>
+                                <h:outputText value="#{membersController.selected.groupId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_memberBrokerId}"/>
+                                <h:outputText value="#{membersController.selected.memberBrokerId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_memberId}"/>
+                                <h:outputText value="#{membersController.selected.memberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewMembersLabel_users}"/>
+                                <h:outputText value="#{membersController.selected.users.username}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MembersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

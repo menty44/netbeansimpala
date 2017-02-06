@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupsCreateDlg" widgetVar="GroupsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateGroupsTitle}" closeOnEscape="true">
+
+            <h:form id="GroupsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{groupsController.selected != null}">
+                    <p:tabView id="GroupsTabView">
+
+                        <p:tab id="GroupsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_subclass}" for="subclass" />
+                                <p:inputText id="subclass" value="#{groupsController.selected.subclass}" title="#{myBundle.CreateGroupsTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_status}" for="status" />
+                                <p:inputText id="status" value="#{groupsController.selected.status}" title="#{myBundle.CreateGroupsTitle_status}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{groupsController.selected.name}" title="#{myBundle.CreateGroupsTitle_name}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{groupsController.selected.description}" title="#{myBundle.CreateGroupsTitle_description}" />
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_maxPasswordTries}" for="maxPasswordTries" />
+                                <p:inputText id="maxPasswordTries" value="#{groupsController.selected.maxPasswordTries}" title="#{myBundle.CreateGroupsTitle_maxPasswordTries}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_minPasswordLength}" for="minPasswordLength" />
+                                <p:inputText id="minPasswordLength" value="#{groupsController.selected.minPasswordLength}" title="#{myBundle.CreateGroupsTitle_minPasswordLength}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_maxPasswordLength}" for="maxPasswordLength" />
+                                <p:inputText id="maxPasswordLength" value="#{groupsController.selected.maxPasswordLength}" title="#{myBundle.CreateGroupsTitle_maxPasswordLength}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_passwordPolicy}" for="passwordPolicy" />
+                                <p:inputText id="passwordPolicy" value="#{groupsController.selected.passwordPolicy}" title="#{myBundle.CreateGroupsTitle_passwordPolicy}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_passwordPolicy}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_deactivationNumber}" for="deactivationNumber" />
+                                <p:inputText id="deactivationNumber" value="#{groupsController.selected.deactivationNumber}" title="#{myBundle.CreateGroupsTitle_deactivationNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_deactivationField}" for="deactivationField" />
+                                <p:inputText id="deactivationField" value="#{groupsController.selected.deactivationField}" title="#{myBundle.CreateGroupsTitle_deactivationField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_passwordExpirationNumber}" for="passwordExpirationNumber" />
+                                <p:inputText id="passwordExpirationNumber" value="#{groupsController.selected.passwordExpirationNumber}" title="#{myBundle.CreateGroupsTitle_passwordExpirationNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_passwordExpirationField}" for="passwordExpirationField" />
+                                <p:inputText id="passwordExpirationField" value="#{groupsController.selected.passwordExpirationField}" title="#{myBundle.CreateGroupsTitle_passwordExpirationField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transactionPassword}" for="transactionPassword" />
+                                <p:inputText id="transactionPassword" value="#{groupsController.selected.transactionPassword}" title="#{myBundle.CreateGroupsTitle_transactionPassword}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transactionPasswordLength}" for="transactionPasswordLength" />
+                                <p:inputText id="transactionPasswordLength" value="#{groupsController.selected.transactionPasswordLength}" title="#{myBundle.CreateGroupsTitle_transactionPasswordLength}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_transactionPasswordLength}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_maxTpTries}" for="maxTpTries" />
+                                <p:inputText id="maxTpTries" value="#{groupsController.selected.maxTpTries}" title="#{myBundle.CreateGroupsTitle_maxTpTries}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_maxTpTries}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_hideCurrencyOnPmt}" for="hideCurrencyOnPmt" />
+                                <p:selectBooleanCheckbox id="hideCurrencyOnPmt" value="#{groupsController.selected.hideCurrencyOnPmt}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_hideCurrencyOnPmt}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_rootUrl}" for="rootUrl" />
+                                <p:inputText id="rootUrl" value="#{groupsController.selected.rootUrl}" title="#{myBundle.CreateGroupsTitle_rootUrl}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_loginPageName}" for="loginPageName" />
+                                <p:inputText id="loginPageName" value="#{groupsController.selected.loginPageName}" title="#{myBundle.CreateGroupsTitle_loginPageName}" size="20" maxlength="20"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_containerUrl}" for="containerUrl" />
+                                <p:inputText id="containerUrl" value="#{groupsController.selected.containerUrl}" title="#{myBundle.CreateGroupsTitle_containerUrl}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsChargeAmount}" for="smsChargeAmount" />
+                                <p:inputText id="smsChargeAmount" value="#{groupsController.selected.smsChargeAmount}" title="#{myBundle.CreateGroupsTitle_smsChargeAmount}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsFreeCount}" for="smsFreeCount" />
+                                <p:inputText id="smsFreeCount" value="#{groupsController.selected.smsFreeCount}" title="#{myBundle.CreateGroupsTitle_smsFreeCount}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_smsFreeCount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsAdditionalChargedCount}" for="smsAdditionalChargedCount" />
+                                <p:inputText id="smsAdditionalChargedCount" value="#{groupsController.selected.smsAdditionalChargedCount}" title="#{myBundle.CreateGroupsTitle_smsAdditionalChargedCount}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_smsAdditionalChargedCount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsAdditionalChargedPeriodNumber}" for="smsAdditionalChargedPeriodNumber" />
+                                <p:inputText id="smsAdditionalChargedPeriodNumber" value="#{groupsController.selected.smsAdditionalChargedPeriodNumber}" title="#{myBundle.CreateGroupsTitle_smsAdditionalChargedPeriodNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsAdditionalChargedPeriodField}" for="smsAdditionalChargedPeriodField" />
+                                <p:inputText id="smsAdditionalChargedPeriodField" value="#{groupsController.selected.smsAdditionalChargedPeriodField}" title="#{myBundle.CreateGroupsTitle_smsAdditionalChargedPeriodField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsShowFreeThreshold}" for="smsShowFreeThreshold" />
+                                <p:inputText id="smsShowFreeThreshold" value="#{groupsController.selected.smsShowFreeThreshold}" title="#{myBundle.CreateGroupsTitle_smsShowFreeThreshold}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_smsShowFreeThreshold}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsContextClassName}" for="smsContextClassName" />
+                                <p:inputText id="smsContextClassName" value="#{groupsController.selected.smsContextClassName}" title="#{myBundle.CreateGroupsTitle_smsContextClassName}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxImagesPerMember}" for="memberMaxImagesPerMember" />
+                                <p:inputText id="memberMaxImagesPerMember" value="#{groupsController.selected.memberMaxImagesPerMember}" title="#{myBundle.CreateGroupsTitle_memberMaxImagesPerMember}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxAdsPerMember}" for="memberMaxAdsPerMember" />
+                                <p:inputText id="memberMaxAdsPerMember" value="#{groupsController.selected.memberMaxAdsPerMember}" title="#{myBundle.CreateGroupsTitle_memberMaxAdsPerMember}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxAdDescriptionSize}" for="memberMaxAdDescriptionSize" />
+                                <p:inputText id="memberMaxAdDescriptionSize" value="#{groupsController.selected.memberMaxAdDescriptionSize}" title="#{myBundle.CreateGroupsTitle_memberMaxAdDescriptionSize}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberMaxAdDescriptionSize}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxAdImagesPerMember}" for="memberMaxAdImagesPerMember" />
+                                <p:inputText id="memberMaxAdImagesPerMember" value="#{groupsController.selected.memberMaxAdImagesPerMember}" title="#{myBundle.CreateGroupsTitle_memberMaxAdImagesPerMember}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberMaxAdImagesPerMember}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberDefaultAdPublicationNumber}" for="memberDefaultAdPublicationNumber" />
+                                <p:inputText id="memberDefaultAdPublicationNumber" value="#{groupsController.selected.memberDefaultAdPublicationNumber}" title="#{myBundle.CreateGroupsTitle_memberDefaultAdPublicationNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberDefaultAdPublicationField}" for="memberDefaultAdPublicationField" />
+                                <p:inputText id="memberDefaultAdPublicationField" value="#{groupsController.selected.memberDefaultAdPublicationField}" title="#{myBundle.CreateGroupsTitle_memberDefaultAdPublicationField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxAdPublicationNumber}" for="memberMaxAdPublicationNumber" />
+                                <p:inputText id="memberMaxAdPublicationNumber" value="#{groupsController.selected.memberMaxAdPublicationNumber}" title="#{myBundle.CreateGroupsTitle_memberMaxAdPublicationNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxAdPublicationField}" for="memberMaxAdPublicationField" />
+                                <p:inputText id="memberMaxAdPublicationField" value="#{groupsController.selected.memberMaxAdPublicationField}" title="#{myBundle.CreateGroupsTitle_memberMaxAdPublicationField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberEnablePermanentAds}" for="memberEnablePermanentAds" />
+                                <p:selectBooleanCheckbox id="memberEnablePermanentAds" value="#{groupsController.selected.memberEnablePermanentAds}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberEnablePermanentAds}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberShowPoswebPmtDsc}" for="memberShowPoswebPmtDsc" />
+                                <p:selectBooleanCheckbox id="memberShowPoswebPmtDsc" value="#{groupsController.selected.memberShowPoswebPmtDsc}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberShowPoswebPmtDsc}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberExternalAdPublication}" for="memberExternalAdPublication" />
+                                <p:inputText id="memberExternalAdPublication" value="#{groupsController.selected.memberExternalAdPublication}" title="#{myBundle.CreateGroupsTitle_memberExternalAdPublication}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberSendPasswordByEmail}" for="memberSendPasswordByEmail" />
+                                <p:selectBooleanCheckbox id="memberSendPasswordByEmail" value="#{groupsController.selected.memberSendPasswordByEmail}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberSendPasswordByEmail}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberViewLoansByGroup}" for="memberViewLoansByGroup" />
+                                <p:selectBooleanCheckbox id="memberViewLoansByGroup" value="#{groupsController.selected.memberViewLoansByGroup}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberViewLoansByGroup}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRepayLoanByGroup}" for="memberRepayLoanByGroup" />
+                                <p:selectBooleanCheckbox id="memberRepayLoanByGroup" value="#{groupsController.selected.memberRepayLoanByGroup}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberRepayLoanByGroup}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxSchedulingPayments}" for="memberMaxSchedulingPayments" />
+                                <p:inputText id="memberMaxSchedulingPayments" value="#{groupsController.selected.memberMaxSchedulingPayments}" title="#{myBundle.CreateGroupsTitle_memberMaxSchedulingPayments}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberMaxSchedulingPayments}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab3" title="#{myBundle.TabHeaderPrefix} 3">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxSchedulingPeriodNumber}" for="memberMaxSchedulingPeriodNumber" />
+                                <p:inputText id="memberMaxSchedulingPeriodNumber" value="#{groupsController.selected.memberMaxSchedulingPeriodNumber}" title="#{myBundle.CreateGroupsTitle_memberMaxSchedulingPeriodNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxSchedulingPeriodField}" for="memberMaxSchedulingPeriodField" />
+                                <p:inputText id="memberMaxSchedulingPeriodField" value="#{groupsController.selected.memberMaxSchedulingPeriodField}" title="#{myBundle.CreateGroupsTitle_memberMaxSchedulingPeriodField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_minPinLength}" for="minPinLength" />
+                                <p:inputText id="minPinLength" value="#{groupsController.selected.minPinLength}" title="#{myBundle.CreateGroupsTitle_minPinLength}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_maxPinLength}" for="maxPinLength" />
+                                <p:inputText id="maxPinLength" value="#{groupsController.selected.maxPinLength}" title="#{myBundle.CreateGroupsTitle_maxPinLength}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxPinTries}" for="memberMaxPinTries" />
+                                <p:inputText id="memberMaxPinTries" value="#{groupsController.selected.memberMaxPinTries}" title="#{myBundle.CreateGroupsTitle_memberMaxPinTries}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberPinBlockNumber}" for="memberPinBlockNumber" />
+                                <p:inputText id="memberPinBlockNumber" value="#{groupsController.selected.memberPinBlockNumber}" title="#{myBundle.CreateGroupsTitle_memberPinBlockNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberPinBlockField}" for="memberPinBlockField" />
+                                <p:inputText id="memberPinBlockField" value="#{groupsController.selected.memberPinBlockField}" title="#{myBundle.CreateGroupsTitle_memberPinBlockField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberExpireNumber}" for="memberExpireNumber" />
+                                <p:inputText id="memberExpireNumber" value="#{groupsController.selected.memberExpireNumber}" title="#{myBundle.CreateGroupsTitle_memberExpireNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberExpireField}" for="memberExpireField" />
+                                <p:inputText id="memberExpireField" value="#{groupsController.selected.memberExpireField}" title="#{myBundle.CreateGroupsTitle_memberExpireField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberMaxPosSchedulingPayments}" for="memberMaxPosSchedulingPayments" />
+                                <p:inputText id="memberMaxPosSchedulingPayments" value="#{groupsController.selected.memberMaxPosSchedulingPayments}" title="#{myBundle.CreateGroupsTitle_memberMaxPosSchedulingPayments}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberMaxPosSchedulingPayments}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberNumberOfCopies}" for="memberNumberOfCopies" />
+                                <p:inputText id="memberNumberOfCopies" value="#{groupsController.selected.memberNumberOfCopies}" title="#{myBundle.CreateGroupsTitle_memberNumberOfCopies}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberNumberOfCopies}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberResultPageSize}" for="memberResultPageSize" />
+                                <p:inputText id="memberResultPageSize" value="#{groupsController.selected.memberResultPageSize}" title="#{myBundle.CreateGroupsTitle_memberResultPageSize}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberResultPageSize}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberAllowMakePayment}" for="memberAllowMakePayment" />
+                                <p:selectBooleanCheckbox id="memberAllowMakePayment" value="#{groupsController.selected.memberAllowMakePayment}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberAllowMakePayment}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberActive}" for="memberActive" />
+                                <p:selectBooleanCheckbox id="memberActive" value="#{groupsController.selected.memberActive}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberActive}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_initialGroupShow}" for="initialGroupShow" />
+                                <p:inputText id="initialGroupShow" value="#{groupsController.selected.initialGroupShow}" title="#{myBundle.CreateGroupsTitle_initialGroupShow}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_initialGroup}" for="initialGroup" />
+                                <p:selectBooleanCheckbox id="initialGroup" value="#{groupsController.selected.initialGroup}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_initialGroup}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberDefaultAllowChargingSms}" for="memberDefaultAllowChargingSms" />
+                                <p:selectBooleanCheckbox id="memberDefaultAllowChargingSms" value="#{groupsController.selected.memberDefaultAllowChargingSms}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberDefaultAllowChargingSms}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberDefaultAcceptFreeMailing}" for="memberDefaultAcceptFreeMailing" />
+                                <p:selectBooleanCheckbox id="memberDefaultAcceptFreeMailing" value="#{groupsController.selected.memberDefaultAcceptFreeMailing}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberDefaultAcceptFreeMailing}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberDefaultAcceptPaidMailing}" for="memberDefaultAcceptPaidMailing" />
+                                <p:selectBooleanCheckbox id="memberDefaultAcceptPaidMailing" value="#{groupsController.selected.memberDefaultAcceptPaidMailing}" required="true" requiredMessage="#{myBundle.CreateGroupsRequiredMessage_memberDefaultAcceptPaidMailing}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transferTypesCollection}" for="transferTypesCollection" />
+                                <p:selectManyMenu id="transferTypesCollection" value="#{groupsController.selected.transferTypesCollection}"  converter="transferTypesConverter">
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="transferTypesCollectionItem"
+                                                   itemValue="#{transferTypesCollectionItem}"
+                                                   itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection}" for="memberRecordTypesCollection" />
+                                <p:selectManyMenu id="memberRecordTypesCollection" value="#{groupsController.selected.memberRecordTypesCollection}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollectionItem"
+                                                   itemValue="#{memberRecordTypesCollectionItem}"
+                                                   itemLabel="#{memberRecordTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab4" title="#{myBundle.TabHeaderPrefix} 4">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_accountFeesCollection}" for="accountFeesCollection" />
+                                <p:selectManyMenu id="accountFeesCollection" value="#{groupsController.selected.accountFeesCollection}"  converter="accountFeesConverter">
+                                    <f:selectItems value="#{accountFeesController.items}"
+                                                   var="accountFeesCollectionItem"
+                                                   itemValue="#{accountFeesCollectionItem}"
+                                                   itemLabel="#{accountFeesCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transactionFeesCollection}" for="transactionFeesCollection" />
+                                <p:selectManyMenu id="transactionFeesCollection" value="#{groupsController.selected.transactionFeesCollection}"  converter="transactionFeesConverter">
+                                    <f:selectItems value="#{transactionFeesController.items}"
+                                                   var="transactionFeesCollectionItem"
+                                                   itemValue="#{transactionFeesCollectionItem}"
+                                                   itemLabel="#{transactionFeesCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection1}" for="memberRecordTypesCollection1" />
+                                <p:selectManyMenu id="memberRecordTypesCollection1" value="#{groupsController.selected.memberRecordTypesCollection1}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection1Item"
+                                                   itemValue="#{memberRecordTypesCollection1Item}"
+                                                   itemLabel="#{memberRecordTypesCollection1Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transferTypesCollection1}" for="transferTypesCollection1" />
+                                <p:selectManyMenu id="transferTypesCollection1" value="#{groupsController.selected.transferTypesCollection1}"  converter="transferTypesConverter">
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="transferTypesCollection1Item"
+                                                   itemValue="#{transferTypesCollection1Item}"
+                                                   itemLabel="#{transferTypesCollection1Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection2}" for="memberRecordTypesCollection2" />
+                                <p:selectManyMenu id="memberRecordTypesCollection2" value="#{groupsController.selected.memberRecordTypesCollection2}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection2Item"
+                                                   itemValue="#{memberRecordTypesCollection2Item}"
+                                                   itemLabel="#{memberRecordTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection3}" for="memberRecordTypesCollection3" />
+                                <p:selectManyMenu id="memberRecordTypesCollection3" value="#{groupsController.selected.memberRecordTypesCollection3}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection3Item"
+                                                   itemValue="#{memberRecordTypesCollection3Item}"
+                                                   itemLabel="#{memberRecordTypesCollection3Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection4}" for="memberRecordTypesCollection4" />
+                                <p:selectManyMenu id="memberRecordTypesCollection4" value="#{groupsController.selected.memberRecordTypesCollection4}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection4Item"
+                                                   itemValue="#{memberRecordTypesCollection4Item}"
+                                                   itemLabel="#{memberRecordTypesCollection4Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection5}" for="memberRecordTypesCollection5" />
+                                <p:selectManyMenu id="memberRecordTypesCollection5" value="#{groupsController.selected.memberRecordTypesCollection5}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection5Item"
+                                                   itemValue="#{memberRecordTypesCollection5Item}"
+                                                   itemLabel="#{memberRecordTypesCollection5Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection}" for="groupsCollection" />
+                                <p:selectManyMenu id="groupsCollection" value="#{groupsController.selected.groupsCollection}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollectionItem"
+                                                   itemValue="#{groupsCollectionItem}"
+                                                   itemLabel="#{groupsCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transactionFeesCollection1}" for="transactionFeesCollection1" />
+                                <p:selectManyMenu id="transactionFeesCollection1" value="#{groupsController.selected.transactionFeesCollection1}"  converter="transactionFeesConverter">
+                                    <f:selectItems value="#{transactionFeesController.items}"
+                                                   var="transactionFeesCollection1Item"
+                                                   itemValue="#{transactionFeesCollection1Item}"
+                                                   itemLabel="#{transactionFeesCollection1Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection2}" for="groupsCollection2" />
+                                <p:selectManyMenu id="groupsCollection2" value="#{groupsController.selected.groupsCollection2}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection2Item"
+                                                   itemValue="#{groupsCollection2Item}"
+                                                   itemLabel="#{groupsCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_accountTypesCollection2}" for="accountTypesCollection2" />
+                                <p:selectManyMenu id="accountTypesCollection2" value="#{groupsController.selected.accountTypesCollection2}"  converter="accountTypesConverter">
+                                    <f:selectItems value="#{accountTypesController.items}"
+                                                   var="accountTypesCollection2Item"
+                                                   itemValue="#{accountTypesCollection2Item}"
+                                                   itemLabel="#{accountTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_documentsCollection}" for="documentsCollection" />
+                                <p:selectManyMenu id="documentsCollection" value="#{groupsController.selected.documentsCollection}"  converter="documentsConverter">
+                                    <f:selectItems value="#{documentsController.items}"
+                                                   var="documentsCollectionItem"
+                                                   itemValue="#{documentsCollectionItem}"
+                                                   itemLabel="#{documentsCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_paymentFiltersCollection}" for="paymentFiltersCollection" />
+                                <p:selectManyMenu id="paymentFiltersCollection" value="#{groupsController.selected.paymentFiltersCollection}"  converter="paymentFiltersConverter">
+                                    <f:selectItems value="#{paymentFiltersController.items}"
+                                                   var="paymentFiltersCollectionItem"
+                                                   itemValue="#{paymentFiltersCollectionItem}"
+                                                   itemLabel="#{paymentFiltersCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection6}" for="memberRecordTypesCollection6" />
+                                <p:selectManyMenu id="memberRecordTypesCollection6" value="#{groupsController.selected.memberRecordTypesCollection6}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection6Item"
+                                                   itemValue="#{memberRecordTypesCollection6Item}"
+                                                   itemLabel="#{memberRecordTypesCollection6Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection7}" for="memberRecordTypesCollection7" />
+                                <p:selectManyMenu id="memberRecordTypesCollection7" value="#{groupsController.selected.memberRecordTypesCollection7}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection7Item"
+                                                   itemValue="#{memberRecordTypesCollection7Item}"
+                                                   itemLabel="#{memberRecordTypesCollection7Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection8}" for="memberRecordTypesCollection8" />
+                                <p:selectManyMenu id="memberRecordTypesCollection8" value="#{groupsController.selected.memberRecordTypesCollection8}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection8Item"
+                                                   itemValue="#{memberRecordTypesCollection8Item}"
+                                                   itemLabel="#{memberRecordTypesCollection8Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection4}" for="groupsCollection4" />
+                                <p:selectManyMenu id="groupsCollection4" value="#{groupsController.selected.groupsCollection4}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection4Item"
+                                                   itemValue="#{groupsCollection4Item}"
+                                                   itemLabel="#{groupsCollection4Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_authorizationLevelsCollection}" for="authorizationLevelsCollection" />
+                                <p:selectManyMenu id="authorizationLevelsCollection" value="#{groupsController.selected.authorizationLevelsCollection}"  converter="authorizationLevelsConverter">
+                                    <f:selectItems value="#{authorizationLevelsController.items}"
+                                                   var="authorizationLevelsCollectionItem"
+                                                   itemValue="#{authorizationLevelsCollectionItem}"
+                                                   itemLabel="#{authorizationLevelsCollectionItem.id.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection9}" for="memberRecordTypesCollection9" />
+                                <p:selectManyMenu id="memberRecordTypesCollection9" value="#{groupsController.selected.memberRecordTypesCollection9}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection9Item"
+                                                   itemValue="#{memberRecordTypesCollection9Item}"
+                                                   itemLabel="#{memberRecordTypesCollection9Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_serviceClientsCollection}" for="serviceClientsCollection" />
+                                <p:selectManyMenu id="serviceClientsCollection" value="#{groupsController.selected.serviceClientsCollection}"  converter="serviceClientsConverter">
+                                    <f:selectItems value="#{serviceClientsController.items}"
+                                                   var="serviceClientsCollectionItem"
+                                                   itemValue="#{serviceClientsCollectionItem}"
+                                                   itemLabel="#{serviceClientsCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="GroupsTab5" title="#{myBundle.TabHeaderPrefix} 5">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection6}" for="groupsCollection6" />
+                                <p:selectManyMenu id="groupsCollection6" value="#{groupsController.selected.groupsCollection6}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection6Item"
+                                                   itemValue="#{groupsCollection6Item}"
+                                                   itemLabel="#{groupsCollection6Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transactionFeesCollection2}" for="transactionFeesCollection2" />
+                                <p:selectManyMenu id="transactionFeesCollection2" value="#{groupsController.selected.transactionFeesCollection2}"  converter="transactionFeesConverter">
+                                    <f:selectItems value="#{transactionFeesController.items}"
+                                                   var="transactionFeesCollection2Item"
+                                                   itemValue="#{transactionFeesCollection2Item}"
+                                                   itemLabel="#{transactionFeesCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection8}" for="groupsCollection8" />
+                                <p:selectManyMenu id="groupsCollection8" value="#{groupsController.selected.groupsCollection8}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection8Item"
+                                                   itemValue="#{groupsCollection8Item}"
+                                                   itemLabel="#{groupsCollection8Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_documentsCollection1}" for="documentsCollection1" />
+                                <p:selectManyMenu id="documentsCollection1" value="#{groupsController.selected.documentsCollection1}"  converter="documentsConverter">
+                                    <f:selectItems value="#{documentsController.items}"
+                                                   var="documentsCollection1Item"
+                                                   itemValue="#{documentsCollection1Item}"
+                                                   itemLabel="#{documentsCollection1Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection10}" for="memberRecordTypesCollection10" />
+                                <p:selectManyMenu id="memberRecordTypesCollection10" value="#{groupsController.selected.memberRecordTypesCollection10}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection10Item"
+                                                   itemValue="#{memberRecordTypesCollection10Item}"
+                                                   itemLabel="#{memberRecordTypesCollection10Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection11}" for="memberRecordTypesCollection11" />
+                                <p:selectManyMenu id="memberRecordTypesCollection11" value="#{groupsController.selected.memberRecordTypesCollection11}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection11Item"
+                                                   itemValue="#{memberRecordTypesCollection11Item}"
+                                                   itemLabel="#{memberRecordTypesCollection11Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transferTypesCollection2}" for="transferTypesCollection2" />
+                                <p:selectManyMenu id="transferTypesCollection2" value="#{groupsController.selected.transferTypesCollection2}"  converter="transferTypesConverter">
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="transferTypesCollection2Item"
+                                                   itemValue="#{transferTypesCollection2Item}"
+                                                   itemLabel="#{transferTypesCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_transferTypesCollection3}" for="transferTypesCollection3" />
+                                <p:selectManyMenu id="transferTypesCollection3" value="#{groupsController.selected.transferTypesCollection3}"  converter="transferTypesConverter">
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="transferTypesCollection3Item"
+                                                   itemValue="#{transferTypesCollection3Item}"
+                                                   itemLabel="#{transferTypesCollection3Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection10}" for="groupsCollection10" />
+                                <p:selectManyMenu id="groupsCollection10" value="#{groupsController.selected.groupsCollection10}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection10Item"
+                                                   itemValue="#{groupsCollection10Item}"
+                                                   itemLabel="#{groupsCollection10Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_guaranteeTypesCollection}" for="guaranteeTypesCollection" />
+                                <p:selectManyMenu id="guaranteeTypesCollection" value="#{groupsController.selected.guaranteeTypesCollection}"  converter="guaranteeTypesConverter">
+                                    <f:selectItems value="#{guaranteeTypesController.items}"
+                                                   var="guaranteeTypesCollectionItem"
+                                                   itemValue="#{guaranteeTypesCollectionItem}"
+                                                   itemLabel="#{guaranteeTypesCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberRecordTypesCollection12}" for="memberRecordTypesCollection12" />
+                                <p:selectManyMenu id="memberRecordTypesCollection12" value="#{groupsController.selected.memberRecordTypesCollection12}"  converter="memberRecordTypesConverter">
+                                    <f:selectItems value="#{memberRecordTypesController.items}"
+                                                   var="memberRecordTypesCollection12Item"
+                                                   itemValue="#{memberRecordTypesCollection12Item}"
+                                                   itemLabel="#{memberRecordTypesCollection12Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_groupsCollection12}" for="groupsCollection12" />
+                                <p:selectManyMenu id="groupsCollection12" value="#{groupsController.selected.groupsCollection12}"  converter="groupsConverter">
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="groupsCollection12Item"
+                                                   itemValue="#{groupsCollection12Item}"
+                                                   itemLabel="#{groupsCollection12Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_customFieldsCollection}" for="customFieldsCollection" />
+                                <p:selectManyMenu id="customFieldsCollection" value="#{groupsController.selected.customFieldsCollection}"  converter="customFieldsConverter">
+                                    <f:selectItems value="#{customFieldsController.items}"
+                                                   var="customFieldsCollectionItem"
+                                                   itemValue="#{customFieldsCollectionItem}"
+                                                   itemLabel="#{customFieldsCollectionItem.internalName.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                                <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{groupsController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                                   var="adminNotificationPreferencesCollectionItem"
+                                                   itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                   itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_registrationAgreementId}" for="registrationAgreementId" />
+                                <p:selectOneMenu id="registrationAgreementId" value="#{groupsController.selected.registrationAgreementId}"  converter="registrationAgreementsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{registrationAgreementsController.items}"
+                                                   var="registrationAgreementIdItem"
+                                                   itemValue="#{registrationAgreementIdItem}"
+                                                   itemLabel="#{registrationAgreementIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberExpireGroupId}" for="memberExpireGroupId" />
+                                <p:selectOneMenu id="memberExpireGroupId" value="#{groupsController.selected.memberExpireGroupId}"  converter="groupsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{groupsController.items}"
+                                                   var="memberExpireGroupIdItem"
+                                                   itemValue="#{memberExpireGroupIdItem}"
+                                                   itemLabel="#{memberExpireGroupIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_cardTypeId}" for="cardTypeId" />
+                                <p:selectOneMenu id="cardTypeId" value="#{groupsController.selected.cardTypeId}"  converter="cardTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{cardTypesController.items}"
+                                                   var="cardTypeIdItem"
+                                                   itemValue="#{cardTypeIdItem}"
+                                                   itemLabel="#{cardTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_smsChargeTransferTypeId}" for="smsChargeTransferTypeId" />
+                                <p:selectOneMenu id="smsChargeTransferTypeId" value="#{groupsController.selected.smsChargeTransferTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="smsChargeTransferTypeIdItem"
+                                                   itemValue="#{smsChargeTransferTypeIdItem}"
+                                                   itemLabel="#{smsChargeTransferTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateGroupsLabel_memberId}" for="memberId" />
+                                <p:selectOneMenu id="memberId" value="#{groupsController.selected.memberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="memberIdItem"
+                                                   itemValue="#{memberIdItem}"
+                                                   itemLabel="#{memberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{groupsController.saveNew}" value="#{myBundle.Save}" update="display,:GroupsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GroupsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('GroupsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

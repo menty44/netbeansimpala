@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SmsMailingsListForm">
+
+        <p:panel header="#{myBundle.ListSmsMailingsTitle}">
+            <p:contextMenu id="SmsMailingsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('SmsMailingsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('SmsMailingsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('SmsMailingsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('SmsMailingsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.SmsMailingsMenuItem_membersCollection}" icon="ui-icon-search"  action="#{smsMailingsController.navigateMembersCollection}" disabled="#{empty smsMailingsController.selected.membersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.SmsMailingsMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{smsMailingsController.navigateGroupsCollection}" disabled="#{empty smsMailingsController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.SmsMailingsMenuItem_smsLogsCollection}" icon="ui-icon-search"  action="#{smsMailingsController.navigateSmsLogsCollection}" disabled="#{empty smsMailingsController.selected.smsLogsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.SmsMailingsMenuItem_byId}" icon="ui-icon-search"  actionListener="#{smsMailingsController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty smsMailingsController.selected.byId}"/>  
+                <p:menuitem value="#{myBundle.SmsMailingsMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{smsMailingsController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty smsMailingsController.selected.memberId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{smsMailingsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{smsMailingsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{smsMailingsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SmsMailingsDataTableContextMenu" listener="#{smsMailingsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SmsMailingsDataTableContextMenu" listener="#{smsMailingsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{smsMailingsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('SmsMailingsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.text}" filterBy="#{item.text}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_text}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.text}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.free}" filterBy="#{item.free}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_free}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="free" value="#{item.free}" title="#{myBundle.EditSmsMailingsTitle_free}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_free}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.sentSms}" filterBy="#{item.sentSms}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_sentSms}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sentSms}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.finished}" filterBy="#{item.finished}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSmsMailingsTitle_finished}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="finished" value="#{item.finished}" title="#{myBundle.EditSmsMailingsTitle_finished}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_finished}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsMailingsTitle_byId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.byId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSmsMailingsTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{smsMailingsController.prepareCreate}" update=":SmsMailingsCreateForm" oncomplete="PF('SmsMailingsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":SmsMailingsViewForm" oncomplete="PF('SmsMailingsViewDialog').show()" disabled="#{empty smsMailingsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":SmsMailingsEditForm" oncomplete="PF('SmsMailingsEditDialog').show()" disabled="#{empty smsMailingsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{smsMailingsController.delete}" update=":growl,datalist" disabled="#{empty smsMailingsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

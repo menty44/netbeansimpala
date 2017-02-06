@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TransferTypesListPage">
+        <pm:header title="#{myBundle.ListTransferTypesTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":TransferTypesCreatePage:TransferTypesCreateForm" actionListener="#{transferTypesController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:TransferTypesCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TransferTypesListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{transferTypesController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":TransferTypesEditPage:TransferTypesEditForm" action="pm:TransferTypesEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="allowedPayment" value="#{item.allowedPayment}" title="#{myBundle.EditTransferTypesTitle_allowedPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedPayment}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="allowedSelfPayment" value="#{item.allowedSelfPayment}" title="#{myBundle.EditTransferTypesTitle_allowedSelfPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedSelfPayment}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="priority" value="#{item.priority}" title="#{myBundle.EditTransferTypesTitle_priority}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_priority}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="conciliable" value="#{item.conciliable}" title="#{myBundle.EditTransferTypesTitle_conciliable}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_conciliable}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="requiresAuthorization" value="#{item.requiresAuthorization}" title="#{myBundle.EditTransferTypesTitle_requiresAuthorization}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresAuthorization}" disabled="true"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="allowsScheduledPayments" value="#{item.allowsScheduledPayments}" title="#{myBundle.EditTransferTypesTitle_allowsScheduledPayments}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowsScheduledPayments}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.description}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.confirmationMessage}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.maxAmountPerDay}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.minAmount}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="reserveTotalOnSched" value="#{item.reserveTotalOnSched}" title="#{myBundle.EditTransferTypesTitle_reserveTotalOnSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_reserveTotalOnSched}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="allowCancelSched" value="#{item.allowCancelSched}" title="#{myBundle.EditTransferTypesTitle_allowCancelSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowCancelSched}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="allowBlockSched" value="#{item.allowBlockSched}" title="#{myBundle.EditTransferTypesTitle_allowBlockSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowBlockSched}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="showSchedToDest" value="#{item.showSchedToDest}" title="#{myBundle.EditTransferTypesTitle_showSchedToDest}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_showSchedToDest}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="allowSmsNotification" value="#{item.allowSmsNotification}" title="#{myBundle.EditTransferTypesTitle_allowSmsNotification}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowSmsNotification}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="requiresFeedback" value="#{item.requiresFeedback}" title="#{myBundle.EditTransferTypesTitle_requiresFeedback}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresFeedback}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.transferListenerClass}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.feedbackEnabledSince}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.feedbackExpirationTimeNumber}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.feedbackExpirationTimeField}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.feedbackReplyExpirationTimeNumber}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.feedbackReplyExpirationTimeField}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.defaultFeedbackComments}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.defaultFeedbackLevel}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.txHierarchyVisibility}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanType}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanGrantFeeValue}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanGrantFeeType}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanMonthlyInterest}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanExpirationFeeValue}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanExpirationFeeType}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanExpirationDailyInterest}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanRepaymentDays}"/>
+                            -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanRepaymentTypeId.name}"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanExpirationFeeTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.fromAccountTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.toAccountTypeId.name}"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanGrantFeeTypeId.name}"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanExpDailyInterestTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.fixedDestinationMemberId.name}"/>
+                            -->
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.loanMonthlyInterestTypeId.name}"/>
+                            -->
+
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{transferTypesController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TransfersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewTransfersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TransfersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TransfersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="TransfersTabView">
+
+                        <p:tab id="TransfersTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{transfersController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_id}"/>
+                                    <h:outputText value="#{transfersController.selected.id}" title="#{myBundle.ViewTransfersTitle_id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_date}"/>
+                                    <h:outputText value="#{transfersController.selected.date}" title="#{myBundle.ViewTransfersTitle_date}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_amount}"/>
+                                    <h:outputText value="#{transfersController.selected.amount}" title="#{myBundle.ViewTransfersTitle_amount}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_emissionDate}"/>
+                                    <h:outputText value="#{transfersController.selected.emissionDate}" title="#{myBundle.ViewTransfersTitle_emissionDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_expirationDate}"/>
+                                    <h:outputText value="#{transfersController.selected.expirationDate}" title="#{myBundle.ViewTransfersTitle_expirationDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_IRate}"/>
+                                    <h:outputText value="#{transfersController.selected.IRate}" title="#{myBundle.ViewTransfersTitle_IRate}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_status}"/>
+                                    <h:outputText value="#{transfersController.selected.status}" title="#{myBundle.ViewTransfersTitle_status}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_processDate}"/>
+                                    <h:outputText value="#{transfersController.selected.processDate}" title="#{myBundle.ViewTransfersTitle_processDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_feedbackDeadline}"/>
+                                    <h:outputText value="#{transfersController.selected.feedbackDeadline}" title="#{myBundle.ViewTransfersTitle_feedbackDeadline}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_description}"/>
+                                    <h:outputText value="#{transfersController.selected.description}" title="#{myBundle.ViewTransfersTitle_description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_transactionNumber}"/>
+                                    <h:outputText value="#{transfersController.selected.transactionNumber}" title="#{myBundle.ViewTransfersTitle_transactionNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_traceNumber}"/>
+                                    <h:outputText value="#{transfersController.selected.traceNumber}" title="#{myBundle.ViewTransfersTitle_traceNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_clientId}"/>
+                                    <h:outputText value="#{transfersController.selected.clientId}" title="#{myBundle.ViewTransfersTitle_clientId}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_traceData}"/>
+                                    <h:outputText value="#{transfersController.selected.traceData}" title="#{myBundle.ViewTransfersTitle_traceData}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_fromAccountId}"/>
+                                    <h:outputText value="#{transfersController.selected.fromAccountId.ownerName}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_brokerCommissionContractId}"/>
+                                    <h:outputText value="#{transfersController.selected.brokerCommissionContractId.id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_chargedbackById}"/>
+                                    <h:outputText value="#{transfersController.selected.chargedbackById.description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_parentId}"/>
+                                    <h:outputText value="#{transfersController.selected.parentId.description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_byId}"/>
+                                    <h:outputText value="#{transfersController.selected.byId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_nextAuthorizationLevelId}"/>
+                                    <h:outputText value="#{transfersController.selected.nextAuthorizationLevelId.id}"/>
+                                </pm:field>
+
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab id="TransfersTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:outputPanel rendered="#{transfersController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_loanPaymentId}"/>
+                                    <h:outputText value="#{transfersController.selected.loanPaymentId.id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_transactionFeeId}"/>
+                                    <h:outputText value="#{transfersController.selected.transactionFeeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_externalTransferId}"/>
+                                    <h:outputText value="#{transfersController.selected.externalTransferId.description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_accountFeeLogId}"/>
+                                    <h:outputText value="#{transfersController.selected.accountFeeLogId.id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_typeId}"/>
+                                    <h:outputText value="#{transfersController.selected.typeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_receiverId}"/>
+                                    <h:outputText value="#{transfersController.selected.receiverId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_chargebackOfId}"/>
+                                    <h:outputText value="#{transfersController.selected.chargebackOfId.description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_scheduledPaymentId}"/>
+                                    <h:outputText value="#{transfersController.selected.scheduledPaymentId.description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_feeId}"/>
+                                    <h:outputText value="#{transfersController.selected.feeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewTransfersLabel_toAccountId}"/>
+                                    <h:outputText value="#{transfersController.selected.toAccountId.ownerName}"/>
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

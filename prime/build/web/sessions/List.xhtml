@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SessionsListForm">
+
+        <p:panel header="#{myBundle.ListSessionsTitle}">
+            <p:contextMenu id="SessionsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('SessionsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('SessionsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('SessionsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('SessionsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.SessionsMenuItem_userId}" icon="ui-icon-search"  actionListener="#{sessionsController.prepareUserId}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty sessionsController.selected.userId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{sessionsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{sessionsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{sessionsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SessionsDataTableContextMenu" listener="#{sessionsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SessionsDataTableContextMenu" listener="#{sessionsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{sessionsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('SessionsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.identifier}" filterBy="#{item.identifier}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_identifier}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.identifier}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_creationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.expirationDate}" filterBy="#{item.expirationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_expirationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.expirationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.posWeb}" filterBy="#{item.posWeb}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_posWeb}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="posWeb" value="#{item.posWeb}" title="#{myBundle.EditSessionsTitle_posWeb}"  disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.remoteAddr}" filterBy="#{item.remoteAddr}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSessionsTitle_remoteAddr}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.remoteAddr}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.userId.username}" filterBy="#{item.userId.username}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListSessionsTitle_userId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.userId.username}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{sessionsController.prepareCreate}" update=":SessionsCreateForm" oncomplete="PF('SessionsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":SessionsViewForm" oncomplete="PF('SessionsViewDialog').show()" disabled="#{empty sessionsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":SessionsEditForm" oncomplete="PF('SessionsEditDialog').show()" disabled="#{empty sessionsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{sessionsController.delete}" update=":growl,datalist" disabled="#{empty sessionsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

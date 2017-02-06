@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ServiceClientsListForm">
+
+        <p:panel header="#{myBundle.ListServiceClientsTitle}">
+            <p:contextMenu id="ServiceClientsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ServiceClientsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ServiceClientsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ServiceClientsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ServiceClientsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_transferTypesCollection}" icon="ui-icon-search"  action="#{serviceClientsController.navigateTransferTypesCollection}" disabled="#{empty serviceClientsController.selected.transferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_transferTypesCollection1}" icon="ui-icon-search"  action="#{serviceClientsController.navigateTransferTypesCollection1}" disabled="#{empty serviceClientsController.selected.transferTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{serviceClientsController.navigateGroupsCollection}" disabled="#{empty serviceClientsController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_transferTypesCollection2}" icon="ui-icon-search"  action="#{serviceClientsController.navigateTransferTypesCollection2}" disabled="#{empty serviceClientsController.selected.transferTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_channelId}" icon="ui-icon-search"  actionListener="#{serviceClientsController.prepareChannelId}" update=":ChannelsViewForm" oncomplete="PF('ChannelsViewDialog').show()" disabled="#{empty serviceClientsController.selected.channelId}"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{serviceClientsController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty serviceClientsController.selected.memberId}"/>  
+                <p:menuitem value="#{myBundle.ServiceClientsMenuItem_serviceClientPermissionsCollection}" icon="ui-icon-search"  action="#{serviceClientsController.navigateServiceClientPermissionsCollection}" disabled="#{empty serviceClientsController.selected.serviceClientPermissionsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{serviceClientsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{serviceClientsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{serviceClientsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ServiceClientsDataTableContextMenu" listener="#{serviceClientsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ServiceClientsDataTableContextMenu" listener="#{serviceClientsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{serviceClientsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ServiceClientsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.hostname}" filterBy="#{item.hostname}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_hostname}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.hostname}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.addressBegin}" filterBy="#{item.addressBegin}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_addressBegin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.addressBegin}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.addressEnd}" filterBy="#{item.addressEnd}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_addressEnd}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.addressEnd}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.username}" filterBy="#{item.username}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListServiceClientsTitle_username}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.username}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.password}" filterBy="#{item.password}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListServiceClientsTitle_password}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.password}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.credentialsRequired}" filterBy="#{item.credentialsRequired}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListServiceClientsTitle_credentialsRequired}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="credentialsRequired" value="#{item.credentialsRequired}" title="#{myBundle.EditServiceClientsTitle_credentialsRequired}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_credentialsRequired}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ignoreRegistrationValidations}" filterBy="#{item.ignoreRegistrationValidations}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListServiceClientsTitle_ignoreRegistrationValidations}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="ignoreRegistrationValidations" value="#{item.ignoreRegistrationValidations}" title="#{myBundle.EditServiceClientsTitle_ignoreRegistrationValidations}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_ignoreRegistrationValidations}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.channelId.internalName}" filterBy="#{item.channelId.internalName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListServiceClientsTitle_channelId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.channelId.internalName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListServiceClientsTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{serviceClientsController.prepareCreate}" update=":ServiceClientsCreateForm" oncomplete="PF('ServiceClientsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ServiceClientsViewForm" oncomplete="PF('ServiceClientsViewDialog').show()" disabled="#{empty serviceClientsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ServiceClientsEditForm" oncomplete="PF('ServiceClientsEditDialog').show()" disabled="#{empty serviceClientsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{serviceClientsController.delete}" update=":growl,datalist" disabled="#{empty serviceClientsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

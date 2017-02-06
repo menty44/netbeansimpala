@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LoginHistoryCreateDlg" widgetVar="LoginHistoryCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateLoginHistoryTitle}" closeOnEscape="true">
+
+            <h:form id="LoginHistoryCreateForm">
+
+                <h:panelGroup id="display" rendered="#{loginHistoryController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateLoginHistoryLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{loginHistoryController.selected.date}" title="#{myBundle.CreateLoginHistoryTitle_date}" required="true" requiredMessage="#{myBundle.CreateLoginHistoryRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoginHistoryLabel_remoteAddress}" for="remoteAddress" />
+                        <p:inputText id="remoteAddress" value="#{loginHistoryController.selected.remoteAddress}" title="#{myBundle.CreateLoginHistoryTitle_remoteAddress}" required="true" requiredMessage="#{myBundle.CreateLoginHistoryRequiredMessage_remoteAddress}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoginHistoryLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{loginHistoryController.selected.userId}" required="true" requiredMessage="#{myBundle.CreateLoginHistoryRequiredMessage_userId}" converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"
+                                           itemLabel="#{userIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{loginHistoryController.saveNew}" value="#{myBundle.Save}" update="display,:LoginHistoryListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LoginHistoryCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('LoginHistoryCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

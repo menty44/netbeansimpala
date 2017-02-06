@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MessagesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditMessagesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MessagesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MessagesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{messagesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditMessagesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{messagesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{messagesController.selected.date}" title="#{myBundle.EditMessagesTitle_date}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_subject}" for="subject" />
+                            <p:inputText id="subject" value="#{messagesController.selected.subject}" title="#{myBundle.EditMessagesTitle_subject}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_subject}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_type}" for="type" />
+                            <p:inputText id="type" value="#{messagesController.selected.type}" title="#{myBundle.EditMessagesTitle_type}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_type}" size="3" maxlength="3"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_direction}" for="direction" />
+                            <p:inputText id="direction" value="#{messagesController.selected.direction}" title="#{myBundle.EditMessagesTitle_direction}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_direction}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_isRead}" for="isRead" />
+                            <p:selectBooleanCheckbox id="isRead" value="#{messagesController.selected.isRead}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isRead}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_isReplied}" for="isReplied" />
+                            <p:selectBooleanCheckbox id="isReplied" value="#{messagesController.selected.isReplied}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isReplied}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_isHtml}" for="isHtml" />
+                            <p:selectBooleanCheckbox id="isHtml" value="#{messagesController.selected.isHtml}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isHtml}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_removedAt}" for="removedAt" />
+                            <p:calendar id="removedAt" pattern="MM/dd/yyyy HH:mm:ss" value="#{messagesController.selected.removedAt}" title="#{myBundle.EditMessagesTitle_removedAt}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_body}" for="body" />
+                            <p:inputTextarea rows="4" cols="30" id="body" value="#{messagesController.selected.body}" title="#{myBundle.EditMessagesTitle_body}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_emailSent}" for="emailSent" />
+                            <p:selectBooleanCheckbox id="emailSent" value="#{messagesController.selected.emailSent}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_emailSent}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_groupsCollection}" for="groupsCollection" />
+                            <p:selectManyMenu id="groupsCollection" value="#{messagesController.selected.groupsCollection}"  converter="groupsConverter">
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_categoryId}" for="categoryId" />
+                            <p:selectOneMenu id="categoryId" value="#{messagesController.selected.categoryId}"  converter="messageCategoriesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{messageCategoriesController.items}"
+                                               var="categoryIdItem"
+                                               itemValue="#{categoryIdItem}"
+                                               itemLabel="#{categoryIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_fromMemberId}" for="fromMemberId" />
+                            <p:selectOneMenu id="fromMemberId" value="#{messagesController.selected.fromMemberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="fromMemberIdItem"
+                                               itemValue="#{fromMemberIdItem}"
+                                               itemLabel="#{fromMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMessagesLabel_toMemberId}" for="toMemberId" />
+                            <p:selectOneMenu id="toMemberId" value="#{messagesController.selected.toMemberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="toMemberIdItem"
+                                               itemValue="#{toMemberIdItem}"
+                                               itemLabel="#{toMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{messagesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:MessagesListPage:MessagesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:MessagesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

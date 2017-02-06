@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="GuaranteeTypesListForm">
+
+        <p:panel header="#{myBundle.ListGuaranteeTypesTitle}">
+            <p:contextMenu id="GuaranteeTypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('GuaranteeTypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('GuaranteeTypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('GuaranteeTypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('GuaranteeTypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{guaranteeTypesController.navigateGroupsCollection}" disabled="#{empty guaranteeTypesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_adminNotificationPreferencesCollection}" icon="ui-icon-search"  action="#{guaranteeTypesController.navigateAdminNotificationPreferencesCollection}" disabled="#{empty guaranteeTypesController.selected.adminNotificationPreferencesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_creditFeeTransferTypeId}" icon="ui-icon-search"  actionListener="#{guaranteeTypesController.prepareCreditFeeTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected.creditFeeTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_issueFeeTransferTypeId}" icon="ui-icon-search"  actionListener="#{guaranteeTypesController.prepareIssueFeeTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected.issueFeeTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_loanTransferTypeId}" icon="ui-icon-search"  actionListener="#{guaranteeTypesController.prepareLoanTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected.loanTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_currencyId}" icon="ui-icon-search"  actionListener="#{guaranteeTypesController.prepareCurrencyId}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected.currencyId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_forwardTransferTypeId}" icon="ui-icon-search"  actionListener="#{guaranteeTypesController.prepareForwardTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected.forwardTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_guaranteesCollection}" icon="ui-icon-search"  action="#{guaranteeTypesController.navigateGuaranteesCollection}" disabled="#{empty guaranteeTypesController.selected.guaranteesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GuaranteeTypesMenuItem_certificationsCollection}" icon="ui-icon-search"  action="#{guaranteeTypesController.navigateCertificationsCollection}" disabled="#{empty guaranteeTypesController.selected.certificationsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{guaranteeTypesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{guaranteeTypesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{guaranteeTypesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GuaranteeTypesDataTableContextMenu" listener="#{guaranteeTypesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GuaranteeTypesDataTableContextMenu" listener="#{guaranteeTypesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{guaranteeTypesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('GuaranteeTypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.model}" filterBy="#{item.model}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_model}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.model}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.authorizedBy}" filterBy="#{item.authorizedBy}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_authorizedBy}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.authorizedBy}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.enabled}" filterBy="#{item.enabled}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_enabled}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="enabled" value="#{item.enabled}" title="#{myBundle.EditGuaranteeTypesTitle_enabled}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_enabled}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.pendingGuaranteeExpirationNumber}" filterBy="#{item.pendingGuaranteeExpirationNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_pendingGuaranteeExpirationNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pendingGuaranteeExpirationNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.pendingGuaranteeExpirationField}" filterBy="#{item.pendingGuaranteeExpirationField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_pendingGuaranteeExpirationField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pendingGuaranteeExpirationField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.paymentObligationPeriodNumber}" filterBy="#{item.paymentObligationPeriodNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_paymentObligationPeriodNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.paymentObligationPeriodNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.paymentObligationPeriodField}" filterBy="#{item.paymentObligationPeriodField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_paymentObligationPeriodField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.paymentObligationPeriodField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditFeePayer}" filterBy="#{item.creditFeePayer}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_creditFeePayer}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creditFeePayer}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issueFeePayer}" filterBy="#{item.issueFeePayer}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_issueFeePayer}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issueFeePayer}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditFee}" filterBy="#{item.creditFee}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_creditFee}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creditFee}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditFeeType}" filterBy="#{item.creditFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_creditFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creditFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditFeeReadonly}" filterBy="#{item.creditFeeReadonly}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_creditFeeReadonly}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="creditFeeReadonly" value="#{item.creditFeeReadonly}" title="#{myBundle.EditGuaranteeTypesTitle_creditFeeReadonly}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_creditFeeReadonly}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issueFee}" filterBy="#{item.issueFee}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_issueFee}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issueFee}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issueFeeType}" filterBy="#{item.issueFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_issueFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issueFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issueFeeReadonly}" filterBy="#{item.issueFeeReadonly}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_issueFeeReadonly}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="issueFeeReadonly" value="#{item.issueFeeReadonly}" title="#{myBundle.EditGuaranteeTypesTitle_issueFeeReadonly}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_issueFeeReadonly}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditFeeTransferTypeId.name}" filterBy="#{item.creditFeeTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_creditFeeTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creditFeeTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issueFeeTransferTypeId.name}" filterBy="#{item.issueFeeTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_issueFeeTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issueFeeTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanTransferTypeId.name}" filterBy="#{item.loanTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_loanTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.currencyId.name}" filterBy="#{item.currencyId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_currencyId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.currencyId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.forwardTransferTypeId.name}" filterBy="#{item.forwardTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteeTypesTitle_forwardTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.forwardTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{guaranteeTypesController.prepareCreate}" update=":GuaranteeTypesCreateForm" oncomplete="PF('GuaranteeTypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":GuaranteeTypesViewForm" oncomplete="PF('GuaranteeTypesViewDialog').show()" disabled="#{empty guaranteeTypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":GuaranteeTypesEditForm" oncomplete="PF('GuaranteeTypesEditDialog').show()" disabled="#{empty guaranteeTypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{guaranteeTypesController.delete}" update=":growl,datalist" disabled="#{empty guaranteeTypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

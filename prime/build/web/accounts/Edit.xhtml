@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AccountsEditDlg" widgetVar="AccountsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAccountsTitle}" closeOnEscape="true">
+
+            <h:form id="AccountsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="AccountsTabView">
+
+                        <p:tab id="AccountsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{accountsController.selected != null}">
+
+                                <h:outputLabel value="#{myBundle.EditAccountsLabel_id}" for="id" />
+                                <h:outputText id="id" value="#{accountsController.selected.id}" />
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_subclass}" for="subclass" />
+                                <p:inputText id="subclass" value="#{accountsController.selected.subclass}" title="#{myBundle.EditAccountsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditAccountsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_creationDate}" for="creationDate" />
+                                <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountsController.selected.creationDate}" title="#{myBundle.EditAccountsTitle_creationDate}" required="true" requiredMessage="#{myBundle.EditAccountsRequiredMessage_creationDate}" showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_lastClosingDate}" for="lastClosingDate" />
+                                <p:calendar id="lastClosingDate" pattern="MM/dd/yyyy" value="#{accountsController.selected.lastClosingDate}" title="#{myBundle.EditAccountsTitle_lastClosingDate}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_ownerName}" for="ownerName" />
+                                <p:inputText id="ownerName" value="#{accountsController.selected.ownerName}" title="#{myBundle.EditAccountsTitle_ownerName}" required="true" requiredMessage="#{myBundle.EditAccountsRequiredMessage_ownerName}" size="255" maxlength="255"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_creditLimit}" for="creditLimit" />
+                                <p:inputText id="creditLimit" value="#{accountsController.selected.creditLimit}" title="#{myBundle.EditAccountsTitle_creditLimit}"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_upperCreditLimit}" for="upperCreditLimit" />
+                                <p:inputText id="upperCreditLimit" value="#{accountsController.selected.upperCreditLimit}" title="#{myBundle.EditAccountsTitle_upperCreditLimit}"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_memberStatus}" for="memberStatus" />
+                                <p:inputText id="memberStatus" value="#{accountsController.selected.memberStatus}" title="#{myBundle.EditAccountsTitle_memberStatus}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_lastLowUnitsSent}" for="lastLowUnitsSent" />
+                                <p:calendar id="lastLowUnitsSent" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountsController.selected.lastLowUnitsSent}" title="#{myBundle.EditAccountsTitle_lastLowUnitsSent}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_memberAction}" for="memberAction" />
+                                <p:inputText id="memberAction" value="#{accountsController.selected.memberAction}" title="#{myBundle.EditAccountsTitle_memberAction}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_typeId}" for="typeId" />
+                                <p:selectOneMenu id="typeId" value="#{accountsController.selected.typeId}"  converter="accountTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountTypesController.items}"
+                                                   var="typeIdItem"
+                                                   itemValue="#{typeIdItem}"
+                                                   itemLabel="#{typeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditAccountsLabel_memberId}" for="memberId" />
+                                <p:selectOneMenu id="memberId" value="#{accountsController.selected.memberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="memberIdItem"
+                                                   itemValue="#{memberIdItem}"
+                                                   itemLabel="#{memberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{accountsController.save}" value="#{myBundle.Save}" update="display,:AccountsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccountsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccountsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

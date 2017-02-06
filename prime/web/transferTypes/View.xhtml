@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransferTypesViewDlg" widgetVar="TransferTypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTransferTypesTitle}" closeOnEscape="true">
+
+            <h:form id="TransferTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="TransferTypesTabView">
+
+                        <p:tab id="TransferTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{transferTypesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_id}"/>
+                                <h:outputText value="#{transferTypesController.selected.id}" title="#{myBundle.ViewTransferTypesTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowedPayment}"/>
+                                <h:selectBooleanCheckbox id="allowedPayment" value="#{transferTypesController.selected.allowedPayment}" title="#{myBundle.EditTransferTypesTitle_allowedPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedPayment}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowedSelfPayment}"/>
+                                <h:selectBooleanCheckbox id="allowedSelfPayment" value="#{transferTypesController.selected.allowedSelfPayment}" title="#{myBundle.EditTransferTypesTitle_allowedSelfPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedSelfPayment}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_priority}"/>
+                                <h:selectBooleanCheckbox id="priority" value="#{transferTypesController.selected.priority}" title="#{myBundle.EditTransferTypesTitle_priority}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_priority}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_conciliable}"/>
+                                <h:selectBooleanCheckbox id="conciliable" value="#{transferTypesController.selected.conciliable}" title="#{myBundle.EditTransferTypesTitle_conciliable}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_conciliable}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_requiresAuthorization}"/>
+                                <h:selectBooleanCheckbox id="requiresAuthorization" value="#{transferTypesController.selected.requiresAuthorization}" title="#{myBundle.EditTransferTypesTitle_requiresAuthorization}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresAuthorization}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowsScheduledPayments}"/>
+                                <h:selectBooleanCheckbox id="allowsScheduledPayments" value="#{transferTypesController.selected.allowsScheduledPayments}" title="#{myBundle.EditTransferTypesTitle_allowsScheduledPayments}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowsScheduledPayments}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_name}"/>
+                                <h:outputText value="#{transferTypesController.selected.name}" title="#{myBundle.ViewTransferTypesTitle_name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_description}"/>
+                                <h:outputText value="#{transferTypesController.selected.description}" title="#{myBundle.ViewTransferTypesTitle_description}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_confirmationMessage}"/>
+                                <h:outputText value="#{transferTypesController.selected.confirmationMessage}" title="#{myBundle.ViewTransferTypesTitle_confirmationMessage}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_maxAmountPerDay}"/>
+                                <h:outputText value="#{transferTypesController.selected.maxAmountPerDay}" title="#{myBundle.ViewTransferTypesTitle_maxAmountPerDay}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_minAmount}"/>
+                                <h:outputText value="#{transferTypesController.selected.minAmount}" title="#{myBundle.ViewTransferTypesTitle_minAmount}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_reserveTotalOnSched}"/>
+                                <h:selectBooleanCheckbox id="reserveTotalOnSched" value="#{transferTypesController.selected.reserveTotalOnSched}" title="#{myBundle.EditTransferTypesTitle_reserveTotalOnSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_reserveTotalOnSched}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowCancelSched}"/>
+                                <h:selectBooleanCheckbox id="allowCancelSched" value="#{transferTypesController.selected.allowCancelSched}" title="#{myBundle.EditTransferTypesTitle_allowCancelSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowCancelSched}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowBlockSched}"/>
+                                <h:selectBooleanCheckbox id="allowBlockSched" value="#{transferTypesController.selected.allowBlockSched}" title="#{myBundle.EditTransferTypesTitle_allowBlockSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowBlockSched}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_showSchedToDest}"/>
+                                <h:selectBooleanCheckbox id="showSchedToDest" value="#{transferTypesController.selected.showSchedToDest}" title="#{myBundle.EditTransferTypesTitle_showSchedToDest}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_showSchedToDest}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_allowSmsNotification}"/>
+                                <h:selectBooleanCheckbox id="allowSmsNotification" value="#{transferTypesController.selected.allowSmsNotification}" title="#{myBundle.EditTransferTypesTitle_allowSmsNotification}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowSmsNotification}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_requiresFeedback}"/>
+                                <h:selectBooleanCheckbox id="requiresFeedback" value="#{transferTypesController.selected.requiresFeedback}" title="#{myBundle.EditTransferTypesTitle_requiresFeedback}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresFeedback}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_transferListenerClass}"/>
+                                <h:outputText value="#{transferTypesController.selected.transferListenerClass}" title="#{myBundle.ViewTransferTypesTitle_transferListenerClass}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_feedbackEnabledSince}"/>
+                                <h:outputText value="#{transferTypesController.selected.feedbackEnabledSince}" title="#{myBundle.ViewTransferTypesTitle_feedbackEnabledSince}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransferTypesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{transferTypesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_feedbackExpirationTimeNumber}"/>
+                                <h:outputText value="#{transferTypesController.selected.feedbackExpirationTimeNumber}" title="#{myBundle.ViewTransferTypesTitle_feedbackExpirationTimeNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_feedbackExpirationTimeField}"/>
+                                <h:outputText value="#{transferTypesController.selected.feedbackExpirationTimeField}" title="#{myBundle.ViewTransferTypesTitle_feedbackExpirationTimeField}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_feedbackReplyExpirationTimeNumber}"/>
+                                <h:outputText value="#{transferTypesController.selected.feedbackReplyExpirationTimeNumber}" title="#{myBundle.ViewTransferTypesTitle_feedbackReplyExpirationTimeNumber}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_feedbackReplyExpirationTimeField}"/>
+                                <h:outputText value="#{transferTypesController.selected.feedbackReplyExpirationTimeField}" title="#{myBundle.ViewTransferTypesTitle_feedbackReplyExpirationTimeField}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_defaultFeedbackComments}"/>
+                                <h:outputText value="#{transferTypesController.selected.defaultFeedbackComments}" title="#{myBundle.ViewTransferTypesTitle_defaultFeedbackComments}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_defaultFeedbackLevel}"/>
+                                <h:outputText value="#{transferTypesController.selected.defaultFeedbackLevel}" title="#{myBundle.ViewTransferTypesTitle_defaultFeedbackLevel}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_txHierarchyVisibility}"/>
+                                <h:outputText value="#{transferTypesController.selected.txHierarchyVisibility}" title="#{myBundle.ViewTransferTypesTitle_txHierarchyVisibility}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanType}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanType}" title="#{myBundle.ViewTransferTypesTitle_loanType}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanGrantFeeValue}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanGrantFeeValue}" title="#{myBundle.ViewTransferTypesTitle_loanGrantFeeValue}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanGrantFeeType}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanGrantFeeType}" title="#{myBundle.ViewTransferTypesTitle_loanGrantFeeType}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanMonthlyInterest}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanMonthlyInterest}" title="#{myBundle.ViewTransferTypesTitle_loanMonthlyInterest}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanExpirationFeeValue}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanExpirationFeeValue}" title="#{myBundle.ViewTransferTypesTitle_loanExpirationFeeValue}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanExpirationFeeType}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanExpirationFeeType}" title="#{myBundle.ViewTransferTypesTitle_loanExpirationFeeType}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanExpirationDailyInterest}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanExpirationDailyInterest}" title="#{myBundle.ViewTransferTypesTitle_loanExpirationDailyInterest}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanRepaymentDays}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanRepaymentDays}" title="#{myBundle.ViewTransferTypesTitle_loanRepaymentDays}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_serviceClientsCollection}"/>
+                                <h:selectManyMenu converter="serviceClientsConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.serviceClientsCollection}"
+                                                   var="serviceClientsCollectionItem"
+                                                   itemValue="#{serviceClientsCollectionItem}"
+                                                   itemLabel="#{serviceClientsCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_adminNotificationPreferencesCollection}"/>
+                                <h:selectManyMenu converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.adminNotificationPreferencesCollection}"
+                                                   var="adminNotificationPreferencesCollectionItem"
+                                                   itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                   itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_adminNotificationPreferencesCollection1}"/>
+                                <h:selectManyMenu converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.adminNotificationPreferencesCollection1}"
+                                                   var="adminNotificationPreferencesCollection1Item"
+                                                   itemValue="#{adminNotificationPreferencesCollection1Item}"
+                                                   itemLabel="#{adminNotificationPreferencesCollection1Item.id.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_serviceClientsCollection1}"/>
+                                <h:selectManyMenu converter="serviceClientsConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.serviceClientsCollection1}"
+                                                   var="serviceClientsCollection1Item"
+                                                   itemValue="#{serviceClientsCollection1Item}"
+                                                   itemLabel="#{serviceClientsCollection1Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_paymentFiltersCollection}"/>
+                                <h:selectManyMenu converter="paymentFiltersConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.paymentFiltersCollection}"
+                                                   var="paymentFiltersCollectionItem"
+                                                   itemValue="#{paymentFiltersCollectionItem}"
+                                                   itemLabel="#{paymentFiltersCollectionItem.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_serviceClientsCollection2}"/>
+                                <h:selectManyMenu converter="serviceClientsConverter">
+                                    <f:selectItems value="#{transferTypesController.selected.serviceClientsCollection2}"
+                                                   var="serviceClientsCollection2Item"
+                                                   itemValue="#{serviceClientsCollection2Item}"
+                                                   itemLabel="#{serviceClientsCollection2Item.name.toString()}"
+                                                   />
+
+                                </h:selectManyMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransferTypesTab3" title="#{myBundle.TabHeaderPrefix} 3">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{transferTypesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanRepaymentTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanRepaymentTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanExpirationFeeTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanExpirationFeeTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_fromAccountTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.fromAccountTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_toAccountTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.toAccountTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanGrantFeeTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanGrantFeeTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanExpDailyInterestTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanExpDailyInterestTypeId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_fixedDestinationMemberId}"/>
+                                <h:outputText value="#{transferTypesController.selected.fixedDestinationMemberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewTransferTypesLabel_loanMonthlyInterestTypeId}"/>
+                                <h:outputText value="#{transferTypesController.selected.loanMonthlyInterestTypeId.name}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TransferTypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

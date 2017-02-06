@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ApplicationListForm">
+
+        <p:panel header="#{myBundle.ListApplicationTitle}">
+            <p:contextMenu id="ApplicationDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ApplicationListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ApplicationListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ApplicationListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ApplicationListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{applicationController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{applicationController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{applicationController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ApplicationDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ApplicationDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ApplicationListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.version}" filterBy="#{item.version}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_version}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.version}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.online}" filterBy="#{item.online}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_online}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="online" value="#{item.online}" title="#{myBundle.EditApplicationTitle_online}" required="true" requiredMessage="#{myBundle.EditApplicationRequiredMessage_online}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.accountStatusEnabledSince}" filterBy="#{item.accountStatusEnabledSince}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_accountStatusEnabledSince}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.accountStatusEnabledSince}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.passwordHash}" filterBy="#{item.passwordHash}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_passwordHash}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.passwordHash}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastIndexRebuildingTime}" filterBy="#{item.lastIndexRebuildingTime}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListApplicationTitle_lastIndexRebuildingTime}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastIndexRebuildingTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{applicationController.prepareCreate}" update=":ApplicationCreateForm" oncomplete="PF('ApplicationCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ApplicationViewForm" oncomplete="PF('ApplicationViewDialog').show()" disabled="#{empty applicationController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ApplicationEditForm" oncomplete="PF('ApplicationEditDialog').show()" disabled="#{empty applicationController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{applicationController.delete}" update=":growl,datalist" disabled="#{empty applicationController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

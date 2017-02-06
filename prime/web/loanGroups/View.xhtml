@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LoanGroupsViewDlg" widgetVar="LoanGroupsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewLoanGroupsTitle}" closeOnEscape="true">
+
+            <h:form id="LoanGroupsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{loanGroupsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewLoanGroupsLabel_id}"/>
+                        <h:outputText value="#{loanGroupsController.selected.id}" title="#{myBundle.ViewLoanGroupsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanGroupsLabel_name}"/>
+                        <h:outputText value="#{loanGroupsController.selected.name}" title="#{myBundle.ViewLoanGroupsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanGroupsLabel_description}"/>
+                        <h:outputText value="#{loanGroupsController.selected.description}" title="#{myBundle.ViewLoanGroupsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewLoanGroupsLabel_membersCollection}"/>
+                        <h:selectManyMenu converter="membersConverter">
+                            <f:selectItems value="#{loanGroupsController.selected.membersCollection}"
+                                           var="membersCollectionItem"
+                                           itemValue="#{membersCollectionItem}"
+                                           itemLabel="#{membersCollectionItem.name.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('LoanGroupsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

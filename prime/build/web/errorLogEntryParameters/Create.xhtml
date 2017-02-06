@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ErrorLogEntryParametersCreateDlg" widgetVar="ErrorLogEntryParametersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateErrorLogEntryParametersTitle}" closeOnEscape="true">
+
+            <h:form id="ErrorLogEntryParametersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{errorLogEntryParametersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntryParametersPK_errorLogEntryId}" for="errorLogEntryParametersPK_errorLogEntryId" />
+                        <p:inputText id="errorLogEntryParametersPK_errorLogEntryId" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.errorLogEntryId}" title="#{myBundle.CreateErrorLogEntryParametersTitle_errorLogEntryParametersPK_errorLogEntryId}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntryParametersPK_errorLogEntryId}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntryParametersPK_name}" for="errorLogEntryParametersPK_name" />
+                        <p:inputText id="errorLogEntryParametersPK_name" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.name}" title="#{myBundle.CreateErrorLogEntryParametersTitle_errorLogEntryParametersPK_name}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntryParametersPK_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_value}" for="value" />
+                        <p:inputTextarea rows="4" cols="30" id="value" value="#{errorLogEntryParametersController.selected.value}" title="#{myBundle.CreateErrorLogEntryParametersTitle_value}" />
+
+                        <p:outputLabel value="#{myBundle.CreateErrorLogEntryParametersLabel_errorLogEntries}" for="errorLogEntries" />
+                        <p:selectOneMenu id="errorLogEntries" value="#{errorLogEntryParametersController.selected.errorLogEntries}" required="true" requiredMessage="#{myBundle.CreateErrorLogEntryParametersRequiredMessage_errorLogEntries}" converter="errorLogEntriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{errorLogEntriesController.items}"
+                                           var="errorLogEntriesItem"
+                                           itemValue="#{errorLogEntriesItem}"
+                                           itemLabel="#{errorLogEntriesItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{errorLogEntryParametersController.saveNew}" value="#{myBundle.Save}" update="display,:ErrorLogEntryParametersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ErrorLogEntryParametersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ErrorLogEntryParametersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

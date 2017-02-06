@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ImagesCreateDlg" widgetVar="ImagesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateImagesTitle}" closeOnEscape="true">
+
+            <h:form id="ImagesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{imagesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{imagesController.selected.subclass}" title="#{myBundle.CreateImagesTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_subclass}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{imagesController.selected.name}" title="#{myBundle.CreateImagesTitle_name}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_contentType}" for="contentType" />
+                        <p:inputText id="contentType" value="#{imagesController.selected.contentType}" title="#{myBundle.CreateImagesTitle_contentType}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_contentType}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_imageSize}" for="imageSize" />
+                        <p:inputText id="imageSize" value="#{imagesController.selected.imageSize}" title="#{myBundle.CreateImagesTitle_imageSize}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_imageSize}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_lastModified}" for="lastModified" />
+                        <p:calendar id="lastModified" pattern="MM/dd/yyyy HH:mm:ss" value="#{imagesController.selected.lastModified}" title="#{myBundle.CreateImagesTitle_lastModified}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_lastModified}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_thumbnailSize}" for="thumbnailSize" />
+                        <p:inputText id="thumbnailSize" value="#{imagesController.selected.thumbnailSize}" title="#{myBundle.CreateImagesTitle_thumbnailSize}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_thumbnailSize}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_image}" for="image" />
+                        <p:inputTextarea rows="4" cols="30" id="image" value="#{imagesController.selected.image}" title="#{myBundle.CreateImagesTitle_image}" required="true" requiredMessage="#{myBundle.CreateImagesRequiredMessage_image}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_thumbnail}" for="thumbnail" />
+                        <p:inputTextarea rows="4" cols="30" id="thumbnail" value="#{imagesController.selected.thumbnail}" title="#{myBundle.CreateImagesTitle_thumbnail}" />
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_orderNumber}" for="orderNumber" />
+                        <p:inputText id="orderNumber" value="#{imagesController.selected.orderNumber}" title="#{myBundle.CreateImagesTitle_orderNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_caption}" for="caption" />
+                        <p:inputText id="caption" value="#{imagesController.selected.caption}" title="#{myBundle.CreateImagesTitle_caption}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_adId}" for="adId" />
+                        <p:selectOneMenu id="adId" value="#{imagesController.selected.adId}"  converter="adsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adsController.items}"
+                                           var="adIdItem"
+                                           itemValue="#{adIdItem}"
+                                           itemLabel="#{adIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateImagesLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{imagesController.selected.memberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{imagesController.saveNew}" value="#{myBundle.Save}" update="display,:ImagesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ImagesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ImagesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

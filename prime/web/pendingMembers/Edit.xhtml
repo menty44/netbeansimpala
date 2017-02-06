@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PendingMembersEditDlg" widgetVar="PendingMembersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPendingMembersTitle}" closeOnEscape="true">
+
+            <h:form id="PendingMembersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{pendingMembersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPendingMembersLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{pendingMembersController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{pendingMembersController.selected.creationDate}" title="#{myBundle.EditPendingMembersTitle_creationDate}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_creationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{pendingMembersController.selected.name}" title="#{myBundle.EditPendingMembersTitle_name}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_salt}" for="salt" />
+                        <p:inputText id="salt" value="#{pendingMembersController.selected.salt}" title="#{myBundle.EditPendingMembersTitle_salt}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{pendingMembersController.selected.username}" title="#{myBundle.EditPendingMembersTitle_username}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{pendingMembersController.selected.password}" title="#{myBundle.EditPendingMembersTitle_password}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_forceChangePassword}" for="forceChangePassword" />
+                        <p:selectBooleanCheckbox id="forceChangePassword" value="#{pendingMembersController.selected.forceChangePassword}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_forceChangePassword}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{pendingMembersController.selected.email}" title="#{myBundle.EditPendingMembersTitle_email}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_email}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_pin}" for="pin" />
+                        <p:inputText id="pin" value="#{pendingMembersController.selected.pin}" title="#{myBundle.EditPendingMembersTitle_pin}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_validationKey}" for="validationKey" />
+                        <p:inputText id="validationKey" value="#{pendingMembersController.selected.validationKey}" title="#{myBundle.EditPendingMembersTitle_validationKey}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_validationKey}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_hideEmail}" for="hideEmail" />
+                        <p:selectBooleanCheckbox id="hideEmail" value="#{pendingMembersController.selected.hideEmail}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_hideEmail}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_lastEmailDate}" for="lastEmailDate" />
+                        <p:calendar id="lastEmailDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{pendingMembersController.selected.lastEmailDate}" title="#{myBundle.EditPendingMembersTitle_lastEmailDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_registrationAgreementDate}" for="registrationAgreementDate" />
+                        <p:calendar id="registrationAgreementDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{pendingMembersController.selected.registrationAgreementDate}" title="#{myBundle.EditPendingMembersTitle_registrationAgreementDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_remoteAddress}" for="remoteAddress" />
+                        <p:inputText id="remoteAddress" value="#{pendingMembersController.selected.remoteAddress}" title="#{myBundle.EditPendingMembersTitle_remoteAddress}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_registrationAgreementId}" for="registrationAgreementId" />
+                        <p:selectOneMenu id="registrationAgreementId" value="#{pendingMembersController.selected.registrationAgreementId}"  converter="registrationAgreementsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{registrationAgreementsController.items}"
+                                           var="registrationAgreementIdItem"
+                                           itemValue="#{registrationAgreementIdItem}"
+                                           itemLabel="#{registrationAgreementIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_brokerId}" for="brokerId" />
+                        <p:selectOneMenu id="brokerId" value="#{pendingMembersController.selected.brokerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="brokerIdItem"
+                                           itemValue="#{brokerIdItem}"
+                                           itemLabel="#{brokerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_groupId}" for="groupId" />
+                        <p:selectOneMenu id="groupId" value="#{pendingMembersController.selected.groupId}" required="true" requiredMessage="#{myBundle.EditPendingMembersRequiredMessage_groupId}" converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupIdItem"
+                                           itemValue="#{groupIdItem}"
+                                           itemLabel="#{groupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPendingMembersLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{pendingMembersController.selected.memberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pendingMembersController.save}" value="#{myBundle.Save}" update="display,:PendingMembersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PendingMembersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PendingMembersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

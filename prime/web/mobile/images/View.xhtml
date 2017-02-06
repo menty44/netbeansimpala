@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ImagesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewImagesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ImagesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ImagesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{imagesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_id}"/>
+                            <h:outputText value="#{imagesController.selected.id}" title="#{myBundle.ViewImagesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_subclass}"/>
+                            <h:outputText value="#{imagesController.selected.subclass}" title="#{myBundle.ViewImagesTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_name}"/>
+                            <h:outputText value="#{imagesController.selected.name}" title="#{myBundle.ViewImagesTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_contentType}"/>
+                            <h:outputText value="#{imagesController.selected.contentType}" title="#{myBundle.ViewImagesTitle_contentType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_imageSize}"/>
+                            <h:outputText value="#{imagesController.selected.imageSize}" title="#{myBundle.ViewImagesTitle_imageSize}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_lastModified}"/>
+                            <h:outputText value="#{imagesController.selected.lastModified}" title="#{myBundle.ViewImagesTitle_lastModified}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_thumbnailSize}"/>
+                            <h:outputText value="#{imagesController.selected.thumbnailSize}" title="#{myBundle.ViewImagesTitle_thumbnailSize}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_image}"/>
+                            <h:outputText value="#{imagesController.selected.image}" title="#{myBundle.ViewImagesTitle_image}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_thumbnail}"/>
+                            <h:outputText value="#{imagesController.selected.thumbnail}" title="#{myBundle.ViewImagesTitle_thumbnail}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_orderNumber}"/>
+                            <h:outputText value="#{imagesController.selected.orderNumber}" title="#{myBundle.ViewImagesTitle_orderNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_caption}"/>
+                            <h:outputText value="#{imagesController.selected.caption}" title="#{myBundle.ViewImagesTitle_caption}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_adId}"/>
+                            <h:outputText value="#{imagesController.selected.adId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImagesLabel_memberId}"/>
+                            <h:outputText value="#{imagesController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

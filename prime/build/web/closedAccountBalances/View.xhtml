@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClosedAccountBalancesViewDlg" widgetVar="ClosedAccountBalancesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewClosedAccountBalancesTitle}" closeOnEscape="true">
+
+            <h:form id="ClosedAccountBalancesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{closedAccountBalancesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewClosedAccountBalancesLabel_id}"/>
+                        <h:outputText value="#{closedAccountBalancesController.selected.id}" title="#{myBundle.ViewClosedAccountBalancesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewClosedAccountBalancesLabel_date}"/>
+                        <h:outputText value="#{closedAccountBalancesController.selected.date}" title="#{myBundle.ViewClosedAccountBalancesTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewClosedAccountBalancesLabel_balance}"/>
+                        <h:outputText value="#{closedAccountBalancesController.selected.balance}" title="#{myBundle.ViewClosedAccountBalancesTitle_balance}"/>
+
+                        <h:outputText value="#{myBundle.ViewClosedAccountBalancesLabel_reserved}"/>
+                        <h:outputText value="#{closedAccountBalancesController.selected.reserved}" title="#{myBundle.ViewClosedAccountBalancesTitle_reserved}"/>
+
+                        <h:outputText value="#{myBundle.ViewClosedAccountBalancesLabel_accountId}"/>
+                        <h:outputText value="#{closedAccountBalancesController.selected.accountId.ownerName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ClosedAccountBalancesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

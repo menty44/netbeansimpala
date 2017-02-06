@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ChannelsListForm">
+
+        <p:panel header="#{myBundle.ListChannelsTitle}">
+            <p:contextMenu id="ChannelsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ChannelsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ChannelsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ChannelsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ChannelsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_transferTypesCollection}" icon="ui-icon-search"  action="#{channelsController.navigateTransferTypesCollection}" disabled="#{empty channelsController.selected.transferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{channelsController.navigateGroupsCollection}" disabled="#{empty channelsController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_groupsCollection1}" icon="ui-icon-search"  action="#{channelsController.navigateGroupsCollection1}" disabled="#{empty channelsController.selected.groupsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_membersCollection}" icon="ui-icon-search"  action="#{channelsController.navigateMembersCollection}" disabled="#{empty channelsController.selected.membersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_groupsCollection2}" icon="ui-icon-search"  action="#{channelsController.navigateGroupsCollection2}" disabled="#{empty channelsController.selected.groupsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_serviceClientsCollection}" icon="ui-icon-search"  action="#{channelsController.navigateServiceClientsCollection}" disabled="#{empty channelsController.selected.serviceClientsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_channelsPrincipalsCollection}" icon="ui-icon-search"  action="#{channelsController.navigateChannelsPrincipalsCollection}" disabled="#{empty channelsController.selected.channelsPrincipalsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_ticketsCollection}" icon="ui-icon-search"  action="#{channelsController.navigateTicketsCollection}" disabled="#{empty channelsController.selected.ticketsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ChannelsMenuItem_ticketsCollection1}" icon="ui-icon-search"  action="#{channelsController.navigateTicketsCollection1}" disabled="#{empty channelsController.selected.ticketsCollection1}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{channelsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{channelsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{channelsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ChannelsDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ChannelsDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ChannelsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.internalName}" filterBy="#{item.internalName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsTitle_internalName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.internalName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.displayName}" filterBy="#{item.displayName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsTitle_displayName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.displayName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.credentials}" filterBy="#{item.credentials}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsTitle_credentials}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.credentials}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.pmtReqWsUrl}" filterBy="#{item.pmtReqWsUrl}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsTitle_pmtReqWsUrl}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pmtReqWsUrl}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{channelsController.prepareCreate}" update=":ChannelsCreateForm" oncomplete="PF('ChannelsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ChannelsViewForm" oncomplete="PF('ChannelsViewDialog').show()" disabled="#{empty channelsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ChannelsEditForm" oncomplete="PF('ChannelsEditDialog').show()" disabled="#{empty channelsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{channelsController.delete}" update=":growl,datalist" disabled="#{empty channelsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

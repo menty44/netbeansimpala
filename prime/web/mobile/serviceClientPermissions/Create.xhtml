@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ServiceClientPermissionsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateServiceClientPermissionsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ServiceClientPermissionsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ServiceClientPermissionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{serviceClientPermissionsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClientPermissionsPK_serviceClientId}" for="serviceClientPermissionsPK_serviceClientId" />
+                            <p:inputText id="serviceClientPermissionsPK_serviceClientId" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.serviceClientId}" title="#{myBundle.CreateServiceClientPermissionsTitle_serviceClientPermissionsPK_serviceClientId}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClientPermissionsPK_serviceClientId}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClientPermissionsPK_operation}" for="serviceClientPermissionsPK_operation" />
+                            <p:inputText id="serviceClientPermissionsPK_operation" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.operation}" title="#{myBundle.CreateServiceClientPermissionsTitle_serviceClientPermissionsPK_operation}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClientPermissionsPK_operation}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClients}" for="serviceClients" />
+                            <p:selectOneMenu id="serviceClients" value="#{serviceClientPermissionsController.selected.serviceClients}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClients}" converter="serviceClientsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{serviceClientsController.items}"
+                                               var="serviceClientsItem"
+                                               itemValue="#{serviceClientsItem}"
+                                               itemLabel="#{serviceClientsItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{serviceClientPermissionsController.saveNew}" value="#{myBundle.Save}" update="display,:ServiceClientPermissionsListPage:ServiceClientPermissionsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ServiceClientPermissionsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MockDataViewDlg" widgetVar="MockDataViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMockDataTitle}" closeOnEscape="true">
+
+            <h:form id="MockDataViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{mockDataController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_id}"/>
+                        <h:outputText value="#{mockDataController.selected.id}" title="#{myBundle.ViewMockDataTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_firstName}"/>
+                        <h:outputText value="#{mockDataController.selected.firstName}" title="#{myBundle.ViewMockDataTitle_firstName}"/>
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_lastName}"/>
+                        <h:outputText value="#{mockDataController.selected.lastName}" title="#{myBundle.ViewMockDataTitle_lastName}"/>
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_email}"/>
+                        <h:outputText value="#{mockDataController.selected.email}" title="#{myBundle.ViewMockDataTitle_email}"/>
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_gender}"/>
+                        <h:outputText value="#{mockDataController.selected.gender}" title="#{myBundle.ViewMockDataTitle_gender}"/>
+
+                        <h:outputText value="#{myBundle.ViewMockDataLabel_ipAddress}"/>
+                        <h:outputText value="#{mockDataController.selected.ipAddress}" title="#{myBundle.ViewMockDataTitle_ipAddress}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MockDataViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

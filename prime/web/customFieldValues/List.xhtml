@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CustomFieldValuesListForm">
+
+        <p:panel header="#{myBundle.ListCustomFieldValuesTitle}">
+            <p:contextMenu id="CustomFieldValuesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CustomFieldValuesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CustomFieldValuesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CustomFieldValuesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CustomFieldValuesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_loanGroupId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareLoanGroupId}" update=":LoanGroupsViewForm" oncomplete="PF('LoanGroupsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.loanGroupId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_guaranteeId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareGuaranteeId}" update=":GuaranteesViewForm" oncomplete="PF('GuaranteesViewDialog').show()" disabled="#{empty customFieldValuesController.selected.guaranteeId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_transferId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareTransferId}" update=":TransfersViewForm" oncomplete="PF('TransfersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.transferId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_pendingMemberId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.preparePendingMemberId}" update=":PendingMembersViewForm" oncomplete="PF('PendingMembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.pendingMemberId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_memberRecordId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareMemberRecordId}" update=":MemberRecordsViewForm" oncomplete="PF('MemberRecordsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.memberRecordId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_importedMemberRecordId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareImportedMemberRecordId}" update=":ImportedMemberRecordsViewForm" oncomplete="PF('ImportedMemberRecordsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.importedMemberRecordId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_adminId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareAdminId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.adminId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_operatorId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareOperatorId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.operatorId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_importedMemberId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareImportedMemberId}" update=":ImportedMembersViewForm" oncomplete="PF('ImportedMembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.importedMemberId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.memberId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_invoiceId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareInvoiceId}" update=":InvoicesViewForm" oncomplete="PF('InvoicesViewDialog').show()" disabled="#{empty customFieldValuesController.selected.invoiceId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_importedAdId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareImportedAdId}" update=":ImportedAdsViewForm" oncomplete="PF('ImportedAdsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.importedAdId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_fieldId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareFieldId}" update=":CustomFieldsViewForm" oncomplete="PF('CustomFieldsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.fieldId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_memberValueId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareMemberValueId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty customFieldValuesController.selected.memberValueId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_scheduledPaymentId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareScheduledPaymentId}" update=":ScheduledPaymentsViewForm" oncomplete="PF('ScheduledPaymentsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.scheduledPaymentId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_adId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.prepareAdId}" update=":AdsViewForm" oncomplete="PF('AdsViewDialog').show()" disabled="#{empty customFieldValuesController.selected.adId}"/>  
+                <p:menuitem value="#{myBundle.CustomFieldValuesMenuItem_possibleValueId}" icon="ui-icon-search"  actionListener="#{customFieldValuesController.preparePossibleValueId}" update=":CustomFieldPossibleValuesViewForm" oncomplete="PF('CustomFieldPossibleValuesViewDialog').show()" disabled="#{empty customFieldValuesController.selected.possibleValueId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{customFieldValuesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{customFieldValuesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{customFieldValuesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CustomFieldValuesDataTableContextMenu" listener="#{customFieldValuesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CustomFieldValuesDataTableContextMenu" listener="#{customFieldValuesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{customFieldValuesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CustomFieldValuesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.stringValue}" filterBy="#{item.stringValue}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_stringValue}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.stringValue}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.memberHidden}" filterBy="#{item.memberHidden}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_memberHidden}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="memberHidden" value="#{item.memberHidden}" title="#{myBundle.EditCustomFieldValuesTitle_memberHidden}" required="true" requiredMessage="#{myBundle.EditCustomFieldValuesRequiredMessage_memberHidden}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.loanGroupId.name}" filterBy="#{item.loanGroupId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_loanGroupId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.loanGroupId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.guaranteeId.id}" filterBy="#{item.guaranteeId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_guaranteeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.guaranteeId.id}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.transferId.description}" filterBy="#{item.transferId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_transferId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.pendingMemberId.name}" filterBy="#{item.pendingMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_pendingMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.pendingMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberRecordId.id}" filterBy="#{item.memberRecordId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_memberRecordId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberRecordId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importedMemberRecordId.id}" filterBy="#{item.importedMemberRecordId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_importedMemberRecordId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importedMemberRecordId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.adminId.name}" filterBy="#{item.adminId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_adminId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.adminId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.operatorId.name}" filterBy="#{item.operatorId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_operatorId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.operatorId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importedMemberId.name}" filterBy="#{item.importedMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_importedMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importedMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.invoiceId.description}" filterBy="#{item.invoiceId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_invoiceId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.invoiceId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importedAdId.description}" filterBy="#{item.importedAdId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_importedAdId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importedAdId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fieldId.internalName}" filterBy="#{item.fieldId.internalName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_fieldId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fieldId.internalName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberValueId.name}" filterBy="#{item.memberValueId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_memberValueId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberValueId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.scheduledPaymentId.description}" filterBy="#{item.scheduledPaymentId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_scheduledPaymentId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.scheduledPaymentId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.adId.description}" filterBy="#{item.adId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_adId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.adId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.possibleValueId.id}" filterBy="#{item.possibleValueId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCustomFieldValuesTitle_possibleValueId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.possibleValueId.id}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{customFieldValuesController.prepareCreate}" update=":CustomFieldValuesCreateForm" oncomplete="PF('CustomFieldValuesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CustomFieldValuesViewForm" oncomplete="PF('CustomFieldValuesViewDialog').show()" disabled="#{empty customFieldValuesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CustomFieldValuesEditForm" oncomplete="PF('CustomFieldValuesEditDialog').show()" disabled="#{empty customFieldValuesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{customFieldValuesController.delete}" update=":growl,datalist" disabled="#{empty customFieldValuesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

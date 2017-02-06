@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="InvoicesEditDlg" widgetVar="InvoicesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditInvoicesTitle}" closeOnEscape="true">
+
+            <h:form id="InvoicesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{invoicesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditInvoicesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{invoicesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{invoicesController.selected.date}" title="#{myBundle.EditInvoicesTitle_date}" required="true" requiredMessage="#{myBundle.EditInvoicesRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{invoicesController.selected.amount}" title="#{myBundle.EditInvoicesTitle_amount}" required="true" requiredMessage="#{myBundle.EditInvoicesRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{invoicesController.selected.status}" title="#{myBundle.EditInvoicesTitle_status}" required="true" requiredMessage="#{myBundle.EditInvoicesRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{invoicesController.selected.description}" title="#{myBundle.EditInvoicesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{invoicesController.selected.transferId}"  converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_accountFeeLogId}" for="accountFeeLogId" />
+                        <p:selectOneMenu id="accountFeeLogId" value="#{invoicesController.selected.accountFeeLogId}"  converter="accountFeeLogsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountFeeLogsController.items}"
+                                           var="accountFeeLogIdItem"
+                                           itemValue="#{accountFeeLogIdItem}"
+                                           itemLabel="#{accountFeeLogIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_fromMemberId}" for="fromMemberId" />
+                        <p:selectOneMenu id="fromMemberId" value="#{invoicesController.selected.fromMemberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="fromMemberIdItem"
+                                           itemValue="#{fromMemberIdItem}"
+                                           itemLabel="#{fromMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_toMemberId}" for="toMemberId" />
+                        <p:selectOneMenu id="toMemberId" value="#{invoicesController.selected.toMemberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="toMemberIdItem"
+                                           itemValue="#{toMemberIdItem}"
+                                           itemLabel="#{toMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_performedById}" for="performedById" />
+                        <p:selectOneMenu id="performedById" value="#{invoicesController.selected.performedById}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="performedByIdItem"
+                                           itemValue="#{performedByIdItem}"
+                                           itemLabel="#{performedByIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_sentById}" for="sentById" />
+                        <p:selectOneMenu id="sentById" value="#{invoicesController.selected.sentById}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="sentByIdItem"
+                                           itemValue="#{sentByIdItem}"
+                                           itemLabel="#{sentByIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_transferTypeId}" for="transferTypeId" />
+                        <p:selectOneMenu id="transferTypeId" value="#{invoicesController.selected.transferTypeId}"  converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="transferTypeIdItem"
+                                           itemValue="#{transferTypeIdItem}"
+                                           itemLabel="#{transferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                        <p:selectOneMenu id="scheduledPaymentId" value="#{invoicesController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{scheduledPaymentsController.items}"
+                                           var="scheduledPaymentIdItem"
+                                           itemValue="#{scheduledPaymentIdItem}"
+                                           itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditInvoicesLabel_destTypeId}" for="destTypeId" />
+                        <p:selectOneMenu id="destTypeId" value="#{invoicesController.selected.destTypeId}"  converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="destTypeIdItem"
+                                           itemValue="#{destTypeIdItem}"
+                                           itemLabel="#{destTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{invoicesController.save}" value="#{myBundle.Save}" update="display,:InvoicesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InvoicesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('InvoicesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

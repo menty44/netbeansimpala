@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PaymentFiltersEditDlg" widgetVar="PaymentFiltersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPaymentFiltersTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentFiltersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{paymentFiltersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPaymentFiltersLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{paymentFiltersController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaymentFiltersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{paymentFiltersController.selected.name}" title="#{myBundle.EditPaymentFiltersTitle_name}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentFiltersLabel_showInAccountHistory}" for="showInAccountHistory" />
+                        <p:selectBooleanCheckbox id="showInAccountHistory" value="#{paymentFiltersController.selected.showInAccountHistory}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_showInAccountHistory}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentFiltersLabel_showInReports}" for="showInReports" />
+                        <p:selectBooleanCheckbox id="showInReports" value="#{paymentFiltersController.selected.showInReports}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_showInReports}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentFiltersLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{paymentFiltersController.selected.description}" title="#{myBundle.EditPaymentFiltersTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaymentFiltersLabel_accountTypeId}" for="accountTypeId" />
+                        <p:selectOneMenu id="accountTypeId" value="#{paymentFiltersController.selected.accountTypeId}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_accountTypeId}" converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="accountTypeIdItem"
+                                           itemValue="#{accountTypeIdItem}"
+                                           itemLabel="#{accountTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentFiltersController.save}" value="#{myBundle.Save}" update="display,:PaymentFiltersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaymentFiltersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PaymentFiltersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

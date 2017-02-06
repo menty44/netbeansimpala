@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AuthorizationLevelsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAuthorizationLevelsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AuthorizationLevelsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AuthorizationLevelsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{authorizationLevelsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAuthorizationLevelsLabel_id}"/>
+                            <h:outputText value="#{authorizationLevelsController.selected.id}" title="#{myBundle.ViewAuthorizationLevelsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAuthorizationLevelsLabel_level}"/>
+                            <h:outputText value="#{authorizationLevelsController.selected.level}" title="#{myBundle.ViewAuthorizationLevelsTitle_level}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAuthorizationLevelsLabel_amount}"/>
+                            <h:outputText value="#{authorizationLevelsController.selected.amount}" title="#{myBundle.ViewAuthorizationLevelsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAuthorizationLevelsLabel_authorizer}"/>
+                            <h:outputText value="#{authorizationLevelsController.selected.authorizer}" title="#{myBundle.ViewAuthorizationLevelsTitle_authorizer}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAuthorizationLevelsLabel_typeId}"/>
+                            <h:outputText value="#{authorizationLevelsController.selected.typeId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

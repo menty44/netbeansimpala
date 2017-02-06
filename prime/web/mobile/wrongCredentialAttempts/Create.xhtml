@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="WrongCredentialAttemptsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateWrongCredentialAttemptsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:WrongCredentialAttemptsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="WrongCredentialAttemptsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{wrongCredentialAttemptsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateWrongCredentialAttemptsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{wrongCredentialAttemptsController.selected.date}" title="#{myBundle.CreateWrongCredentialAttemptsTitle_date}" required="true" requiredMessage="#{myBundle.CreateWrongCredentialAttemptsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateWrongCredentialAttemptsLabel_credentialType}" for="credentialType" />
+                            <p:inputText id="credentialType" value="#{wrongCredentialAttemptsController.selected.credentialType}" title="#{myBundle.CreateWrongCredentialAttemptsTitle_credentialType}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateWrongCredentialAttemptsLabel_memberPosId}" for="memberPosId" />
+                            <p:selectOneMenu id="memberPosId" value="#{wrongCredentialAttemptsController.selected.memberPosId}"  converter="memberPosConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{memberPosController.items}"
+                                               var="memberPosIdItem"
+                                               itemValue="#{memberPosIdItem}"
+                                               itemLabel="#{memberPosIdItem.posName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateWrongCredentialAttemptsLabel_cardId}" for="cardId" />
+                            <p:selectOneMenu id="cardId" value="#{wrongCredentialAttemptsController.selected.cardId}"  converter="cardsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{cardsController.items}"
+                                               var="cardIdItem"
+                                               itemValue="#{cardIdItem}"
+                                               itemLabel="#{cardIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateWrongCredentialAttemptsLabel_userId}" for="userId" />
+                            <p:selectOneMenu id="userId" value="#{wrongCredentialAttemptsController.selected.userId}"  converter="usersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{usersController.items}"
+                                               var="userIdItem"
+                                               itemValue="#{userIdItem}"
+                                               itemLabel="#{userIdItem.username.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{wrongCredentialAttemptsController.saveNew}" value="#{myBundle.Save}" update="display,:WrongCredentialAttemptsListPage:WrongCredentialAttemptsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:WrongCredentialAttemptsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

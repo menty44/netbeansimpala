@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CustomFieldPossibleValuesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditCustomFieldPossibleValuesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CustomFieldPossibleValuesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CustomFieldPossibleValuesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{customFieldPossibleValuesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{customFieldPossibleValuesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_value}" for="value" />
+                            <p:inputText id="value" value="#{customFieldPossibleValuesController.selected.value}" title="#{myBundle.EditCustomFieldPossibleValuesTitle_value}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_value}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_isEnabled}" for="isEnabled" />
+                            <p:selectBooleanCheckbox id="isEnabled" value="#{customFieldPossibleValuesController.selected.isEnabled}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isEnabled}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_isDefault}" for="isDefault" />
+                            <p:selectBooleanCheckbox id="isDefault" value="#{customFieldPossibleValuesController.selected.isDefault}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isDefault}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_parentId}" for="parentId" />
+                            <p:selectOneMenu id="parentId" value="#{customFieldPossibleValuesController.selected.parentId}"  converter="customFieldPossibleValuesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{customFieldPossibleValuesController.items}"
+                                               var="parentIdItem"
+                                               itemValue="#{parentIdItem}"
+                                               itemLabel="#{parentIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_fieldId}" for="fieldId" />
+                            <p:selectOneMenu id="fieldId" value="#{customFieldPossibleValuesController.selected.fieldId}"  converter="customFieldsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{customFieldsController.items}"
+                                               var="fieldIdItem"
+                                               itemValue="#{fieldIdItem}"
+                                               itemLabel="#{fieldIdItem.internalName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{customFieldPossibleValuesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:CustomFieldPossibleValuesListPage:CustomFieldPossibleValuesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:CustomFieldPossibleValuesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

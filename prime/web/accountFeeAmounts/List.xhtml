@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AccountFeeAmountsListForm">
+
+        <p:panel header="#{myBundle.ListAccountFeeAmountsTitle}">
+            <p:contextMenu id="AccountFeeAmountsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AccountFeeAmountsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AccountFeeAmountsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AccountFeeAmountsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AccountFeeAmountsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AccountFeeAmountsMenuItem_accountId}" icon="ui-icon-search"  actionListener="#{accountFeeAmountsController.prepareAccountId}" update=":AccountsViewForm" oncomplete="PF('AccountsViewDialog').show()" disabled="#{empty accountFeeAmountsController.selected.accountId}"/>  
+                <p:menuitem value="#{myBundle.AccountFeeAmountsMenuItem_accountFeeId}" icon="ui-icon-search"  actionListener="#{accountFeeAmountsController.prepareAccountFeeId}" update=":AccountFeesViewForm" oncomplete="PF('AccountFeesViewDialog').show()" disabled="#{empty accountFeeAmountsController.selected.accountFeeId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{accountFeeAmountsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{accountFeeAmountsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{accountFeeAmountsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccountFeeAmountsDataTableContextMenu" listener="#{accountFeeAmountsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccountFeeAmountsDataTableContextMenu" listener="#{accountFeeAmountsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{accountFeeAmountsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AccountFeeAmountsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.availableBalance}" filterBy="#{item.availableBalance}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_availableBalance}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.availableBalance}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.accountId.ownerName}" filterBy="#{item.accountId.ownerName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_accountId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.accountId.ownerName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.accountFeeId.name}" filterBy="#{item.accountFeeId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccountFeeAmountsTitle_accountFeeId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.accountFeeId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{accountFeeAmountsController.prepareCreate}" update=":AccountFeeAmountsCreateForm" oncomplete="PF('AccountFeeAmountsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AccountFeeAmountsViewForm" oncomplete="PF('AccountFeeAmountsViewDialog').show()" disabled="#{empty accountFeeAmountsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AccountFeeAmountsEditForm" oncomplete="PF('AccountFeeAmountsEditDialog').show()" disabled="#{empty accountFeeAmountsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{accountFeeAmountsController.delete}" update=":growl,datalist" disabled="#{empty accountFeeAmountsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

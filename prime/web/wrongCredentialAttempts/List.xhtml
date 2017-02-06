@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="WrongCredentialAttemptsListForm">
+
+        <p:panel header="#{myBundle.ListWrongCredentialAttemptsTitle}">
+            <p:contextMenu id="WrongCredentialAttemptsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('WrongCredentialAttemptsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('WrongCredentialAttemptsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('WrongCredentialAttemptsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('WrongCredentialAttemptsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.WrongCredentialAttemptsMenuItem_memberPosId}" icon="ui-icon-search"  actionListener="#{wrongCredentialAttemptsController.prepareMemberPosId}" update=":MemberPosViewForm" oncomplete="PF('MemberPosViewDialog').show()" disabled="#{empty wrongCredentialAttemptsController.selected.memberPosId}"/>  
+                <p:menuitem value="#{myBundle.WrongCredentialAttemptsMenuItem_cardId}" icon="ui-icon-search"  actionListener="#{wrongCredentialAttemptsController.prepareCardId}" update=":CardsViewForm" oncomplete="PF('CardsViewDialog').show()" disabled="#{empty wrongCredentialAttemptsController.selected.cardId}"/>  
+                <p:menuitem value="#{myBundle.WrongCredentialAttemptsMenuItem_userId}" icon="ui-icon-search"  actionListener="#{wrongCredentialAttemptsController.prepareUserId}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty wrongCredentialAttemptsController.selected.userId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{wrongCredentialAttemptsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{wrongCredentialAttemptsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{wrongCredentialAttemptsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:WrongCredentialAttemptsDataTableContextMenu" listener="#{wrongCredentialAttemptsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:WrongCredentialAttemptsDataTableContextMenu" listener="#{wrongCredentialAttemptsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{wrongCredentialAttemptsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('WrongCredentialAttemptsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.credentialType}" filterBy="#{item.credentialType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_credentialType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.credentialType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.memberPosId.posName}" filterBy="#{item.memberPosId.posName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_memberPosId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.memberPosId.posName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cardId.id}" filterBy="#{item.cardId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_cardId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cardId.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userId.username}" filterBy="#{item.userId.username}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListWrongCredentialAttemptsTitle_userId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userId.username}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{wrongCredentialAttemptsController.prepareCreate}" update=":WrongCredentialAttemptsCreateForm" oncomplete="PF('WrongCredentialAttemptsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":WrongCredentialAttemptsViewForm" oncomplete="PF('WrongCredentialAttemptsViewDialog').show()" disabled="#{empty wrongCredentialAttemptsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":WrongCredentialAttemptsEditForm" oncomplete="PF('WrongCredentialAttemptsEditDialog').show()" disabled="#{empty wrongCredentialAttemptsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{wrongCredentialAttemptsController.delete}" update=":growl,datalist" disabled="#{empty wrongCredentialAttemptsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

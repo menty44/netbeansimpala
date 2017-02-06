@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MockDataViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMockDataTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MockDataListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MockDataViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{mockDataController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_id}"/>
+                            <h:outputText value="#{mockDataController.selected.id}" title="#{myBundle.ViewMockDataTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_firstName}"/>
+                            <h:outputText value="#{mockDataController.selected.firstName}" title="#{myBundle.ViewMockDataTitle_firstName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_lastName}"/>
+                            <h:outputText value="#{mockDataController.selected.lastName}" title="#{myBundle.ViewMockDataTitle_lastName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_email}"/>
+                            <h:outputText value="#{mockDataController.selected.email}" title="#{myBundle.ViewMockDataTitle_email}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_gender}"/>
+                            <h:outputText value="#{mockDataController.selected.gender}" title="#{myBundle.ViewMockDataTitle_gender}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMockDataLabel_ipAddress}"/>
+                            <h:outputText value="#{mockDataController.selected.ipAddress}" title="#{myBundle.ViewMockDataTitle_ipAddress}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

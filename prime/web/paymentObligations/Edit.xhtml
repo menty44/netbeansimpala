@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PaymentObligationsEditDlg" widgetVar="PaymentObligationsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPaymentObligationsTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentObligationsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{paymentObligationsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPaymentObligationsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{paymentObligationsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{paymentObligationsController.selected.status}" title="#{myBundle.EditPaymentObligationsTitle_status}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_status}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{paymentObligationsController.selected.amount}" title="#{myBundle.EditPaymentObligationsTitle_amount}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{paymentObligationsController.selected.expirationDate}" title="#{myBundle.EditPaymentObligationsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_expirationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_maxPublishDate}" for="maxPublishDate" />
+                        <p:calendar id="maxPublishDate" pattern="MM/dd/yyyy" value="#{paymentObligationsController.selected.maxPublishDate}" title="#{myBundle.EditPaymentObligationsTitle_maxPublishDate}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_maxPublishDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_registrationDate}" for="registrationDate" />
+                        <p:calendar id="registrationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{paymentObligationsController.selected.registrationDate}" title="#{myBundle.EditPaymentObligationsTitle_registrationDate}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_registrationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{paymentObligationsController.selected.description}" title="#{myBundle.EditPaymentObligationsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_guaranteeId}" for="guaranteeId" />
+                        <p:selectOneMenu id="guaranteeId" value="#{paymentObligationsController.selected.guaranteeId}"  converter="guaranteesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{guaranteesController.items}"
+                                           var="guaranteeIdItem"
+                                           itemValue="#{guaranteeIdItem}"
+                                           itemLabel="#{guaranteeIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_sellerId}" for="sellerId" />
+                        <p:selectOneMenu id="sellerId" value="#{paymentObligationsController.selected.sellerId}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_sellerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="sellerIdItem"
+                                           itemValue="#{sellerIdItem}"
+                                           itemLabel="#{sellerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_buyerId}" for="buyerId" />
+                        <p:selectOneMenu id="buyerId" value="#{paymentObligationsController.selected.buyerId}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_buyerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="buyerIdItem"
+                                           itemValue="#{buyerIdItem}"
+                                           itemLabel="#{buyerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPaymentObligationsLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{paymentObligationsController.selected.currencyId}" required="true" requiredMessage="#{myBundle.EditPaymentObligationsRequiredMessage_currencyId}" converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentObligationsController.save}" value="#{myBundle.Save}" update="display,:PaymentObligationsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaymentObligationsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PaymentObligationsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

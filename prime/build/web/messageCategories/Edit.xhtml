@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MessageCategoriesEditDlg" widgetVar="MessageCategoriesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMessageCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="MessageCategoriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{messageCategoriesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMessageCategoriesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{messageCategoriesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{messageCategoriesController.selected.name}" title="#{myBundle.EditMessageCategoriesTitle_name}" required="true" requiredMessage="#{myBundle.EditMessageCategoriesRequiredMessage_name}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{messageCategoriesController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditMessageCategoriesLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                        <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{messageCategoriesController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                            <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                           var="adminNotificationPreferencesCollectionItem"
+                                           itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                           itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageCategoriesController.save}" value="#{myBundle.Save}" update="display,:MessageCategoriesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MessageCategoriesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MessageCategoriesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

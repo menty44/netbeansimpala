@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WrongCredentialAttemptsViewDlg" widgetVar="WrongCredentialAttemptsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewWrongCredentialAttemptsTitle}" closeOnEscape="true">
+
+            <h:form id="WrongCredentialAttemptsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{wrongCredentialAttemptsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_id}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.id}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_date}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.date}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_credentialType}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.credentialType}" title="#{myBundle.ViewWrongCredentialAttemptsTitle_credentialType}"/>
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_memberPosId}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.memberPosId.posName}"/>
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_cardId}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.cardId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewWrongCredentialAttemptsLabel_userId}"/>
+                        <h:outputText value="#{wrongCredentialAttemptsController.selected.userId.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('WrongCredentialAttemptsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

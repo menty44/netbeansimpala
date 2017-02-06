@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ChannelsPrincipalsListForm">
+
+        <p:panel header="#{myBundle.ListChannelsPrincipalsTitle}">
+            <p:contextMenu id="ChannelsPrincipalsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ChannelsPrincipalsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ChannelsPrincipalsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ChannelsPrincipalsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ChannelsPrincipalsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ChannelsPrincipalsMenuItem_customFieldId}" icon="ui-icon-search"  actionListener="#{channelsPrincipalsController.prepareCustomFieldId}" update=":CustomFieldsViewForm" oncomplete="PF('CustomFieldsViewDialog').show()" disabled="#{empty channelsPrincipalsController.selected.customFieldId}"/>  
+                <p:menuitem value="#{myBundle.ChannelsPrincipalsMenuItem_channelId}" icon="ui-icon-search"  actionListener="#{channelsPrincipalsController.prepareChannelId}" update=":ChannelsViewForm" oncomplete="PF('ChannelsViewDialog').show()" disabled="#{empty channelsPrincipalsController.selected.channelId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{channelsPrincipalsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{channelsPrincipalsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{channelsPrincipalsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ChannelsPrincipalsDataTableContextMenu" listener="#{channelsPrincipalsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ChannelsPrincipalsDataTableContextMenu" listener="#{channelsPrincipalsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{channelsPrincipalsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ChannelsPrincipalsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsPrincipalsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.principal}" filterBy="#{item.principal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsPrincipalsTitle_principal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.principal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.isDefault}" filterBy="#{item.isDefault}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsPrincipalsTitle_isDefault}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="isDefault" value="#{item.isDefault}" title="#{myBundle.EditChannelsPrincipalsTitle_isDefault}" required="true" requiredMessage="#{myBundle.EditChannelsPrincipalsRequiredMessage_isDefault}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.customFieldId.internalName}" filterBy="#{item.customFieldId.internalName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsPrincipalsTitle_customFieldId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customFieldId.internalName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.channelId.internalName}" filterBy="#{item.channelId.internalName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListChannelsPrincipalsTitle_channelId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.channelId.internalName}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{channelsPrincipalsController.prepareCreate}" update=":ChannelsPrincipalsCreateForm" oncomplete="PF('ChannelsPrincipalsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ChannelsPrincipalsViewForm" oncomplete="PF('ChannelsPrincipalsViewDialog').show()" disabled="#{empty channelsPrincipalsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ChannelsPrincipalsEditForm" oncomplete="PF('ChannelsPrincipalsEditDialog').show()" disabled="#{empty channelsPrincipalsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{channelsPrincipalsController.delete}" update=":growl,datalist" disabled="#{empty channelsPrincipalsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

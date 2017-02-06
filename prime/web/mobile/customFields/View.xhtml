@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CustomFieldsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewCustomFieldsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CustomFieldsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CustomFieldsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="CustomFieldsTabView">
+
+                        <p:tab id="CustomFieldsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{customFieldsController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_id}"/>
+                                    <h:outputText value="#{customFieldsController.selected.id}" title="#{myBundle.ViewCustomFieldsTitle_id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_subclass}"/>
+                                    <h:outputText value="#{customFieldsController.selected.subclass}" title="#{myBundle.ViewCustomFieldsTitle_subclass}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_internalName}"/>
+                                    <h:outputText value="#{customFieldsController.selected.internalName}" title="#{myBundle.ViewCustomFieldsTitle_internalName}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_name}"/>
+                                    <h:outputText value="#{customFieldsController.selected.name}" title="#{myBundle.ViewCustomFieldsTitle_name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_orderNumber}"/>
+                                    <h:outputText value="#{customFieldsController.selected.orderNumber}" title="#{myBundle.ViewCustomFieldsTitle_orderNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_type}"/>
+                                    <h:outputText value="#{customFieldsController.selected.type}" title="#{myBundle.ViewCustomFieldsTitle_type}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_control}"/>
+                                    <h:outputText value="#{customFieldsController.selected.control}" title="#{myBundle.ViewCustomFieldsTitle_control}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_size}"/>
+                                    <h:outputText value="#{customFieldsController.selected.size}" title="#{myBundle.ViewCustomFieldsTitle_size}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_valRequired}"/>
+                                    <h:selectBooleanCheckbox id="valRequired" value="#{customFieldsController.selected.valRequired}" title="#{myBundle.EditCustomFieldsTitle_valRequired}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_valRequired}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_valUnique}"/>
+                                    <h:selectBooleanCheckbox id="valUnique" value="#{customFieldsController.selected.valUnique}" title="#{myBundle.EditCustomFieldsTitle_valUnique}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_valUnique}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_valMinLength}"/>
+                                    <h:outputText value="#{customFieldsController.selected.valMinLength}" title="#{myBundle.ViewCustomFieldsTitle_valMinLength}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_valMaxLength}"/>
+                                    <h:outputText value="#{customFieldsController.selected.valMaxLength}" title="#{myBundle.ViewCustomFieldsTitle_valMaxLength}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_valClass}"/>
+                                    <h:outputText value="#{customFieldsController.selected.valClass}" title="#{myBundle.ViewCustomFieldsTitle_valClass}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_allSelectedLabel}"/>
+                                    <h:outputText value="#{customFieldsController.selected.allSelectedLabel}" title="#{myBundle.ViewCustomFieldsTitle_allSelectedLabel}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_pattern}"/>
+                                    <h:outputText value="#{customFieldsController.selected.pattern}" title="#{myBundle.ViewCustomFieldsTitle_pattern}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_description}"/>
+                                    <h:outputText value="#{customFieldsController.selected.description}" title="#{myBundle.ViewCustomFieldsTitle_description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberVisibilityAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberVisibilityAccess}" title="#{myBundle.ViewCustomFieldsTitle_memberVisibilityAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberUpdateAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberUpdateAccess}" title="#{myBundle.ViewCustomFieldsTitle_memberUpdateAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberSearchAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberSearchAccess}" title="#{myBundle.ViewCustomFieldsTitle_memberSearchAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberLoanSearchAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberLoanSearchAccess}" title="#{myBundle.ViewCustomFieldsTitle_memberLoanSearchAccess}"/>
+                                </pm:field>
+
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab id="CustomFieldsTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:outputPanel rendered="#{customFieldsController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberAdSearchAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberAdSearchAccess}" title="#{myBundle.ViewCustomFieldsTitle_memberAdSearchAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberCanHide}"/>
+                                    <h:selectBooleanCheckbox id="memberCanHide" value="#{customFieldsController.selected.memberCanHide}" title="#{myBundle.EditCustomFieldsTitle_memberCanHide}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_memberCanHide}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberShowInPrint}"/>
+                                    <h:selectBooleanCheckbox id="memberShowInPrint" value="#{customFieldsController.selected.memberShowInPrint}" title="#{myBundle.EditCustomFieldsTitle_memberShowInPrint}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_memberShowInPrint}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberIndexing}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberIndexing}" title="#{myBundle.ViewCustomFieldsTitle_memberIndexing}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_operatorVisibility}"/>
+                                    <h:outputText value="#{customFieldsController.selected.operatorVisibility}" title="#{myBundle.ViewCustomFieldsTitle_operatorVisibility}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_adShowInSearch}"/>
+                                    <h:selectBooleanCheckbox id="adShowInSearch" value="#{customFieldsController.selected.adShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_adShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_adShowInSearch}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_adIndexed}"/>
+                                    <h:selectBooleanCheckbox id="adIndexed" value="#{customFieldsController.selected.adIndexed}" title="#{myBundle.EditCustomFieldsTitle_adIndexed}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_adIndexed}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_adVisibility}"/>
+                                    <h:outputText value="#{customFieldsController.selected.adVisibility}" title="#{myBundle.ViewCustomFieldsTitle_adVisibility}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_paymentEnabled}"/>
+                                    <h:selectBooleanCheckbox id="paymentEnabled" value="#{customFieldsController.selected.paymentEnabled}" title="#{myBundle.EditCustomFieldsTitle_paymentEnabled}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_paymentEnabled}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_paymentSearchAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.paymentSearchAccess}" title="#{myBundle.ViewCustomFieldsTitle_paymentSearchAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_paymentListAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.paymentListAccess}" title="#{myBundle.ViewCustomFieldsTitle_paymentListAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_loanGroupShowInSearch}"/>
+                                    <h:selectBooleanCheckbox id="loanGroupShowInSearch" value="#{customFieldsController.selected.loanGroupShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_loanGroupShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_loanGroupShowInSearch}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_recordShowInSearch}"/>
+                                    <h:selectBooleanCheckbox id="recordShowInSearch" value="#{customFieldsController.selected.recordShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_recordShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_recordShowInSearch}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_recordShowInList}"/>
+                                    <h:selectBooleanCheckbox id="recordShowInList" value="#{customFieldsController.selected.recordShowInList}" title="#{myBundle.EditCustomFieldsTitle_recordShowInList}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_recordShowInList}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_recordBrokerAccess}"/>
+                                    <h:outputText value="#{customFieldsController.selected.recordBrokerAccess}" title="#{myBundle.ViewCustomFieldsTitle_recordBrokerAccess}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_transferTypesCollection}"/>
+                                    <h:selectManyMenu converter="transferTypesConverter">
+                                        <f:selectItems value="#{customFieldsController.selected.transferTypesCollection}"
+                                                       var="transferTypesCollectionItem"
+                                                       itemValue="#{transferTypesCollectionItem}"
+                                                       itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                                       />
+
+                                    </h:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_parentId}"/>
+                                    <h:outputText value="#{customFieldsController.selected.parentId.internalName}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_transferTypeId}"/>
+                                    <h:outputText value="#{customFieldsController.selected.transferTypeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberRecordTypeId}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberRecordTypeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewCustomFieldsLabel_memberId}"/>
+                                    <h:outputText value="#{customFieldsController.selected.memberId.name}"/>
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

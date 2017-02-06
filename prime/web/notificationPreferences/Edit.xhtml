@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="NotificationPreferencesEditDlg" widgetVar="NotificationPreferencesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditNotificationPreferencesTitle}" closeOnEscape="true">
+
+            <h:form id="NotificationPreferencesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{notificationPreferencesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{notificationPreferencesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{notificationPreferencesController.selected.type}" title="#{myBundle.EditNotificationPreferencesTitle_type}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_type}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_isMessage}" for="isMessage" />
+                        <p:selectBooleanCheckbox id="isMessage" value="#{notificationPreferencesController.selected.isMessage}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isMessage}"/>
+
+                        <p:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_isEmail}" for="isEmail" />
+                        <p:selectBooleanCheckbox id="isEmail" value="#{notificationPreferencesController.selected.isEmail}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isEmail}"/>
+
+                        <p:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_isSms}" for="isSms" />
+                        <p:selectBooleanCheckbox id="isSms" value="#{notificationPreferencesController.selected.isSms}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isSms}"/>
+
+                        <p:outputLabel value="#{myBundle.EditNotificationPreferencesLabel_member1}" for="member1" />
+                        <p:selectOneMenu id="member1" value="#{notificationPreferencesController.selected.member1}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="member1Item"
+                                           itemValue="#{member1Item}"
+                                           itemLabel="#{member1Item.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationPreferencesController.save}" value="#{myBundle.Save}" update="display,:NotificationPreferencesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotificationPreferencesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('NotificationPreferencesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

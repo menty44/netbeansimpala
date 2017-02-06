@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CertificationLogsListForm">
+
+        <p:panel header="#{myBundle.ListCertificationLogsTitle}">
+            <p:contextMenu id="CertificationLogsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CertificationLogsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CertificationLogsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CertificationLogsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CertificationLogsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CertificationLogsMenuItem_certificationId}" icon="ui-icon-search"  actionListener="#{certificationLogsController.prepareCertificationId}" update=":CertificationsViewForm" oncomplete="PF('CertificationsViewDialog').show()" disabled="#{empty certificationLogsController.selected.certificationId}"/>  
+                <p:menuitem value="#{myBundle.CertificationLogsMenuItem_byId}" icon="ui-icon-search"  actionListener="#{certificationLogsController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty certificationLogsController.selected.byId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{certificationLogsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{certificationLogsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{certificationLogsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CertificationLogsDataTableContextMenu" listener="#{certificationLogsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CertificationLogsDataTableContextMenu" listener="#{certificationLogsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{certificationLogsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CertificationLogsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCertificationLogsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCertificationLogsTitle_date}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCertificationLogsTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.certificationId.id}" filterBy="#{item.certificationId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCertificationLogsTitle_certificationId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.certificationId.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCertificationLogsTitle_byId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.byId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{certificationLogsController.prepareCreate}" update=":CertificationLogsCreateForm" oncomplete="PF('CertificationLogsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CertificationLogsViewForm" oncomplete="PF('CertificationLogsViewDialog').show()" disabled="#{empty certificationLogsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CertificationLogsEditForm" oncomplete="PF('CertificationLogsEditDialog').show()" disabled="#{empty certificationLogsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{certificationLogsController.delete}" update=":growl,datalist" disabled="#{empty certificationLogsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

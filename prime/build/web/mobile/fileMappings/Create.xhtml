@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="FileMappingsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateFileMappingsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:FileMappingsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="FileMappingsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{fileMappingsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{fileMappingsController.selected.subclass}" title="#{myBundle.CreateFileMappingsTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateFileMappingsRequiredMessage_subclass}" size="3" maxlength="3"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_dateFormat}" for="dateFormat" />
+                            <p:inputText id="dateFormat" value="#{fileMappingsController.selected.dateFormat}" title="#{myBundle.CreateFileMappingsTitle_dateFormat}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_numberFormat}" for="numberFormat" />
+                            <p:inputText id="numberFormat" value="#{fileMappingsController.selected.numberFormat}" title="#{myBundle.CreateFileMappingsTitle_numberFormat}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_decimalPlaces}" for="decimalPlaces" />
+                            <p:inputText id="decimalPlaces" value="#{fileMappingsController.selected.decimalPlaces}" title="#{myBundle.CreateFileMappingsTitle_decimalPlaces}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_decimalSeparator}" for="decimalSeparator" />
+                            <p:inputText id="decimalSeparator" value="#{fileMappingsController.selected.decimalSeparator}" title="#{myBundle.CreateFileMappingsTitle_decimalSeparator}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_negativeAmountValue}" for="negativeAmountValue" />
+                            <p:inputText id="negativeAmountValue" value="#{fileMappingsController.selected.negativeAmountValue}" title="#{myBundle.CreateFileMappingsTitle_negativeAmountValue}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_classname}" for="classname" />
+                            <p:inputText id="classname" value="#{fileMappingsController.selected.classname}" title="#{myBundle.CreateFileMappingsTitle_classname}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_stringQuote}" for="stringQuote" />
+                            <p:inputText id="stringQuote" value="#{fileMappingsController.selected.stringQuote}" title="#{myBundle.CreateFileMappingsTitle_stringQuote}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_columnSeparator}" for="columnSeparator" />
+                            <p:inputText id="columnSeparator" value="#{fileMappingsController.selected.columnSeparator}" title="#{myBundle.CreateFileMappingsTitle_columnSeparator}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_headerLines}" for="headerLines" />
+                            <p:inputText id="headerLines" value="#{fileMappingsController.selected.headerLines}" title="#{myBundle.CreateFileMappingsTitle_headerLines}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateFileMappingsLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{fileMappingsController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateFileMappingsRequiredMessage_accountId}" converter="externalAccountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalAccountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{fileMappingsController.saveNew}" value="#{myBundle.Save}" update="display,:FileMappingsListPage:FileMappingsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:FileMappingsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

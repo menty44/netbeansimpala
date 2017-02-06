@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TransferTypesListForm">
+
+        <p:panel header="#{myBundle.ListTransferTypesTitle}">
+            <p:contextMenu id="TransferTypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TransferTypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TransferTypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TransferTypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TransferTypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_groupsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateGroupsCollection}" disabled="#{empty transferTypesController.selected.groupsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_serviceClientsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateServiceClientsCollection}" disabled="#{empty transferTypesController.selected.serviceClientsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_channelsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateChannelsCollection}" disabled="#{empty transferTypesController.selected.channelsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_groupsCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateGroupsCollection1}" disabled="#{empty transferTypesController.selected.groupsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_adminNotificationPreferencesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateAdminNotificationPreferencesCollection}" disabled="#{empty transferTypesController.selected.adminNotificationPreferencesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_adminNotificationPreferencesCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateAdminNotificationPreferencesCollection1}" disabled="#{empty transferTypesController.selected.adminNotificationPreferencesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_serviceClientsCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateServiceClientsCollection1}" disabled="#{empty transferTypesController.selected.serviceClientsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_groupsCollection2}" icon="ui-icon-search"  action="#{transferTypesController.navigateGroupsCollection2}" disabled="#{empty transferTypesController.selected.groupsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_paymentFiltersCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigatePaymentFiltersCollection}" disabled="#{empty transferTypesController.selected.paymentFiltersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_groupsCollection3}" icon="ui-icon-search"  action="#{transferTypesController.navigateGroupsCollection3}" disabled="#{empty transferTypesController.selected.groupsCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_serviceClientsCollection2}" icon="ui-icon-search"  action="#{transferTypesController.navigateServiceClientsCollection2}" disabled="#{empty transferTypesController.selected.serviceClientsCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_customFieldsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateCustomFieldsCollection}" disabled="#{empty transferTypesController.selected.customFieldsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_guaranteeTypesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateGuaranteeTypesCollection}" disabled="#{empty transferTypesController.selected.guaranteeTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_guaranteeTypesCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateGuaranteeTypesCollection1}" disabled="#{empty transferTypesController.selected.guaranteeTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_guaranteeTypesCollection2}" icon="ui-icon-search"  action="#{transferTypesController.navigateGuaranteeTypesCollection2}" disabled="#{empty transferTypesController.selected.guaranteeTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_guaranteeTypesCollection3}" icon="ui-icon-search"  action="#{transferTypesController.navigateGuaranteeTypesCollection3}" disabled="#{empty transferTypesController.selected.guaranteeTypesCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_invoicesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateInvoicesCollection}" disabled="#{empty transferTypesController.selected.invoicesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_externalTransferTypesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateExternalTransferTypesCollection}" disabled="#{empty transferTypesController.selected.externalTransferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transactionFeesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransactionFeesCollection}" disabled="#{empty transferTypesController.selected.transactionFeesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transactionFeesCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransactionFeesCollection1}" disabled="#{empty transferTypesController.selected.transactionFeesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_scheduledPaymentsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateScheduledPaymentsCollection}" disabled="#{empty transferTypesController.selected.scheduledPaymentsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transfersCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransfersCollection}" disabled="#{empty transferTypesController.selected.transfersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_authorizationLevelsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateAuthorizationLevelsCollection}" disabled="#{empty transferTypesController.selected.authorizationLevelsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_accountFeesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateAccountFeesCollection}" disabled="#{empty transferTypesController.selected.accountFeesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_memberGroupAccountSettingsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateMemberGroupAccountSettingsCollection}" disabled="#{empty transferTypesController.selected.memberGroupAccountSettingsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_customFieldsCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateCustomFieldsCollection1}" disabled="#{empty transferTypesController.selected.customFieldsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_ticketsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateTicketsCollection}" disabled="#{empty transferTypesController.selected.ticketsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_memberImportsCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateMemberImportsCollection}" disabled="#{empty transferTypesController.selected.memberImportsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_memberImportsCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateMemberImportsCollection1}" disabled="#{empty transferTypesController.selected.memberImportsCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transferTypesCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransferTypesCollection}" disabled="#{empty transferTypesController.selected.transferTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_loanRepaymentTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareLoanRepaymentTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.loanRepaymentTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transferTypesCollection1}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransferTypesCollection1}" disabled="#{empty transferTypesController.selected.transferTypesCollection1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_loanExpirationFeeTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareLoanExpirationFeeTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.loanExpirationFeeTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_fromAccountTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareFromAccountTypeId}" update=":AccountTypesViewForm" oncomplete="PF('AccountTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.fromAccountTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_toAccountTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareToAccountTypeId}" update=":AccountTypesViewForm" oncomplete="PF('AccountTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.toAccountTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transferTypesCollection2}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransferTypesCollection2}" disabled="#{empty transferTypesController.selected.transferTypesCollection2}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_loanGrantFeeTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareLoanGrantFeeTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.loanGrantFeeTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transferTypesCollection3}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransferTypesCollection3}" disabled="#{empty transferTypesController.selected.transferTypesCollection3}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_loanExpDailyInterestTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareLoanExpDailyInterestTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.loanExpDailyInterestTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_fixedDestinationMemberId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareFixedDestinationMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty transferTypesController.selected.fixedDestinationMemberId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_transferTypesCollection4}" icon="ui-icon-search"  action="#{transferTypesController.navigateTransferTypesCollection4}" disabled="#{empty transferTypesController.selected.transferTypesCollection4}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_loanMonthlyInterestTypeId}" icon="ui-icon-search"  actionListener="#{transferTypesController.prepareLoanMonthlyInterestTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected.loanMonthlyInterestTypeId}"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_groupsCollection4}" icon="ui-icon-search"  action="#{transferTypesController.navigateGroupsCollection4}" disabled="#{empty transferTypesController.selected.groupsCollection4}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.TransferTypesMenuItem_operatorGroupsMaxAmountCollection}" icon="ui-icon-search"  action="#{transferTypesController.navigateOperatorGroupsMaxAmountCollection}" disabled="#{empty transferTypesController.selected.operatorGroupsMaxAmountCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{transferTypesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{transferTypesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{transferTypesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TransferTypesDataTableContextMenu" listener="#{transferTypesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TransferTypesDataTableContextMenu" listener="#{transferTypesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{transferTypesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TransferTypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.allowedPayment}" filterBy="#{item.allowedPayment}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_allowedPayment}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="allowedPayment" value="#{item.allowedPayment}" title="#{myBundle.EditTransferTypesTitle_allowedPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedPayment}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.allowedSelfPayment}" filterBy="#{item.allowedSelfPayment}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_allowedSelfPayment}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="allowedSelfPayment" value="#{item.allowedSelfPayment}" title="#{myBundle.EditTransferTypesTitle_allowedSelfPayment}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowedSelfPayment}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.priority}" filterBy="#{item.priority}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_priority}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="priority" value="#{item.priority}" title="#{myBundle.EditTransferTypesTitle_priority}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_priority}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.conciliable}" filterBy="#{item.conciliable}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_conciliable}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="conciliable" value="#{item.conciliable}" title="#{myBundle.EditTransferTypesTitle_conciliable}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_conciliable}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.requiresAuthorization}" filterBy="#{item.requiresAuthorization}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTransferTypesTitle_requiresAuthorization}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="requiresAuthorization" value="#{item.requiresAuthorization}" title="#{myBundle.EditTransferTypesTitle_requiresAuthorization}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresAuthorization}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.allowsScheduledPayments}" filterBy="#{item.allowsScheduledPayments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_allowsScheduledPayments}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="allowsScheduledPayments" value="#{item.allowsScheduledPayments}" title="#{myBundle.EditTransferTypesTitle_allowsScheduledPayments}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowsScheduledPayments}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_name}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.confirmationMessage}" filterBy="#{item.confirmationMessage}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_confirmationMessage}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.confirmationMessage}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxAmountPerDay}" filterBy="#{item.maxAmountPerDay}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_maxAmountPerDay}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxAmountPerDay}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.minAmount}" filterBy="#{item.minAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_minAmount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.minAmount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.reserveTotalOnSched}" filterBy="#{item.reserveTotalOnSched}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_reserveTotalOnSched}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="reserveTotalOnSched" value="#{item.reserveTotalOnSched}" title="#{myBundle.EditTransferTypesTitle_reserveTotalOnSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_reserveTotalOnSched}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.allowCancelSched}" filterBy="#{item.allowCancelSched}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_allowCancelSched}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="allowCancelSched" value="#{item.allowCancelSched}" title="#{myBundle.EditTransferTypesTitle_allowCancelSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowCancelSched}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.allowBlockSched}" filterBy="#{item.allowBlockSched}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_allowBlockSched}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="allowBlockSched" value="#{item.allowBlockSched}" title="#{myBundle.EditTransferTypesTitle_allowBlockSched}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowBlockSched}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.showSchedToDest}" filterBy="#{item.showSchedToDest}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_showSchedToDest}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="showSchedToDest" value="#{item.showSchedToDest}" title="#{myBundle.EditTransferTypesTitle_showSchedToDest}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_showSchedToDest}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.allowSmsNotification}" filterBy="#{item.allowSmsNotification}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_allowSmsNotification}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="allowSmsNotification" value="#{item.allowSmsNotification}" title="#{myBundle.EditTransferTypesTitle_allowSmsNotification}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_allowSmsNotification}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.requiresFeedback}" filterBy="#{item.requiresFeedback}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_requiresFeedback}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="requiresFeedback" value="#{item.requiresFeedback}" title="#{myBundle.EditTransferTypesTitle_requiresFeedback}" required="true" requiredMessage="#{myBundle.EditTransferTypesRequiredMessage_requiresFeedback}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transferListenerClass}" filterBy="#{item.transferListenerClass}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_transferListenerClass}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferListenerClass}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.feedbackEnabledSince}" filterBy="#{item.feedbackEnabledSince}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_feedbackEnabledSince}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.feedbackEnabledSince}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.feedbackExpirationTimeNumber}" filterBy="#{item.feedbackExpirationTimeNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_feedbackExpirationTimeNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.feedbackExpirationTimeNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.feedbackExpirationTimeField}" filterBy="#{item.feedbackExpirationTimeField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_feedbackExpirationTimeField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.feedbackExpirationTimeField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.feedbackReplyExpirationTimeNumber}" filterBy="#{item.feedbackReplyExpirationTimeNumber}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_feedbackReplyExpirationTimeNumber}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.feedbackReplyExpirationTimeNumber}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.feedbackReplyExpirationTimeField}" filterBy="#{item.feedbackReplyExpirationTimeField}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_feedbackReplyExpirationTimeField}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.feedbackReplyExpirationTimeField}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.defaultFeedbackComments}" filterBy="#{item.defaultFeedbackComments}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_defaultFeedbackComments}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.defaultFeedbackComments}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.defaultFeedbackLevel}" filterBy="#{item.defaultFeedbackLevel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_defaultFeedbackLevel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.defaultFeedbackLevel}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.txHierarchyVisibility}" filterBy="#{item.txHierarchyVisibility}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_txHierarchyVisibility}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.txHierarchyVisibility}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanType}" filterBy="#{item.loanType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanGrantFeeValue}" filterBy="#{item.loanGrantFeeValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanGrantFeeValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanGrantFeeValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanGrantFeeType}" filterBy="#{item.loanGrantFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanGrantFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanGrantFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanMonthlyInterest}" filterBy="#{item.loanMonthlyInterest}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanMonthlyInterest}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanMonthlyInterest}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanExpirationFeeValue}" filterBy="#{item.loanExpirationFeeValue}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanExpirationFeeValue}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanExpirationFeeValue}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanExpirationFeeType}" filterBy="#{item.loanExpirationFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanExpirationFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanExpirationFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanExpirationDailyInterest}" filterBy="#{item.loanExpirationDailyInterest}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanExpirationDailyInterest}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanExpirationDailyInterest}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanRepaymentDays}" filterBy="#{item.loanRepaymentDays}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanRepaymentDays}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanRepaymentDays}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanRepaymentTypeId.name}" filterBy="#{item.loanRepaymentTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanRepaymentTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanRepaymentTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanExpirationFeeTypeId.name}" filterBy="#{item.loanExpirationFeeTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanExpirationFeeTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanExpirationFeeTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromAccountTypeId.name}" filterBy="#{item.fromAccountTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_fromAccountTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromAccountTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toAccountTypeId.name}" filterBy="#{item.toAccountTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_toAccountTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toAccountTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanGrantFeeTypeId.name}" filterBy="#{item.loanGrantFeeTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanGrantFeeTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanGrantFeeTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanExpDailyInterestTypeId.name}" filterBy="#{item.loanExpDailyInterestTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanExpDailyInterestTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanExpDailyInterestTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fixedDestinationMemberId.name}" filterBy="#{item.fixedDestinationMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_fixedDestinationMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fixedDestinationMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanMonthlyInterestTypeId.name}" filterBy="#{item.loanMonthlyInterestTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTransferTypesTitle_loanMonthlyInterestTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanMonthlyInterestTypeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{transferTypesController.prepareCreate}" update=":TransferTypesCreateForm" oncomplete="PF('TransferTypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty transferTypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TransferTypesEditForm" oncomplete="PF('TransferTypesEditDialog').show()" disabled="#{empty transferTypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{transferTypesController.delete}" update=":growl,datalist" disabled="#{empty transferTypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

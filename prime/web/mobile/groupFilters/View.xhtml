@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GroupFiltersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewGroupFiltersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GroupFiltersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GroupFiltersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{groupFiltersController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_id}"/>
+                            <h:outputText value="#{groupFiltersController.selected.id}" title="#{myBundle.ViewGroupFiltersTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_name}"/>
+                            <h:outputText value="#{groupFiltersController.selected.name}" title="#{myBundle.ViewGroupFiltersTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_loginPageName}"/>
+                            <h:outputText value="#{groupFiltersController.selected.loginPageName}" title="#{myBundle.ViewGroupFiltersTitle_loginPageName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_rootUrl}"/>
+                            <h:outputText value="#{groupFiltersController.selected.rootUrl}" title="#{myBundle.ViewGroupFiltersTitle_rootUrl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_containerUrl}"/>
+                            <h:outputText value="#{groupFiltersController.selected.containerUrl}" title="#{myBundle.ViewGroupFiltersTitle_containerUrl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_description}"/>
+                            <h:outputText value="#{groupFiltersController.selected.description}" title="#{myBundle.ViewGroupFiltersTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_showInProfile}"/>
+                            <h:selectBooleanCheckbox id="showInProfile" value="#{groupFiltersController.selected.showInProfile}" title="#{myBundle.EditGroupFiltersTitle_showInProfile}" required="true" requiredMessage="#{myBundle.EditGroupFiltersRequiredMessage_showInProfile}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewGroupFiltersLabel_groupsCollection}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{groupFiltersController.selected.groupsCollection}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

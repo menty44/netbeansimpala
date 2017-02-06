@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="SmsLogsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateSmsLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:SmsLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="SmsLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{smsLogsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{smsLogsController.selected.date}" title="#{myBundle.CreateSmsLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreateSmsLogsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_freeBaseUsed}" for="freeBaseUsed" />
+                            <p:selectBooleanCheckbox id="freeBaseUsed" value="#{smsLogsController.selected.freeBaseUsed}" required="true" requiredMessage="#{myBundle.CreateSmsLogsRequiredMessage_freeBaseUsed}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_messageType}" for="messageType" />
+                            <p:inputText id="messageType" value="#{smsLogsController.selected.messageType}" title="#{myBundle.CreateSmsLogsTitle_messageType}" size="3" maxlength="3"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_errorType}" for="errorType" />
+                            <p:inputText id="errorType" value="#{smsLogsController.selected.errorType}" title="#{myBundle.CreateSmsLogsTitle_errorType}" size="3" maxlength="3"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_arg0}" for="arg0" />
+                            <p:inputText id="arg0" value="#{smsLogsController.selected.arg0}" title="#{myBundle.CreateSmsLogsTitle_arg0}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_arg1}" for="arg1" />
+                            <p:inputText id="arg1" value="#{smsLogsController.selected.arg1}" title="#{myBundle.CreateSmsLogsTitle_arg1}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_arg2}" for="arg2" />
+                            <p:inputText id="arg2" value="#{smsLogsController.selected.arg2}" title="#{myBundle.CreateSmsLogsTitle_arg2}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_arg3}" for="arg3" />
+                            <p:inputText id="arg3" value="#{smsLogsController.selected.arg3}" title="#{myBundle.CreateSmsLogsTitle_arg3}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_arg4}" for="arg4" />
+                            <p:inputText id="arg4" value="#{smsLogsController.selected.arg4}" title="#{myBundle.CreateSmsLogsTitle_arg4}" size="150" maxlength="150"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_chargedMemberId}" for="chargedMemberId" />
+                            <p:selectOneMenu id="chargedMemberId" value="#{smsLogsController.selected.chargedMemberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="chargedMemberIdItem"
+                                               itemValue="#{chargedMemberIdItem}"
+                                               itemLabel="#{chargedMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_smsMailingId}" for="smsMailingId" />
+                            <p:selectOneMenu id="smsMailingId" value="#{smsLogsController.selected.smsMailingId}"  converter="smsMailingsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{smsMailingsController.items}"
+                                               var="smsMailingIdItem"
+                                               itemValue="#{smsMailingIdItem}"
+                                               itemLabel="#{smsMailingIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_smsTypeId}" for="smsTypeId" />
+                            <p:selectOneMenu id="smsTypeId" value="#{smsLogsController.selected.smsTypeId}"  converter="smsTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{smsTypesController.items}"
+                                               var="smsTypeIdItem"
+                                               itemValue="#{smsTypeIdItem}"
+                                               itemLabel="#{smsTypeIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateSmsLogsLabel_targetMemberId}" for="targetMemberId" />
+                            <p:selectOneMenu id="targetMemberId" value="#{smsLogsController.selected.targetMemberId}" required="true" requiredMessage="#{myBundle.CreateSmsLogsRequiredMessage_targetMemberId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="targetMemberIdItem"
+                                               itemValue="#{targetMemberIdItem}"
+                                               itemLabel="#{targetMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{smsLogsController.saveNew}" value="#{myBundle.Save}" update="display,:SmsLogsListPage:SmsLogsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:SmsLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

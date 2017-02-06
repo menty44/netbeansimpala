@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CustomFieldsListPage">
+        <pm:header title="#{myBundle.ListCustomFieldsTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":CustomFieldsCreatePage:CustomFieldsCreateForm" actionListener="#{customFieldsController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:CustomFieldsCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CustomFieldsListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{customFieldsController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCustomFieldsTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":CustomFieldsEditPage:CustomFieldsEditForm" action="pm:CustomFieldsEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.subclass}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.internalName}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.name}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.orderNumber}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.type}"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.control}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.size}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="valRequired" value="#{item.valRequired}" title="#{myBundle.EditCustomFieldsTitle_valRequired}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_valRequired}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="valUnique" value="#{item.valUnique}" title="#{myBundle.EditCustomFieldsTitle_valUnique}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_valUnique}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.valMinLength}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.valMaxLength}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.valClass}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.allSelectedLabel}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.pattern}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.description}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberVisibilityAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberUpdateAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberSearchAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberLoanSearchAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberAdSearchAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="memberCanHide" value="#{item.memberCanHide}" title="#{myBundle.EditCustomFieldsTitle_memberCanHide}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_memberCanHide}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="memberShowInPrint" value="#{item.memberShowInPrint}" title="#{myBundle.EditCustomFieldsTitle_memberShowInPrint}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_memberShowInPrint}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberIndexing}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.operatorVisibility}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="adShowInSearch" value="#{item.adShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_adShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_adShowInSearch}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="adIndexed" value="#{item.adIndexed}" title="#{myBundle.EditCustomFieldsTitle_adIndexed}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_adIndexed}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.adVisibility}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="paymentEnabled" value="#{item.paymentEnabled}" title="#{myBundle.EditCustomFieldsTitle_paymentEnabled}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_paymentEnabled}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.paymentSearchAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.paymentListAccess}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="loanGroupShowInSearch" value="#{item.loanGroupShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_loanGroupShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_loanGroupShowInSearch}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="recordShowInSearch" value="#{item.recordShowInSearch}" title="#{myBundle.EditCustomFieldsTitle_recordShowInSearch}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_recordShowInSearch}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:selectBooleanCheckbox id="recordShowInList" value="#{item.recordShowInList}" title="#{myBundle.EditCustomFieldsTitle_recordShowInList}" required="true" requiredMessage="#{myBundle.EditCustomFieldsRequiredMessage_recordShowInList}" disabled="true"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.recordBrokerAccess}"/>
+                            -->
+
+
+
+
+
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.parentId.internalName}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.transferTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberRecordTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.memberId.name}"/>
+                            -->
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{customFieldsController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListCustomFieldsTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

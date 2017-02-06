@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InvoicesViewDlg" widgetVar="InvoicesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewInvoicesTitle}" closeOnEscape="true">
+
+            <h:form id="InvoicesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{invoicesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_id}"/>
+                        <h:outputText value="#{invoicesController.selected.id}" title="#{myBundle.ViewInvoicesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_date}"/>
+                        <h:outputText value="#{invoicesController.selected.date}" title="#{myBundle.ViewInvoicesTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_amount}"/>
+                        <h:outputText value="#{invoicesController.selected.amount}" title="#{myBundle.ViewInvoicesTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_status}"/>
+                        <h:outputText value="#{invoicesController.selected.status}" title="#{myBundle.ViewInvoicesTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_description}"/>
+                        <h:outputText value="#{invoicesController.selected.description}" title="#{myBundle.ViewInvoicesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_transferId}"/>
+                        <h:outputText value="#{invoicesController.selected.transferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_accountFeeLogId}"/>
+                        <h:outputText value="#{invoicesController.selected.accountFeeLogId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_fromMemberId}"/>
+                        <h:outputText value="#{invoicesController.selected.fromMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_toMemberId}"/>
+                        <h:outputText value="#{invoicesController.selected.toMemberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_performedById}"/>
+                        <h:outputText value="#{invoicesController.selected.performedById.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_sentById}"/>
+                        <h:outputText value="#{invoicesController.selected.sentById.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_transferTypeId}"/>
+                        <h:outputText value="#{invoicesController.selected.transferTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_scheduledPaymentId}"/>
+                        <h:outputText value="#{invoicesController.selected.scheduledPaymentId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewInvoicesLabel_destTypeId}"/>
+                        <h:outputText value="#{invoicesController.selected.destTypeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('InvoicesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

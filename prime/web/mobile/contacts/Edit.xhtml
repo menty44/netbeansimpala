@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ContactsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditContactsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ContactsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ContactsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{contactsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditContactsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{contactsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditContactsLabel_notes}" for="notes" />
+                            <p:inputTextarea rows="4" cols="30" id="notes" value="#{contactsController.selected.notes}" title="#{myBundle.EditContactsTitle_notes}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditContactsLabel_contactId}" for="contactId" />
+                            <p:selectOneMenu id="contactId" value="#{contactsController.selected.contactId}" required="true" requiredMessage="#{myBundle.EditContactsRequiredMessage_contactId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="contactIdItem"
+                                               itemValue="#{contactIdItem}"
+                                               itemLabel="#{contactIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditContactsLabel_ownerId}" for="ownerId" />
+                            <p:selectOneMenu id="ownerId" value="#{contactsController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditContactsRequiredMessage_ownerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="ownerIdItem"
+                                               itemValue="#{ownerIdItem}"
+                                               itemLabel="#{ownerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{contactsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ContactsListPage:ContactsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ContactsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

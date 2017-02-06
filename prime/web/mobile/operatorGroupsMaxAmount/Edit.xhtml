@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="OperatorGroupsMaxAmountEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditOperatorGroupsMaxAmountTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:OperatorGroupsMaxAmountListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="OperatorGroupsMaxAmountEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{operatorGroupsMaxAmountController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_operatorGroupsMaxAmountPK_groupId}" for="operatorGroupsMaxAmountPK_groupId" />
+                            <h:outputText id="operatorGroupsMaxAmountPK_groupId" value="#{operatorGroupsMaxAmountController.selected.operatorGroupsMaxAmountPK.groupId}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_operatorGroupsMaxAmountPK_transferTypeId}" for="operatorGroupsMaxAmountPK_transferTypeId" />
+                            <h:outputText id="operatorGroupsMaxAmountPK_transferTypeId" value="#{operatorGroupsMaxAmountController.selected.operatorGroupsMaxAmountPK.transferTypeId}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{operatorGroupsMaxAmountController.selected.amount}" title="#{myBundle.EditOperatorGroupsMaxAmountTitle_amount}" required="true" requiredMessage="#{myBundle.EditOperatorGroupsMaxAmountRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_groups}" for="groups" />
+                            <h:outputText id="groups" value="#{operatorGroupsMaxAmountController.selected.groups}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditOperatorGroupsMaxAmountLabel_transferTypes}" for="transferTypes" />
+                            <h:outputText id="transferTypes" value="#{operatorGroupsMaxAmountController.selected.transferTypes}" />
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{operatorGroupsMaxAmountController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:OperatorGroupsMaxAmountListPage:OperatorGroupsMaxAmountListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:OperatorGroupsMaxAmountListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

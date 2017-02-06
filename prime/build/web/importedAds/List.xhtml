@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ImportedAdsListForm">
+
+        <p:panel header="#{myBundle.ListImportedAdsTitle}">
+            <p:contextMenu id="ImportedAdsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ImportedAdsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ImportedAdsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ImportedAdsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ImportedAdsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ImportedAdsMenuItem_importedCategoryId}" icon="ui-icon-search"  actionListener="#{importedAdsController.prepareImportedCategoryId}" update=":ImportedAdCategoriesViewForm" oncomplete="PF('ImportedAdCategoriesViewDialog').show()" disabled="#{empty importedAdsController.selected.importedCategoryId}"/>  
+                <p:menuitem value="#{myBundle.ImportedAdsMenuItem_existingCategoryId}" icon="ui-icon-search"  actionListener="#{importedAdsController.prepareExistingCategoryId}" update=":AdCategoriesViewForm" oncomplete="PF('AdCategoriesViewDialog').show()" disabled="#{empty importedAdsController.selected.existingCategoryId}"/>  
+                <p:menuitem value="#{myBundle.ImportedAdsMenuItem_importId}" icon="ui-icon-search"  actionListener="#{importedAdsController.prepareImportId}" update=":AdImportsViewForm" oncomplete="PF('AdImportsViewDialog').show()" disabled="#{empty importedAdsController.selected.importId}"/>  
+                <p:menuitem value="#{myBundle.ImportedAdsMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{importedAdsController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty importedAdsController.selected.ownerId}"/>  
+                <p:menuitem value="#{myBundle.ImportedAdsMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{importedAdsController.navigateCustomFieldValuesCollection}" disabled="#{empty importedAdsController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{importedAdsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{importedAdsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{importedAdsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ImportedAdsDataTableContextMenu" listener="#{importedAdsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ImportedAdsDataTableContextMenu" listener="#{importedAdsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{importedAdsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ImportedAdsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lineNumber}" filterBy="#{item.lineNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_lineNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lineNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.errorArgument1}" filterBy="#{item.errorArgument1}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_errorArgument1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.errorArgument1}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.errorArgument2}" filterBy="#{item.errorArgument2}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_errorArgument2}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.errorArgument2}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.permanent}" filterBy="#{item.permanent}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedAdsTitle_permanent}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="permanent" value="#{item.permanent}" title="#{myBundle.EditImportedAdsTitle_permanent}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_permanent}" disabled="true"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.externalPublication}" filterBy="#{item.externalPublication}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_externalPublication}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="externalPublication" value="#{item.externalPublication}" title="#{myBundle.EditImportedAdsTitle_externalPublication}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_externalPublication}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.title}" filterBy="#{item.title}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_title}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.title}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tradeType}" filterBy="#{item.tradeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_tradeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tradeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.price}" filterBy="#{item.price}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_price}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.price}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.publicationStart}" filterBy="#{item.publicationStart}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_publicationStart}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.publicationStart}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.publicationEnd}" filterBy="#{item.publicationEnd}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_publicationEnd}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.publicationEnd}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.isHtml}" filterBy="#{item.isHtml}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_isHtml}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="isHtml" value="#{item.isHtml}" title="#{myBundle.EditImportedAdsTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditImportedAdsRequiredMessage_isHtml}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importedCategoryId.name}" filterBy="#{item.importedCategoryId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_importedCategoryId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importedCategoryId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.existingCategoryId.name}" filterBy="#{item.existingCategoryId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_existingCategoryId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.existingCategoryId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importId.id}" filterBy="#{item.importId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_importId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedAdsTitle_ownerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ownerId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{importedAdsController.prepareCreate}" update=":ImportedAdsCreateForm" oncomplete="PF('ImportedAdsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ImportedAdsViewForm" oncomplete="PF('ImportedAdsViewDialog').show()" disabled="#{empty importedAdsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ImportedAdsEditForm" oncomplete="PF('ImportedAdsEditDialog').show()" disabled="#{empty importedAdsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{importedAdsController.delete}" update=":growl,datalist" disabled="#{empty importedAdsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

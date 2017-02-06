@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="LoansViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewLoansTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:LoansListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="LoansViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{loansController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_id}"/>
+                            <h:outputText value="#{loansController.selected.id}" title="#{myBundle.ViewLoansTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_totalAmount}"/>
+                            <h:outputText value="#{loansController.selected.totalAmount}" title="#{myBundle.ViewLoansTitle_totalAmount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_type}"/>
+                            <h:outputText value="#{loansController.selected.type}" title="#{myBundle.ViewLoansTitle_type}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_grantFeeValue}"/>
+                            <h:outputText value="#{loansController.selected.grantFeeValue}" title="#{myBundle.ViewLoansTitle_grantFeeValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_grantFeeType}"/>
+                            <h:outputText value="#{loansController.selected.grantFeeType}" title="#{myBundle.ViewLoansTitle_grantFeeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_monthlyInterest}"/>
+                            <h:outputText value="#{loansController.selected.monthlyInterest}" title="#{myBundle.ViewLoansTitle_monthlyInterest}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_expirationFeeValue}"/>
+                            <h:outputText value="#{loansController.selected.expirationFeeValue}" title="#{myBundle.ViewLoansTitle_expirationFeeValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_expirationFeeType}"/>
+                            <h:outputText value="#{loansController.selected.expirationFeeType}" title="#{myBundle.ViewLoansTitle_expirationFeeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_expirationDailyInterest}"/>
+                            <h:outputText value="#{loansController.selected.expirationDailyInterest}" title="#{myBundle.ViewLoansTitle_expirationDailyInterest}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_guarantees}"/>
+                            <h:outputText value="#{loansController.selected.guarantees.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_transferId}"/>
+                            <h:outputText value="#{loansController.selected.transferId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewLoansLabel_loanGroupId}"/>
+                            <h:outputText value="#{loansController.selected.loanGroupId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

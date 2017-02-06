@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PaymentObligationLogsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPaymentObligationLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PaymentObligationLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PaymentObligationLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{paymentObligationLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationLogsLabel_id}"/>
+                            <h:outputText value="#{paymentObligationLogsController.selected.id}" title="#{myBundle.ViewPaymentObligationLogsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationLogsLabel_date}"/>
+                            <h:outputText value="#{paymentObligationLogsController.selected.date}" title="#{myBundle.ViewPaymentObligationLogsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationLogsLabel_status}"/>
+                            <h:outputText value="#{paymentObligationLogsController.selected.status}" title="#{myBundle.ViewPaymentObligationLogsTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationLogsLabel_byId}"/>
+                            <h:outputText value="#{paymentObligationLogsController.selected.byId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPaymentObligationLogsLabel_paymentObligationId}"/>
+                            <h:outputText value="#{paymentObligationLogsController.selected.paymentObligationId.description}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

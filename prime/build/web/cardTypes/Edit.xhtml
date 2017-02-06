@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CardTypesEditDlg" widgetVar="CardTypesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCardTypesTitle}" closeOnEscape="true">
+
+            <h:form id="CardTypesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cardTypesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCardTypesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{cardTypesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{cardTypesController.selected.name}" title="#{myBundle.EditCardTypesTitle_name}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_cardFormatNumber}" for="cardFormatNumber" />
+                        <p:inputText id="cardFormatNumber" value="#{cardTypesController.selected.cardFormatNumber}" title="#{myBundle.EditCardTypesTitle_cardFormatNumber}" size="56" maxlength="56"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_defaultExpirationNumber}" for="defaultExpirationNumber" />
+                        <p:inputText id="defaultExpirationNumber" value="#{cardTypesController.selected.defaultExpirationNumber}" title="#{myBundle.EditCardTypesTitle_defaultExpirationNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_defaultExpirationField}" for="defaultExpirationField" />
+                        <p:inputText id="defaultExpirationField" value="#{cardTypesController.selected.defaultExpirationField}" title="#{myBundle.EditCardTypesTitle_defaultExpirationField}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_cardSecurityCode}" for="cardSecurityCode" />
+                        <p:inputText id="cardSecurityCode" value="#{cardTypesController.selected.cardSecurityCode}" title="#{myBundle.EditCardTypesTitle_cardSecurityCode}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_showCardSecurityCode}" for="showCardSecurityCode" />
+                        <p:selectBooleanCheckbox id="showCardSecurityCode" value="#{cardTypesController.selected.showCardSecurityCode}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_showCardSecurityCode}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_ignoreDayInExpirationDate}" for="ignoreDayInExpirationDate" />
+                        <p:selectBooleanCheckbox id="ignoreDayInExpirationDate" value="#{cardTypesController.selected.ignoreDayInExpirationDate}" required="true" requiredMessage="#{myBundle.EditCardTypesRequiredMessage_ignoreDayInExpirationDate}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_minCardSecurityCodeLength}" for="minCardSecurityCodeLength" />
+                        <p:inputText id="minCardSecurityCodeLength" value="#{cardTypesController.selected.minCardSecurityCodeLength}" title="#{myBundle.EditCardTypesTitle_minCardSecurityCodeLength}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_maxCardSecurityCodeLength}" for="maxCardSecurityCodeLength" />
+                        <p:inputText id="maxCardSecurityCodeLength" value="#{cardTypesController.selected.maxCardSecurityCodeLength}" title="#{myBundle.EditCardTypesTitle_maxCardSecurityCodeLength}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_securityCodeBlockTimeNumber}" for="securityCodeBlockTimeNumber" />
+                        <p:inputText id="securityCodeBlockTimeNumber" value="#{cardTypesController.selected.securityCodeBlockTimeNumber}" title="#{myBundle.EditCardTypesTitle_securityCodeBlockTimeNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_securityCodeBlockTimeField}" for="securityCodeBlockTimeField" />
+                        <p:inputText id="securityCodeBlockTimeField" value="#{cardTypesController.selected.securityCodeBlockTimeField}" title="#{myBundle.EditCardTypesTitle_securityCodeBlockTimeField}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardTypesLabel_maxSecurityCodeTries}" for="maxSecurityCodeTries" />
+                        <p:inputText id="maxSecurityCodeTries" value="#{cardTypesController.selected.maxSecurityCodeTries}" title="#{myBundle.EditCardTypesTitle_maxSecurityCodeTries}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cardTypesController.save}" value="#{myBundle.Save}" update="display,:CardTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CardTypesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CardTypesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

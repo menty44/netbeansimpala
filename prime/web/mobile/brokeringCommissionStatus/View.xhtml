@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="BrokeringCommissionStatusViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewBrokeringCommissionStatusTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:BrokeringCommissionStatusListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="BrokeringCommissionStatusViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{brokeringCommissionStatusController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_id}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.id}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_whenApply}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.whenApply}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_whenApply}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_amount}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.amount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_amountType}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.amountType}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_amountType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_startDate}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.startDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_startDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_endDate}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.endDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_endDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_creationDate}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.creationDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_expiryDate}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.expiryDate}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_expiryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_maxCount}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.maxCount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_maxCount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_totalCount}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.totalCount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_totalCount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_totalAmount}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.totalAmount}" title="#{myBundle.ViewBrokeringCommissionStatusTitle_totalAmount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_brokeringId}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.brokeringId.id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewBrokeringCommissionStatusLabel_brokerCommissionId}"/>
+                            <h:outputText value="#{brokeringCommissionStatusController.selected.brokerCommissionId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

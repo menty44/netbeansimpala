@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ContactsListForm">
+
+        <p:panel header="#{myBundle.ListContactsTitle}">
+            <p:contextMenu id="ContactsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ContactsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ContactsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ContactsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ContactsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ContactsMenuItem_contactId}" icon="ui-icon-search"  actionListener="#{contactsController.prepareContactId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty contactsController.selected.contactId}"/>  
+                <p:menuitem value="#{myBundle.ContactsMenuItem_ownerId}" icon="ui-icon-search"  actionListener="#{contactsController.prepareOwnerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty contactsController.selected.ownerId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{contactsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{contactsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{contactsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ContactsDataTableContextMenu" listener="#{contactsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ContactsDataTableContextMenu" listener="#{contactsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{contactsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ContactsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContactsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.notes}" filterBy="#{item.notes}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContactsTitle_notes}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.notes}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contactId.name}" filterBy="#{item.contactId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContactsTitle_contactId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contactId.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ownerId.name}" filterBy="#{item.ownerId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContactsTitle_ownerId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ownerId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{contactsController.prepareCreate}" update=":ContactsCreateForm" oncomplete="PF('ContactsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ContactsViewForm" oncomplete="PF('ContactsViewDialog').show()" disabled="#{empty contactsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ContactsEditForm" oncomplete="PF('ContactsEditDialog').show()" disabled="#{empty contactsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{contactsController.delete}" update=":growl,datalist" disabled="#{empty contactsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

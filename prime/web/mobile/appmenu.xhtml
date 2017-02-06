@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <h:form id="menuForm">
+        <p:menu>
+            <p:submenu label="#{myBundle.Maintenance}">
+                <p:menuitem value="#{myBundle.AccountFeeAmountsHeading}..." outcome="/mobile/accountFeeAmounts/index" />
+                <p:menuitem value="#{myBundle.AccountFeeLogsHeading}..." outcome="/mobile/accountFeeLogs/index" />
+                <p:menuitem value="#{myBundle.AccountFeesHeading}..." outcome="/mobile/accountFees/index" />
+                <p:menuitem value="#{myBundle.AccountLimitLogsHeading}..." outcome="/mobile/accountLimitLogs/index" />
+                <p:menuitem value="#{myBundle.AccountLocksHeading}..." outcome="/mobile/accountLocks/index" />
+                <p:menuitem value="#{myBundle.AccountRatesHeading}..." outcome="/mobile/accountRates/index" />
+                <p:menuitem value="#{myBundle.AccountTypesHeading}..." outcome="/mobile/accountTypes/index" />
+                <p:menuitem value="#{myBundle.AccountsHeading}..." outcome="/mobile/accounts/index" />
+                <p:menuitem value="#{myBundle.AdCategoriesHeading}..." outcome="/mobile/adCategories/index" />
+                <p:menuitem value="#{myBundle.AdImportsHeading}..." outcome="/mobile/adImports/index" />
+                <p:menuitem value="#{myBundle.AdInterestsHeading}..." outcome="/mobile/adInterests/index" />
+                <p:menuitem value="#{myBundle.AdminNotificationPreferencesHeading}..." outcome="/mobile/adminNotificationPreferences/index" />
+                <p:menuitem value="#{myBundle.AdminPreferencesMemberAlertsHeading}..." outcome="/mobile/adminPreferencesMemberAlerts/index" />
+                <p:menuitem value="#{myBundle.AdminPreferencesSystemAlertsHeading}..." outcome="/mobile/adminPreferencesSystemAlerts/index" />
+                <p:menuitem value="#{myBundle.AdsHeading}..." outcome="/mobile/ads/index" />
+                <p:menuitem value="#{myBundle.AlertsHeading}..." outcome="/mobile/alerts/index" />
+                <p:menuitem value="#{myBundle.AmountReservationsHeading}..." outcome="/mobile/amountReservations/index" />
+                <p:menuitem value="#{myBundle.ApplicationHeading}..." outcome="/mobile/application/index" />
+                <p:menuitem value="#{myBundle.AuthorizationLevelsHeading}..." outcome="/mobile/authorizationLevels/index" />
+                <p:menuitem value="#{myBundle.BinaryFilesHeading}..." outcome="/mobile/binaryFiles/index" />
+                <p:menuitem value="#{myBundle.BrokerCommissionContractsHeading}..." outcome="/mobile/brokerCommissionContracts/index" />
+                <p:menuitem value="#{myBundle.BrokeringCommissionStatusHeading}..." outcome="/mobile/brokeringCommissionStatus/index" />
+                <p:menuitem value="#{myBundle.BrokeringsHeading}..." outcome="/mobile/brokerings/index" />
+                <p:menuitem value="#{myBundle.CardLogsHeading}..." outcome="/mobile/cardLogs/index" />
+                <p:menuitem value="#{myBundle.CardTypesHeading}..." outcome="/mobile/cardTypes/index" />
+                <p:menuitem value="#{myBundle.CardsHeading}..." outcome="/mobile/cards/index" />
+                <p:menuitem value="#{myBundle.CertificationLogsHeading}..." outcome="/mobile/certificationLogs/index" />
+                <p:menuitem value="#{myBundle.CertificationsHeading}..." outcome="/mobile/certifications/index" />
+                <p:menuitem value="#{myBundle.ChannelsHeading}..." outcome="/mobile/channels/index" />
+                <p:menuitem value="#{myBundle.ChannelsPrincipalsHeading}..." outcome="/mobile/channelsPrincipals/index" />
+                <p:menuitem value="#{myBundle.ClosedAccountBalancesHeading}..." outcome="/mobile/closedAccountBalances/index" />
+                <p:menuitem value="#{myBundle.ContactsHeading}..." outcome="/mobile/contacts/index" />
+                <p:menuitem value="#{myBundle.CurrenciesHeading}..." outcome="/mobile/currencies/index" />
+                <p:menuitem value="#{myBundle.CustomFieldPossibleValuesHeading}..." outcome="/mobile/customFieldPossibleValues/index" />
+                <p:menuitem value="#{myBundle.CustomFieldValuesHeading}..." outcome="/mobile/customFieldValues/index" />
+                <p:menuitem value="#{myBundle.CustomFieldsHeading}..." outcome="/mobile/customFields/index" />
+                <p:menuitem value="#{myBundle.DefaultBrokerCommissionsHeading}..." outcome="/mobile/defaultBrokerCommissions/index" />
+                <p:menuitem value="#{myBundle.DocumentsHeading}..." outcome="/mobile/documents/index" />
+                <p:menuitem value="#{myBundle.ErrorLogEntriesHeading}..." outcome="/mobile/errorLogEntries/index" />
+                <p:menuitem value="#{myBundle.ErrorLogEntryParametersHeading}..." outcome="/mobile/errorLogEntryParameters/index" />
+                <p:menuitem value="#{myBundle.ExternalAccountsHeading}..." outcome="/mobile/externalAccounts/index" />
+                <p:menuitem value="#{myBundle.ExternalTransferImportsHeading}..." outcome="/mobile/externalTransferImports/index" />
+                <p:menuitem value="#{myBundle.ExternalTransferTypesHeading}..." outcome="/mobile/externalTransferTypes/index" />
+                <p:menuitem value="#{myBundle.ExternalTransfersHeading}..." outcome="/mobile/externalTransfers/index" />
+                <p:menuitem value="#{myBundle.FieldMappingsHeading}..." outcome="/mobile/fieldMappings/index" />
+                <p:menuitem value="#{myBundle.FileMappingsHeading}..." outcome="/mobile/fileMappings/index" />
+                <p:menuitem value="#{myBundle.FilesHeading}..." outcome="/mobile/files/index" />
+                <p:menuitem value="#{myBundle.GroupFiltersHeading}..." outcome="/mobile/groupFilters/index" />
+                <p:menuitem value="#{myBundle.GroupHistoryLogsHeading}..." outcome="/mobile/groupHistoryLogs/index" />
+                <p:menuitem value="#{myBundle.GroupsHeading}..." outcome="/mobile/groups/index" />
+                <p:menuitem value="#{myBundle.GuaranteeLogsHeading}..." outcome="/mobile/guaranteeLogs/index" />
+                <p:menuitem value="#{myBundle.GuaranteeTypesHeading}..." outcome="/mobile/guaranteeTypes/index" />
+                <p:menuitem value="#{myBundle.GuaranteesHeading}..." outcome="/mobile/guarantees/index" />
+                <p:menuitem value="#{myBundle.ImagesHeading}..." outcome="/mobile/images/index" />
+                <p:menuitem value="#{myBundle.ImportedAdCategoriesHeading}..." outcome="/mobile/importedAdCategories/index" />
+                <p:menuitem value="#{myBundle.ImportedAdsHeading}..." outcome="/mobile/importedAds/index" />
+                <p:menuitem value="#{myBundle.ImportedMemberRecordsHeading}..." outcome="/mobile/importedMemberRecords/index" />
+                <p:menuitem value="#{myBundle.ImportedMembersHeading}..." outcome="/mobile/importedMembers/index" />
+                <p:menuitem value="#{myBundle.IndexOperationsHeading}..." outcome="/mobile/indexOperations/index" />
+                <p:menuitem value="#{myBundle.InfoTextsHeading}..." outcome="/mobile/infoTexts/index" />
+                <p:menuitem value="#{myBundle.InvoicePaymentsHeading}..." outcome="/mobile/invoicePayments/index" />
+                <p:menuitem value="#{myBundle.InvoicesHeading}..." outcome="/mobile/invoices/index" />
+                <p:menuitem value="#{myBundle.LoanGroupsHeading}..." outcome="/mobile/loanGroups/index" />
+                <p:menuitem value="#{myBundle.LoanPaymentsHeading}..." outcome="/mobile/loanPayments/index" />
+                <p:menuitem value="#{myBundle.LoansHeading}..." outcome="/mobile/loans/index" />
+                <p:menuitem value="#{myBundle.LoginHistoryHeading}..." outcome="/mobile/loginHistory/index" />
+                <p:menuitem value="#{myBundle.MemberAccountFeeLogsHeading}..." outcome="/mobile/memberAccountFeeLogs/index" />
+                <p:menuitem value="#{myBundle.MemberGroupAccountSettingsHeading}..." outcome="/mobile/memberGroupAccountSettings/index" />
+                <p:menuitem value="#{myBundle.MemberGroupsEmailValidationHeading}..." outcome="/mobile/memberGroupsEmailValidation/index" />
+                <p:menuitem value="#{myBundle.MemberImportsHeading}..." outcome="/mobile/memberImports/index" />
+                <p:menuitem value="#{myBundle.MemberPosHeading}..." outcome="/mobile/memberPos/index" />
+                <p:menuitem value="#{myBundle.MemberRecordTypesHeading}..." outcome="/mobile/memberRecordTypes/index" />
+                <p:menuitem value="#{myBundle.MemberRecordsHeading}..." outcome="/mobile/memberRecords/index" />
+                <p:menuitem value="#{myBundle.MemberSmsStatusHeading}..." outcome="/mobile/memberSmsStatus/index" />
+                <p:menuitem value="#{myBundle.MemberSmsStatusLocksHeading}..." outcome="/mobile/memberSmsStatusLocks/index" />
+                <p:menuitem value="#{myBundle.MembersHeading}..." outcome="/mobile/members/index" />
+                <p:menuitem value="#{myBundle.MessageCategoriesHeading}..." outcome="/mobile/messageCategories/index" />
+                <p:menuitem value="#{myBundle.MessagesHeading}..." outcome="/mobile/messages/index" />
+                <p:menuitem value="#{myBundle.NotificationPreferencesHeading}..." outcome="/mobile/notificationPreferences/index" />
+                <p:menuitem value="#{myBundle.OperatorGroupsMaxAmountHeading}..." outcome="/mobile/operatorGroupsMaxAmount/index" />
+                <p:menuitem value="#{myBundle.PasswordHistoryHeading}..." outcome="/mobile/passwordHistory/index" />
+                <p:menuitem value="#{myBundle.PaymentFiltersHeading}..." outcome="/mobile/paymentFilters/index" />
+                <p:menuitem value="#{myBundle.PaymentObligationLogsHeading}..." outcome="/mobile/paymentObligationLogs/index" />
+                <p:menuitem value="#{myBundle.PaymentObligationsHeading}..." outcome="/mobile/paymentObligations/index" />
+                <p:menuitem value="#{myBundle.PendingEmailChangesHeading}..." outcome="/mobile/pendingEmailChanges/index" />
+                <p:menuitem value="#{myBundle.PendingMembersHeading}..." outcome="/mobile/pendingMembers/index" />
+                <p:menuitem value="#{myBundle.PermissionDeniedsHeading}..." outcome="/mobile/permissionDenieds/index" />
+                <p:menuitem value="#{myBundle.PermissionsHeading}..." outcome="/mobile/permissions/index" />
+                <p:menuitem value="#{myBundle.PosHeading}..." outcome="/mobile/pos/index" />
+                <p:menuitem value="#{myBundle.PosLogsHeading}..." outcome="/mobile/posLogs/index" />
+                <p:menuitem value="#{myBundle.PrintSettingsHeading}..." outcome="/mobile/printSettings/index" />
+                <p:menuitem value="#{myBundle.RateParametersHeading}..." outcome="/mobile/rateParameters/index" />
+                <p:menuitem value="#{myBundle.ReferenceHistoryHeading}..." outcome="/mobile/referenceHistory/index" />
+                <p:menuitem value="#{myBundle.RefsHeading}..." outcome="/mobile/refs/index" />
+                <p:menuitem value="#{myBundle.RegistrationAgreementLogsHeading}..." outcome="/mobile/registrationAgreementLogs/index" />
+                <p:menuitem value="#{myBundle.RegistrationAgreementsHeading}..." outcome="/mobile/registrationAgreements/index" />
+                <p:menuitem value="#{myBundle.RemarksHeading}..." outcome="/mobile/remarks/index" />
+                <p:menuitem value="#{myBundle.ScheduledPaymentsHeading}..." outcome="/mobile/scheduledPayments/index" />
+                <p:menuitem value="#{myBundle.ServiceClientPermissionsHeading}..." outcome="/mobile/serviceClientPermissions/index" />
+                <p:menuitem value="#{myBundle.ServiceClientsHeading}..." outcome="/mobile/serviceClients/index" />
+                <p:menuitem value="#{myBundle.SessionsHeading}..." outcome="/mobile/sessions/index" />
+                <p:menuitem value="#{myBundle.SettingsHeading}..." outcome="/mobile/settings/index" />
+                <p:menuitem value="#{myBundle.SmsLogsHeading}..." outcome="/mobile/smsLogs/index" />
+                <p:menuitem value="#{myBundle.SmsMailingsHeading}..." outcome="/mobile/smsMailings/index" />
+                <p:menuitem value="#{myBundle.SmsTypesHeading}..." outcome="/mobile/smsTypes/index" />
+                <p:menuitem value="#{myBundle.TicketsHeading}..." outcome="/mobile/tickets/index" />
+                <p:menuitem value="#{myBundle.TraceNumbersHeading}..." outcome="/mobile/traceNumbers/index" />
+                <p:menuitem value="#{myBundle.TransactionFeesHeading}..." outcome="/mobile/transactionFees/index" />
+                <p:menuitem value="#{myBundle.TransferAuthorizationsHeading}..." outcome="/mobile/transferAuthorizations/index" />
+                <p:menuitem value="#{myBundle.TransferTypesHeading}..." outcome="/mobile/transferTypes/index" />
+                <p:menuitem value="#{myBundle.TransfersHeading}..." outcome="/mobile/transfers/index" />
+                <p:menuitem value="#{myBundle.TranslationMessagesHeading}..." outcome="/mobile/translationMessages/index" />
+                <p:menuitem value="#{myBundle.UsernameChangeLogsHeading}..." outcome="/mobile/usernameChangeLogs/index" />
+                <p:menuitem value="#{myBundle.UsersHeading}..." outcome="/mobile/users/index" />
+                <p:menuitem value="#{myBundle.WrongCredentialAttemptsHeading}..." outcome="/mobile/wrongCredentialAttempts/index" />
+                <p:menuitem value="#{myBundle.WrongUsernameAttemptsHeading}..." outcome="/mobile/wrongUsernameAttempts/index" />
+            </p:submenu>
+            <p:menuitem value="#{myBundle.FullApp}" outcome="/index" icon="ui-icon-home"/>
+        </p:menu>
+    </h:form>
+</ui:composition>

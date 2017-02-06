@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExternalTransferTypesCreateDlg" widgetVar="ExternalTransferTypesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateExternalTransferTypesTitle}" closeOnEscape="true">
+
+            <h:form id="ExternalTransferTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{externalTransferTypesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{externalTransferTypesController.selected.code}" title="#{myBundle.CreateExternalTransferTypesTitle_code}" required="true" requiredMessage="#{myBundle.CreateExternalTransferTypesRequiredMessage_code}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{externalTransferTypesController.selected.name}" title="#{myBundle.CreateExternalTransferTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateExternalTransferTypesRequiredMessage_name}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_action}" for="action" />
+                        <p:inputText id="action" value="#{externalTransferTypesController.selected.action}" title="#{myBundle.CreateExternalTransferTypesTitle_action}" required="true" requiredMessage="#{myBundle.CreateExternalTransferTypesRequiredMessage_action}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{externalTransferTypesController.selected.description}" title="#{myBundle.CreateExternalTransferTypesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_transferTypeId}" for="transferTypeId" />
+                        <p:selectOneMenu id="transferTypeId" value="#{externalTransferTypesController.selected.transferTypeId}"  converter="transferTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transferTypesController.items}"
+                                           var="transferTypeIdItem"
+                                           itemValue="#{transferTypeIdItem}"
+                                           itemLabel="#{transferTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateExternalTransferTypesLabel_accountId}" for="accountId" />
+                        <p:selectOneMenu id="accountId" value="#{externalTransferTypesController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateExternalTransferTypesRequiredMessage_accountId}" converter="externalAccountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{externalAccountsController.items}"
+                                           var="accountIdItem"
+                                           itemValue="#{accountIdItem}"
+                                           itemLabel="#{accountIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{externalTransferTypesController.saveNew}" value="#{myBundle.Save}" update="display,:ExternalTransferTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ExternalTransferTypesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ExternalTransferTypesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

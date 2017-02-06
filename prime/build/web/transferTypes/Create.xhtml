@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransferTypesCreateDlg" widgetVar="TransferTypesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTransferTypesTitle}" closeOnEscape="true">
+
+            <h:form id="TransferTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{transferTypesController.selected != null}">
+                    <p:tabView id="TransferTypesTabView">
+
+                        <p:tab id="TransferTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowedPayment}" for="allowedPayment" />
+                                <p:selectBooleanCheckbox id="allowedPayment" value="#{transferTypesController.selected.allowedPayment}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowedPayment}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowedSelfPayment}" for="allowedSelfPayment" />
+                                <p:selectBooleanCheckbox id="allowedSelfPayment" value="#{transferTypesController.selected.allowedSelfPayment}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowedSelfPayment}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_priority}" for="priority" />
+                                <p:selectBooleanCheckbox id="priority" value="#{transferTypesController.selected.priority}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_priority}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_conciliable}" for="conciliable" />
+                                <p:selectBooleanCheckbox id="conciliable" value="#{transferTypesController.selected.conciliable}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_conciliable}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_requiresAuthorization}" for="requiresAuthorization" />
+                                <p:selectBooleanCheckbox id="requiresAuthorization" value="#{transferTypesController.selected.requiresAuthorization}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_requiresAuthorization}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowsScheduledPayments}" for="allowsScheduledPayments" />
+                                <p:selectBooleanCheckbox id="allowsScheduledPayments" value="#{transferTypesController.selected.allowsScheduledPayments}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowsScheduledPayments}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{transferTypesController.selected.name}" title="#{myBundle.CreateTransferTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{transferTypesController.selected.description}" title="#{myBundle.CreateTransferTypesTitle_description}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_description}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_confirmationMessage}" for="confirmationMessage" />
+                                <p:inputTextarea rows="4" cols="30" id="confirmationMessage" value="#{transferTypesController.selected.confirmationMessage}" title="#{myBundle.CreateTransferTypesTitle_confirmationMessage}" />
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_maxAmountPerDay}" for="maxAmountPerDay" />
+                                <p:inputText id="maxAmountPerDay" value="#{transferTypesController.selected.maxAmountPerDay}" title="#{myBundle.CreateTransferTypesTitle_maxAmountPerDay}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_minAmount}" for="minAmount" />
+                                <p:inputText id="minAmount" value="#{transferTypesController.selected.minAmount}" title="#{myBundle.CreateTransferTypesTitle_minAmount}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_reserveTotalOnSched}" for="reserveTotalOnSched" />
+                                <p:selectBooleanCheckbox id="reserveTotalOnSched" value="#{transferTypesController.selected.reserveTotalOnSched}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_reserveTotalOnSched}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowCancelSched}" for="allowCancelSched" />
+                                <p:selectBooleanCheckbox id="allowCancelSched" value="#{transferTypesController.selected.allowCancelSched}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowCancelSched}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowBlockSched}" for="allowBlockSched" />
+                                <p:selectBooleanCheckbox id="allowBlockSched" value="#{transferTypesController.selected.allowBlockSched}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowBlockSched}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_showSchedToDest}" for="showSchedToDest" />
+                                <p:selectBooleanCheckbox id="showSchedToDest" value="#{transferTypesController.selected.showSchedToDest}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_showSchedToDest}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_allowSmsNotification}" for="allowSmsNotification" />
+                                <p:selectBooleanCheckbox id="allowSmsNotification" value="#{transferTypesController.selected.allowSmsNotification}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_allowSmsNotification}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_requiresFeedback}" for="requiresFeedback" />
+                                <p:selectBooleanCheckbox id="requiresFeedback" value="#{transferTypesController.selected.requiresFeedback}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_requiresFeedback}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_transferListenerClass}" for="transferListenerClass" />
+                                <p:inputText id="transferListenerClass" value="#{transferTypesController.selected.transferListenerClass}" title="#{myBundle.CreateTransferTypesTitle_transferListenerClass}" size="200" maxlength="200"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_feedbackEnabledSince}" for="feedbackEnabledSince" />
+                                <p:calendar id="feedbackEnabledSince" pattern="MM/dd/yyyy" value="#{transferTypesController.selected.feedbackEnabledSince}" title="#{myBundle.CreateTransferTypesTitle_feedbackEnabledSince}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_feedbackExpirationTimeNumber}" for="feedbackExpirationTimeNumber" />
+                                <p:inputText id="feedbackExpirationTimeNumber" value="#{transferTypesController.selected.feedbackExpirationTimeNumber}" title="#{myBundle.CreateTransferTypesTitle_feedbackExpirationTimeNumber}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransferTypesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_feedbackExpirationTimeField}" for="feedbackExpirationTimeField" />
+                                <p:inputText id="feedbackExpirationTimeField" value="#{transferTypesController.selected.feedbackExpirationTimeField}" title="#{myBundle.CreateTransferTypesTitle_feedbackExpirationTimeField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_feedbackReplyExpirationTimeNumber}" for="feedbackReplyExpirationTimeNumber" />
+                                <p:inputText id="feedbackReplyExpirationTimeNumber" value="#{transferTypesController.selected.feedbackReplyExpirationTimeNumber}" title="#{myBundle.CreateTransferTypesTitle_feedbackReplyExpirationTimeNumber}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_feedbackReplyExpirationTimeField}" for="feedbackReplyExpirationTimeField" />
+                                <p:inputText id="feedbackReplyExpirationTimeField" value="#{transferTypesController.selected.feedbackReplyExpirationTimeField}" title="#{myBundle.CreateTransferTypesTitle_feedbackReplyExpirationTimeField}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_defaultFeedbackComments}" for="defaultFeedbackComments" />
+                                <p:inputTextarea rows="4" cols="30" id="defaultFeedbackComments" value="#{transferTypesController.selected.defaultFeedbackComments}" title="#{myBundle.CreateTransferTypesTitle_defaultFeedbackComments}" />
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_defaultFeedbackLevel}" for="defaultFeedbackLevel" />
+                                <p:inputText id="defaultFeedbackLevel" value="#{transferTypesController.selected.defaultFeedbackLevel}" title="#{myBundle.CreateTransferTypesTitle_defaultFeedbackLevel}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_txHierarchyVisibility}" for="txHierarchyVisibility" />
+                                <p:inputText id="txHierarchyVisibility" value="#{transferTypesController.selected.txHierarchyVisibility}" title="#{myBundle.CreateTransferTypesTitle_txHierarchyVisibility}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanType}" for="loanType" />
+                                <p:inputText id="loanType" value="#{transferTypesController.selected.loanType}" title="#{myBundle.CreateTransferTypesTitle_loanType}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanGrantFeeValue}" for="loanGrantFeeValue" />
+                                <p:inputText id="loanGrantFeeValue" value="#{transferTypesController.selected.loanGrantFeeValue}" title="#{myBundle.CreateTransferTypesTitle_loanGrantFeeValue}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanGrantFeeType}" for="loanGrantFeeType" />
+                                <p:inputText id="loanGrantFeeType" value="#{transferTypesController.selected.loanGrantFeeType}" title="#{myBundle.CreateTransferTypesTitle_loanGrantFeeType}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanMonthlyInterest}" for="loanMonthlyInterest" />
+                                <p:inputText id="loanMonthlyInterest" value="#{transferTypesController.selected.loanMonthlyInterest}" title="#{myBundle.CreateTransferTypesTitle_loanMonthlyInterest}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanExpirationFeeValue}" for="loanExpirationFeeValue" />
+                                <p:inputText id="loanExpirationFeeValue" value="#{transferTypesController.selected.loanExpirationFeeValue}" title="#{myBundle.CreateTransferTypesTitle_loanExpirationFeeValue}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanExpirationFeeType}" for="loanExpirationFeeType" />
+                                <p:inputText id="loanExpirationFeeType" value="#{transferTypesController.selected.loanExpirationFeeType}" title="#{myBundle.CreateTransferTypesTitle_loanExpirationFeeType}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanExpirationDailyInterest}" for="loanExpirationDailyInterest" />
+                                <p:inputText id="loanExpirationDailyInterest" value="#{transferTypesController.selected.loanExpirationDailyInterest}" title="#{myBundle.CreateTransferTypesTitle_loanExpirationDailyInterest}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanRepaymentDays}" for="loanRepaymentDays" />
+                                <p:inputText id="loanRepaymentDays" value="#{transferTypesController.selected.loanRepaymentDays}" title="#{myBundle.CreateTransferTypesTitle_loanRepaymentDays}"/>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_serviceClientsCollection}" for="serviceClientsCollection" />
+                                <p:selectManyMenu id="serviceClientsCollection" value="#{transferTypesController.selected.serviceClientsCollection}"  converter="serviceClientsConverter">
+                                    <f:selectItems value="#{serviceClientsController.items}"
+                                                   var="serviceClientsCollectionItem"
+                                                   itemValue="#{serviceClientsCollectionItem}"
+                                                   itemLabel="#{serviceClientsCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_adminNotificationPreferencesCollection}" for="adminNotificationPreferencesCollection" />
+                                <p:selectManyMenu id="adminNotificationPreferencesCollection" value="#{transferTypesController.selected.adminNotificationPreferencesCollection}"  converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                                   var="adminNotificationPreferencesCollectionItem"
+                                                   itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                   itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_adminNotificationPreferencesCollection1}" for="adminNotificationPreferencesCollection1" />
+                                <p:selectManyMenu id="adminNotificationPreferencesCollection1" value="#{transferTypesController.selected.adminNotificationPreferencesCollection1}"  converter="adminNotificationPreferencesConverter">
+                                    <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                                   var="adminNotificationPreferencesCollection1Item"
+                                                   itemValue="#{adminNotificationPreferencesCollection1Item}"
+                                                   itemLabel="#{adminNotificationPreferencesCollection1Item.id.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_serviceClientsCollection1}" for="serviceClientsCollection1" />
+                                <p:selectManyMenu id="serviceClientsCollection1" value="#{transferTypesController.selected.serviceClientsCollection1}"  converter="serviceClientsConverter">
+                                    <f:selectItems value="#{serviceClientsController.items}"
+                                                   var="serviceClientsCollection1Item"
+                                                   itemValue="#{serviceClientsCollection1Item}"
+                                                   itemLabel="#{serviceClientsCollection1Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_paymentFiltersCollection}" for="paymentFiltersCollection" />
+                                <p:selectManyMenu id="paymentFiltersCollection" value="#{transferTypesController.selected.paymentFiltersCollection}"  converter="paymentFiltersConverter">
+                                    <f:selectItems value="#{paymentFiltersController.items}"
+                                                   var="paymentFiltersCollectionItem"
+                                                   itemValue="#{paymentFiltersCollectionItem}"
+                                                   itemLabel="#{paymentFiltersCollectionItem.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_serviceClientsCollection2}" for="serviceClientsCollection2" />
+                                <p:selectManyMenu id="serviceClientsCollection2" value="#{transferTypesController.selected.serviceClientsCollection2}"  converter="serviceClientsConverter">
+                                    <f:selectItems value="#{serviceClientsController.items}"
+                                                   var="serviceClientsCollection2Item"
+                                                   itemValue="#{serviceClientsCollection2Item}"
+                                                   itemLabel="#{serviceClientsCollection2Item.name.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanRepaymentTypeId}" for="loanRepaymentTypeId" />
+                                <p:selectOneMenu id="loanRepaymentTypeId" value="#{transferTypesController.selected.loanRepaymentTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="loanRepaymentTypeIdItem"
+                                                   itemValue="#{loanRepaymentTypeIdItem}"
+                                                   itemLabel="#{loanRepaymentTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransferTypesTab3" title="#{myBundle.TabHeaderPrefix} 3">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanExpirationFeeTypeId}" for="loanExpirationFeeTypeId" />
+                                <p:selectOneMenu id="loanExpirationFeeTypeId" value="#{transferTypesController.selected.loanExpirationFeeTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="loanExpirationFeeTypeIdItem"
+                                                   itemValue="#{loanExpirationFeeTypeIdItem}"
+                                                   itemLabel="#{loanExpirationFeeTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_fromAccountTypeId}" for="fromAccountTypeId" />
+                                <p:selectOneMenu id="fromAccountTypeId" value="#{transferTypesController.selected.fromAccountTypeId}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_fromAccountTypeId}" converter="accountTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountTypesController.items}"
+                                                   var="fromAccountTypeIdItem"
+                                                   itemValue="#{fromAccountTypeIdItem}"
+                                                   itemLabel="#{fromAccountTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_toAccountTypeId}" for="toAccountTypeId" />
+                                <p:selectOneMenu id="toAccountTypeId" value="#{transferTypesController.selected.toAccountTypeId}" required="true" requiredMessage="#{myBundle.CreateTransferTypesRequiredMessage_toAccountTypeId}" converter="accountTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountTypesController.items}"
+                                                   var="toAccountTypeIdItem"
+                                                   itemValue="#{toAccountTypeIdItem}"
+                                                   itemLabel="#{toAccountTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanGrantFeeTypeId}" for="loanGrantFeeTypeId" />
+                                <p:selectOneMenu id="loanGrantFeeTypeId" value="#{transferTypesController.selected.loanGrantFeeTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="loanGrantFeeTypeIdItem"
+                                                   itemValue="#{loanGrantFeeTypeIdItem}"
+                                                   itemLabel="#{loanGrantFeeTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanExpDailyInterestTypeId}" for="loanExpDailyInterestTypeId" />
+                                <p:selectOneMenu id="loanExpDailyInterestTypeId" value="#{transferTypesController.selected.loanExpDailyInterestTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="loanExpDailyInterestTypeIdItem"
+                                                   itemValue="#{loanExpDailyInterestTypeIdItem}"
+                                                   itemLabel="#{loanExpDailyInterestTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_fixedDestinationMemberId}" for="fixedDestinationMemberId" />
+                                <p:selectOneMenu id="fixedDestinationMemberId" value="#{transferTypesController.selected.fixedDestinationMemberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="fixedDestinationMemberIdItem"
+                                                   itemValue="#{fixedDestinationMemberIdItem}"
+                                                   itemLabel="#{fixedDestinationMemberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.CreateTransferTypesLabel_loanMonthlyInterestTypeId}" for="loanMonthlyInterestTypeId" />
+                                <p:selectOneMenu id="loanMonthlyInterestTypeId" value="#{transferTypesController.selected.loanMonthlyInterestTypeId}"  converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="loanMonthlyInterestTypeIdItem"
+                                                   itemValue="#{loanMonthlyInterestTypeIdItem}"
+                                                   itemLabel="#{loanMonthlyInterestTypeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{transferTypesController.saveNew}" value="#{myBundle.Save}" update="display,:TransferTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TransferTypesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TransferTypesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountLimitLogsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateAccountLimitLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountLimitLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountLimitLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{accountLimitLogsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountLimitLogsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{accountLimitLogsController.selected.date}" title="#{myBundle.CreateAccountLimitLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreateAccountLimitLogsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountLimitLogsLabel_creditLimit}" for="creditLimit" />
+                            <p:inputText id="creditLimit" value="#{accountLimitLogsController.selected.creditLimit}" title="#{myBundle.CreateAccountLimitLogsTitle_creditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountLimitLogsLabel_upperCreditLimit}" for="upperCreditLimit" />
+                            <p:inputText id="upperCreditLimit" value="#{accountLimitLogsController.selected.upperCreditLimit}" title="#{myBundle.CreateAccountLimitLogsTitle_upperCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountLimitLogsLabel_byId}" for="byId" />
+                            <p:selectOneMenu id="byId" value="#{accountLimitLogsController.selected.byId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="byIdItem"
+                                               itemValue="#{byIdItem}"
+                                               itemLabel="#{byIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAccountLimitLogsLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{accountLimitLogsController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateAccountLimitLogsRequiredMessage_accountId}" converter="accountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.ownerName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{accountLimitLogsController.saveNew}" value="#{myBundle.Save}" update="display,:AccountLimitLogsListPage:AccountLimitLogsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:AccountLimitLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

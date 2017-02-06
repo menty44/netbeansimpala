@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PosViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewPosTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PosListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{posController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPosLabel_id}"/>
+                            <h:outputText value="#{posController.selected.id}" title="#{myBundle.ViewPosTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPosLabel_posId}"/>
+                            <h:outputText value="#{posController.selected.posId}" title="#{myBundle.ViewPosTitle_posId}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPosLabel_description}"/>
+                            <h:outputText value="#{posController.selected.description}" title="#{myBundle.ViewPosTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPosLabel_status}"/>
+                            <h:outputText value="#{posController.selected.status}" title="#{myBundle.ViewPosTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewPosLabel_memberPosId}"/>
+                            <h:outputText value="#{posController.selected.memberPosId.posName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

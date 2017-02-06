@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ErrorLogEntryParametersEditDlg" widgetVar="ErrorLogEntryParametersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditErrorLogEntryParametersTitle}" closeOnEscape="true">
+
+            <h:form id="ErrorLogEntryParametersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{errorLogEntryParametersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditErrorLogEntryParametersLabel_errorLogEntryParametersPK_errorLogEntryId}" for="errorLogEntryParametersPK_errorLogEntryId" />
+                        <h:outputText id="errorLogEntryParametersPK_errorLogEntryId" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.errorLogEntryId}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditErrorLogEntryParametersLabel_errorLogEntryParametersPK_name}" for="errorLogEntryParametersPK_name" />
+                        <h:outputText id="errorLogEntryParametersPK_name" value="#{errorLogEntryParametersController.selected.errorLogEntryParametersPK.name}" />
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntryParametersLabel_value}" for="value" />
+                        <p:inputTextarea rows="4" cols="30" id="value" value="#{errorLogEntryParametersController.selected.value}" title="#{myBundle.EditErrorLogEntryParametersTitle_value}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditErrorLogEntryParametersLabel_errorLogEntries}" for="errorLogEntries" />
+                        <h:outputText id="errorLogEntries" value="#{errorLogEntryParametersController.selected.errorLogEntries}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{errorLogEntryParametersController.save}" value="#{myBundle.Save}" update="display,:ErrorLogEntryParametersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ErrorLogEntryParametersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ErrorLogEntryParametersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

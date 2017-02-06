@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AmountReservationsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateAmountReservationsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AmountReservationsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AmountReservationsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{amountReservationsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{amountReservationsController.selected.subclass}" title="#{myBundle.CreateAmountReservationsTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateAmountReservationsRequiredMessage_subclass}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{amountReservationsController.selected.date}" title="#{myBundle.CreateAmountReservationsTitle_date}" required="true" requiredMessage="#{myBundle.CreateAmountReservationsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{amountReservationsController.selected.amount}" title="#{myBundle.CreateAmountReservationsTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_transferAuthorizationId}" for="transferAuthorizationId" />
+                            <p:selectOneMenu id="transferAuthorizationId" value="#{amountReservationsController.selected.transferAuthorizationId}"  converter="transferAuthorizationsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transferAuthorizationsController.items}"
+                                               var="transferAuthorizationIdItem"
+                                               itemValue="#{transferAuthorizationIdItem}"
+                                               itemLabel="#{transferAuthorizationIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_transferId}" for="transferId" />
+                            <p:selectOneMenu id="transferId" value="#{amountReservationsController.selected.transferId}"  converter="transfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transfersController.items}"
+                                               var="transferIdItem"
+                                               itemValue="#{transferIdItem}"
+                                               itemLabel="#{transferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{amountReservationsController.selected.accountId}" required="true" requiredMessage="#{myBundle.CreateAmountReservationsRequiredMessage_accountId}" converter="accountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.ownerName.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateAmountReservationsLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                            <p:selectOneMenu id="scheduledPaymentId" value="#{amountReservationsController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{scheduledPaymentsController.items}"
+                                               var="scheduledPaymentIdItem"
+                                               itemValue="#{scheduledPaymentIdItem}"
+                                               itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{amountReservationsController.saveNew}" value="#{myBundle.Save}" update="display,:AmountReservationsListPage:AmountReservationsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:AmountReservationsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

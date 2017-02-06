@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="GuaranteesListForm">
+
+        <p:panel header="#{myBundle.ListGuaranteesTitle}">
+            <p:contextMenu id="GuaranteesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('GuaranteesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('GuaranteesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('GuaranteesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('GuaranteesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_guaranteeLogsCollection}" icon="ui-icon-search"  action="#{guaranteesController.navigateGuaranteeLogsCollection}" disabled="#{empty guaranteesController.selected.guaranteeLogsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_paymentObligationsCollection}" icon="ui-icon-search"  action="#{guaranteesController.navigatePaymentObligationsCollection}" disabled="#{empty guaranteesController.selected.paymentObligationsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_certificationId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareCertificationId}" update=":CertificationsViewForm" oncomplete="PF('CertificationsViewDialog').show()" disabled="#{empty guaranteesController.selected.certificationId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_sellerId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareSellerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty guaranteesController.selected.sellerId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_buyerId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareBuyerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty guaranteesController.selected.buyerId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_guaranteeTypeId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareGuaranteeTypeId}" update=":GuaranteeTypesViewForm" oncomplete="PF('GuaranteeTypesViewDialog').show()" disabled="#{empty guaranteesController.selected.guaranteeTypeId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_issuerId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareIssuerId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty guaranteesController.selected.issuerId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_loanId}" icon="ui-icon-search"  actionListener="#{guaranteesController.prepareLoanId}" update=":LoansViewForm" oncomplete="PF('LoansViewDialog').show()" disabled="#{empty guaranteesController.selected.loanId}"/>  
+                <p:menuitem value="#{myBundle.GuaranteesMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{guaranteesController.navigateCustomFieldValuesCollection}" disabled="#{empty guaranteesController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{guaranteesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{guaranteesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{guaranteesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GuaranteesDataTableContextMenu" listener="#{guaranteesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:GuaranteesDataTableContextMenu" listener="#{guaranteesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{guaranteesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('GuaranteesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creditFee}" filterBy="#{item.creditFee}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_creditFee}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creditFee}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creditFeeType}" filterBy="#{item.creditFeeType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_creditFeeType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creditFeeType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.issueFee}" filterBy="#{item.issueFee}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListGuaranteesTitle_issueFee}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.issueFee}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.issueFeeType}" filterBy="#{item.issueFeeType}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_issueFeeType}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issueFeeType}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.beginDate}" filterBy="#{item.beginDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_beginDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.beginDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_endDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.endDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.registrationDate}" filterBy="#{item.registrationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_registrationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.registrationDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.certificationId.id}" filterBy="#{item.certificationId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_certificationId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.certificationId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.sellerId.name}" filterBy="#{item.sellerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_sellerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sellerId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.buyerId.name}" filterBy="#{item.buyerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_buyerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.buyerId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.guaranteeTypeId.name}" filterBy="#{item.guaranteeTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_guaranteeTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.guaranteeTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.issuerId.name}" filterBy="#{item.issuerId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_issuerId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.issuerId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.loanId.id}" filterBy="#{item.loanId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListGuaranteesTitle_loanId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.loanId.id}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{guaranteesController.prepareCreate}" update=":GuaranteesCreateForm" oncomplete="PF('GuaranteesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":GuaranteesViewForm" oncomplete="PF('GuaranteesViewDialog').show()" disabled="#{empty guaranteesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":GuaranteesEditForm" oncomplete="PF('GuaranteesEditDialog').show()" disabled="#{empty guaranteesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{guaranteesController.delete}" update=":growl,datalist" disabled="#{empty guaranteesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

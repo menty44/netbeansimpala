@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PrintSettingsListForm">
+
+        <p:panel header="#{myBundle.ListPrintSettingsTitle}">
+            <p:contextMenu id="PrintSettingsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PrintSettingsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PrintSettingsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PrintSettingsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PrintSettingsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PrintSettingsMenuItem_member1}" icon="ui-icon-search"  actionListener="#{printSettingsController.prepareMember1}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty printSettingsController.selected.member1}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{printSettingsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{printSettingsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{printSettingsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PrintSettingsDataTableContextMenu" listener="#{printSettingsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PrintSettingsDataTableContextMenu" listener="#{printSettingsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{printSettingsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PrintSettingsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.printerName}" filterBy="#{item.printerName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_printerName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.printerName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.beginDocCmd}" filterBy="#{item.beginDocCmd}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_beginDocCmd}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.beginDocCmd}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endDocCmd}" filterBy="#{item.endDocCmd}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_endDocCmd}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endDocCmd}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.paymentMessage}" filterBy="#{item.paymentMessage}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPrintSettingsTitle_paymentMessage}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.paymentMessage}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.member1.name}" filterBy="#{item.member1.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPrintSettingsTitle_member1}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.member1.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{printSettingsController.prepareCreate}" update=":PrintSettingsCreateForm" oncomplete="PF('PrintSettingsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PrintSettingsViewForm" oncomplete="PF('PrintSettingsViewDialog').show()" disabled="#{empty printSettingsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PrintSettingsEditForm" oncomplete="PF('PrintSettingsEditDialog').show()" disabled="#{empty printSettingsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{printSettingsController.delete}" update=":growl,datalist" disabled="#{empty printSettingsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

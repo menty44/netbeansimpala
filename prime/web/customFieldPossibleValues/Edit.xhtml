@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CustomFieldPossibleValuesEditDlg" widgetVar="CustomFieldPossibleValuesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCustomFieldPossibleValuesTitle}" closeOnEscape="true">
+
+            <h:form id="CustomFieldPossibleValuesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{customFieldPossibleValuesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{customFieldPossibleValuesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_value}" for="value" />
+                        <p:inputText id="value" value="#{customFieldPossibleValuesController.selected.value}" title="#{myBundle.EditCustomFieldPossibleValuesTitle_value}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_value}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_isEnabled}" for="isEnabled" />
+                        <p:selectBooleanCheckbox id="isEnabled" value="#{customFieldPossibleValuesController.selected.isEnabled}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isEnabled}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_isDefault}" for="isDefault" />
+                        <p:selectBooleanCheckbox id="isDefault" value="#{customFieldPossibleValuesController.selected.isDefault}" required="true" requiredMessage="#{myBundle.EditCustomFieldPossibleValuesRequiredMessage_isDefault}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_parentId}" for="parentId" />
+                        <p:selectOneMenu id="parentId" value="#{customFieldPossibleValuesController.selected.parentId}"  converter="customFieldPossibleValuesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customFieldPossibleValuesController.items}"
+                                           var="parentIdItem"
+                                           itemValue="#{parentIdItem}"
+                                           itemLabel="#{parentIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCustomFieldPossibleValuesLabel_fieldId}" for="fieldId" />
+                        <p:selectOneMenu id="fieldId" value="#{customFieldPossibleValuesController.selected.fieldId}"  converter="customFieldsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customFieldsController.items}"
+                                           var="fieldIdItem"
+                                           itemValue="#{fieldIdItem}"
+                                           itemLabel="#{fieldIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{customFieldPossibleValuesController.save}" value="#{myBundle.Save}" update="display,:CustomFieldPossibleValuesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CustomFieldPossibleValuesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CustomFieldPossibleValuesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

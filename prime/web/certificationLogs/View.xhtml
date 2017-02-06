@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CertificationLogsViewDlg" widgetVar="CertificationLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCertificationLogsTitle}" closeOnEscape="true">
+
+            <h:form id="CertificationLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{certificationLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCertificationLogsLabel_id}"/>
+                        <h:outputText value="#{certificationLogsController.selected.id}" title="#{myBundle.ViewCertificationLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCertificationLogsLabel_date}"/>
+                        <h:outputText value="#{certificationLogsController.selected.date}" title="#{myBundle.ViewCertificationLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCertificationLogsLabel_status}"/>
+                        <h:outputText value="#{certificationLogsController.selected.status}" title="#{myBundle.ViewCertificationLogsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewCertificationLogsLabel_certificationId}"/>
+                        <h:outputText value="#{certificationLogsController.selected.certificationId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCertificationLogsLabel_byId}"/>
+                        <h:outputText value="#{certificationLogsController.selected.byId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CertificationLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

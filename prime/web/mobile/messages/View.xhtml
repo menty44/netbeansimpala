@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MessagesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMessagesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MessagesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MessagesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{messagesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_id}"/>
+                            <h:outputText value="#{messagesController.selected.id}" title="#{myBundle.ViewMessagesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_date}"/>
+                            <h:outputText value="#{messagesController.selected.date}" title="#{myBundle.ViewMessagesTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_subject}"/>
+                            <h:outputText value="#{messagesController.selected.subject}" title="#{myBundle.ViewMessagesTitle_subject}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_type}"/>
+                            <h:outputText value="#{messagesController.selected.type}" title="#{myBundle.ViewMessagesTitle_type}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_direction}"/>
+                            <h:outputText value="#{messagesController.selected.direction}" title="#{myBundle.ViewMessagesTitle_direction}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_isRead}"/>
+                            <h:selectBooleanCheckbox id="isRead" value="#{messagesController.selected.isRead}" title="#{myBundle.EditMessagesTitle_isRead}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isRead}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_isReplied}"/>
+                            <h:selectBooleanCheckbox id="isReplied" value="#{messagesController.selected.isReplied}" title="#{myBundle.EditMessagesTitle_isReplied}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isReplied}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_isHtml}"/>
+                            <h:selectBooleanCheckbox id="isHtml" value="#{messagesController.selected.isHtml}" title="#{myBundle.EditMessagesTitle_isHtml}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_isHtml}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_removedAt}"/>
+                            <h:outputText value="#{messagesController.selected.removedAt}" title="#{myBundle.ViewMessagesTitle_removedAt}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_body}"/>
+                            <h:outputText value="#{messagesController.selected.body}" title="#{myBundle.ViewMessagesTitle_body}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_emailSent}"/>
+                            <h:selectBooleanCheckbox id="emailSent" value="#{messagesController.selected.emailSent}" title="#{myBundle.EditMessagesTitle_emailSent}" required="true" requiredMessage="#{myBundle.EditMessagesRequiredMessage_emailSent}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_groupsCollection}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{messagesController.selected.groupsCollection}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_categoryId}"/>
+                            <h:outputText value="#{messagesController.selected.categoryId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_fromMemberId}"/>
+                            <h:outputText value="#{messagesController.selected.fromMemberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMessagesLabel_toMemberId}"/>
+                            <h:outputText value="#{messagesController.selected.toMemberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

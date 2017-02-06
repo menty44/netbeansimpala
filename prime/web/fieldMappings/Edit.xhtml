@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="FieldMappingsEditDlg" widgetVar="FieldMappingsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditFieldMappingsTitle}" closeOnEscape="true">
+
+            <h:form id="FieldMappingsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{fieldMappingsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditFieldMappingsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{fieldMappingsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditFieldMappingsLabel_orderIndex}" for="orderIndex" />
+                        <p:inputText id="orderIndex" value="#{fieldMappingsController.selected.orderIndex}" title="#{myBundle.EditFieldMappingsTitle_orderIndex}" required="true" requiredMessage="#{myBundle.EditFieldMappingsRequiredMessage_orderIndex}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFieldMappingsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{fieldMappingsController.selected.name}" title="#{myBundle.EditFieldMappingsTitle_name}" required="true" requiredMessage="#{myBundle.EditFieldMappingsRequiredMessage_name}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditFieldMappingsLabel_field}" for="field" />
+                        <p:inputText id="field" value="#{fieldMappingsController.selected.field}" title="#{myBundle.EditFieldMappingsTitle_field}" required="true" requiredMessage="#{myBundle.EditFieldMappingsRequiredMessage_field}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.EditFieldMappingsLabel_fileMappingId}" for="fileMappingId" />
+                        <p:selectOneMenu id="fileMappingId" value="#{fieldMappingsController.selected.fileMappingId}" required="true" requiredMessage="#{myBundle.EditFieldMappingsRequiredMessage_fileMappingId}" converter="fileMappingsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fileMappingsController.items}"
+                                           var="fileMappingIdItem"
+                                           itemValue="#{fileMappingIdItem}"
+                                           itemLabel="#{fileMappingIdItem.classname.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditFieldMappingsLabel_memberFieldId}" for="memberFieldId" />
+                        <p:selectOneMenu id="memberFieldId" value="#{fieldMappingsController.selected.memberFieldId}"  converter="customFieldsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{customFieldsController.items}"
+                                           var="memberFieldIdItem"
+                                           itemValue="#{memberFieldIdItem}"
+                                           itemLabel="#{memberFieldIdItem.internalName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fieldMappingsController.save}" value="#{myBundle.Save}" update="display,:FieldMappingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FieldMappingsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('FieldMappingsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

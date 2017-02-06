@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CardsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditCardsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CardsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CardsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{cardsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditCardsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{cardsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_cardNumber}" for="cardNumber" />
+                            <p:inputText id="cardNumber" value="#{cardsController.selected.cardNumber}" title="#{myBundle.EditCardsTitle_cardNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_cardSecurityCode}" for="cardSecurityCode" />
+                            <p:inputText id="cardSecurityCode" value="#{cardsController.selected.cardSecurityCode}" title="#{myBundle.EditCardsTitle_cardSecurityCode}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_creationDate}" for="creationDate" />
+                            <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.creationDate}" title="#{myBundle.EditCardsTitle_creationDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_activationDate}" for="activationDate" />
+                            <p:calendar id="activationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.activationDate}" title="#{myBundle.EditCardsTitle_activationDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_expirationDate}" for="expirationDate" />
+                            <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{cardsController.selected.expirationDate}" title="#{myBundle.EditCardsTitle_expirationDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_cardSecurityCodeBlockedUntil}" for="cardSecurityCodeBlockedUntil" />
+                            <p:calendar id="cardSecurityCodeBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.cardSecurityCodeBlockedUntil}" title="#{myBundle.EditCardsTitle_cardSecurityCodeBlockedUntil}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{cardsController.selected.status}" title="#{myBundle.EditCardsTitle_status}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_status}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_cardTypeId}" for="cardTypeId" />
+                            <p:selectOneMenu id="cardTypeId" value="#{cardsController.selected.cardTypeId}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_cardTypeId}" converter="cardTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{cardTypesController.items}"
+                                               var="cardTypeIdItem"
+                                               itemValue="#{cardTypeIdItem}"
+                                               itemLabel="#{cardTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditCardsLabel_ownerId}" for="ownerId" />
+                            <p:selectOneMenu id="ownerId" value="#{cardsController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_ownerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="ownerIdItem"
+                                               itemValue="#{ownerIdItem}"
+                                               itemLabel="#{ownerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{cardsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:CardsListPage:CardsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:CardsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

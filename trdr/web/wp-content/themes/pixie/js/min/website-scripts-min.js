@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".hdm-navbar-menu-toggle").click(function(){$(".hdm-nav-menu").toggleClass("active")})});

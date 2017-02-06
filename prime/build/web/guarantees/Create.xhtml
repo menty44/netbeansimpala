@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GuaranteesCreateDlg" widgetVar="GuaranteesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateGuaranteesTitle}" closeOnEscape="true">
+
+            <h:form id="GuaranteesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{guaranteesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{guaranteesController.selected.status}" title="#{myBundle.CreateGuaranteesTitle_status}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_status}" size="2" maxlength="2"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{guaranteesController.selected.amount}" title="#{myBundle.CreateGuaranteesTitle_amount}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_creditFee}" for="creditFee" />
+                        <p:inputText id="creditFee" value="#{guaranteesController.selected.creditFee}" title="#{myBundle.CreateGuaranteesTitle_creditFee}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_creditFeeType}" for="creditFeeType" />
+                        <p:inputText id="creditFeeType" value="#{guaranteesController.selected.creditFeeType}" title="#{myBundle.CreateGuaranteesTitle_creditFeeType}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_issueFee}" for="issueFee" />
+                        <p:inputText id="issueFee" value="#{guaranteesController.selected.issueFee}" title="#{myBundle.CreateGuaranteesTitle_issueFee}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_issueFeeType}" for="issueFeeType" />
+                        <p:inputText id="issueFeeType" value="#{guaranteesController.selected.issueFeeType}" title="#{myBundle.CreateGuaranteesTitle_issueFeeType}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_beginDate}" for="beginDate" />
+                        <p:calendar id="beginDate" pattern="MM/dd/yyyy" value="#{guaranteesController.selected.beginDate}" title="#{myBundle.CreateGuaranteesTitle_beginDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{guaranteesController.selected.endDate}" title="#{myBundle.CreateGuaranteesTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_registrationDate}" for="registrationDate" />
+                        <p:calendar id="registrationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{guaranteesController.selected.registrationDate}" title="#{myBundle.CreateGuaranteesTitle_registrationDate}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_registrationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_certificationId}" for="certificationId" />
+                        <p:selectOneMenu id="certificationId" value="#{guaranteesController.selected.certificationId}"  converter="certificationsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{certificationsController.items}"
+                                           var="certificationIdItem"
+                                           itemValue="#{certificationIdItem}"
+                                           itemLabel="#{certificationIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_sellerId}" for="sellerId" />
+                        <p:selectOneMenu id="sellerId" value="#{guaranteesController.selected.sellerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="sellerIdItem"
+                                           itemValue="#{sellerIdItem}"
+                                           itemLabel="#{sellerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_buyerId}" for="buyerId" />
+                        <p:selectOneMenu id="buyerId" value="#{guaranteesController.selected.buyerId}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_buyerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="buyerIdItem"
+                                           itemValue="#{buyerIdItem}"
+                                           itemLabel="#{buyerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_guaranteeTypeId}" for="guaranteeTypeId" />
+                        <p:selectOneMenu id="guaranteeTypeId" value="#{guaranteesController.selected.guaranteeTypeId}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_guaranteeTypeId}" converter="guaranteeTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{guaranteeTypesController.items}"
+                                           var="guaranteeTypeIdItem"
+                                           itemValue="#{guaranteeTypeIdItem}"
+                                           itemLabel="#{guaranteeTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_issuerId}" for="issuerId" />
+                        <p:selectOneMenu id="issuerId" value="#{guaranteesController.selected.issuerId}" required="true" requiredMessage="#{myBundle.CreateGuaranteesRequiredMessage_issuerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="issuerIdItem"
+                                           itemValue="#{issuerIdItem}"
+                                           itemLabel="#{issuerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateGuaranteesLabel_loanId}" for="loanId" />
+                        <p:selectOneMenu id="loanId" value="#{guaranteesController.selected.loanId}"  converter="loansConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{loansController.items}"
+                                           var="loanIdItem"
+                                           itemValue="#{loanIdItem}"
+                                           itemLabel="#{loanIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{guaranteesController.saveNew}" value="#{myBundle.Save}" update="display,:GuaranteesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('GuaranteesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('GuaranteesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

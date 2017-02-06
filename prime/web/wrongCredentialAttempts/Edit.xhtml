@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="WrongCredentialAttemptsEditDlg" widgetVar="WrongCredentialAttemptsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditWrongCredentialAttemptsTitle}" closeOnEscape="true">
+
+            <h:form id="WrongCredentialAttemptsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{wrongCredentialAttemptsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{wrongCredentialAttemptsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{wrongCredentialAttemptsController.selected.date}" title="#{myBundle.EditWrongCredentialAttemptsTitle_date}" required="true" requiredMessage="#{myBundle.EditWrongCredentialAttemptsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_credentialType}" for="credentialType" />
+                        <p:inputText id="credentialType" value="#{wrongCredentialAttemptsController.selected.credentialType}" title="#{myBundle.EditWrongCredentialAttemptsTitle_credentialType}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_memberPosId}" for="memberPosId" />
+                        <p:selectOneMenu id="memberPosId" value="#{wrongCredentialAttemptsController.selected.memberPosId}"  converter="memberPosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{memberPosController.items}"
+                                           var="memberPosIdItem"
+                                           itemValue="#{memberPosIdItem}"
+                                           itemLabel="#{memberPosIdItem.posName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_cardId}" for="cardId" />
+                        <p:selectOneMenu id="cardId" value="#{wrongCredentialAttemptsController.selected.cardId}"  converter="cardsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cardsController.items}"
+                                           var="cardIdItem"
+                                           itemValue="#{cardIdItem}"
+                                           itemLabel="#{cardIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditWrongCredentialAttemptsLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{wrongCredentialAttemptsController.selected.userId}"  converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"
+                                           itemLabel="#{userIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{wrongCredentialAttemptsController.save}" value="#{myBundle.Save}" update="display,:WrongCredentialAttemptsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('WrongCredentialAttemptsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('WrongCredentialAttemptsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

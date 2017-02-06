@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ExternalTransfersEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditExternalTransfersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ExternalTransfersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ExternalTransfersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{externalTransfersController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditExternalTransfersLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{externalTransfersController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{externalTransfersController.selected.status}" title="#{myBundle.EditExternalTransfersTitle_status}" required="true" requiredMessage="#{myBundle.EditExternalTransfersRequiredMessage_status}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy" value="#{externalTransfersController.selected.date}" title="#{myBundle.EditExternalTransfersTitle_date}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{externalTransfersController.selected.amount}" title="#{myBundle.EditExternalTransfersTitle_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_description}" for="description" />
+                            <p:inputTextarea rows="4" cols="30" id="description" value="#{externalTransfersController.selected.description}" title="#{myBundle.EditExternalTransfersTitle_description}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_lineNumber}" for="lineNumber" />
+                            <p:inputText id="lineNumber" value="#{externalTransfersController.selected.lineNumber}" title="#{myBundle.EditExternalTransfersTitle_lineNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_comments}" for="comments" />
+                            <p:inputTextarea rows="4" cols="30" id="comments" value="#{externalTransfersController.selected.comments}" title="#{myBundle.EditExternalTransfersTitle_comments}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_importId}" for="importId" />
+                            <p:selectOneMenu id="importId" value="#{externalTransfersController.selected.importId}"  converter="externalTransferImportsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalTransferImportsController.items}"
+                                               var="importIdItem"
+                                               itemValue="#{importIdItem}"
+                                               itemLabel="#{importIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_typeId}" for="typeId" />
+                            <p:selectOneMenu id="typeId" value="#{externalTransfersController.selected.typeId}"  converter="externalTransferTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalTransferTypesController.items}"
+                                               var="typeIdItem"
+                                               itemValue="#{typeIdItem}"
+                                               itemLabel="#{typeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_memberId}" for="memberId" />
+                            <p:selectOneMenu id="memberId" value="#{externalTransfersController.selected.memberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="memberIdItem"
+                                               itemValue="#{memberIdItem}"
+                                               itemLabel="#{memberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransfersLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{externalTransfersController.selected.accountId}" required="true" requiredMessage="#{myBundle.EditExternalTransfersRequiredMessage_accountId}" converter="externalAccountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalAccountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{externalTransfersController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ExternalTransfersListPage:ExternalTransfersListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ExternalTransfersListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

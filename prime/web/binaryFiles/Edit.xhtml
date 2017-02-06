@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BinaryFilesEditDlg" widgetVar="BinaryFilesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditBinaryFilesTitle}" closeOnEscape="true">
+
+            <h:form id="BinaryFilesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{binaryFilesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditBinaryFilesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{binaryFilesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditBinaryFilesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{binaryFilesController.selected.name}" title="#{myBundle.EditBinaryFilesTitle_name}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditBinaryFilesLabel_contentType}" for="contentType" />
+                        <p:inputText id="contentType" value="#{binaryFilesController.selected.contentType}" title="#{myBundle.EditBinaryFilesTitle_contentType}" required="true" requiredMessage="#{myBundle.EditBinaryFilesRequiredMessage_contentType}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditBinaryFilesLabel_size}" for="size" />
+                        <p:inputText id="size" value="#{binaryFilesController.selected.size}" title="#{myBundle.EditBinaryFilesTitle_size}" required="true" requiredMessage="#{myBundle.EditBinaryFilesRequiredMessage_size}"/>
+
+                        <p:outputLabel value="#{myBundle.EditBinaryFilesLabel_lastModified}" for="lastModified" />
+                        <p:calendar id="lastModified" pattern="MM/dd/yyyy HH:mm:ss" value="#{binaryFilesController.selected.lastModified}" title="#{myBundle.EditBinaryFilesTitle_lastModified}" required="true" requiredMessage="#{myBundle.EditBinaryFilesRequiredMessage_lastModified}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditBinaryFilesLabel_contents}" for="contents" />
+                        <p:inputTextarea rows="4" cols="30" id="contents" value="#{binaryFilesController.selected.contents}" title="#{myBundle.EditBinaryFilesTitle_contents}" required="true" requiredMessage="#{myBundle.EditBinaryFilesRequiredMessage_contents}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{binaryFilesController.save}" value="#{myBundle.Save}" update="display,:BinaryFilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('BinaryFilesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('BinaryFilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

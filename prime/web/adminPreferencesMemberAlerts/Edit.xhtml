@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AdminPreferencesMemberAlertsEditDlg" widgetVar="AdminPreferencesMemberAlertsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAdminPreferencesMemberAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AdminPreferencesMemberAlertsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{adminPreferencesMemberAlertsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAdminPreferencesMemberAlertsLabel_adminPreferencesMemberAlertsPK_preferenceId}" for="adminPreferencesMemberAlertsPK_preferenceId" />
+                        <h:outputText id="adminPreferencesMemberAlertsPK_preferenceId" value="#{adminPreferencesMemberAlertsController.selected.adminPreferencesMemberAlertsPK.preferenceId}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditAdminPreferencesMemberAlertsLabel_adminPreferencesMemberAlertsPK_type}" for="adminPreferencesMemberAlertsPK_type" />
+                        <h:outputText id="adminPreferencesMemberAlertsPK_type" value="#{adminPreferencesMemberAlertsController.selected.adminPreferencesMemberAlertsPK.type}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditAdminPreferencesMemberAlertsLabel_adminNotificationPreferences}" for="adminNotificationPreferences" />
+                        <h:outputText id="adminNotificationPreferences" value="#{adminPreferencesMemberAlertsController.selected.adminNotificationPreferences}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adminPreferencesMemberAlertsController.save}" value="#{myBundle.Save}" update="display,:AdminPreferencesMemberAlertsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdminPreferencesMemberAlertsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AdminPreferencesMemberAlertsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

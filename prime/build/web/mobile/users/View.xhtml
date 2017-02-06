@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewUsersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{usersController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_id}"/>
+                            <h:outputText value="#{usersController.selected.id}" title="#{myBundle.ViewUsersTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_subclass}"/>
+                            <h:outputText value="#{usersController.selected.subclass}" title="#{myBundle.ViewUsersTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_salt}"/>
+                            <h:outputText value="#{usersController.selected.salt}" title="#{myBundle.ViewUsersTitle_salt}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_username}"/>
+                            <h:outputText value="#{usersController.selected.username}" title="#{myBundle.ViewUsersTitle_username}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_password}"/>
+                            <h:outputText value="#{usersController.selected.password}" title="#{myBundle.ViewUsersTitle_password}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_transactionPassword}"/>
+                            <h:outputText value="#{usersController.selected.transactionPassword}" title="#{myBundle.ViewUsersTitle_transactionPassword}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_transactionPasswordStatus}"/>
+                            <h:outputText value="#{usersController.selected.transactionPasswordStatus}" title="#{myBundle.ViewUsersTitle_transactionPasswordStatus}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_lastLogin}"/>
+                            <h:outputText value="#{usersController.selected.lastLogin}" title="#{myBundle.ViewUsersTitle_lastLogin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_passwordDate}"/>
+                            <h:outputText value="#{usersController.selected.passwordDate}" title="#{myBundle.ViewUsersTitle_passwordDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_passwordBlockedUntil}"/>
+                            <h:outputText value="#{usersController.selected.passwordBlockedUntil}" title="#{myBundle.ViewUsersTitle_passwordBlockedUntil}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_pin}"/>
+                            <h:outputText value="#{usersController.selected.pin}" title="#{myBundle.ViewUsersTitle_pin}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_pinBlockedUntil}"/>
+                            <h:outputText value="#{usersController.selected.pinBlockedUntil}" title="#{myBundle.ViewUsersTitle_pinBlockedUntil}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewUsersLabel_members}"/>
+                            <h:outputText value="#{usersController.selected.members.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

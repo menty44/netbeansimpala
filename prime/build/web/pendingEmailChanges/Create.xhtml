@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PendingEmailChangesCreateDlg" widgetVar="PendingEmailChangesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePendingEmailChangesTitle}" closeOnEscape="true">
+
+            <h:form id="PendingEmailChangesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{pendingEmailChangesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{pendingEmailChangesController.selected.creationDate}" title="#{myBundle.CreatePendingEmailChangesTitle_creationDate}" required="true" requiredMessage="#{myBundle.CreatePendingEmailChangesRequiredMessage_creationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_newEmail}" for="newEmail" />
+                        <p:inputText id="newEmail" value="#{pendingEmailChangesController.selected.newEmail}" title="#{myBundle.CreatePendingEmailChangesTitle_newEmail}" required="true" requiredMessage="#{myBundle.CreatePendingEmailChangesRequiredMessage_newEmail}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_validationKey}" for="validationKey" />
+                        <p:inputText id="validationKey" value="#{pendingEmailChangesController.selected.validationKey}" title="#{myBundle.CreatePendingEmailChangesTitle_validationKey}" required="true" requiredMessage="#{myBundle.CreatePendingEmailChangesRequiredMessage_validationKey}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_lastEmailDate}" for="lastEmailDate" />
+                        <p:calendar id="lastEmailDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{pendingEmailChangesController.selected.lastEmailDate}" title="#{myBundle.CreatePendingEmailChangesTitle_lastEmailDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_remoteAddress}" for="remoteAddress" />
+                        <p:inputText id="remoteAddress" value="#{pendingEmailChangesController.selected.remoteAddress}" title="#{myBundle.CreatePendingEmailChangesTitle_remoteAddress}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{pendingEmailChangesController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreatePendingEmailChangesLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{pendingEmailChangesController.selected.memberId}" required="true" requiredMessage="#{myBundle.CreatePendingEmailChangesRequiredMessage_memberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pendingEmailChangesController.saveNew}" value="#{myBundle.Save}" update="display,:PendingEmailChangesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PendingEmailChangesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PendingEmailChangesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

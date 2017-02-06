@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CustomFieldValuesEditDlg" widgetVar="CustomFieldValuesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCustomFieldValuesTitle}" closeOnEscape="true">
+
+            <h:form id="CustomFieldValuesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="CustomFieldValuesTabView">
+
+                        <p:tab id="CustomFieldValuesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{customFieldValuesController.selected != null}">
+
+                                <h:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_id}" for="id" />
+                                <h:outputText id="id" value="#{customFieldValuesController.selected.id}" />
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_subclass}" for="subclass" />
+                                <p:inputText id="subclass" value="#{customFieldValuesController.selected.subclass}" title="#{myBundle.EditCustomFieldValuesTitle_subclass}" required="true" requiredMessage="#{myBundle.EditCustomFieldValuesRequiredMessage_subclass}" size="10" maxlength="10"/>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_stringValue}" for="stringValue" />
+                                <p:inputTextarea rows="4" cols="30" id="stringValue" value="#{customFieldValuesController.selected.stringValue}" title="#{myBundle.EditCustomFieldValuesTitle_stringValue}" />
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_memberHidden}" for="memberHidden" />
+                                <p:selectBooleanCheckbox id="memberHidden" value="#{customFieldValuesController.selected.memberHidden}" required="true" requiredMessage="#{myBundle.EditCustomFieldValuesRequiredMessage_memberHidden}"/>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_loanGroupId}" for="loanGroupId" />
+                                <p:selectOneMenu id="loanGroupId" value="#{customFieldValuesController.selected.loanGroupId}"  converter="loanGroupsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{loanGroupsController.items}"
+                                                   var="loanGroupIdItem"
+                                                   itemValue="#{loanGroupIdItem}"
+                                                   itemLabel="#{loanGroupIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_guaranteeId}" for="guaranteeId" />
+                                <p:selectOneMenu id="guaranteeId" value="#{customFieldValuesController.selected.guaranteeId}"  converter="guaranteesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{guaranteesController.items}"
+                                                   var="guaranteeIdItem"
+                                                   itemValue="#{guaranteeIdItem}"
+                                                   itemLabel="#{guaranteeIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_transferId}" for="transferId" />
+                                <p:selectOneMenu id="transferId" value="#{customFieldValuesController.selected.transferId}"  converter="transfersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transfersController.items}"
+                                                   var="transferIdItem"
+                                                   itemValue="#{transferIdItem}"
+                                                   itemLabel="#{transferIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_pendingMemberId}" for="pendingMemberId" />
+                                <p:selectOneMenu id="pendingMemberId" value="#{customFieldValuesController.selected.pendingMemberId}"  converter="pendingMembersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{pendingMembersController.items}"
+                                                   var="pendingMemberIdItem"
+                                                   itemValue="#{pendingMemberIdItem}"
+                                                   itemLabel="#{pendingMemberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_memberRecordId}" for="memberRecordId" />
+                                <p:selectOneMenu id="memberRecordId" value="#{customFieldValuesController.selected.memberRecordId}"  converter="memberRecordsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{memberRecordsController.items}"
+                                                   var="memberRecordIdItem"
+                                                   itemValue="#{memberRecordIdItem}"
+                                                   itemLabel="#{memberRecordIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_importedMemberRecordId}" for="importedMemberRecordId" />
+                                <p:selectOneMenu id="importedMemberRecordId" value="#{customFieldValuesController.selected.importedMemberRecordId}"  converter="importedMemberRecordsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{importedMemberRecordsController.items}"
+                                                   var="importedMemberRecordIdItem"
+                                                   itemValue="#{importedMemberRecordIdItem}"
+                                                   itemLabel="#{importedMemberRecordIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_adminId}" for="adminId" />
+                                <p:selectOneMenu id="adminId" value="#{customFieldValuesController.selected.adminId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="adminIdItem"
+                                                   itemValue="#{adminIdItem}"
+                                                   itemLabel="#{adminIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_operatorId}" for="operatorId" />
+                                <p:selectOneMenu id="operatorId" value="#{customFieldValuesController.selected.operatorId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="operatorIdItem"
+                                                   itemValue="#{operatorIdItem}"
+                                                   itemLabel="#{operatorIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_importedMemberId}" for="importedMemberId" />
+                                <p:selectOneMenu id="importedMemberId" value="#{customFieldValuesController.selected.importedMemberId}"  converter="importedMembersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{importedMembersController.items}"
+                                                   var="importedMemberIdItem"
+                                                   itemValue="#{importedMemberIdItem}"
+                                                   itemLabel="#{importedMemberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_memberId}" for="memberId" />
+                                <p:selectOneMenu id="memberId" value="#{customFieldValuesController.selected.memberId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="memberIdItem"
+                                                   itemValue="#{memberIdItem}"
+                                                   itemLabel="#{memberIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_invoiceId}" for="invoiceId" />
+                                <p:selectOneMenu id="invoiceId" value="#{customFieldValuesController.selected.invoiceId}"  converter="invoicesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{invoicesController.items}"
+                                                   var="invoiceIdItem"
+                                                   itemValue="#{invoiceIdItem}"
+                                                   itemLabel="#{invoiceIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_importedAdId}" for="importedAdId" />
+                                <p:selectOneMenu id="importedAdId" value="#{customFieldValuesController.selected.importedAdId}"  converter="importedAdsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{importedAdsController.items}"
+                                                   var="importedAdIdItem"
+                                                   itemValue="#{importedAdIdItem}"
+                                                   itemLabel="#{importedAdIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_fieldId}" for="fieldId" />
+                                <p:selectOneMenu id="fieldId" value="#{customFieldValuesController.selected.fieldId}"  converter="customFieldsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{customFieldsController.items}"
+                                                   var="fieldIdItem"
+                                                   itemValue="#{fieldIdItem}"
+                                                   itemLabel="#{fieldIdItem.internalName.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_memberValueId}" for="memberValueId" />
+                                <p:selectOneMenu id="memberValueId" value="#{customFieldValuesController.selected.memberValueId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="memberValueIdItem"
+                                                   itemValue="#{memberValueIdItem}"
+                                                   itemLabel="#{memberValueIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                                <p:selectOneMenu id="scheduledPaymentId" value="#{customFieldValuesController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{scheduledPaymentsController.items}"
+                                                   var="scheduledPaymentIdItem"
+                                                   itemValue="#{scheduledPaymentIdItem}"
+                                                   itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_adId}" for="adId" />
+                                <p:selectOneMenu id="adId" value="#{customFieldValuesController.selected.adId}"  converter="adsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{adsController.items}"
+                                                   var="adIdItem"
+                                                   itemValue="#{adIdItem}"
+                                                   itemLabel="#{adIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="CustomFieldValuesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{customFieldValuesController.selected != null}">
+                                <p:outputLabel value="#{myBundle.EditCustomFieldValuesLabel_possibleValueId}" for="possibleValueId" />
+                                <p:selectOneMenu id="possibleValueId" value="#{customFieldValuesController.selected.possibleValueId}"  converter="customFieldPossibleValuesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{customFieldPossibleValuesController.items}"
+                                                   var="possibleValueIdItem"
+                                                   itemValue="#{possibleValueIdItem}"
+                                                   itemLabel="#{possibleValueIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{customFieldValuesController.save}" value="#{myBundle.Save}" update="display,:CustomFieldValuesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CustomFieldValuesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CustomFieldValuesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

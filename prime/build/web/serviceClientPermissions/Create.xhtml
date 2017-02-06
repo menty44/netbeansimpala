@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServiceClientPermissionsCreateDlg" widgetVar="ServiceClientPermissionsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateServiceClientPermissionsTitle}" closeOnEscape="true">
+
+            <h:form id="ServiceClientPermissionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{serviceClientPermissionsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClientPermissionsPK_serviceClientId}" for="serviceClientPermissionsPK_serviceClientId" />
+                        <p:inputText id="serviceClientPermissionsPK_serviceClientId" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.serviceClientId}" title="#{myBundle.CreateServiceClientPermissionsTitle_serviceClientPermissionsPK_serviceClientId}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClientPermissionsPK_serviceClientId}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClientPermissionsPK_operation}" for="serviceClientPermissionsPK_operation" />
+                        <p:inputText id="serviceClientPermissionsPK_operation" value="#{serviceClientPermissionsController.selected.serviceClientPermissionsPK.operation}" title="#{myBundle.CreateServiceClientPermissionsTitle_serviceClientPermissionsPK_operation}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClientPermissionsPK_operation}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateServiceClientPermissionsLabel_serviceClients}" for="serviceClients" />
+                        <p:selectOneMenu id="serviceClients" value="#{serviceClientPermissionsController.selected.serviceClients}" required="true" requiredMessage="#{myBundle.CreateServiceClientPermissionsRequiredMessage_serviceClients}" converter="serviceClientsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{serviceClientsController.items}"
+                                           var="serviceClientsItem"
+                                           itemValue="#{serviceClientsItem}"
+                                           itemLabel="#{serviceClientsItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{serviceClientPermissionsController.saveNew}" value="#{myBundle.Save}" update="display,:ServiceClientPermissionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ServiceClientPermissionsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ServiceClientPermissionsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

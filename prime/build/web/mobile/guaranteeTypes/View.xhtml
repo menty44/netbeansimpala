@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="GuaranteeTypesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewGuaranteeTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:GuaranteeTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="GuaranteeTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="GuaranteeTypesTabView">
+
+                        <p:tab id="GuaranteeTypesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{guaranteeTypesController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_id}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.id}" title="#{myBundle.ViewGuaranteeTypesTitle_id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_name}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.name}" title="#{myBundle.ViewGuaranteeTypesTitle_name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_description}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.description}" title="#{myBundle.ViewGuaranteeTypesTitle_description}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_model}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.model}" title="#{myBundle.ViewGuaranteeTypesTitle_model}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_authorizedBy}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.authorizedBy}" title="#{myBundle.ViewGuaranteeTypesTitle_authorizedBy}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_enabled}"/>
+                                    <h:selectBooleanCheckbox id="enabled" value="#{guaranteeTypesController.selected.enabled}" title="#{myBundle.EditGuaranteeTypesTitle_enabled}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_enabled}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_pendingGuaranteeExpirationNumber}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.pendingGuaranteeExpirationNumber}" title="#{myBundle.ViewGuaranteeTypesTitle_pendingGuaranteeExpirationNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_pendingGuaranteeExpirationField}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.pendingGuaranteeExpirationField}" title="#{myBundle.ViewGuaranteeTypesTitle_pendingGuaranteeExpirationField}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_paymentObligationPeriodNumber}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.paymentObligationPeriodNumber}" title="#{myBundle.ViewGuaranteeTypesTitle_paymentObligationPeriodNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_paymentObligationPeriodField}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.paymentObligationPeriodField}" title="#{myBundle.ViewGuaranteeTypesTitle_paymentObligationPeriodField}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_creditFeePayer}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.creditFeePayer}" title="#{myBundle.ViewGuaranteeTypesTitle_creditFeePayer}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_issueFeePayer}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.issueFeePayer}" title="#{myBundle.ViewGuaranteeTypesTitle_issueFeePayer}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_creditFee}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.creditFee}" title="#{myBundle.ViewGuaranteeTypesTitle_creditFee}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_creditFeeType}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.creditFeeType}" title="#{myBundle.ViewGuaranteeTypesTitle_creditFeeType}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_creditFeeReadonly}"/>
+                                    <h:selectBooleanCheckbox id="creditFeeReadonly" value="#{guaranteeTypesController.selected.creditFeeReadonly}" title="#{myBundle.EditGuaranteeTypesTitle_creditFeeReadonly}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_creditFeeReadonly}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_issueFee}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.issueFee}" title="#{myBundle.ViewGuaranteeTypesTitle_issueFee}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_issueFeeType}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.issueFeeType}" title="#{myBundle.ViewGuaranteeTypesTitle_issueFeeType}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_issueFeeReadonly}"/>
+                                    <h:selectBooleanCheckbox id="issueFeeReadonly" value="#{guaranteeTypesController.selected.issueFeeReadonly}" title="#{myBundle.EditGuaranteeTypesTitle_issueFeeReadonly}" required="true" requiredMessage="#{myBundle.EditGuaranteeTypesRequiredMessage_issueFeeReadonly}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_adminNotificationPreferencesCollection}"/>
+                                    <h:selectManyMenu converter="adminNotificationPreferencesConverter">
+                                        <f:selectItems value="#{guaranteeTypesController.selected.adminNotificationPreferencesCollection}"
+                                                       var="adminNotificationPreferencesCollectionItem"
+                                                       itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                                       itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                                       />
+
+                                    </h:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_creditFeeTransferTypeId}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.creditFeeTransferTypeId.name}"/>
+                                </pm:field>
+
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab id="GuaranteeTypesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:outputPanel rendered="#{guaranteeTypesController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_issueFeeTransferTypeId}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.issueFeeTransferTypeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_loanTransferTypeId}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.loanTransferTypeId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_currencyId}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.currencyId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewGuaranteeTypesLabel_forwardTransferTypeId}"/>
+                                    <h:outputText value="#{guaranteeTypesController.selected.forwardTransferTypeId.name}"/>
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

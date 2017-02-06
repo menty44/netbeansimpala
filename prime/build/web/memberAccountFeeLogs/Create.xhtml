@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberAccountFeeLogsCreateDlg" widgetVar="MemberAccountFeeLogsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMemberAccountFeeLogsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberAccountFeeLogsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{memberAccountFeeLogsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberAccountFeeLogsController.selected.date}" title="#{myBundle.CreateMemberAccountFeeLogsTitle_date}" required="true" requiredMessage="#{myBundle.CreateMemberAccountFeeLogsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{memberAccountFeeLogsController.selected.amount}" title="#{myBundle.CreateMemberAccountFeeLogsTitle_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_success}" for="success" />
+                        <p:selectBooleanCheckbox id="success" value="#{memberAccountFeeLogsController.selected.success}" required="true" requiredMessage="#{myBundle.CreateMemberAccountFeeLogsRequiredMessage_success}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_rechargeAttempt}" for="rechargeAttempt" />
+                        <p:inputText id="rechargeAttempt" value="#{memberAccountFeeLogsController.selected.rechargeAttempt}" title="#{myBundle.CreateMemberAccountFeeLogsTitle_rechargeAttempt}" required="true" requiredMessage="#{myBundle.CreateMemberAccountFeeLogsRequiredMessage_rechargeAttempt}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{memberAccountFeeLogsController.selected.transferId}"  converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_accountFeeLogId}" for="accountFeeLogId" />
+                        <p:selectOneMenu id="accountFeeLogId" value="#{memberAccountFeeLogsController.selected.accountFeeLogId}"  converter="accountFeeLogsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountFeeLogsController.items}"
+                                           var="accountFeeLogIdItem"
+                                           itemValue="#{accountFeeLogIdItem}"
+                                           itemLabel="#{accountFeeLogIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_invoiceId}" for="invoiceId" />
+                        <p:selectOneMenu id="invoiceId" value="#{memberAccountFeeLogsController.selected.invoiceId}"  converter="invoicesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{invoicesController.items}"
+                                           var="invoiceIdItem"
+                                           itemValue="#{invoiceIdItem}"
+                                           itemLabel="#{invoiceIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateMemberAccountFeeLogsLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{memberAccountFeeLogsController.selected.memberId}" required="true" requiredMessage="#{myBundle.CreateMemberAccountFeeLogsRequiredMessage_memberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{memberAccountFeeLogsController.saveNew}" value="#{myBundle.Save}" update="display,:MemberAccountFeeLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MemberAccountFeeLogsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MemberAccountFeeLogsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

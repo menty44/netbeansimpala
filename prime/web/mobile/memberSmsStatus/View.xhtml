@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberSmsStatusViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMemberSmsStatusTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberSmsStatusListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberSmsStatusViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{memberSmsStatusController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_id}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.id}" title="#{myBundle.ViewMemberSmsStatusTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_freeSmsSent}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.freeSmsSent}" title="#{myBundle.ViewMemberSmsStatusTitle_freeSmsSent}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_freeSmsExpiration}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.freeSmsExpiration}" title="#{myBundle.ViewMemberSmsStatusTitle_freeSmsExpiration}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_paidSmsLeft}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.paidSmsLeft}" title="#{myBundle.ViewMemberSmsStatusTitle_paidSmsLeft}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_paidSmsExpiration}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.paidSmsExpiration}" title="#{myBundle.ViewMemberSmsStatusTitle_paidSmsExpiration}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_allowChargingSms}"/>
+                            <h:selectBooleanCheckbox id="allowChargingSms" value="#{memberSmsStatusController.selected.allowChargingSms}" title="#{myBundle.EditMemberSmsStatusTitle_allowChargingSms}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_allowChargingSms}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_acceptFreeMailing}"/>
+                            <h:selectBooleanCheckbox id="acceptFreeMailing" value="#{memberSmsStatusController.selected.acceptFreeMailing}" title="#{myBundle.EditMemberSmsStatusTitle_acceptFreeMailing}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_acceptFreeMailing}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_acceptPaidMailing}"/>
+                            <h:selectBooleanCheckbox id="acceptPaidMailing" value="#{memberSmsStatusController.selected.acceptPaidMailing}" title="#{myBundle.EditMemberSmsStatusTitle_acceptPaidMailing}" required="true" requiredMessage="#{myBundle.EditMemberSmsStatusRequiredMessage_acceptPaidMailing}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberSmsStatusLabel_memberId}"/>
+                            <h:outputText value="#{memberSmsStatusController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

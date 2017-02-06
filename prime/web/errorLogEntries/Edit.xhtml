@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ErrorLogEntriesEditDlg" widgetVar="ErrorLogEntriesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditErrorLogEntriesTitle}" closeOnEscape="true">
+
+            <h:form id="ErrorLogEntriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{errorLogEntriesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{errorLogEntriesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{errorLogEntriesController.selected.date}" title="#{myBundle.EditErrorLogEntriesTitle_date}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_path}" for="path" />
+                        <p:inputText id="path" value="#{errorLogEntriesController.selected.path}" title="#{myBundle.EditErrorLogEntriesTitle_path}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_path}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_removed}" for="removed" />
+                        <p:selectBooleanCheckbox id="removed" value="#{errorLogEntriesController.selected.removed}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_removed}"/>
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_stackTrace}" for="stackTrace" />
+                        <p:inputTextarea rows="4" cols="30" id="stackTrace" value="#{errorLogEntriesController.selected.stackTrace}" title="#{myBundle.EditErrorLogEntriesTitle_stackTrace}" />
+
+                        <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_loggedUserId}" for="loggedUserId" />
+                        <p:selectOneMenu id="loggedUserId" value="#{errorLogEntriesController.selected.loggedUserId}"  converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="loggedUserIdItem"
+                                           itemValue="#{loggedUserIdItem}"
+                                           itemLabel="#{loggedUserIdItem.username.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{errorLogEntriesController.save}" value="#{myBundle.Save}" update="display,:ErrorLogEntriesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ErrorLogEntriesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ErrorLogEntriesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

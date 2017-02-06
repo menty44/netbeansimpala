@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="FileMappingsEditDlg" widgetVar="FileMappingsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditFileMappingsTitle}" closeOnEscape="true">
+
+            <h:form id="FileMappingsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{fileMappingsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditFileMappingsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{fileMappingsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{fileMappingsController.selected.subclass}" title="#{myBundle.EditFileMappingsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditFileMappingsRequiredMessage_subclass}" size="3" maxlength="3"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_dateFormat}" for="dateFormat" />
+                        <p:inputText id="dateFormat" value="#{fileMappingsController.selected.dateFormat}" title="#{myBundle.EditFileMappingsTitle_dateFormat}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_numberFormat}" for="numberFormat" />
+                        <p:inputText id="numberFormat" value="#{fileMappingsController.selected.numberFormat}" title="#{myBundle.EditFileMappingsTitle_numberFormat}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_decimalPlaces}" for="decimalPlaces" />
+                        <p:inputText id="decimalPlaces" value="#{fileMappingsController.selected.decimalPlaces}" title="#{myBundle.EditFileMappingsTitle_decimalPlaces}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_decimalSeparator}" for="decimalSeparator" />
+                        <p:inputText id="decimalSeparator" value="#{fileMappingsController.selected.decimalSeparator}" title="#{myBundle.EditFileMappingsTitle_decimalSeparator}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_negativeAmountValue}" for="negativeAmountValue" />
+                        <p:inputText id="negativeAmountValue" value="#{fileMappingsController.selected.negativeAmountValue}" title="#{myBundle.EditFileMappingsTitle_negativeAmountValue}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_classname}" for="classname" />
+                        <p:inputText id="classname" value="#{fileMappingsController.selected.classname}" title="#{myBundle.EditFileMappingsTitle_classname}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_stringQuote}" for="stringQuote" />
+                        <p:inputText id="stringQuote" value="#{fileMappingsController.selected.stringQuote}" title="#{myBundle.EditFileMappingsTitle_stringQuote}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_columnSeparator}" for="columnSeparator" />
+                        <p:inputText id="columnSeparator" value="#{fileMappingsController.selected.columnSeparator}" title="#{myBundle.EditFileMappingsTitle_columnSeparator}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_headerLines}" for="headerLines" />
+                        <p:inputText id="headerLines" value="#{fileMappingsController.selected.headerLines}" title="#{myBundle.EditFileMappingsTitle_headerLines}"/>
+
+                        <p:outputLabel value="#{myBundle.EditFileMappingsLabel_accountId}" for="accountId" />
+                        <p:selectOneMenu id="accountId" value="#{fileMappingsController.selected.accountId}" required="true" requiredMessage="#{myBundle.EditFileMappingsRequiredMessage_accountId}" converter="externalAccountsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{externalAccountsController.items}"
+                                           var="accountIdItem"
+                                           itemValue="#{accountIdItem}"
+                                           itemLabel="#{accountIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fileMappingsController.save}" value="#{myBundle.Save}" update="display,:FileMappingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FileMappingsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('FileMappingsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExternalTransfersViewDlg" widgetVar="ExternalTransfersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewExternalTransfersTitle}" closeOnEscape="true">
+
+            <h:form id="ExternalTransfersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{externalTransfersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_id}"/>
+                        <h:outputText value="#{externalTransfersController.selected.id}" title="#{myBundle.ViewExternalTransfersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_status}"/>
+                        <h:outputText value="#{externalTransfersController.selected.status}" title="#{myBundle.ViewExternalTransfersTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_date}"/>
+                        <h:outputText value="#{externalTransfersController.selected.date}" title="#{myBundle.ViewExternalTransfersTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_amount}"/>
+                        <h:outputText value="#{externalTransfersController.selected.amount}" title="#{myBundle.ViewExternalTransfersTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_description}"/>
+                        <h:outputText value="#{externalTransfersController.selected.description}" title="#{myBundle.ViewExternalTransfersTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_lineNumber}"/>
+                        <h:outputText value="#{externalTransfersController.selected.lineNumber}" title="#{myBundle.ViewExternalTransfersTitle_lineNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_comments}"/>
+                        <h:outputText value="#{externalTransfersController.selected.comments}" title="#{myBundle.ViewExternalTransfersTitle_comments}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_importId}"/>
+                        <h:outputText value="#{externalTransfersController.selected.importId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_typeId}"/>
+                        <h:outputText value="#{externalTransfersController.selected.typeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_memberId}"/>
+                        <h:outputText value="#{externalTransfersController.selected.memberId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalTransfersLabel_accountId}"/>
+                        <h:outputText value="#{externalTransfersController.selected.accountId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ExternalTransfersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

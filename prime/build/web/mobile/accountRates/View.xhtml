@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountRatesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAccountRatesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountRatesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountRatesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountRatesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_id}"/>
+                            <h:outputText value="#{accountRatesController.selected.id}" title="#{myBundle.ViewAccountRatesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_emissionDate}"/>
+                            <h:outputText value="#{accountRatesController.selected.emissionDate}" title="#{myBundle.ViewAccountRatesTitle_emissionDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_expirationDate}"/>
+                            <h:outputText value="#{accountRatesController.selected.expirationDate}" title="#{myBundle.ViewAccountRatesTitle_expirationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_IRate}"/>
+                            <h:outputText value="#{accountRatesController.selected.IRate}" title="#{myBundle.ViewAccountRatesTitle_IRate}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_rateBalanceCorrection}"/>
+                            <h:outputText value="#{accountRatesController.selected.rateBalanceCorrection}" title="#{myBundle.ViewAccountRatesTitle_rateBalanceCorrection}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_transferId}"/>
+                            <h:outputText value="#{accountRatesController.selected.transferId.description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountRatesLabel_accountId}"/>
+                            <h:outputText value="#{accountRatesController.selected.accountId.ownerName}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

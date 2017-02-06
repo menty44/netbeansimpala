@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CardsEditDlg" widgetVar="CardsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCardsTitle}" closeOnEscape="true">
+
+            <h:form id="CardsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cardsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCardsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{cardsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_cardNumber}" for="cardNumber" />
+                        <p:inputText id="cardNumber" value="#{cardsController.selected.cardNumber}" title="#{myBundle.EditCardsTitle_cardNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_cardSecurityCode}" for="cardSecurityCode" />
+                        <p:inputText id="cardSecurityCode" value="#{cardsController.selected.cardSecurityCode}" title="#{myBundle.EditCardsTitle_cardSecurityCode}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.creationDate}" title="#{myBundle.EditCardsTitle_creationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_activationDate}" for="activationDate" />
+                        <p:calendar id="activationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.activationDate}" title="#{myBundle.EditCardsTitle_activationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{cardsController.selected.expirationDate}" title="#{myBundle.EditCardsTitle_expirationDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_cardSecurityCodeBlockedUntil}" for="cardSecurityCodeBlockedUntil" />
+                        <p:calendar id="cardSecurityCodeBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardsController.selected.cardSecurityCodeBlockedUntil}" title="#{myBundle.EditCardsTitle_cardSecurityCodeBlockedUntil}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{cardsController.selected.status}" title="#{myBundle.EditCardsTitle_status}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_cardTypeId}" for="cardTypeId" />
+                        <p:selectOneMenu id="cardTypeId" value="#{cardsController.selected.cardTypeId}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_cardTypeId}" converter="cardTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cardTypesController.items}"
+                                           var="cardTypeIdItem"
+                                           itemValue="#{cardTypeIdItem}"
+                                           itemLabel="#{cardTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCardsLabel_ownerId}" for="ownerId" />
+                        <p:selectOneMenu id="ownerId" value="#{cardsController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditCardsRequiredMessage_ownerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="ownerIdItem"
+                                           itemValue="#{ownerIdItem}"
+                                           itemLabel="#{ownerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cardsController.save}" value="#{myBundle.Save}" update="display,:CardsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CardsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CardsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

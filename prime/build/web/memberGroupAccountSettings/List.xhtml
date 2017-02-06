@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MemberGroupAccountSettingsListForm">
+
+        <p:panel header="#{myBundle.ListMemberGroupAccountSettingsTitle}">
+            <p:contextMenu id="MemberGroupAccountSettingsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MemberGroupAccountSettingsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MemberGroupAccountSettingsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MemberGroupAccountSettingsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MemberGroupAccountSettingsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MemberGroupAccountSettingsMenuItem_initialCreditTransferTypeId}" icon="ui-icon-search"  actionListener="#{memberGroupAccountSettingsController.prepareInitialCreditTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty memberGroupAccountSettingsController.selected.initialCreditTransferTypeId}"/>  
+                <p:menuitem value="#{myBundle.MemberGroupAccountSettingsMenuItem_groupId}" icon="ui-icon-search"  actionListener="#{memberGroupAccountSettingsController.prepareGroupId}" update=":GroupsViewForm" oncomplete="PF('GroupsViewDialog').show()" disabled="#{empty memberGroupAccountSettingsController.selected.groupId}"/>  
+                <p:menuitem value="#{myBundle.MemberGroupAccountSettingsMenuItem_typeId}" icon="ui-icon-search"  actionListener="#{memberGroupAccountSettingsController.prepareTypeId}" update=":AccountTypesViewForm" oncomplete="PF('AccountTypesViewDialog').show()" disabled="#{empty memberGroupAccountSettingsController.selected.typeId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{memberGroupAccountSettingsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{memberGroupAccountSettingsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{memberGroupAccountSettingsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberGroupAccountSettingsDataTableContextMenu" listener="#{memberGroupAccountSettingsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MemberGroupAccountSettingsDataTableContextMenu" listener="#{memberGroupAccountSettingsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{memberGroupAccountSettingsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MemberGroupAccountSettingsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.defaultType}" filterBy="#{item.defaultType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_defaultType}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="defaultType" value="#{item.defaultType}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_defaultType}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_defaultType}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.transactionPasswordRequired}" filterBy="#{item.transactionPasswordRequired}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_transactionPasswordRequired}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="transactionPasswordRequired" value="#{item.transactionPasswordRequired}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_transactionPasswordRequired}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_transactionPasswordRequired}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.hideWhenNoCreditLimit}" filterBy="#{item.hideWhenNoCreditLimit}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_hideWhenNoCreditLimit}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="hideWhenNoCreditLimit" value="#{item.hideWhenNoCreditLimit}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_hideWhenNoCreditLimit}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_hideWhenNoCreditLimit}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.defaultCreditLimit}" filterBy="#{item.defaultCreditLimit}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_defaultCreditLimit}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.defaultCreditLimit}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.defaultUpperCreditLimit}" filterBy="#{item.defaultUpperCreditLimit}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_defaultUpperCreditLimit}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.defaultUpperCreditLimit}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.initialCredit}" filterBy="#{item.initialCredit}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_initialCredit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initialCredit}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.lowUnits}" filterBy="#{item.lowUnits}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_lowUnits}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.lowUnits}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.lowUnitsMessage}" filterBy="#{item.lowUnitsMessage}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_lowUnitsMessage}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.lowUnitsMessage}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initialCreditTransferTypeId.name}" filterBy="#{item.initialCreditTransferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_initialCreditTransferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initialCreditTransferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.groupId.name}" filterBy="#{item.groupId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_groupId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.groupId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.typeId.name}" filterBy="#{item.typeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle_typeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.typeId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{memberGroupAccountSettingsController.prepareCreate}" update=":MemberGroupAccountSettingsCreateForm" oncomplete="PF('MemberGroupAccountSettingsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MemberGroupAccountSettingsViewForm" oncomplete="PF('MemberGroupAccountSettingsViewDialog').show()" disabled="#{empty memberGroupAccountSettingsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MemberGroupAccountSettingsEditForm" oncomplete="PF('MemberGroupAccountSettingsEditDialog').show()" disabled="#{empty memberGroupAccountSettingsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{memberGroupAccountSettingsController.delete}" update=":growl,datalist" disabled="#{empty memberGroupAccountSettingsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

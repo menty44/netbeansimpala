@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ErrorLogEntriesEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditErrorLogEntriesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ErrorLogEntriesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ErrorLogEntriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{errorLogEntriesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{errorLogEntriesController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{errorLogEntriesController.selected.date}" title="#{myBundle.EditErrorLogEntriesTitle_date}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_path}" for="path" />
+                            <p:inputText id="path" value="#{errorLogEntriesController.selected.path}" title="#{myBundle.EditErrorLogEntriesTitle_path}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_path}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_removed}" for="removed" />
+                            <p:selectBooleanCheckbox id="removed" value="#{errorLogEntriesController.selected.removed}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_removed}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_stackTrace}" for="stackTrace" />
+                            <p:inputTextarea rows="4" cols="30" id="stackTrace" value="#{errorLogEntriesController.selected.stackTrace}" title="#{myBundle.EditErrorLogEntriesTitle_stackTrace}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditErrorLogEntriesLabel_loggedUserId}" for="loggedUserId" />
+                            <p:selectOneMenu id="loggedUserId" value="#{errorLogEntriesController.selected.loggedUserId}"  converter="usersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{usersController.items}"
+                                               var="loggedUserIdItem"
+                                               itemValue="#{loggedUserIdItem}"
+                                               itemLabel="#{loggedUserIdItem.username.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{errorLogEntriesController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ErrorLogEntriesListPage:ErrorLogEntriesListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ErrorLogEntriesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

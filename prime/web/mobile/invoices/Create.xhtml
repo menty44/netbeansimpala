@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="InvoicesCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateInvoicesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:InvoicesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="InvoicesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{invoicesController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{invoicesController.selected.date}" title="#{myBundle.CreateInvoicesTitle_date}" required="true" requiredMessage="#{myBundle.CreateInvoicesRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_amount}" for="amount" />
+                            <p:inputText id="amount" value="#{invoicesController.selected.amount}" title="#{myBundle.CreateInvoicesTitle_amount}" required="true" requiredMessage="#{myBundle.CreateInvoicesRequiredMessage_amount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{invoicesController.selected.status}" title="#{myBundle.CreateInvoicesTitle_status}" required="true" requiredMessage="#{myBundle.CreateInvoicesRequiredMessage_status}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_description}" for="description" />
+                            <p:inputTextarea rows="4" cols="30" id="description" value="#{invoicesController.selected.description}" title="#{myBundle.CreateInvoicesTitle_description}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_transferId}" for="transferId" />
+                            <p:selectOneMenu id="transferId" value="#{invoicesController.selected.transferId}"  converter="transfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transfersController.items}"
+                                               var="transferIdItem"
+                                               itemValue="#{transferIdItem}"
+                                               itemLabel="#{transferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_accountFeeLogId}" for="accountFeeLogId" />
+                            <p:selectOneMenu id="accountFeeLogId" value="#{invoicesController.selected.accountFeeLogId}"  converter="accountFeeLogsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountFeeLogsController.items}"
+                                               var="accountFeeLogIdItem"
+                                               itemValue="#{accountFeeLogIdItem}"
+                                               itemLabel="#{accountFeeLogIdItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_fromMemberId}" for="fromMemberId" />
+                            <p:selectOneMenu id="fromMemberId" value="#{invoicesController.selected.fromMemberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="fromMemberIdItem"
+                                               itemValue="#{fromMemberIdItem}"
+                                               itemLabel="#{fromMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_toMemberId}" for="toMemberId" />
+                            <p:selectOneMenu id="toMemberId" value="#{invoicesController.selected.toMemberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="toMemberIdItem"
+                                               itemValue="#{toMemberIdItem}"
+                                               itemLabel="#{toMemberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_performedById}" for="performedById" />
+                            <p:selectOneMenu id="performedById" value="#{invoicesController.selected.performedById}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="performedByIdItem"
+                                               itemValue="#{performedByIdItem}"
+                                               itemLabel="#{performedByIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_sentById}" for="sentById" />
+                            <p:selectOneMenu id="sentById" value="#{invoicesController.selected.sentById}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="sentByIdItem"
+                                               itemValue="#{sentByIdItem}"
+                                               itemLabel="#{sentByIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_transferTypeId}" for="transferTypeId" />
+                            <p:selectOneMenu id="transferTypeId" value="#{invoicesController.selected.transferTypeId}"  converter="transferTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transferTypesController.items}"
+                                               var="transferTypeIdItem"
+                                               itemValue="#{transferTypeIdItem}"
+                                               itemLabel="#{transferTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                            <p:selectOneMenu id="scheduledPaymentId" value="#{invoicesController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{scheduledPaymentsController.items}"
+                                               var="scheduledPaymentIdItem"
+                                               itemValue="#{scheduledPaymentIdItem}"
+                                               itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateInvoicesLabel_destTypeId}" for="destTypeId" />
+                            <p:selectOneMenu id="destTypeId" value="#{invoicesController.selected.destTypeId}"  converter="accountTypesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{accountTypesController.items}"
+                                               var="destTypeIdItem"
+                                               itemValue="#{destTypeIdItem}"
+                                               itemLabel="#{destTypeIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{invoicesController.saveNew}" value="#{myBundle.Save}" update="display,:InvoicesListPage:InvoicesListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:InvoicesListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

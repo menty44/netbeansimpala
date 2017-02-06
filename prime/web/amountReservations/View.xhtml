@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AmountReservationsViewDlg" widgetVar="AmountReservationsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAmountReservationsTitle}" closeOnEscape="true">
+
+            <h:form id="AmountReservationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{amountReservationsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_id}"/>
+                        <h:outputText value="#{amountReservationsController.selected.id}" title="#{myBundle.ViewAmountReservationsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_subclass}"/>
+                        <h:outputText value="#{amountReservationsController.selected.subclass}" title="#{myBundle.ViewAmountReservationsTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_date}"/>
+                        <h:outputText value="#{amountReservationsController.selected.date}" title="#{myBundle.ViewAmountReservationsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_amount}"/>
+                        <h:outputText value="#{amountReservationsController.selected.amount}" title="#{myBundle.ViewAmountReservationsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_transferAuthorizationId}"/>
+                        <h:outputText value="#{amountReservationsController.selected.transferAuthorizationId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_transferId}"/>
+                        <h:outputText value="#{amountReservationsController.selected.transferId.description}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_accountId}"/>
+                        <h:outputText value="#{amountReservationsController.selected.accountId.ownerName}"/>
+
+                        <h:outputText value="#{myBundle.ViewAmountReservationsLabel_scheduledPaymentId}"/>
+                        <h:outputText value="#{amountReservationsController.selected.scheduledPaymentId.description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AmountReservationsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

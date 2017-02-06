@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ErrorLogEntriesViewDlg" widgetVar="ErrorLogEntriesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewErrorLogEntriesTitle}" closeOnEscape="true">
+
+            <h:form id="ErrorLogEntriesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{errorLogEntriesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_id}"/>
+                        <h:outputText value="#{errorLogEntriesController.selected.id}" title="#{myBundle.ViewErrorLogEntriesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_date}"/>
+                        <h:outputText value="#{errorLogEntriesController.selected.date}" title="#{myBundle.ViewErrorLogEntriesTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_path}"/>
+                        <h:outputText value="#{errorLogEntriesController.selected.path}" title="#{myBundle.ViewErrorLogEntriesTitle_path}"/>
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_removed}"/>
+                        <h:selectBooleanCheckbox id="removed" value="#{errorLogEntriesController.selected.removed}" title="#{myBundle.EditErrorLogEntriesTitle_removed}" required="true" requiredMessage="#{myBundle.EditErrorLogEntriesRequiredMessage_removed}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_stackTrace}"/>
+                        <h:outputText value="#{errorLogEntriesController.selected.stackTrace}" title="#{myBundle.ViewErrorLogEntriesTitle_stackTrace}"/>
+
+                        <h:outputText value="#{myBundle.ViewErrorLogEntriesLabel_loggedUserId}"/>
+                        <h:outputText value="#{errorLogEntriesController.selected.loggedUserId.username}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ErrorLogEntriesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

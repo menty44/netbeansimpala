@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PosViewDlg" widgetVar="PosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPosTitle}" closeOnEscape="true">
+
+            <h:form id="PosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{posController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPosLabel_id}"/>
+                        <h:outputText value="#{posController.selected.id}" title="#{myBundle.ViewPosTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPosLabel_posId}"/>
+                        <h:outputText value="#{posController.selected.posId}" title="#{myBundle.ViewPosTitle_posId}"/>
+
+                        <h:outputText value="#{myBundle.ViewPosLabel_description}"/>
+                        <h:outputText value="#{posController.selected.description}" title="#{myBundle.ViewPosTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewPosLabel_status}"/>
+                        <h:outputText value="#{posController.selected.status}" title="#{myBundle.ViewPosTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewPosLabel_memberPosId}"/>
+                        <h:outputText value="#{posController.selected.memberPosId.posName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

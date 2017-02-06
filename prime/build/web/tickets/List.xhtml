@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TicketsListForm">
+
+        <p:panel header="#{myBundle.ListTicketsTitle}">
+            <p:contextMenu id="TicketsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TicketsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TicketsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TicketsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TicketsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TicketsMenuItem_transferId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareTransferId}" update=":TransfersViewForm" oncomplete="PF('TransfersViewDialog').show()" disabled="#{empty ticketsController.selected.transferId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_toChannelId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareToChannelId}" update=":ChannelsViewForm" oncomplete="PF('ChannelsViewDialog').show()" disabled="#{empty ticketsController.selected.toChannelId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_fromMemberId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareFromMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty ticketsController.selected.fromMemberId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_toMemberId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareToMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty ticketsController.selected.toMemberId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_transferTypeId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareTransferTypeId}" update=":TransferTypesViewForm" oncomplete="PF('TransferTypesViewDialog').show()" disabled="#{empty ticketsController.selected.transferTypeId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_currencyId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareCurrencyId}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty ticketsController.selected.currencyId}"/>  
+                <p:menuitem value="#{myBundle.TicketsMenuItem_fromChannelId}" icon="ui-icon-search"  actionListener="#{ticketsController.prepareFromChannelId}" update=":ChannelsViewForm" oncomplete="PF('ChannelsViewDialog').show()" disabled="#{empty ticketsController.selected.fromChannelId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{ticketsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{ticketsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{ticketsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TicketsDataTableContextMenu" listener="#{ticketsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TicketsDataTableContextMenu" listener="#{ticketsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{ticketsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TicketsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ticket}" filterBy="#{item.ticket}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_ticket}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ticket}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_creationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTicketsTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.returnUrl}" filterBy="#{item.returnUrl}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_returnUrl}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.returnUrl}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.clientAddress}" filterBy="#{item.clientAddress}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_clientAddress}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.clientAddress}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberAddress}" filterBy="#{item.memberAddress}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_memberAddress}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberAddress}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.traceData}" filterBy="#{item.traceData}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_traceData}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.traceData}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transferId.description}" filterBy="#{item.transferId.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_transferId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferId.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toChannelId.internalName}" filterBy="#{item.toChannelId.internalName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_toChannelId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toChannelId.internalName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromMemberId.name}" filterBy="#{item.fromMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_fromMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.toMemberId.name}" filterBy="#{item.toMemberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_toMemberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.toMemberId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.transferTypeId.name}" filterBy="#{item.transferTypeId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_transferTypeId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.transferTypeId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.currencyId.name}" filterBy="#{item.currencyId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_currencyId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.currencyId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fromChannelId.internalName}" filterBy="#{item.fromChannelId.internalName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListTicketsTitle_fromChannelId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fromChannelId.internalName}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{ticketsController.prepareCreate}" update=":TicketsCreateForm" oncomplete="PF('TicketsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TicketsViewForm" oncomplete="PF('TicketsViewDialog').show()" disabled="#{empty ticketsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TicketsEditForm" oncomplete="PF('TicketsEditDialog').show()" disabled="#{empty ticketsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{ticketsController.delete}" update=":growl,datalist" disabled="#{empty ticketsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

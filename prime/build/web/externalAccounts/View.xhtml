@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExternalAccountsViewDlg" widgetVar="ExternalAccountsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewExternalAccountsTitle}" closeOnEscape="true">
+
+            <h:form id="ExternalAccountsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{externalAccountsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_id}"/>
+                        <h:outputText value="#{externalAccountsController.selected.id}" title="#{myBundle.ViewExternalAccountsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_name}"/>
+                        <h:outputText value="#{externalAccountsController.selected.name}" title="#{myBundle.ViewExternalAccountsTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_description}"/>
+                        <h:outputText value="#{externalAccountsController.selected.description}" title="#{myBundle.ViewExternalAccountsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_systemAccountId}"/>
+                        <h:outputText value="#{externalAccountsController.selected.systemAccountId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_memberAccountId}"/>
+                        <h:outputText value="#{externalAccountsController.selected.memberAccountId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewExternalAccountsLabel_fileMappingId}"/>
+                        <h:outputText value="#{externalAccountsController.selected.fileMappingId.classname}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ExternalAccountsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

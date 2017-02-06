@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LoansCreateDlg" widgetVar="LoansCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateLoansTitle}" closeOnEscape="true">
+
+            <h:form id="LoansCreateForm">
+
+                <h:panelGroup id="display" rendered="#{loansController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_totalAmount}" for="totalAmount" />
+                        <p:inputText id="totalAmount" value="#{loansController.selected.totalAmount}" title="#{myBundle.CreateLoansTitle_totalAmount}" required="true" requiredMessage="#{myBundle.CreateLoansRequiredMessage_totalAmount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{loansController.selected.type}" title="#{myBundle.CreateLoansTitle_type}" required="true" requiredMessage="#{myBundle.CreateLoansRequiredMessage_type}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_grantFeeValue}" for="grantFeeValue" />
+                        <p:inputText id="grantFeeValue" value="#{loansController.selected.grantFeeValue}" title="#{myBundle.CreateLoansTitle_grantFeeValue}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_grantFeeType}" for="grantFeeType" />
+                        <p:inputText id="grantFeeType" value="#{loansController.selected.grantFeeType}" title="#{myBundle.CreateLoansTitle_grantFeeType}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_monthlyInterest}" for="monthlyInterest" />
+                        <p:inputText id="monthlyInterest" value="#{loansController.selected.monthlyInterest}" title="#{myBundle.CreateLoansTitle_monthlyInterest}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_expirationFeeValue}" for="expirationFeeValue" />
+                        <p:inputText id="expirationFeeValue" value="#{loansController.selected.expirationFeeValue}" title="#{myBundle.CreateLoansTitle_expirationFeeValue}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_expirationFeeType}" for="expirationFeeType" />
+                        <p:inputText id="expirationFeeType" value="#{loansController.selected.expirationFeeType}" title="#{myBundle.CreateLoansTitle_expirationFeeType}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_expirationDailyInterest}" for="expirationDailyInterest" />
+                        <p:inputText id="expirationDailyInterest" value="#{loansController.selected.expirationDailyInterest}" title="#{myBundle.CreateLoansTitle_expirationDailyInterest}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_guarantees}" for="guarantees" />
+                        <p:selectOneMenu id="guarantees" value="#{loansController.selected.guarantees}"  converter="guaranteesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{guaranteesController.items}"
+                                           var="guaranteesItem"
+                                           itemValue="#{guaranteesItem}"
+                                           itemLabel="#{guaranteesItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{loansController.selected.transferId}" required="true" requiredMessage="#{myBundle.CreateLoansRequiredMessage_transferId}" converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateLoansLabel_loanGroupId}" for="loanGroupId" />
+                        <p:selectOneMenu id="loanGroupId" value="#{loansController.selected.loanGroupId}"  converter="loanGroupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{loanGroupsController.items}"
+                                           var="loanGroupIdItem"
+                                           itemValue="#{loanGroupIdItem}"
+                                           itemLabel="#{loanGroupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{loansController.saveNew}" value="#{myBundle.Save}" update="display,:LoansListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LoansCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('LoansCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RefsEditDlg" widgetVar="RefsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRefsTitle}" closeOnEscape="true">
+
+            <h:form id="RefsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{refsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRefsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{refsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{refsController.selected.subclass}" title="#{myBundle.EditRefsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_level}" for="level" />
+                        <p:inputText id="level" value="#{refsController.selected.level}" title="#{myBundle.EditRefsTitle_level}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_level}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{refsController.selected.date}" title="#{myBundle.EditRefsTitle_date}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_comments}" for="comments" />
+                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{refsController.selected.comments}" title="#{myBundle.EditRefsTitle_comments}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_comments}"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_replyCommentsDate}" for="replyCommentsDate" />
+                        <p:calendar id="replyCommentsDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{refsController.selected.replyCommentsDate}" title="#{myBundle.EditRefsTitle_replyCommentsDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_replyComments}" for="replyComments" />
+                        <p:inputTextarea rows="4" cols="30" id="replyComments" value="#{refsController.selected.replyComments}" title="#{myBundle.EditRefsTitle_replyComments}" />
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_adminCommentsDate}" for="adminCommentsDate" />
+                        <p:calendar id="adminCommentsDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{refsController.selected.adminCommentsDate}" title="#{myBundle.EditRefsTitle_adminCommentsDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_adminComments}" for="adminComments" />
+                        <p:inputTextarea rows="4" cols="30" id="adminComments" value="#{refsController.selected.adminComments}" title="#{myBundle.EditRefsTitle_adminComments}" />
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{refsController.selected.transferId}"  converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_fromMemberId}" for="fromMemberId" />
+                        <p:selectOneMenu id="fromMemberId" value="#{refsController.selected.fromMemberId}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_fromMemberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="fromMemberIdItem"
+                                           itemValue="#{fromMemberIdItem}"
+                                           itemLabel="#{fromMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_toMemberId}" for="toMemberId" />
+                        <p:selectOneMenu id="toMemberId" value="#{refsController.selected.toMemberId}" required="true" requiredMessage="#{myBundle.EditRefsRequiredMessage_toMemberId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="toMemberIdItem"
+                                           itemValue="#{toMemberIdItem}"
+                                           itemLabel="#{toMemberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditRefsLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                        <p:selectOneMenu id="scheduledPaymentId" value="#{refsController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{scheduledPaymentsController.items}"
+                                           var="scheduledPaymentIdItem"
+                                           itemValue="#{scheduledPaymentIdItem}"
+                                           itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{refsController.save}" value="#{myBundle.Save}" update="display,:RefsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RefsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RefsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

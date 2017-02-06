@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SettingsCreateDlg" widgetVar="SettingsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateSettingsTitle}" closeOnEscape="true">
+
+            <h:form id="SettingsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{settingsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateSettingsLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{settingsController.selected.type}" title="#{myBundle.CreateSettingsTitle_type}" required="true" requiredMessage="#{myBundle.CreateSettingsRequiredMessage_type}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSettingsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{settingsController.selected.name}" title="#{myBundle.CreateSettingsTitle_name}" required="true" requiredMessage="#{myBundle.CreateSettingsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateSettingsLabel_value}" for="value" />
+                        <p:inputTextarea rows="4" cols="30" id="value" value="#{settingsController.selected.value}" title="#{myBundle.CreateSettingsTitle_value}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{settingsController.saveNew}" value="#{myBundle.Save}" update="display,:SettingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SettingsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SettingsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

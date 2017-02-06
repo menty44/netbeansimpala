@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ExternalTransferImportsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditExternalTransferImportsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ExternalTransferImportsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ExternalTransferImportsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{externalTransferImportsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditExternalTransferImportsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{externalTransferImportsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransferImportsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{externalTransferImportsController.selected.date}" title="#{myBundle.EditExternalTransferImportsTitle_date}" required="true" requiredMessage="#{myBundle.EditExternalTransferImportsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransferImportsLabel_byId}" for="byId" />
+                            <p:selectOneMenu id="byId" value="#{externalTransferImportsController.selected.byId}" required="true" requiredMessage="#{myBundle.EditExternalTransferImportsRequiredMessage_byId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="byIdItem"
+                                               itemValue="#{byIdItem}"
+                                               itemLabel="#{byIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditExternalTransferImportsLabel_accountId}" for="accountId" />
+                            <p:selectOneMenu id="accountId" value="#{externalTransferImportsController.selected.accountId}" required="true" requiredMessage="#{myBundle.EditExternalTransferImportsRequiredMessage_accountId}" converter="externalAccountsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{externalAccountsController.items}"
+                                               var="accountIdItem"
+                                               itemValue="#{accountIdItem}"
+                                               itemLabel="#{accountIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{externalTransferImportsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ExternalTransferImportsListPage:ExternalTransferImportsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ExternalTransferImportsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

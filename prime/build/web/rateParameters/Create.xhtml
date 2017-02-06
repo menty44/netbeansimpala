@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RateParametersCreateDlg" widgetVar="RateParametersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateRateParametersTitle}" closeOnEscape="true">
+
+            <h:form id="RateParametersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{rateParametersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{rateParametersController.selected.subclass}" title="#{myBundle.CreateRateParametersTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.date}" title="#{myBundle.CreateRateParametersTitle_date}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_creationValue}" for="creationValue" />
+                        <p:inputText id="creationValue" value="#{rateParametersController.selected.creationValue}" title="#{myBundle.CreateRateParametersTitle_creationValue}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_creationValue}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_enabledSince}" for="enabledSince" />
+                        <p:calendar id="enabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.enabledSince}" title="#{myBundle.CreateRateParametersTitle_enabledSince}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_enabledSince}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_disabledSince}" for="disabledSince" />
+                        <p:calendar id="disabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.disabledSince}" title="#{myBundle.CreateRateParametersTitle_disabledSince}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_reinitDate}" for="reinitDate" />
+                        <p:calendar id="reinitDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.reinitDate}" title="#{myBundle.CreateRateParametersTitle_reinitDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_initValue}" for="initValue" />
+                        <p:inputText id="initValue" value="#{rateParametersController.selected.initValue}" title="#{myBundle.CreateRateParametersTitle_initValue}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_initDate}" for="initDate" />
+                        <p:calendar id="initDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.initDate}" title="#{myBundle.CreateRateParametersTitle_initDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_interest}" for="interest" />
+                        <p:inputText id="interest" value="#{rateParametersController.selected.interest}" title="#{myBundle.CreateRateParametersTitle_interest}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_baseMalus}" for="baseMalus" />
+                        <p:inputText id="baseMalus" value="#{rateParametersController.selected.baseMalus}" title="#{myBundle.CreateRateParametersTitle_baseMalus}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_minimalD}" for="minimalD" />
+                        <p:inputText id="minimalD" value="#{rateParametersController.selected.minimalD}" title="#{myBundle.CreateRateParametersTitle_minimalD}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRateParametersLabel_currencyId}" for="currencyId" />
+                        <p:selectOneMenu id="currencyId" value="#{rateParametersController.selected.currencyId}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_currencyId}" converter="currenciesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{currenciesController.items}"
+                                           var="currencyIdItem"
+                                           itemValue="#{currencyIdItem}"
+                                           itemLabel="#{currencyIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rateParametersController.saveNew}" value="#{myBundle.Save}" update="display,:RateParametersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RateParametersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RateParametersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

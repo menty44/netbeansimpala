@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccountTypesViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAccountTypesTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AccountTypesListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccountTypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{accountTypesController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_id}"/>
+                            <h:outputText value="#{accountTypesController.selected.id}" title="#{myBundle.ViewAccountTypesTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_subclass}"/>
+                            <h:outputText value="#{accountTypesController.selected.subclass}" title="#{myBundle.ViewAccountTypesTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_name}"/>
+                            <h:outputText value="#{accountTypesController.selected.name}" title="#{myBundle.ViewAccountTypesTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_description}"/>
+                            <h:outputText value="#{accountTypesController.selected.description}" title="#{myBundle.ViewAccountTypesTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_groupsCollection}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{accountTypesController.selected.groupsCollection}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_groupsCollection1}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{accountTypesController.selected.groupsCollection1}"
+                                               var="groupsCollection1Item"
+                                               itemValue="#{groupsCollection1Item}"
+                                               itemLabel="#{groupsCollection1Item.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_groupsCollection3}"/>
+                            <h:selectManyMenu converter="groupsConverter">
+                                <f:selectItems value="#{accountTypesController.selected.groupsCollection3}"
+                                               var="groupsCollection3Item"
+                                               itemValue="#{groupsCollection3Item}"
+                                               itemLabel="#{groupsCollection3Item.name.toString()}"
+                                               />
+
+                            </h:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_systemAccountId}"/>
+                            <h:outputText value="#{accountTypesController.selected.systemAccountId.ownerName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAccountTypesLabel_currencyId}"/>
+                            <h:outputText value="#{accountTypesController.selected.currencyId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

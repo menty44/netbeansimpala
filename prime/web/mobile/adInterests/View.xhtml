@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdInterestsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewAdInterestsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdInterestsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdInterestsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{adInterestsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_id}"/>
+                            <h:outputText value="#{adInterestsController.selected.id}" title="#{myBundle.ViewAdInterestsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_title}"/>
+                            <h:outputText value="#{adInterestsController.selected.title}" title="#{myBundle.ViewAdInterestsTitle_title}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_tradeType}"/>
+                            <h:outputText value="#{adInterestsController.selected.tradeType}" title="#{myBundle.ViewAdInterestsTitle_tradeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_initialPrice}"/>
+                            <h:outputText value="#{adInterestsController.selected.initialPrice}" title="#{myBundle.ViewAdInterestsTitle_initialPrice}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_finalPrice}"/>
+                            <h:outputText value="#{adInterestsController.selected.finalPrice}" title="#{myBundle.ViewAdInterestsTitle_finalPrice}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_keywords}"/>
+                            <h:outputText value="#{adInterestsController.selected.keywords}" title="#{myBundle.ViewAdInterestsTitle_keywords}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_categoryId}"/>
+                            <h:outputText value="#{adInterestsController.selected.categoryId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_groupFilterId}"/>
+                            <h:outputText value="#{adInterestsController.selected.groupFilterId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_currencyId}"/>
+                            <h:outputText value="#{adInterestsController.selected.currencyId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_memberId}"/>
+                            <h:outputText value="#{adInterestsController.selected.memberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewAdInterestsLabel_ownerId}"/>
+                            <h:outputText value="#{adInterestsController.selected.ownerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

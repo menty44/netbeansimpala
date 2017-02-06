@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberSmsStatusCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateMemberSmsStatusTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberSmsStatusListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberSmsStatusCreateForm">
+
+                <h:panelGroup id="display" rendered="#{memberSmsStatusController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_freeSmsSent}" for="freeSmsSent" />
+                            <p:inputText id="freeSmsSent" value="#{memberSmsStatusController.selected.freeSmsSent}" title="#{myBundle.CreateMemberSmsStatusTitle_freeSmsSent}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_freeSmsSent}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_freeSmsExpiration}" for="freeSmsExpiration" />
+                            <p:calendar id="freeSmsExpiration" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberSmsStatusController.selected.freeSmsExpiration}" title="#{myBundle.CreateMemberSmsStatusTitle_freeSmsExpiration}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_paidSmsLeft}" for="paidSmsLeft" />
+                            <p:inputText id="paidSmsLeft" value="#{memberSmsStatusController.selected.paidSmsLeft}" title="#{myBundle.CreateMemberSmsStatusTitle_paidSmsLeft}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_paidSmsLeft}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_paidSmsExpiration}" for="paidSmsExpiration" />
+                            <p:calendar id="paidSmsExpiration" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberSmsStatusController.selected.paidSmsExpiration}" title="#{myBundle.CreateMemberSmsStatusTitle_paidSmsExpiration}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_allowChargingSms}" for="allowChargingSms" />
+                            <p:selectBooleanCheckbox id="allowChargingSms" value="#{memberSmsStatusController.selected.allowChargingSms}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_allowChargingSms}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_acceptFreeMailing}" for="acceptFreeMailing" />
+                            <p:selectBooleanCheckbox id="acceptFreeMailing" value="#{memberSmsStatusController.selected.acceptFreeMailing}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_acceptFreeMailing}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_acceptPaidMailing}" for="acceptPaidMailing" />
+                            <p:selectBooleanCheckbox id="acceptPaidMailing" value="#{memberSmsStatusController.selected.acceptPaidMailing}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_acceptPaidMailing}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateMemberSmsStatusLabel_memberId}" for="memberId" />
+                            <p:selectOneMenu id="memberId" value="#{memberSmsStatusController.selected.memberId}" required="true" requiredMessage="#{myBundle.CreateMemberSmsStatusRequiredMessage_memberId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="memberIdItem"
+                                               itemValue="#{memberIdItem}"
+                                               itemLabel="#{memberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{memberSmsStatusController.saveNew}" value="#{myBundle.Save}" update="display,:MemberSmsStatusListPage:MemberSmsStatusListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:MemberSmsStatusListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

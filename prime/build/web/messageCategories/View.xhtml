@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageCategoriesViewDlg" widgetVar="MessageCategoriesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMessageCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="MessageCategoriesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{messageCategoriesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMessageCategoriesLabel_id}"/>
+                        <h:outputText value="#{messageCategoriesController.selected.id}" title="#{myBundle.ViewMessageCategoriesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMessageCategoriesLabel_name}"/>
+                        <h:outputText value="#{messageCategoriesController.selected.name}" title="#{myBundle.ViewMessageCategoriesTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMessageCategoriesLabel_groupsCollection}"/>
+                        <h:selectManyMenu converter="groupsConverter">
+                            <f:selectItems value="#{messageCategoriesController.selected.groupsCollection}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+
+                        <h:outputText value="#{myBundle.ViewMessageCategoriesLabel_adminNotificationPreferencesCollection}"/>
+                        <h:selectManyMenu converter="adminNotificationPreferencesConverter">
+                            <f:selectItems value="#{messageCategoriesController.selected.adminNotificationPreferencesCollection}"
+                                           var="adminNotificationPreferencesCollectionItem"
+                                           itemValue="#{adminNotificationPreferencesCollectionItem}"
+                                           itemLabel="#{adminNotificationPreferencesCollectionItem.id.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MessageCategoriesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

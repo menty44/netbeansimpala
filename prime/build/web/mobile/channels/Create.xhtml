@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ChannelsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateChannelsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ChannelsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ChannelsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{channelsController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_internalName}" for="internalName" />
+                            <p:inputText id="internalName" value="#{channelsController.selected.internalName}" title="#{myBundle.CreateChannelsTitle_internalName}" required="true" requiredMessage="#{myBundle.CreateChannelsRequiredMessage_internalName}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_displayName}" for="displayName" />
+                            <p:inputText id="displayName" value="#{channelsController.selected.displayName}" title="#{myBundle.CreateChannelsTitle_displayName}" required="true" requiredMessage="#{myBundle.CreateChannelsRequiredMessage_displayName}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_credentials}" for="credentials" />
+                            <p:inputText id="credentials" value="#{channelsController.selected.credentials}" title="#{myBundle.CreateChannelsTitle_credentials}" required="true" requiredMessage="#{myBundle.CreateChannelsRequiredMessage_credentials}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_pmtReqWsUrl}" for="pmtReqWsUrl" />
+                            <p:inputText id="pmtReqWsUrl" value="#{channelsController.selected.pmtReqWsUrl}" title="#{myBundle.CreateChannelsTitle_pmtReqWsUrl}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_transferTypesCollection}" for="transferTypesCollection" />
+                            <p:selectManyMenu id="transferTypesCollection" value="#{channelsController.selected.transferTypesCollection}"  converter="transferTypesConverter">
+                                <f:selectItems value="#{transferTypesController.items}"
+                                               var="transferTypesCollectionItem"
+                                               itemValue="#{transferTypesCollectionItem}"
+                                               itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_groupsCollection}" for="groupsCollection" />
+                            <p:selectManyMenu id="groupsCollection" value="#{channelsController.selected.groupsCollection}"  converter="groupsConverter">
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsCollectionItem"
+                                               itemValue="#{groupsCollectionItem}"
+                                               itemLabel="#{groupsCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_groupsCollection1}" for="groupsCollection1" />
+                            <p:selectManyMenu id="groupsCollection1" value="#{channelsController.selected.groupsCollection1}"  converter="groupsConverter">
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsCollection1Item"
+                                               itemValue="#{groupsCollection1Item}"
+                                               itemLabel="#{groupsCollection1Item.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_membersCollection}" for="membersCollection" />
+                            <p:selectManyMenu id="membersCollection" value="#{channelsController.selected.membersCollection}"  converter="membersConverter">
+                                <f:selectItems value="#{membersController.items}"
+                                               var="membersCollectionItem"
+                                               itemValue="#{membersCollectionItem}"
+                                               itemLabel="#{membersCollectionItem.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateChannelsLabel_groupsCollection2}" for="groupsCollection2" />
+                            <p:selectManyMenu id="groupsCollection2" value="#{channelsController.selected.groupsCollection2}"  converter="groupsConverter">
+                                <f:selectItems value="#{groupsController.items}"
+                                               var="groupsCollection2Item"
+                                               itemValue="#{groupsCollection2Item}"
+                                               itemLabel="#{groupsCollection2Item.name.toString()}"
+                                               />
+
+                            </p:selectManyMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{channelsController.saveNew}" value="#{myBundle.Save}" update="display,:ChannelsListPage:ChannelsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:ChannelsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

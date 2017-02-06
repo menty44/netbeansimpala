@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupFiltersViewDlg" widgetVar="GroupFiltersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewGroupFiltersTitle}" closeOnEscape="true">
+
+            <h:form id="GroupFiltersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{groupFiltersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_id}"/>
+                        <h:outputText value="#{groupFiltersController.selected.id}" title="#{myBundle.ViewGroupFiltersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_name}"/>
+                        <h:outputText value="#{groupFiltersController.selected.name}" title="#{myBundle.ViewGroupFiltersTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_loginPageName}"/>
+                        <h:outputText value="#{groupFiltersController.selected.loginPageName}" title="#{myBundle.ViewGroupFiltersTitle_loginPageName}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_rootUrl}"/>
+                        <h:outputText value="#{groupFiltersController.selected.rootUrl}" title="#{myBundle.ViewGroupFiltersTitle_rootUrl}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_containerUrl}"/>
+                        <h:outputText value="#{groupFiltersController.selected.containerUrl}" title="#{myBundle.ViewGroupFiltersTitle_containerUrl}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_description}"/>
+                        <h:outputText value="#{groupFiltersController.selected.description}" title="#{myBundle.ViewGroupFiltersTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_showInProfile}"/>
+                        <h:selectBooleanCheckbox id="showInProfile" value="#{groupFiltersController.selected.showInProfile}" title="#{myBundle.EditGroupFiltersTitle_showInProfile}" required="true" requiredMessage="#{myBundle.EditGroupFiltersRequiredMessage_showInProfile}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewGroupFiltersLabel_groupsCollection}"/>
+                        <h:selectManyMenu converter="groupsConverter">
+                            <f:selectItems value="#{groupFiltersController.selected.groupsCollection}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('GroupFiltersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

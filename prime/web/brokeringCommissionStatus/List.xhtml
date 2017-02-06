@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="BrokeringCommissionStatusListForm">
+
+        <p:panel header="#{myBundle.ListBrokeringCommissionStatusTitle}">
+            <p:contextMenu id="BrokeringCommissionStatusDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('BrokeringCommissionStatusListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('BrokeringCommissionStatusListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('BrokeringCommissionStatusListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('BrokeringCommissionStatusListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.BrokeringCommissionStatusMenuItem_brokeringId}" icon="ui-icon-search"  actionListener="#{brokeringCommissionStatusController.prepareBrokeringId}" update=":BrokeringsViewForm" oncomplete="PF('BrokeringsViewDialog').show()" disabled="#{empty brokeringCommissionStatusController.selected.brokeringId}"/>  
+                <p:menuitem value="#{myBundle.BrokeringCommissionStatusMenuItem_brokerCommissionId}" icon="ui-icon-search"  actionListener="#{brokeringCommissionStatusController.prepareBrokerCommissionId}" update=":TransactionFeesViewForm" oncomplete="PF('TransactionFeesViewDialog').show()" disabled="#{empty brokeringCommissionStatusController.selected.brokerCommissionId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{brokeringCommissionStatusController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{brokeringCommissionStatusController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{brokeringCommissionStatusController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BrokeringCommissionStatusDataTableContextMenu" listener="#{brokeringCommissionStatusController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BrokeringCommissionStatusDataTableContextMenu" listener="#{brokeringCommissionStatusController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{brokeringCommissionStatusController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('BrokeringCommissionStatusListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.whenApply}" filterBy="#{item.whenApply}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_whenApply}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.whenApply}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amount}" filterBy="#{item.amount}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_amount}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amount}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.amountType}" filterBy="#{item.amountType}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_amountType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amountType}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.startDate}" filterBy="#{item.startDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_startDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_endDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_creationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creationDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.expiryDate}" filterBy="#{item.expiryDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_expiryDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expiryDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.maxCount}" filterBy="#{item.maxCount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_maxCount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maxCount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.totalCount}" filterBy="#{item.totalCount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_totalCount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.totalCount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.totalAmount}" filterBy="#{item.totalAmount}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_totalAmount}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.totalAmount}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.brokeringId.id}" filterBy="#{item.brokeringId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_brokeringId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.brokeringId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.brokerCommissionId.name}" filterBy="#{item.brokerCommissionId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListBrokeringCommissionStatusTitle_brokerCommissionId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.brokerCommissionId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{brokeringCommissionStatusController.prepareCreate}" update=":BrokeringCommissionStatusCreateForm" oncomplete="PF('BrokeringCommissionStatusCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":BrokeringCommissionStatusViewForm" oncomplete="PF('BrokeringCommissionStatusViewDialog').show()" disabled="#{empty brokeringCommissionStatusController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":BrokeringCommissionStatusEditForm" oncomplete="PF('BrokeringCommissionStatusEditDialog').show()" disabled="#{empty brokeringCommissionStatusController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{brokeringCommissionStatusController.delete}" update=":growl,datalist" disabled="#{empty brokeringCommissionStatusController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

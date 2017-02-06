@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CardLogsEditDlg" widgetVar="CardLogsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCardLogsTitle}" closeOnEscape="true">
+
+            <h:form id="CardLogsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cardLogsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCardLogsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{cardLogsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditCardLogsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{cardLogsController.selected.date}" title="#{myBundle.EditCardLogsTitle_date}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardLogsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{cardLogsController.selected.status}" title="#{myBundle.EditCardLogsTitle_status}" required="true" requiredMessage="#{myBundle.EditCardLogsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditCardLogsLabel_cardId}" for="cardId" />
+                        <p:selectOneMenu id="cardId" value="#{cardLogsController.selected.cardId}" required="true" requiredMessage="#{myBundle.EditCardLogsRequiredMessage_cardId}" converter="cardsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cardsController.items}"
+                                           var="cardIdItem"
+                                           itemValue="#{cardIdItem}"
+                                           itemLabel="#{cardIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditCardLogsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{cardLogsController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cardLogsController.save}" value="#{myBundle.Save}" update="display,:CardLogsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CardLogsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CardLogsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

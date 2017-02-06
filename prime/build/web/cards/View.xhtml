@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CardsViewDlg" widgetVar="CardsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCardsTitle}" closeOnEscape="true">
+
+            <h:form id="CardsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cardsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_id}"/>
+                        <h:outputText value="#{cardsController.selected.id}" title="#{myBundle.ViewCardsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_cardNumber}"/>
+                        <h:outputText value="#{cardsController.selected.cardNumber}" title="#{myBundle.ViewCardsTitle_cardNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_cardSecurityCode}"/>
+                        <h:outputText value="#{cardsController.selected.cardSecurityCode}" title="#{myBundle.ViewCardsTitle_cardSecurityCode}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_creationDate}"/>
+                        <h:outputText value="#{cardsController.selected.creationDate}" title="#{myBundle.ViewCardsTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_activationDate}"/>
+                        <h:outputText value="#{cardsController.selected.activationDate}" title="#{myBundle.ViewCardsTitle_activationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_expirationDate}"/>
+                        <h:outputText value="#{cardsController.selected.expirationDate}" title="#{myBundle.ViewCardsTitle_expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_cardSecurityCodeBlockedUntil}"/>
+                        <h:outputText value="#{cardsController.selected.cardSecurityCodeBlockedUntil}" title="#{myBundle.ViewCardsTitle_cardSecurityCodeBlockedUntil}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_status}"/>
+                        <h:outputText value="#{cardsController.selected.status}" title="#{myBundle.ViewCardsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_cardTypeId}"/>
+                        <h:outputText value="#{cardsController.selected.cardTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewCardsLabel_ownerId}"/>
+                        <h:outputText value="#{cardsController.selected.ownerId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CardsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

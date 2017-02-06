@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AdCategoriesEditDlg" widgetVar="AdCategoriesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAdCategoriesTitle}" closeOnEscape="true">
+
+            <h:form id="AdCategoriesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{adCategoriesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAdCategoriesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{adCategoriesController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_orderIndex}" for="orderIndex" />
+                        <p:inputText id="orderIndex" value="#{adCategoriesController.selected.orderIndex}" title="#{myBundle.EditAdCategoriesTitle_orderIndex}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_orderIndex}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{adCategoriesController.selected.name}" title="#{myBundle.EditAdCategoriesTitle_name}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{adCategoriesController.selected.active}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_active}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdCategoriesLabel_parentId}" for="parentId" />
+                        <p:selectOneMenu id="parentId" value="#{adCategoriesController.selected.parentId}"  converter="adCategoriesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adCategoriesController.items}"
+                                           var="parentIdItem"
+                                           itemValue="#{parentIdItem}"
+                                           itemLabel="#{parentIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adCategoriesController.save}" value="#{myBundle.Save}" update="display,:AdCategoriesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdCategoriesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AdCategoriesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

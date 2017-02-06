@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountFeeLogsViewDlg" widgetVar="AccountFeeLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAccountFeeLogsTitle}" closeOnEscape="true">
+
+            <h:form id="AccountFeeLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{accountFeeLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_id}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.id}" title="#{myBundle.ViewAccountFeeLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_date}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.date}" title="#{myBundle.ViewAccountFeeLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_rechargingFailed}"/>
+                        <h:selectBooleanCheckbox id="rechargingFailed" value="#{accountFeeLogsController.selected.rechargingFailed}" title="#{myBundle.EditAccountFeeLogsTitle_rechargingFailed}" required="true" requiredMessage="#{myBundle.EditAccountFeeLogsRequiredMessage_rechargingFailed}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_rechargeAttempt}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.rechargeAttempt}" title="#{myBundle.ViewAccountFeeLogsTitle_rechargeAttempt}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_failedMembers}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.failedMembers}" title="#{myBundle.ViewAccountFeeLogsTitle_failedMembers}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_totalMembers}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.totalMembers}" title="#{myBundle.ViewAccountFeeLogsTitle_totalMembers}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_finishDate}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.finishDate}" title="#{myBundle.ViewAccountFeeLogsTitle_finishDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_amount}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.amount}" title="#{myBundle.ViewAccountFeeLogsTitle_amount}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_freeBase}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.freeBase}" title="#{myBundle.ViewAccountFeeLogsTitle_freeBase}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_beginDate}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.beginDate}" title="#{myBundle.ViewAccountFeeLogsTitle_beginDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_endDate}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.endDate}" title="#{myBundle.ViewAccountFeeLogsTitle_endDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_membersCollection}"/>
+                        <h:selectManyMenu converter="membersConverter">
+                            <f:selectItems value="#{accountFeeLogsController.selected.membersCollection}"
+                                           var="membersCollectionItem"
+                                           itemValue="#{membersCollectionItem}"
+                                           itemLabel="#{membersCollectionItem.name.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+
+                        <h:outputText value="#{myBundle.ViewAccountFeeLogsLabel_accountFeeId}"/>
+                        <h:outputText value="#{accountFeeLogsController.selected.accountFeeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AccountFeeLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

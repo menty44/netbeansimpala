@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberGroupAccountSettingsListPage">
+        <pm:header title="#{myBundle.ListMemberGroupAccountSettingsTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":MemberGroupAccountSettingsCreatePage:MemberGroupAccountSettingsCreateForm" actionListener="#{memberGroupAccountSettingsController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:MemberGroupAccountSettingsCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberGroupAccountSettingsListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{memberGroupAccountSettingsController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":MemberGroupAccountSettingsEditPage:MemberGroupAccountSettingsEditForm" action="pm:MemberGroupAccountSettingsEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.id}"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="defaultType" value="#{item.defaultType}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_defaultType}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_defaultType}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="transactionPasswordRequired" value="#{item.transactionPasswordRequired}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_transactionPasswordRequired}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_transactionPasswordRequired}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:selectBooleanCheckbox id="hideWhenNoCreditLimit" value="#{item.hideWhenNoCreditLimit}" title="#{myBundle.EditMemberGroupAccountSettingsTitle_hideWhenNoCreditLimit}" required="true" requiredMessage="#{myBundle.EditMemberGroupAccountSettingsRequiredMessage_hideWhenNoCreditLimit}" disabled="true"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.defaultCreditLimit}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.defaultUpperCreditLimit}"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.initialCredit}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.lowUnits}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.lowUnitsMessage}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.initialCreditTransferTypeId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.groupId.name}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.typeId.name}"/>
+                            -->
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{memberGroupAccountSettingsController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{myBundle.ListMemberGroupAccountSettingsTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AlertsViewDlg" widgetVar="AlertsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AlertsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{alertsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_id}"/>
+                        <h:outputText value="#{alertsController.selected.id}" title="#{myBundle.ViewAlertsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_subclass}"/>
+                        <h:outputText value="#{alertsController.selected.subclass}" title="#{myBundle.ViewAlertsTitle_subclass}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_removed}"/>
+                        <h:selectBooleanCheckbox id="removed" value="#{alertsController.selected.removed}" title="#{myBundle.EditAlertsTitle_removed}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_removed}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_msgKey}"/>
+                        <h:outputText value="#{alertsController.selected.msgKey}" title="#{myBundle.ViewAlertsTitle_msgKey}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_arg0}"/>
+                        <h:outputText value="#{alertsController.selected.arg0}" title="#{myBundle.ViewAlertsTitle_arg0}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_arg1}"/>
+                        <h:outputText value="#{alertsController.selected.arg1}" title="#{myBundle.ViewAlertsTitle_arg1}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_arg2}"/>
+                        <h:outputText value="#{alertsController.selected.arg2}" title="#{myBundle.ViewAlertsTitle_arg2}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_arg3}"/>
+                        <h:outputText value="#{alertsController.selected.arg3}" title="#{myBundle.ViewAlertsTitle_arg3}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_arg4}"/>
+                        <h:outputText value="#{alertsController.selected.arg4}" title="#{myBundle.ViewAlertsTitle_arg4}"/>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_date}"/>
+                        <h:outputText value="#{alertsController.selected.date}" title="#{myBundle.ViewAlertsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAlertsLabel_memberId}"/>
+                        <h:outputText value="#{alertsController.selected.memberId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AlertsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

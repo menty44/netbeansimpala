@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DocumentsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewDocumentsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DocumentsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DocumentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{documentsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_id}"/>
+                            <h:outputText value="#{documentsController.selected.id}" title="#{myBundle.ViewDocumentsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_subclass}"/>
+                            <h:outputText value="#{documentsController.selected.subclass}" title="#{myBundle.ViewDocumentsTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_name}"/>
+                            <h:outputText value="#{documentsController.selected.name}" title="#{myBundle.ViewDocumentsTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_description}"/>
+                            <h:outputText value="#{documentsController.selected.description}" title="#{myBundle.ViewDocumentsTitle_description}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_visibility}"/>
+                            <h:outputText value="#{documentsController.selected.visibility}" title="#{myBundle.ViewDocumentsTitle_visibility}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_documentPageId}"/>
+                            <h:outputText value="#{documentsController.selected.documentPageId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_memberId}"/>
+                            <h:outputText value="#{documentsController.selected.memberId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_formPageId}"/>
+                            <h:outputText value="#{documentsController.selected.formPageId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewDocumentsLabel_binaryFileId}"/>
+                            <h:outputText value="#{documentsController.selected.binaryFileId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

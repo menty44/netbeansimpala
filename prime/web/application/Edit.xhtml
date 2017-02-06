@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ApplicationEditDlg" widgetVar="ApplicationEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditApplicationTitle}" closeOnEscape="true">
+
+            <h:form id="ApplicationEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{applicationController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditApplicationLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{applicationController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditApplicationLabel_version}" for="version" />
+                        <p:inputText id="version" value="#{applicationController.selected.version}" title="#{myBundle.EditApplicationTitle_version}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditApplicationLabel_online}" for="online" />
+                        <p:selectBooleanCheckbox id="online" value="#{applicationController.selected.online}" required="true" requiredMessage="#{myBundle.EditApplicationRequiredMessage_online}"/>
+
+                        <p:outputLabel value="#{myBundle.EditApplicationLabel_accountStatusEnabledSince}" for="accountStatusEnabledSince" />
+                        <p:calendar id="accountStatusEnabledSince" pattern="MM/dd/yyyy" value="#{applicationController.selected.accountStatusEnabledSince}" title="#{myBundle.EditApplicationTitle_accountStatusEnabledSince}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditApplicationLabel_passwordHash}" for="passwordHash" />
+                        <p:inputText id="passwordHash" value="#{applicationController.selected.passwordHash}" title="#{myBundle.EditApplicationTitle_passwordHash}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditApplicationLabel_lastIndexRebuildingTime}" for="lastIndexRebuildingTime" />
+                        <p:calendar id="lastIndexRebuildingTime" pattern="MM/dd/yyyy HH:mm:ss" value="#{applicationController.selected.lastIndexRebuildingTime}" title="#{myBundle.EditApplicationTitle_lastIndexRebuildingTime}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{applicationController.save}" value="#{myBundle.Save}" update="display,:ApplicationListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ApplicationEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ApplicationEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

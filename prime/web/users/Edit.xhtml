@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsersEditDlg" widgetVar="UsersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsersTitle}" closeOnEscape="true">
+
+            <h:form id="UsersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usersController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUsersLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{usersController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{usersController.selected.subclass}" title="#{myBundle.EditUsersTitle_subclass}" required="true" requiredMessage="#{myBundle.EditUsersRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_salt}" for="salt" />
+                        <p:inputText id="salt" value="#{usersController.selected.salt}" title="#{myBundle.EditUsersTitle_salt}" size="32" maxlength="32"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{usersController.selected.username}" title="#{myBundle.EditUsersTitle_username}" required="true" requiredMessage="#{myBundle.EditUsersRequiredMessage_username}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{myBundle.EditUsersTitle_password}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_transactionPassword}" for="transactionPassword" />
+                        <p:inputText id="transactionPassword" value="#{usersController.selected.transactionPassword}" title="#{myBundle.EditUsersTitle_transactionPassword}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_transactionPasswordStatus}" for="transactionPasswordStatus" />
+                        <p:inputText id="transactionPasswordStatus" value="#{usersController.selected.transactionPasswordStatus}" title="#{myBundle.EditUsersTitle_transactionPasswordStatus}" required="true" requiredMessage="#{myBundle.EditUsersRequiredMessage_transactionPasswordStatus}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_lastLogin}" for="lastLogin" />
+                        <p:calendar id="lastLogin" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.lastLogin}" title="#{myBundle.EditUsersTitle_lastLogin}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_passwordDate}" for="passwordDate" />
+                        <p:calendar id="passwordDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordDate}" title="#{myBundle.EditUsersTitle_passwordDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_passwordBlockedUntil}" for="passwordBlockedUntil" />
+                        <p:calendar id="passwordBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.passwordBlockedUntil}" title="#{myBundle.EditUsersTitle_passwordBlockedUntil}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_pin}" for="pin" />
+                        <p:inputText id="pin" value="#{usersController.selected.pin}" title="#{myBundle.EditUsersTitle_pin}" size="64" maxlength="64"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_pinBlockedUntil}" for="pinBlockedUntil" />
+                        <p:calendar id="pinBlockedUntil" pattern="MM/dd/yyyy HH:mm:ss" value="#{usersController.selected.pinBlockedUntil}" title="#{myBundle.EditUsersTitle_pinBlockedUntil}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsersLabel_members}" for="members" />
+                        <p:selectOneMenu id="members" value="#{usersController.selected.members}" required="true" requiredMessage="#{myBundle.EditUsersRequiredMessage_members}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="membersItem"
+                                           itemValue="#{membersItem}"
+                                           itemLabel="#{membersItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usersController.save}" value="#{myBundle.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

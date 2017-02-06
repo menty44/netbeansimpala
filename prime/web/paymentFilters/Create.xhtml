@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentFiltersCreateDlg" widgetVar="PaymentFiltersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePaymentFiltersTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentFiltersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{paymentFiltersController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentFiltersLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{paymentFiltersController.selected.name}" title="#{myBundle.CreatePaymentFiltersTitle_name}" required="true" requiredMessage="#{myBundle.CreatePaymentFiltersRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentFiltersLabel_showInAccountHistory}" for="showInAccountHistory" />
+                        <p:selectBooleanCheckbox id="showInAccountHistory" value="#{paymentFiltersController.selected.showInAccountHistory}" required="true" requiredMessage="#{myBundle.CreatePaymentFiltersRequiredMessage_showInAccountHistory}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentFiltersLabel_showInReports}" for="showInReports" />
+                        <p:selectBooleanCheckbox id="showInReports" value="#{paymentFiltersController.selected.showInReports}" required="true" requiredMessage="#{myBundle.CreatePaymentFiltersRequiredMessage_showInReports}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentFiltersLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{paymentFiltersController.selected.description}" title="#{myBundle.CreatePaymentFiltersTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreatePaymentFiltersLabel_accountTypeId}" for="accountTypeId" />
+                        <p:selectOneMenu id="accountTypeId" value="#{paymentFiltersController.selected.accountTypeId}" required="true" requiredMessage="#{myBundle.CreatePaymentFiltersRequiredMessage_accountTypeId}" converter="accountTypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountTypesController.items}"
+                                           var="accountTypeIdItem"
+                                           itemValue="#{accountTypeIdItem}"
+                                           itemLabel="#{accountTypeIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentFiltersController.saveNew}" value="#{myBundle.Save}" update="display,:PaymentFiltersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaymentFiltersCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PaymentFiltersCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

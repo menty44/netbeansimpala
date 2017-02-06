@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MemberImportsViewDlg" widgetVar="MemberImportsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMemberImportsTitle}" closeOnEscape="true">
+
+            <h:form id="MemberImportsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{memberImportsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_id}"/>
+                        <h:outputText value="#{memberImportsController.selected.id}" title="#{myBundle.ViewMemberImportsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_date}"/>
+                        <h:outputText value="#{memberImportsController.selected.date}" title="#{myBundle.ViewMemberImportsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_byId}"/>
+                        <h:outputText value="#{memberImportsController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_initialCreditTransferTypeId}"/>
+                        <h:outputText value="#{memberImportsController.selected.initialCreditTransferTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_initialDebitTransferTypeId}"/>
+                        <h:outputText value="#{memberImportsController.selected.initialDebitTransferTypeId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_groupId}"/>
+                        <h:outputText value="#{memberImportsController.selected.groupId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewMemberImportsLabel_accountTypeId}"/>
+                        <h:outputText value="#{memberImportsController.selected.accountTypeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MemberImportsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

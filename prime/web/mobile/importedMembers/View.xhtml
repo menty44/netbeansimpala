@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ImportedMembersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewImportedMembersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ImportedMembersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ImportedMembersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{importedMembersController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_id}"/>
+                            <h:outputText value="#{importedMembersController.selected.id}" title="#{myBundle.ViewImportedMembersTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_status}"/>
+                            <h:outputText value="#{importedMembersController.selected.status}" title="#{myBundle.ViewImportedMembersTitle_status}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_lineNumber}"/>
+                            <h:outputText value="#{importedMembersController.selected.lineNumber}" title="#{myBundle.ViewImportedMembersTitle_lineNumber}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_errorArgument1}"/>
+                            <h:outputText value="#{importedMembersController.selected.errorArgument1}" title="#{myBundle.ViewImportedMembersTitle_errorArgument1}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_errorArgument2}"/>
+                            <h:outputText value="#{importedMembersController.selected.errorArgument2}" title="#{myBundle.ViewImportedMembersTitle_errorArgument2}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_name}"/>
+                            <h:outputText value="#{importedMembersController.selected.name}" title="#{myBundle.ViewImportedMembersTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_salt}"/>
+                            <h:outputText value="#{importedMembersController.selected.salt}" title="#{myBundle.ViewImportedMembersTitle_salt}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_username}"/>
+                            <h:outputText value="#{importedMembersController.selected.username}" title="#{myBundle.ViewImportedMembersTitle_username}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_password}"/>
+                            <h:outputText value="#{importedMembersController.selected.password}" title="#{myBundle.ViewImportedMembersTitle_password}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_email}"/>
+                            <h:outputText value="#{importedMembersController.selected.email}" title="#{myBundle.ViewImportedMembersTitle_email}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_creationDate}"/>
+                            <h:outputText value="#{importedMembersController.selected.creationDate}" title="#{myBundle.ViewImportedMembersTitle_creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_creditLimit}"/>
+                            <h:outputText value="#{importedMembersController.selected.creditLimit}" title="#{myBundle.ViewImportedMembersTitle_creditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_upperCreditLimit}"/>
+                            <h:outputText value="#{importedMembersController.selected.upperCreditLimit}" title="#{myBundle.ViewImportedMembersTitle_upperCreditLimit}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_initialBalance}"/>
+                            <h:outputText value="#{importedMembersController.selected.initialBalance}" title="#{myBundle.ViewImportedMembersTitle_initialBalance}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewImportedMembersLabel_importId}"/>
+                            <h:outputText value="#{importedMembersController.selected.importId.id}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BrokeringsCreateDlg" widgetVar="BrokeringsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateBrokeringsTitle}" closeOnEscape="true">
+
+            <h:form id="BrokeringsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{brokeringsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateBrokeringsLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{brokeringsController.selected.startDate}" title="#{myBundle.CreateBrokeringsTitle_startDate}" required="true" requiredMessage="#{myBundle.CreateBrokeringsRequiredMessage_startDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateBrokeringsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{brokeringsController.selected.endDate}" title="#{myBundle.CreateBrokeringsTitle_endDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateBrokeringsLabel_brokerId}" for="brokerId" />
+                        <p:selectOneMenu id="brokerId" value="#{brokeringsController.selected.brokerId}" required="true" requiredMessage="#{myBundle.CreateBrokeringsRequiredMessage_brokerId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="brokerIdItem"
+                                           itemValue="#{brokerIdItem}"
+                                           itemLabel="#{brokerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateBrokeringsLabel_brokeredId}" for="brokeredId" />
+                        <p:selectOneMenu id="brokeredId" value="#{brokeringsController.selected.brokeredId}" required="true" requiredMessage="#{myBundle.CreateBrokeringsRequiredMessage_brokeredId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="brokeredIdItem"
+                                           itemValue="#{brokeredIdItem}"
+                                           itemLabel="#{brokeredIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{brokeringsController.saveNew}" value="#{myBundle.Save}" update="display,:BrokeringsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('BrokeringsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('BrokeringsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

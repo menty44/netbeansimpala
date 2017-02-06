@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SmsMailingsEditDlg" widgetVar="SmsMailingsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditSmsMailingsTitle}" closeOnEscape="true">
+
+            <h:form id="SmsMailingsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{smsMailingsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditSmsMailingsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{smsMailingsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{smsMailingsController.selected.date}" title="#{myBundle.EditSmsMailingsTitle_date}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_text}" for="text" />
+                        <p:inputText id="text" value="#{smsMailingsController.selected.text}" title="#{myBundle.EditSmsMailingsTitle_text}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_text}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_free}" for="free" />
+                        <p:selectBooleanCheckbox id="free" value="#{smsMailingsController.selected.free}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_free}"/>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_sentSms}" for="sentSms" />
+                        <p:inputText id="sentSms" value="#{smsMailingsController.selected.sentSms}" title="#{myBundle.EditSmsMailingsTitle_sentSms}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_sentSms}"/>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_finished}" for="finished" />
+                        <p:selectBooleanCheckbox id="finished" value="#{smsMailingsController.selected.finished}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_finished}"/>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_membersCollection}" for="membersCollection" />
+                        <p:selectManyMenu id="membersCollection" value="#{smsMailingsController.selected.membersCollection}"  converter="membersConverter">
+                            <f:selectItems value="#{membersController.items}"
+                                           var="membersCollectionItem"
+                                           itemValue="#{membersCollectionItem}"
+                                           itemLabel="#{membersCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_groupsCollection}" for="groupsCollection" />
+                        <p:selectManyMenu id="groupsCollection" value="#{smsMailingsController.selected.groupsCollection}"  converter="groupsConverter">
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="groupsCollectionItem"
+                                           itemValue="#{groupsCollectionItem}"
+                                           itemLabel="#{groupsCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{smsMailingsController.selected.byId}" required="true" requiredMessage="#{myBundle.EditSmsMailingsRequiredMessage_byId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditSmsMailingsLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{smsMailingsController.selected.memberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{smsMailingsController.save}" value="#{myBundle.Save}" update="display,:SmsMailingsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SmsMailingsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SmsMailingsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

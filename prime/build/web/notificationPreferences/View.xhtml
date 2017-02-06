@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationPreferencesViewDlg" widgetVar="NotificationPreferencesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewNotificationPreferencesTitle}" closeOnEscape="true">
+
+            <h:form id="NotificationPreferencesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{notificationPreferencesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_id}"/>
+                        <h:outputText value="#{notificationPreferencesController.selected.id}" title="#{myBundle.ViewNotificationPreferencesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_type}"/>
+                        <h:outputText value="#{notificationPreferencesController.selected.type}" title="#{myBundle.ViewNotificationPreferencesTitle_type}"/>
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_isMessage}"/>
+                        <h:selectBooleanCheckbox id="isMessage" value="#{notificationPreferencesController.selected.isMessage}" title="#{myBundle.EditNotificationPreferencesTitle_isMessage}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isMessage}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_isEmail}"/>
+                        <h:selectBooleanCheckbox id="isEmail" value="#{notificationPreferencesController.selected.isEmail}" title="#{myBundle.EditNotificationPreferencesTitle_isEmail}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isEmail}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_isSms}"/>
+                        <h:selectBooleanCheckbox id="isSms" value="#{notificationPreferencesController.selected.isSms}" title="#{myBundle.EditNotificationPreferencesTitle_isSms}" required="true" requiredMessage="#{myBundle.EditNotificationPreferencesRequiredMessage_isSms}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewNotificationPreferencesLabel_member1}"/>
+                        <h:outputText value="#{notificationPreferencesController.selected.member1.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('NotificationPreferencesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

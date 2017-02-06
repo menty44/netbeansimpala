@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdminPreferencesSystemAlertsCreateDlg" widgetVar="AdminPreferencesSystemAlertsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAdminPreferencesSystemAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AdminPreferencesSystemAlertsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{adminPreferencesSystemAlertsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_preferenceId}" for="adminPreferencesSystemAlertsPK_preferenceId" />
+                        <p:inputText id="adminPreferencesSystemAlertsPK_preferenceId" value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.preferenceId}" title="#{myBundle.CreateAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_preferenceId}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminPreferencesSystemAlertsPK_preferenceId}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminPreferencesSystemAlertsPK_type}" for="adminPreferencesSystemAlertsPK_type" />
+                        <p:inputText id="adminPreferencesSystemAlertsPK_type" value="#{adminPreferencesSystemAlertsController.selected.adminPreferencesSystemAlertsPK.type}" title="#{myBundle.CreateAdminPreferencesSystemAlertsTitle_adminPreferencesSystemAlertsPK_type}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminPreferencesSystemAlertsPK_type}" size="70" maxlength="70"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAdminPreferencesSystemAlertsLabel_adminNotificationPreferences}" for="adminNotificationPreferences" />
+                        <p:selectOneMenu id="adminNotificationPreferences" value="#{adminPreferencesSystemAlertsController.selected.adminNotificationPreferences}" required="true" requiredMessage="#{myBundle.CreateAdminPreferencesSystemAlertsRequiredMessage_adminNotificationPreferences}" converter="adminNotificationPreferencesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adminNotificationPreferencesController.items}"
+                                           var="adminNotificationPreferencesItem"
+                                           itemValue="#{adminNotificationPreferencesItem}"
+                                           itemLabel="#{adminNotificationPreferencesItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adminPreferencesSystemAlertsController.saveNew}" value="#{myBundle.Save}" update="display,:AdminPreferencesSystemAlertsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdminPreferencesSystemAlertsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AdminPreferencesSystemAlertsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

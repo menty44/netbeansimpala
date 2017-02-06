@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CurrenciesViewDlg" widgetVar="CurrenciesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCurrenciesTitle}" closeOnEscape="true">
+
+            <h:form id="CurrenciesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{currenciesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_id}"/>
+                        <h:outputText value="#{currenciesController.selected.id}" title="#{myBundle.ViewCurrenciesTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_name}"/>
+                        <h:outputText value="#{currenciesController.selected.name}" title="#{myBundle.ViewCurrenciesTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_symbol}"/>
+                        <h:outputText value="#{currenciesController.selected.symbol}" title="#{myBundle.ViewCurrenciesTitle_symbol}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_pattern}"/>
+                        <h:outputText value="#{currenciesController.selected.pattern}" title="#{myBundle.ViewCurrenciesTitle_pattern}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_description}"/>
+                        <h:outputText value="#{currenciesController.selected.description}" title="#{myBundle.ViewCurrenciesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_ARateParamsId}"/>
+                        <h:outputText value="#{currenciesController.selected.ARateParamsId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_DRateParamsId}"/>
+                        <h:outputText value="#{currenciesController.selected.DRateParamsId.id}"/>
+
+                        <h:outputText value="#{myBundle.ViewCurrenciesLabel_IRateParamsId}"/>
+                        <h:outputText value="#{currenciesController.selected.IRateParamsId.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CurrenciesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

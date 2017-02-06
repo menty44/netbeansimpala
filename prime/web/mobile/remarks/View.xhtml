@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RemarksViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewRemarksTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RemarksListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RemarksViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{remarksController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_id}"/>
+                            <h:outputText value="#{remarksController.selected.id}" title="#{myBundle.ViewRemarksTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_subclass}"/>
+                            <h:outputText value="#{remarksController.selected.subclass}" title="#{myBundle.ViewRemarksTitle_subclass}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_date}"/>
+                            <h:outputText value="#{remarksController.selected.date}" title="#{myBundle.ViewRemarksTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_comments}"/>
+                            <h:outputText value="#{remarksController.selected.comments}" title="#{myBundle.ViewRemarksTitle_comments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_subjectId}"/>
+                            <h:outputText value="#{remarksController.selected.subjectId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_newBrokerId}"/>
+                            <h:outputText value="#{remarksController.selected.newBrokerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_oldGroupId}"/>
+                            <h:outputText value="#{remarksController.selected.oldGroupId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_newGroupId}"/>
+                            <h:outputText value="#{remarksController.selected.newGroupId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_oldBrokerId}"/>
+                            <h:outputText value="#{remarksController.selected.oldBrokerId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewRemarksLabel_writerId}"/>
+                            <h:outputText value="#{remarksController.selected.writerId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

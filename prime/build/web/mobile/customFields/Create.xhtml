@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CustomFieldsCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateCustomFieldsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CustomFieldsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CustomFieldsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{customFieldsController.selected != null}">
+                    <p:tabView id="CustomFieldsTabView">
+
+                        <p:tab id="CustomFieldsTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel>
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_subclass}" for="subclass" />
+                                    <p:inputText id="subclass" value="#{customFieldsController.selected.subclass}" title="#{myBundle.CreateCustomFieldsTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_subclass}" size="10" maxlength="10"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_internalName}" for="internalName" />
+                                    <p:inputText id="internalName" value="#{customFieldsController.selected.internalName}" title="#{myBundle.CreateCustomFieldsTitle_internalName}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_internalName}" size="50" maxlength="50"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{customFieldsController.selected.name}" title="#{myBundle.CreateCustomFieldsTitle_name}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_name}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_orderNumber}" for="orderNumber" />
+                                    <p:inputText id="orderNumber" value="#{customFieldsController.selected.orderNumber}" title="#{myBundle.CreateCustomFieldsTitle_orderNumber}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_orderNumber}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_type}" for="type" />
+                                    <p:inputText id="type" value="#{customFieldsController.selected.type}" title="#{myBundle.CreateCustomFieldsTitle_type}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_type}" size="10" maxlength="10"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_control}" for="control" />
+                                    <p:inputText id="control" value="#{customFieldsController.selected.control}" title="#{myBundle.CreateCustomFieldsTitle_control}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_control}" size="10" maxlength="10"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_size}" for="size" />
+                                    <p:inputText id="size" value="#{customFieldsController.selected.size}" title="#{myBundle.CreateCustomFieldsTitle_size}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_valRequired}" for="valRequired" />
+                                    <p:selectBooleanCheckbox id="valRequired" value="#{customFieldsController.selected.valRequired}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_valRequired}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_valUnique}" for="valUnique" />
+                                    <p:selectBooleanCheckbox id="valUnique" value="#{customFieldsController.selected.valUnique}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_valUnique}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_valMinLength}" for="valMinLength" />
+                                    <p:inputText id="valMinLength" value="#{customFieldsController.selected.valMinLength}" title="#{myBundle.CreateCustomFieldsTitle_valMinLength}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_valMaxLength}" for="valMaxLength" />
+                                    <p:inputText id="valMaxLength" value="#{customFieldsController.selected.valMaxLength}" title="#{myBundle.CreateCustomFieldsTitle_valMaxLength}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_valClass}" for="valClass" />
+                                    <p:inputTextarea rows="4" cols="30" id="valClass" value="#{customFieldsController.selected.valClass}" title="#{myBundle.CreateCustomFieldsTitle_valClass}" />
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_allSelectedLabel}" for="allSelectedLabel" />
+                                    <p:inputText id="allSelectedLabel" value="#{customFieldsController.selected.allSelectedLabel}" title="#{myBundle.CreateCustomFieldsTitle_allSelectedLabel}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_pattern}" for="pattern" />
+                                    <p:inputText id="pattern" value="#{customFieldsController.selected.pattern}" title="#{myBundle.CreateCustomFieldsTitle_pattern}" size="100" maxlength="100"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_description}" for="description" />
+                                    <p:inputTextarea rows="4" cols="30" id="description" value="#{customFieldsController.selected.description}" title="#{myBundle.CreateCustomFieldsTitle_description}" />
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberVisibilityAccess}" for="memberVisibilityAccess" />
+                                    <p:inputText id="memberVisibilityAccess" value="#{customFieldsController.selected.memberVisibilityAccess}" title="#{myBundle.CreateCustomFieldsTitle_memberVisibilityAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberUpdateAccess}" for="memberUpdateAccess" />
+                                    <p:inputText id="memberUpdateAccess" value="#{customFieldsController.selected.memberUpdateAccess}" title="#{myBundle.CreateCustomFieldsTitle_memberUpdateAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberSearchAccess}" for="memberSearchAccess" />
+                                    <p:inputText id="memberSearchAccess" value="#{customFieldsController.selected.memberSearchAccess}" title="#{myBundle.CreateCustomFieldsTitle_memberSearchAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberLoanSearchAccess}" for="memberLoanSearchAccess" />
+                                    <p:inputText id="memberLoanSearchAccess" value="#{customFieldsController.selected.memberLoanSearchAccess}" title="#{myBundle.CreateCustomFieldsTitle_memberLoanSearchAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberAdSearchAccess}" for="memberAdSearchAccess" />
+                                    <p:inputText id="memberAdSearchAccess" value="#{customFieldsController.selected.memberAdSearchAccess}" title="#{myBundle.CreateCustomFieldsTitle_memberAdSearchAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                            </p:outputPanel>
+                        </p:tab>
+                        <p:tab id="CustomFieldsTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:outputPanel>
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberCanHide}" for="memberCanHide" />
+                                    <p:selectBooleanCheckbox id="memberCanHide" value="#{customFieldsController.selected.memberCanHide}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_memberCanHide}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberShowInPrint}" for="memberShowInPrint" />
+                                    <p:selectBooleanCheckbox id="memberShowInPrint" value="#{customFieldsController.selected.memberShowInPrint}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_memberShowInPrint}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberIndexing}" for="memberIndexing" />
+                                    <p:inputText id="memberIndexing" value="#{customFieldsController.selected.memberIndexing}" title="#{myBundle.CreateCustomFieldsTitle_memberIndexing}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_operatorVisibility}" for="operatorVisibility" />
+                                    <p:inputText id="operatorVisibility" value="#{customFieldsController.selected.operatorVisibility}" title="#{myBundle.CreateCustomFieldsTitle_operatorVisibility}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_adShowInSearch}" for="adShowInSearch" />
+                                    <p:selectBooleanCheckbox id="adShowInSearch" value="#{customFieldsController.selected.adShowInSearch}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_adShowInSearch}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_adIndexed}" for="adIndexed" />
+                                    <p:selectBooleanCheckbox id="adIndexed" value="#{customFieldsController.selected.adIndexed}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_adIndexed}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_adVisibility}" for="adVisibility" />
+                                    <p:inputText id="adVisibility" value="#{customFieldsController.selected.adVisibility}" title="#{myBundle.CreateCustomFieldsTitle_adVisibility}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_paymentEnabled}" for="paymentEnabled" />
+                                    <p:selectBooleanCheckbox id="paymentEnabled" value="#{customFieldsController.selected.paymentEnabled}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_paymentEnabled}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_paymentSearchAccess}" for="paymentSearchAccess" />
+                                    <p:inputText id="paymentSearchAccess" value="#{customFieldsController.selected.paymentSearchAccess}" title="#{myBundle.CreateCustomFieldsTitle_paymentSearchAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_paymentListAccess}" for="paymentListAccess" />
+                                    <p:inputText id="paymentListAccess" value="#{customFieldsController.selected.paymentListAccess}" title="#{myBundle.CreateCustomFieldsTitle_paymentListAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_loanGroupShowInSearch}" for="loanGroupShowInSearch" />
+                                    <p:selectBooleanCheckbox id="loanGroupShowInSearch" value="#{customFieldsController.selected.loanGroupShowInSearch}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_loanGroupShowInSearch}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_recordShowInSearch}" for="recordShowInSearch" />
+                                    <p:selectBooleanCheckbox id="recordShowInSearch" value="#{customFieldsController.selected.recordShowInSearch}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_recordShowInSearch}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_recordShowInList}" for="recordShowInList" />
+                                    <p:selectBooleanCheckbox id="recordShowInList" value="#{customFieldsController.selected.recordShowInList}" required="true" requiredMessage="#{myBundle.CreateCustomFieldsRequiredMessage_recordShowInList}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_recordBrokerAccess}" for="recordBrokerAccess" />
+                                    <p:inputText id="recordBrokerAccess" value="#{customFieldsController.selected.recordBrokerAccess}" title="#{myBundle.CreateCustomFieldsTitle_recordBrokerAccess}" size="1" maxlength="1"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_transferTypesCollection}" for="transferTypesCollection" />
+                                    <p:selectManyMenu id="transferTypesCollection" value="#{customFieldsController.selected.transferTypesCollection}"  converter="transferTypesConverter">
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="transferTypesCollectionItem"
+                                                       itemValue="#{transferTypesCollectionItem}"
+                                                       itemLabel="#{transferTypesCollectionItem.name.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_parentId}" for="parentId" />
+                                    <p:selectOneMenu id="parentId" value="#{customFieldsController.selected.parentId}"  converter="customFieldsConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{customFieldsController.items}"
+                                                       var="parentIdItem"
+                                                       itemValue="#{parentIdItem}"
+                                                       itemLabel="#{parentIdItem.internalName.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_transferTypeId}" for="transferTypeId" />
+                                    <p:selectOneMenu id="transferTypeId" value="#{customFieldsController.selected.transferTypeId}"  converter="transferTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{transferTypesController.items}"
+                                                       var="transferTypeIdItem"
+                                                       itemValue="#{transferTypeIdItem}"
+                                                       itemLabel="#{transferTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberRecordTypeId}" for="memberRecordTypeId" />
+                                    <p:selectOneMenu id="memberRecordTypeId" value="#{customFieldsController.selected.memberRecordTypeId}"  converter="memberRecordTypesConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{memberRecordTypesController.items}"
+                                                       var="memberRecordTypeIdItem"
+                                                       itemValue="#{memberRecordTypeIdItem}"
+                                                       itemLabel="#{memberRecordTypeIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <p:outputLabel value="#{myBundle.CreateCustomFieldsLabel_memberId}" for="memberId" />
+                                    <p:selectOneMenu id="memberId" value="#{customFieldsController.selected.memberId}"  converter="membersConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{membersController.items}"
+                                                       var="memberIdItem"
+                                                       itemValue="#{memberIdItem}"
+                                                       itemLabel="#{memberIdItem.name.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                </pm:field>
+                                </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{customFieldsController.saveNew}" value="#{myBundle.Save}" update="display,:CustomFieldsListPage:CustomFieldsListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:CustomFieldsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

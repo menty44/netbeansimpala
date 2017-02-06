@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="LoanGroupsEditDlg" widgetVar="LoanGroupsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditLoanGroupsTitle}" closeOnEscape="true">
+
+            <h:form id="LoanGroupsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{loanGroupsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditLoanGroupsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{loanGroupsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditLoanGroupsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{loanGroupsController.selected.name}" title="#{myBundle.EditLoanGroupsTitle_name}" required="true" requiredMessage="#{myBundle.EditLoanGroupsRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanGroupsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{loanGroupsController.selected.description}" title="#{myBundle.EditLoanGroupsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditLoanGroupsLabel_membersCollection}" for="membersCollection" />
+                        <p:selectManyMenu id="membersCollection" value="#{loanGroupsController.selected.membersCollection}"  converter="membersConverter">
+                            <f:selectItems value="#{membersController.items}"
+                                           var="membersCollectionItem"
+                                           itemValue="#{membersCollectionItem}"
+                                           itemLabel="#{membersCollectionItem.name.toString()}"
+                                           />
+
+                        </p:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{loanGroupsController.save}" value="#{myBundle.Save}" update="display,:LoanGroupsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LoanGroupsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('LoanGroupsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

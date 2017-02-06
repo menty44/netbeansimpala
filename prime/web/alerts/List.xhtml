@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AlertsListForm">
+
+        <p:panel header="#{myBundle.ListAlertsTitle}">
+            <p:contextMenu id="AlertsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AlertsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AlertsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AlertsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AlertsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AlertsMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{alertsController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty alertsController.selected.memberId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{alertsController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{alertsController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{alertsController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AlertsDataTableContextMenu" listener="#{alertsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AlertsDataTableContextMenu" listener="#{alertsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{alertsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AlertsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.subclass}" filterBy="#{item.subclass}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_subclass}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subclass}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.removed}" filterBy="#{item.removed}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_removed}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="removed" value="#{item.removed}" title="#{myBundle.EditAlertsTitle_removed}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_removed}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.msgKey}" filterBy="#{item.msgKey}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_msgKey}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.msgKey}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.arg0}" filterBy="#{item.arg0}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_arg0}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arg0}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.arg1}" filterBy="#{item.arg1}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAlertsTitle_arg1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arg1}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.arg2}" filterBy="#{item.arg2}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAlertsTitle_arg2}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg2}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.arg3}" filterBy="#{item.arg3}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAlertsTitle_arg3}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg3}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.arg4}" filterBy="#{item.arg4}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAlertsTitle_arg4}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.arg4}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.date}" filterBy="#{item.date}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAlertsTitle_date}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.date}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAlertsTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{alertsController.prepareCreate}" update=":AlertsCreateForm" oncomplete="PF('AlertsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AlertsViewForm" oncomplete="PF('AlertsViewDialog').show()" disabled="#{empty alertsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AlertsEditForm" oncomplete="PF('AlertsEditDialog').show()" disabled="#{empty alertsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{alertsController.delete}" update=":growl,datalist" disabled="#{empty alertsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

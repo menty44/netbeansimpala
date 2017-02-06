@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransferAuthorizationsCreateDlg" widgetVar="TransferAuthorizationsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTransferAuthorizationsTitle}" closeOnEscape="true">
+
+            <h:form id="TransferAuthorizationsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{transferAuthorizationsController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{transferAuthorizationsController.selected.date}" title="#{myBundle.CreateTransferAuthorizationsTitle_date}" required="true" requiredMessage="#{myBundle.CreateTransferAuthorizationsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_action}" for="action" />
+                        <p:inputText id="action" value="#{transferAuthorizationsController.selected.action}" title="#{myBundle.CreateTransferAuthorizationsTitle_action}" required="true" requiredMessage="#{myBundle.CreateTransferAuthorizationsRequiredMessage_action}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_comments}" for="comments" />
+                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{transferAuthorizationsController.selected.comments}" title="#{myBundle.CreateTransferAuthorizationsTitle_comments}" />
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_showToMember}" for="showToMember" />
+                        <p:selectBooleanCheckbox id="showToMember" value="#{transferAuthorizationsController.selected.showToMember}" required="true" requiredMessage="#{myBundle.CreateTransferAuthorizationsRequiredMessage_showToMember}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_levelId}" for="levelId" />
+                        <p:selectOneMenu id="levelId" value="#{transferAuthorizationsController.selected.levelId}" required="true" requiredMessage="#{myBundle.CreateTransferAuthorizationsRequiredMessage_levelId}" converter="authorizationLevelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{authorizationLevelsController.items}"
+                                           var="levelIdItem"
+                                           itemValue="#{levelIdItem}"
+                                           itemLabel="#{levelIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_byId}" for="byId" />
+                        <p:selectOneMenu id="byId" value="#{transferAuthorizationsController.selected.byId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="byIdItem"
+                                           itemValue="#{byIdItem}"
+                                           itemLabel="#{byIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateTransferAuthorizationsLabel_transferId}" for="transferId" />
+                        <p:selectOneMenu id="transferId" value="#{transferAuthorizationsController.selected.transferId}" required="true" requiredMessage="#{myBundle.CreateTransferAuthorizationsRequiredMessage_transferId}" converter="transfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{transfersController.items}"
+                                           var="transferIdItem"
+                                           itemValue="#{transferIdItem}"
+                                           itemLabel="#{transferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{transferAuthorizationsController.saveNew}" value="#{myBundle.Save}" update="display,:TransferAuthorizationsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TransferAuthorizationsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TransferAuthorizationsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

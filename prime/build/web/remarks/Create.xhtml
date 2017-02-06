@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RemarksCreateDlg" widgetVar="RemarksCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateRemarksTitle}" closeOnEscape="true">
+
+            <h:form id="RemarksCreateForm">
+
+                <h:panelGroup id="display" rendered="#{remarksController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{remarksController.selected.subclass}" title="#{myBundle.CreateRemarksTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateRemarksRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{remarksController.selected.date}" title="#{myBundle.CreateRemarksTitle_date}" required="true" requiredMessage="#{myBundle.CreateRemarksRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_comments}" for="comments" />
+                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{remarksController.selected.comments}" title="#{myBundle.CreateRemarksTitle_comments}" />
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_subjectId}" for="subjectId" />
+                        <p:selectOneMenu id="subjectId" value="#{remarksController.selected.subjectId}" required="true" requiredMessage="#{myBundle.CreateRemarksRequiredMessage_subjectId}" converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="subjectIdItem"
+                                           itemValue="#{subjectIdItem}"
+                                           itemLabel="#{subjectIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_newBrokerId}" for="newBrokerId" />
+                        <p:selectOneMenu id="newBrokerId" value="#{remarksController.selected.newBrokerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="newBrokerIdItem"
+                                           itemValue="#{newBrokerIdItem}"
+                                           itemLabel="#{newBrokerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_oldGroupId}" for="oldGroupId" />
+                        <p:selectOneMenu id="oldGroupId" value="#{remarksController.selected.oldGroupId}"  converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="oldGroupIdItem"
+                                           itemValue="#{oldGroupIdItem}"
+                                           itemLabel="#{oldGroupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_newGroupId}" for="newGroupId" />
+                        <p:selectOneMenu id="newGroupId" value="#{remarksController.selected.newGroupId}"  converter="groupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupsController.items}"
+                                           var="newGroupIdItem"
+                                           itemValue="#{newGroupIdItem}"
+                                           itemLabel="#{newGroupIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_oldBrokerId}" for="oldBrokerId" />
+                        <p:selectOneMenu id="oldBrokerId" value="#{remarksController.selected.oldBrokerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="oldBrokerIdItem"
+                                           itemValue="#{oldBrokerIdItem}"
+                                           itemLabel="#{oldBrokerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateRemarksLabel_writerId}" for="writerId" />
+                        <p:selectOneMenu id="writerId" value="#{remarksController.selected.writerId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="writerIdItem"
+                                           itemValue="#{writerIdItem}"
+                                           itemLabel="#{writerIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{remarksController.saveNew}" value="#{myBundle.Save}" update="display,:RemarksListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RemarksCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RemarksCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

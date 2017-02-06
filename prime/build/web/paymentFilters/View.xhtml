@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentFiltersViewDlg" widgetVar="PaymentFiltersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPaymentFiltersTitle}" closeOnEscape="true">
+
+            <h:form id="PaymentFiltersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{paymentFiltersController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_id}"/>
+                        <h:outputText value="#{paymentFiltersController.selected.id}" title="#{myBundle.ViewPaymentFiltersTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_name}"/>
+                        <h:outputText value="#{paymentFiltersController.selected.name}" title="#{myBundle.ViewPaymentFiltersTitle_name}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_showInAccountHistory}"/>
+                        <h:selectBooleanCheckbox id="showInAccountHistory" value="#{paymentFiltersController.selected.showInAccountHistory}" title="#{myBundle.EditPaymentFiltersTitle_showInAccountHistory}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_showInAccountHistory}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_showInReports}"/>
+                        <h:selectBooleanCheckbox id="showInReports" value="#{paymentFiltersController.selected.showInReports}" title="#{myBundle.EditPaymentFiltersTitle_showInReports}" required="true" requiredMessage="#{myBundle.EditPaymentFiltersRequiredMessage_showInReports}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_description}"/>
+                        <h:outputText value="#{paymentFiltersController.selected.description}" title="#{myBundle.ViewPaymentFiltersTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaymentFiltersLabel_accountTypeId}"/>
+                        <h:outputText value="#{paymentFiltersController.selected.accountTypeId.name}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PaymentFiltersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

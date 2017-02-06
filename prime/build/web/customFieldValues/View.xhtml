@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CustomFieldValuesViewDlg" widgetVar="CustomFieldValuesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCustomFieldValuesTitle}" closeOnEscape="true">
+
+            <h:form id="CustomFieldValuesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="CustomFieldValuesTabView">
+
+                        <p:tab id="CustomFieldValuesTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{customFieldValuesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_id}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.id}" title="#{myBundle.ViewCustomFieldValuesTitle_id}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_subclass}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.subclass}" title="#{myBundle.ViewCustomFieldValuesTitle_subclass}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_stringValue}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.stringValue}" title="#{myBundle.ViewCustomFieldValuesTitle_stringValue}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_memberHidden}"/>
+                                <h:selectBooleanCheckbox id="memberHidden" value="#{customFieldValuesController.selected.memberHidden}" title="#{myBundle.EditCustomFieldValuesTitle_memberHidden}" required="true" requiredMessage="#{myBundle.EditCustomFieldValuesRequiredMessage_memberHidden}" disabled="true"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_loanGroupId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.loanGroupId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_guaranteeId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.guaranteeId.id}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_transferId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.transferId.description}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_pendingMemberId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.pendingMemberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_memberRecordId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.memberRecordId.id}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_importedMemberRecordId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.importedMemberRecordId.id}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_adminId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.adminId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_operatorId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.operatorId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_importedMemberId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.importedMemberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_memberId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.memberId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_invoiceId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.invoiceId.description}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_importedAdId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.importedAdId.description}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_fieldId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.fieldId.internalName}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_memberValueId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.memberValueId.name}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_scheduledPaymentId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.scheduledPaymentId.description}"/>
+
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_adId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.adId.description}"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="CustomFieldValuesTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{customFieldValuesController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewCustomFieldValuesLabel_possibleValueId}"/>
+                                <h:outputText value="#{customFieldValuesController.selected.possibleValueId.id}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CustomFieldValuesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

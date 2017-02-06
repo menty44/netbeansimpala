@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="IndexOperationsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewIndexOperationsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:IndexOperationsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="IndexOperationsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{indexOperationsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewIndexOperationsLabel_id}"/>
+                            <h:outputText value="#{indexOperationsController.selected.id}" title="#{myBundle.ViewIndexOperationsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewIndexOperationsLabel_date}"/>
+                            <h:outputText value="#{indexOperationsController.selected.date}" title="#{myBundle.ViewIndexOperationsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewIndexOperationsLabel_entityType}"/>
+                            <h:outputText value="#{indexOperationsController.selected.entityType}" title="#{myBundle.ViewIndexOperationsTitle_entityType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewIndexOperationsLabel_operationType}"/>
+                            <h:outputText value="#{indexOperationsController.selected.operationType}" title="#{myBundle.ViewIndexOperationsTitle_operationType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewIndexOperationsLabel_entityId}"/>
+                            <h:outputText value="#{indexOperationsController.selected.entityId}" title="#{myBundle.ViewIndexOperationsTitle_entityId}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

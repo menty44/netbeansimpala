@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberImportsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMemberImportsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberImportsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberImportsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{memberImportsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_id}"/>
+                            <h:outputText value="#{memberImportsController.selected.id}" title="#{myBundle.ViewMemberImportsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_date}"/>
+                            <h:outputText value="#{memberImportsController.selected.date}" title="#{myBundle.ViewMemberImportsTitle_date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_byId}"/>
+                            <h:outputText value="#{memberImportsController.selected.byId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_initialCreditTransferTypeId}"/>
+                            <h:outputText value="#{memberImportsController.selected.initialCreditTransferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_initialDebitTransferTypeId}"/>
+                            <h:outputText value="#{memberImportsController.selected.initialDebitTransferTypeId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_groupId}"/>
+                            <h:outputText value="#{memberImportsController.selected.groupId.name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMemberImportsLabel_accountTypeId}"/>
+                            <h:outputText value="#{memberImportsController.selected.accountTypeId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

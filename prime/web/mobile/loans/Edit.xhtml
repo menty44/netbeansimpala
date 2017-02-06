@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="LoansEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditLoansTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:LoansListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="LoansEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{loansController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditLoansLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{loansController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_totalAmount}" for="totalAmount" />
+                            <p:inputText id="totalAmount" value="#{loansController.selected.totalAmount}" title="#{myBundle.EditLoansTitle_totalAmount}" required="true" requiredMessage="#{myBundle.EditLoansRequiredMessage_totalAmount}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_type}" for="type" />
+                            <p:inputText id="type" value="#{loansController.selected.type}" title="#{myBundle.EditLoansTitle_type}" required="true" requiredMessage="#{myBundle.EditLoansRequiredMessage_type}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_grantFeeValue}" for="grantFeeValue" />
+                            <p:inputText id="grantFeeValue" value="#{loansController.selected.grantFeeValue}" title="#{myBundle.EditLoansTitle_grantFeeValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_grantFeeType}" for="grantFeeType" />
+                            <p:inputText id="grantFeeType" value="#{loansController.selected.grantFeeType}" title="#{myBundle.EditLoansTitle_grantFeeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_monthlyInterest}" for="monthlyInterest" />
+                            <p:inputText id="monthlyInterest" value="#{loansController.selected.monthlyInterest}" title="#{myBundle.EditLoansTitle_monthlyInterest}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_expirationFeeValue}" for="expirationFeeValue" />
+                            <p:inputText id="expirationFeeValue" value="#{loansController.selected.expirationFeeValue}" title="#{myBundle.EditLoansTitle_expirationFeeValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_expirationFeeType}" for="expirationFeeType" />
+                            <p:inputText id="expirationFeeType" value="#{loansController.selected.expirationFeeType}" title="#{myBundle.EditLoansTitle_expirationFeeType}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_expirationDailyInterest}" for="expirationDailyInterest" />
+                            <p:inputText id="expirationDailyInterest" value="#{loansController.selected.expirationDailyInterest}" title="#{myBundle.EditLoansTitle_expirationDailyInterest}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_guarantees}" for="guarantees" />
+                            <p:selectOneMenu id="guarantees" value="#{loansController.selected.guarantees}"  converter="guaranteesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{guaranteesController.items}"
+                                               var="guaranteesItem"
+                                               itemValue="#{guaranteesItem}"
+                                               itemLabel="#{guaranteesItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_transferId}" for="transferId" />
+                            <p:selectOneMenu id="transferId" value="#{loansController.selected.transferId}" required="true" requiredMessage="#{myBundle.EditLoansRequiredMessage_transferId}" converter="transfersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{transfersController.items}"
+                                               var="transferIdItem"
+                                               itemValue="#{transferIdItem}"
+                                               itemLabel="#{transferIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditLoansLabel_loanGroupId}" for="loanGroupId" />
+                            <p:selectOneMenu id="loanGroupId" value="#{loansController.selected.loanGroupId}"  converter="loanGroupsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{loanGroupsController.items}"
+                                               var="loanGroupIdItem"
+                                               itemValue="#{loanGroupIdItem}"
+                                               itemLabel="#{loanGroupIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{loansController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:LoansListPage:LoansListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:LoansListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

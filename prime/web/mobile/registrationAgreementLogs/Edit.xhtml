@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RegistrationAgreementLogsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditRegistrationAgreementLogsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RegistrationAgreementLogsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RegistrationAgreementLogsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{registrationAgreementLogsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{registrationAgreementLogsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{registrationAgreementLogsController.selected.date}" title="#{myBundle.EditRegistrationAgreementLogsTitle_date}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_remoteAddress}" for="remoteAddress" />
+                            <p:inputText id="remoteAddress" value="#{registrationAgreementLogsController.selected.remoteAddress}" title="#{myBundle.EditRegistrationAgreementLogsTitle_remoteAddress}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_registrationAgreementId}" for="registrationAgreementId" />
+                            <p:selectOneMenu id="registrationAgreementId" value="#{registrationAgreementLogsController.selected.registrationAgreementId}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_registrationAgreementId}" converter="registrationAgreementsConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{registrationAgreementsController.items}"
+                                               var="registrationAgreementIdItem"
+                                               itemValue="#{registrationAgreementIdItem}"
+                                               itemLabel="#{registrationAgreementIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditRegistrationAgreementLogsLabel_memberId}" for="memberId" />
+                            <p:selectOneMenu id="memberId" value="#{registrationAgreementLogsController.selected.memberId}" required="true" requiredMessage="#{myBundle.EditRegistrationAgreementLogsRequiredMessage_memberId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="memberIdItem"
+                                               itemValue="#{memberIdItem}"
+                                               itemLabel="#{memberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{registrationAgreementLogsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:RegistrationAgreementLogsListPage:RegistrationAgreementLogsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:RegistrationAgreementLogsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

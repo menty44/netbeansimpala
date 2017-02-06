@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AdCategoriesListForm">
+
+        <p:panel header="#{myBundle.ListAdCategoriesTitle}">
+            <p:contextMenu id="AdCategoriesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AdCategoriesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AdCategoriesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AdCategoriesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AdCategoriesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_importedAdsCollection}" icon="ui-icon-search"  action="#{adCategoriesController.navigateImportedAdsCollection}" disabled="#{empty adCategoriesController.selected.importedAdsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_adCategoriesCollection}" icon="ui-icon-search"  action="#{adCategoriesController.navigateAdCategoriesCollection}" disabled="#{empty adCategoriesController.selected.adCategoriesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_parentId}" icon="ui-icon-search"  actionListener="#{adCategoriesController.prepareParentId}" update=":AdCategoriesViewForm" oncomplete="PF('AdCategoriesViewDialog').show()" disabled="#{empty adCategoriesController.selected.parentId}"/>  
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_adsCollection}" icon="ui-icon-search"  action="#{adCategoriesController.navigateAdsCollection}" disabled="#{empty adCategoriesController.selected.adsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_adInterestsCollection}" icon="ui-icon-search"  action="#{adCategoriesController.navigateAdInterestsCollection}" disabled="#{empty adCategoriesController.selected.adInterestsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.AdCategoriesMenuItem_importedAdCategoriesCollection}" icon="ui-icon-search"  action="#{adCategoriesController.navigateImportedAdCategoriesCollection}" disabled="#{empty adCategoriesController.selected.importedAdCategoriesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{adCategoriesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{adCategoriesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{adCategoriesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdCategoriesDataTableContextMenu" listener="#{adCategoriesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AdCategoriesDataTableContextMenu" listener="#{adCategoriesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{adCategoriesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AdCategoriesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdCategoriesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.orderIndex}" filterBy="#{item.orderIndex}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdCategoriesTitle_orderIndex}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.orderIndex}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdCategoriesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdCategoriesTitle_active}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditAdCategoriesTitle_active}" required="true" requiredMessage="#{myBundle.EditAdCategoriesRequiredMessage_active}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.parentId.name}" filterBy="#{item.parentId.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdCategoriesTitle_parentId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.parentId.name}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{adCategoriesController.prepareCreate}" update=":AdCategoriesCreateForm" oncomplete="PF('AdCategoriesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AdCategoriesViewForm" oncomplete="PF('AdCategoriesViewDialog').show()" disabled="#{empty adCategoriesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AdCategoriesEditForm" oncomplete="PF('AdCategoriesEditDialog').show()" disabled="#{empty adCategoriesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{adCategoriesController.delete}" update=":growl,datalist" disabled="#{empty adCategoriesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

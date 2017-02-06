@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RateParametersCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateRateParametersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RateParametersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RateParametersCreateForm">
+
+                <h:panelGroup id="display" rendered="#{rateParametersController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{rateParametersController.selected.subclass}" title="#{myBundle.CreateRateParametersTitle_subclass}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_subclass}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.date}" title="#{myBundle.CreateRateParametersTitle_date}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_creationValue}" for="creationValue" />
+                            <p:inputText id="creationValue" value="#{rateParametersController.selected.creationValue}" title="#{myBundle.CreateRateParametersTitle_creationValue}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_creationValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_enabledSince}" for="enabledSince" />
+                            <p:calendar id="enabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.enabledSince}" title="#{myBundle.CreateRateParametersTitle_enabledSince}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_enabledSince}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_disabledSince}" for="disabledSince" />
+                            <p:calendar id="disabledSince" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.disabledSince}" title="#{myBundle.CreateRateParametersTitle_disabledSince}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_reinitDate}" for="reinitDate" />
+                            <p:calendar id="reinitDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.reinitDate}" title="#{myBundle.CreateRateParametersTitle_reinitDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_initValue}" for="initValue" />
+                            <p:inputText id="initValue" value="#{rateParametersController.selected.initValue}" title="#{myBundle.CreateRateParametersTitle_initValue}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_initDate}" for="initDate" />
+                            <p:calendar id="initDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{rateParametersController.selected.initDate}" title="#{myBundle.CreateRateParametersTitle_initDate}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_interest}" for="interest" />
+                            <p:inputText id="interest" value="#{rateParametersController.selected.interest}" title="#{myBundle.CreateRateParametersTitle_interest}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_baseMalus}" for="baseMalus" />
+                            <p:inputText id="baseMalus" value="#{rateParametersController.selected.baseMalus}" title="#{myBundle.CreateRateParametersTitle_baseMalus}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_minimalD}" for="minimalD" />
+                            <p:inputText id="minimalD" value="#{rateParametersController.selected.minimalD}" title="#{myBundle.CreateRateParametersTitle_minimalD}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateRateParametersLabel_currencyId}" for="currencyId" />
+                            <p:selectOneMenu id="currencyId" value="#{rateParametersController.selected.currencyId}" required="true" requiredMessage="#{myBundle.CreateRateParametersRequiredMessage_currencyId}" converter="currenciesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{currenciesController.items}"
+                                               var="currencyIdItem"
+                                               itemValue="#{currencyIdItem}"
+                                               itemLabel="#{currencyIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{rateParametersController.saveNew}" value="#{myBundle.Save}" update="display,:RateParametersListPage:RateParametersListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:RateParametersListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

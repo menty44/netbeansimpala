@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MemberPosEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditMemberPosTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MemberPosListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MemberPosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{memberPosController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditMemberPosLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{memberPosController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_posName}" for="posName" />
+                            <p:inputText id="posName" value="#{memberPosController.selected.posName}" title="#{myBundle.EditMemberPosTitle_posName}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_posPin}" for="posPin" />
+                            <p:inputText id="posPin" value="#{memberPosController.selected.posPin}" title="#{myBundle.EditMemberPosTitle_posPin}" size="64" maxlength="64"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{memberPosController.selected.date}" title="#{myBundle.EditMemberPosTitle_date}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_allowMakePayment}" for="allowMakePayment" />
+                            <p:selectBooleanCheckbox id="allowMakePayment" value="#{memberPosController.selected.allowMakePayment}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_allowMakePayment}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_maxSchedulingPayments}" for="maxSchedulingPayments" />
+                            <p:inputText id="maxSchedulingPayments" value="#{memberPosController.selected.maxSchedulingPayments}" title="#{myBundle.EditMemberPosTitle_maxSchedulingPayments}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_maxSchedulingPayments}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_numberOfCopies}" for="numberOfCopies" />
+                            <p:inputText id="numberOfCopies" value="#{memberPosController.selected.numberOfCopies}" title="#{myBundle.EditMemberPosTitle_numberOfCopies}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_numberOfCopies}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_resultPageSize}" for="resultPageSize" />
+                            <p:inputText id="resultPageSize" value="#{memberPosController.selected.resultPageSize}" title="#{myBundle.EditMemberPosTitle_resultPageSize}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_resultPageSize}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_status}" for="status" />
+                            <p:inputText id="status" value="#{memberPosController.selected.status}" title="#{myBundle.EditMemberPosTitle_status}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_status}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_posId}" for="posId" />
+                            <p:selectOneMenu id="posId" value="#{memberPosController.selected.posId}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_posId}" converter="posConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{posController.items}"
+                                               var="posIdItem"
+                                               itemValue="#{posIdItem}"
+                                               itemLabel="#{posIdItem.description.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMemberPosLabel_ownerId}" for="ownerId" />
+                            <p:selectOneMenu id="ownerId" value="#{memberPosController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditMemberPosRequiredMessage_ownerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="ownerIdItem"
+                                               itemValue="#{ownerIdItem}"
+                                               itemLabel="#{ownerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{memberPosController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:MemberPosListPage:MemberPosListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:MemberPosListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

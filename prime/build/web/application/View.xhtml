@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ApplicationViewDlg" widgetVar="ApplicationViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewApplicationTitle}" closeOnEscape="true">
+
+            <h:form id="ApplicationViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{applicationController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_id}"/>
+                        <h:outputText value="#{applicationController.selected.id}" title="#{myBundle.ViewApplicationTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_version}"/>
+                        <h:outputText value="#{applicationController.selected.version}" title="#{myBundle.ViewApplicationTitle_version}"/>
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_online}"/>
+                        <h:selectBooleanCheckbox id="online" value="#{applicationController.selected.online}" title="#{myBundle.EditApplicationTitle_online}" required="true" requiredMessage="#{myBundle.EditApplicationRequiredMessage_online}" disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_accountStatusEnabledSince}"/>
+                        <h:outputText value="#{applicationController.selected.accountStatusEnabledSince}" title="#{myBundle.ViewApplicationTitle_accountStatusEnabledSince}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_passwordHash}"/>
+                        <h:outputText value="#{applicationController.selected.passwordHash}" title="#{myBundle.ViewApplicationTitle_passwordHash}"/>
+
+                        <h:outputText value="#{myBundle.ViewApplicationLabel_lastIndexRebuildingTime}"/>
+                        <h:outputText value="#{applicationController.selected.lastIndexRebuildingTime}" title="#{myBundle.ViewApplicationTitle_lastIndexRebuildingTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ApplicationViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

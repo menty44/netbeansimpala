@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MembersViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMembersTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MembersListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MembersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="MembersTabView">
+
+                        <p:tab id="MembersTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:outputPanel rendered="#{membersController.selected != null}">
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_id}"/>
+                                    <h:outputText value="#{membersController.selected.id}" title="#{myBundle.ViewMembersTitle_id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_subclass}"/>
+                                    <h:outputText value="#{membersController.selected.subclass}" title="#{myBundle.ViewMembersTitle_subclass}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_name}"/>
+                                    <h:outputText value="#{membersController.selected.name}" title="#{myBundle.ViewMembersTitle_name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_creationDate}"/>
+                                    <h:outputText value="#{membersController.selected.creationDate}" title="#{myBundle.ViewMembersTitle_creationDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_email}"/>
+                                    <h:outputText value="#{membersController.selected.email}" title="#{myBundle.ViewMembersTitle_email}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_memberActivationDate}"/>
+                                    <h:outputText value="#{membersController.selected.memberActivationDate}" title="#{myBundle.ViewMembersTitle_memberActivationDate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_hideEmail}"/>
+                                    <h:selectBooleanCheckbox id="hideEmail" value="#{membersController.selected.hideEmail}" title="#{myBundle.EditMembersTitle_hideEmail}" required="true" requiredMessage="#{myBundle.EditMembersRequiredMessage_hideEmail}" disabled="true"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_loansCollection}"/>
+                                    <h:selectManyMenu converter="loansConverter">
+                                        <f:selectItems value="#{membersController.selected.loansCollection}"
+                                                       var="loansCollectionItem"
+                                                       itemValue="#{loansCollectionItem}"
+                                                       itemLabel="#{loansCollectionItem.id.toString()}"
+                                                       />
+
+                                    </h:selectManyMenu>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_memberSmsStatus}"/>
+                                    <h:outputText value="#{membersController.selected.memberSmsStatus.id}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_groupId}"/>
+                                    <h:outputText value="#{membersController.selected.groupId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_memberBrokerId}"/>
+                                    <h:outputText value="#{membersController.selected.memberBrokerId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_memberId}"/>
+                                    <h:outputText value="#{membersController.selected.memberId.name}"/>
+                                </pm:field>
+
+                                <pm:field>
+                                    <h:outputText value="#{myBundle.ViewMembersLabel_users}"/>
+                                    <h:outputText value="#{membersController.selected.users.username}"/>
+                                </pm:field>
+                            </p:outputPanel>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

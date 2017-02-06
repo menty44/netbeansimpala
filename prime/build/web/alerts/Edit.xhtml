@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AlertsEditDlg" widgetVar="AlertsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAlertsTitle}" closeOnEscape="true">
+
+            <h:form id="AlertsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{alertsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAlertsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{alertsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_subclass}" for="subclass" />
+                        <p:inputText id="subclass" value="#{alertsController.selected.subclass}" title="#{myBundle.EditAlertsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_subclass}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_removed}" for="removed" />
+                        <p:selectBooleanCheckbox id="removed" value="#{alertsController.selected.removed}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_removed}"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_msgKey}" for="msgKey" />
+                        <p:inputText id="msgKey" value="#{alertsController.selected.msgKey}" title="#{myBundle.EditAlertsTitle_msgKey}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_msgKey}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_arg0}" for="arg0" />
+                        <p:inputText id="arg0" value="#{alertsController.selected.arg0}" title="#{myBundle.EditAlertsTitle_arg0}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_arg1}" for="arg1" />
+                        <p:inputText id="arg1" value="#{alertsController.selected.arg1}" title="#{myBundle.EditAlertsTitle_arg1}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_arg2}" for="arg2" />
+                        <p:inputText id="arg2" value="#{alertsController.selected.arg2}" title="#{myBundle.EditAlertsTitle_arg2}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_arg3}" for="arg3" />
+                        <p:inputText id="arg3" value="#{alertsController.selected.arg3}" title="#{myBundle.EditAlertsTitle_arg3}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_arg4}" for="arg4" />
+                        <p:inputText id="arg4" value="#{alertsController.selected.arg4}" title="#{myBundle.EditAlertsTitle_arg4}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{alertsController.selected.date}" title="#{myBundle.EditAlertsTitle_date}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_date}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditAlertsLabel_memberId}" for="memberId" />
+                        <p:selectOneMenu id="memberId" value="#{alertsController.selected.memberId}"  converter="membersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{membersController.items}"
+                                           var="memberIdItem"
+                                           itemValue="#{memberIdItem}"
+                                           itemLabel="#{memberIdItem.name.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{alertsController.save}" value="#{myBundle.Save}" update="display,:AlertsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AlertsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AlertsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

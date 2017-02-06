@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountLimitLogsViewDlg" widgetVar="AccountLimitLogsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAccountLimitLogsTitle}" closeOnEscape="true">
+
+            <h:form id="AccountLimitLogsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{accountLimitLogsController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_id}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.id}" title="#{myBundle.ViewAccountLimitLogsTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_date}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.date}" title="#{myBundle.ViewAccountLimitLogsTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_creditLimit}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.creditLimit}" title="#{myBundle.ViewAccountLimitLogsTitle_creditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_upperCreditLimit}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.upperCreditLimit}" title="#{myBundle.ViewAccountLimitLogsTitle_upperCreditLimit}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_byId}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.byId.name}"/>
+
+                        <h:outputText value="#{myBundle.ViewAccountLimitLogsLabel_accountId}"/>
+                        <h:outputText value="#{accountLimitLogsController.selected.accountId.ownerName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AccountLimitLogsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ServiceClientsViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewServiceClientsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ServiceClientsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ServiceClientsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{serviceClientsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_id}"/>
+                            <h:outputText value="#{serviceClientsController.selected.id}" title="#{myBundle.ViewServiceClientsTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_name}"/>
+                            <h:outputText value="#{serviceClientsController.selected.name}" title="#{myBundle.ViewServiceClientsTitle_name}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_hostname}"/>
+                            <h:outputText value="#{serviceClientsController.selected.hostname}" title="#{myBundle.ViewServiceClientsTitle_hostname}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_addressBegin}"/>
+                            <h:outputText value="#{serviceClientsController.selected.addressBegin}" title="#{myBundle.ViewServiceClientsTitle_addressBegin}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_addressEnd}"/>
+                            <h:outputText value="#{serviceClientsController.selected.addressEnd}" title="#{myBundle.ViewServiceClientsTitle_addressEnd}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_username}"/>
+                            <h:outputText value="#{serviceClientsController.selected.username}" title="#{myBundle.ViewServiceClientsTitle_username}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_password}"/>
+                            <h:outputText value="#{serviceClientsController.selected.password}" title="#{myBundle.ViewServiceClientsTitle_password}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_credentialsRequired}"/>
+                            <h:selectBooleanCheckbox id="credentialsRequired" value="#{serviceClientsController.selected.credentialsRequired}" title="#{myBundle.EditServiceClientsTitle_credentialsRequired}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_credentialsRequired}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_ignoreRegistrationValidations}"/>
+                            <h:selectBooleanCheckbox id="ignoreRegistrationValidations" value="#{serviceClientsController.selected.ignoreRegistrationValidations}" title="#{myBundle.EditServiceClientsTitle_ignoreRegistrationValidations}" required="true" requiredMessage="#{myBundle.EditServiceClientsRequiredMessage_ignoreRegistrationValidations}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_channelId}"/>
+                            <h:outputText value="#{serviceClientsController.selected.channelId.internalName}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewServiceClientsLabel_memberId}"/>
+                            <h:outputText value="#{serviceClientsController.selected.memberId.name}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

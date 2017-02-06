@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ImportedMembersListForm">
+
+        <p:panel header="#{myBundle.ListImportedMembersTitle}">
+            <p:contextMenu id="ImportedMembersDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ImportedMembersListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ImportedMembersListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ImportedMembersListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ImportedMembersListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ImportedMembersMenuItem_importId}" icon="ui-icon-search"  actionListener="#{importedMembersController.prepareImportId}" update=":MemberImportsViewForm" oncomplete="PF('MemberImportsViewDialog').show()" disabled="#{empty importedMembersController.selected.importId}"/>  
+                <p:menuitem value="#{myBundle.ImportedMembersMenuItem_importedMemberRecordsCollection}" icon="ui-icon-search"  action="#{importedMembersController.navigateImportedMemberRecordsCollection}" disabled="#{empty importedMembersController.selected.importedMemberRecordsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ImportedMembersMenuItem_customFieldValuesCollection}" icon="ui-icon-search"  action="#{importedMembersController.navigateCustomFieldValuesCollection}" disabled="#{empty importedMembersController.selected.customFieldValuesCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{importedMembersController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{importedMembersController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{importedMembersController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ImportedMembersDataTableContextMenu" listener="#{importedMembersController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ImportedMembersDataTableContextMenu" listener="#{importedMembersController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{importedMembersController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ImportedMembersListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_status}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lineNumber}" filterBy="#{item.lineNumber}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_lineNumber}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lineNumber}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.errorArgument1}" filterBy="#{item.errorArgument1}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_errorArgument1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.errorArgument1}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.errorArgument2}" filterBy="#{item.errorArgument2}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_errorArgument2}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.errorArgument2}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListImportedMembersTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.salt}" filterBy="#{item.salt}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_salt}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.salt}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.username}" filterBy="#{item.username}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_username}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.username}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.password}" filterBy="#{item.password}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_password}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.password}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.email}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_creationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creationDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.creditLimit}" filterBy="#{item.creditLimit}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_creditLimit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.creditLimit}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.upperCreditLimit}" filterBy="#{item.upperCreditLimit}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_upperCreditLimit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.upperCreditLimit}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.initialBalance}" filterBy="#{item.initialBalance}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_initialBalance}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.initialBalance}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.importId.id}" filterBy="#{item.importId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListImportedMembersTitle_importId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.importId.id}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{importedMembersController.prepareCreate}" update=":ImportedMembersCreateForm" oncomplete="PF('ImportedMembersCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ImportedMembersViewForm" oncomplete="PF('ImportedMembersViewDialog').show()" disabled="#{empty importedMembersController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ImportedMembersEditForm" oncomplete="PF('ImportedMembersEditDialog').show()" disabled="#{empty importedMembersController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{importedMembersController.delete}" update=":growl,datalist" disabled="#{empty importedMembersController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

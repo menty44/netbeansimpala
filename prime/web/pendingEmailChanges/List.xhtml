@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PendingEmailChangesListForm">
+
+        <p:panel header="#{myBundle.ListPendingEmailChangesTitle}">
+            <p:contextMenu id="PendingEmailChangesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PendingEmailChangesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PendingEmailChangesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PendingEmailChangesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PendingEmailChangesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PendingEmailChangesMenuItem_byId}" icon="ui-icon-search"  actionListener="#{pendingEmailChangesController.prepareById}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty pendingEmailChangesController.selected.byId}"/>  
+                <p:menuitem value="#{myBundle.PendingEmailChangesMenuItem_memberId}" icon="ui-icon-search"  actionListener="#{pendingEmailChangesController.prepareMemberId}" update=":MembersViewForm" oncomplete="PF('MembersViewDialog').show()" disabled="#{empty pendingEmailChangesController.selected.memberId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{pendingEmailChangesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{pendingEmailChangesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{pendingEmailChangesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PendingEmailChangesDataTableContextMenu" listener="#{pendingEmailChangesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PendingEmailChangesDataTableContextMenu" listener="#{pendingEmailChangesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{pendingEmailChangesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PendingEmailChangesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.creationDate}" filterBy="#{item.creationDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_creationDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.newEmail}" filterBy="#{item.newEmail}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_newEmail}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.newEmail}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.validationKey}" filterBy="#{item.validationKey}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_validationKey}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.validationKey}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lastEmailDate}" filterBy="#{item.lastEmailDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_lastEmailDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastEmailDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.remoteAddress}" filterBy="#{item.remoteAddress}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_remoteAddress}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.remoteAddress}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.byId.name}" filterBy="#{item.byId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_byId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.byId.name}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.memberId.name}" filterBy="#{item.memberId.name}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPendingEmailChangesTitle_memberId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.memberId.name}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{pendingEmailChangesController.prepareCreate}" update=":PendingEmailChangesCreateForm" oncomplete="PF('PendingEmailChangesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PendingEmailChangesViewForm" oncomplete="PF('PendingEmailChangesViewDialog').show()" disabled="#{empty pendingEmailChangesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PendingEmailChangesEditForm" oncomplete="PF('PendingEmailChangesEditDialog').show()" disabled="#{empty pendingEmailChangesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{pendingEmailChangesController.delete}" update=":growl,datalist" disabled="#{empty pendingEmailChangesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

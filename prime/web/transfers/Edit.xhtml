@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TransfersEditDlg" widgetVar="TransfersEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTransfersTitle}" closeOnEscape="true">
+
+            <h:form id="TransfersEditForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="TransfersTabView">
+
+                        <p:tab id="TransfersTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{transfersController.selected != null}">
+
+                                <h:outputLabel value="#{myBundle.EditTransfersLabel_id}" for="id" />
+                                <h:outputText id="id" value="#{transfersController.selected.id}" />
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_date}" for="date" />
+                                <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{transfersController.selected.date}" title="#{myBundle.EditTransfersTitle_date}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_date}" showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_amount}" for="amount" />
+                                <p:inputText id="amount" value="#{transfersController.selected.amount}" title="#{myBundle.EditTransfersTitle_amount}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_amount}"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_emissionDate}" for="emissionDate" />
+                                <p:calendar id="emissionDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{transfersController.selected.emissionDate}" title="#{myBundle.EditTransfersTitle_emissionDate}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_expirationDate}" for="expirationDate" />
+                                <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{transfersController.selected.expirationDate}" title="#{myBundle.EditTransfersTitle_expirationDate}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_IRate}" for="IRate" />
+                                <p:inputText id="IRate" value="#{transfersController.selected.IRate}" title="#{myBundle.EditTransfersTitle_IRate}"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_status}" for="status" />
+                                <p:inputText id="status" value="#{transfersController.selected.status}" title="#{myBundle.EditTransfersTitle_status}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_status}" size="1" maxlength="1"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_processDate}" for="processDate" />
+                                <p:calendar id="processDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{transfersController.selected.processDate}" title="#{myBundle.EditTransfersTitle_processDate}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_feedbackDeadline}" for="feedbackDeadline" />
+                                <p:calendar id="feedbackDeadline" pattern="MM/dd/yyyy HH:mm:ss" value="#{transfersController.selected.feedbackDeadline}" title="#{myBundle.EditTransfersTitle_feedbackDeadline}"  showOn="button"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{transfersController.selected.description}" title="#{myBundle.EditTransfersTitle_description}" />
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_transactionNumber}" for="transactionNumber" />
+                                <p:inputText id="transactionNumber" value="#{transfersController.selected.transactionNumber}" title="#{myBundle.EditTransfersTitle_transactionNumber}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_traceNumber}" for="traceNumber" />
+                                <p:inputText id="traceNumber" value="#{transfersController.selected.traceNumber}" title="#{myBundle.EditTransfersTitle_traceNumber}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_clientId}" for="clientId" />
+                                <p:inputText id="clientId" value="#{transfersController.selected.clientId}" title="#{myBundle.EditTransfersTitle_clientId}"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_traceData}" for="traceData" />
+                                <p:inputText id="traceData" value="#{transfersController.selected.traceData}" title="#{myBundle.EditTransfersTitle_traceData}" size="50" maxlength="50"/>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_fromAccountId}" for="fromAccountId" />
+                                <p:selectOneMenu id="fromAccountId" value="#{transfersController.selected.fromAccountId}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_fromAccountId}" converter="accountsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountsController.items}"
+                                                   var="fromAccountIdItem"
+                                                   itemValue="#{fromAccountIdItem}"
+                                                   itemLabel="#{fromAccountIdItem.ownerName.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_brokerCommissionContractId}" for="brokerCommissionContractId" />
+                                <p:selectOneMenu id="brokerCommissionContractId" value="#{transfersController.selected.brokerCommissionContractId}"  converter="brokerCommissionContractsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{brokerCommissionContractsController.items}"
+                                                   var="brokerCommissionContractIdItem"
+                                                   itemValue="#{brokerCommissionContractIdItem}"
+                                                   itemLabel="#{brokerCommissionContractIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_chargedbackById}" for="chargedbackById" />
+                                <p:selectOneMenu id="chargedbackById" value="#{transfersController.selected.chargedbackById}"  converter="transfersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transfersController.items}"
+                                                   var="chargedbackByIdItem"
+                                                   itemValue="#{chargedbackByIdItem}"
+                                                   itemLabel="#{chargedbackByIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_parentId}" for="parentId" />
+                                <p:selectOneMenu id="parentId" value="#{transfersController.selected.parentId}"  converter="transfersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transfersController.items}"
+                                                   var="parentIdItem"
+                                                   itemValue="#{parentIdItem}"
+                                                   itemLabel="#{parentIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_byId}" for="byId" />
+                                <p:selectOneMenu id="byId" value="#{transfersController.selected.byId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="byIdItem"
+                                                   itemValue="#{byIdItem}"
+                                                   itemLabel="#{byIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_nextAuthorizationLevelId}" for="nextAuthorizationLevelId" />
+                                <p:selectOneMenu id="nextAuthorizationLevelId" value="#{transfersController.selected.nextAuthorizationLevelId}"  converter="authorizationLevelsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{authorizationLevelsController.items}"
+                                                   var="nextAuthorizationLevelIdItem"
+                                                   itemValue="#{nextAuthorizationLevelIdItem}"
+                                                   itemLabel="#{nextAuthorizationLevelIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="TransfersTab2" title="#{myBundle.TabHeaderPrefix} 2">
+                            <p:panelGrid  columns="2" columnClasses="column" rendered="#{transfersController.selected != null}">
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_loanPaymentId}" for="loanPaymentId" />
+                                <p:selectOneMenu id="loanPaymentId" value="#{transfersController.selected.loanPaymentId}"  converter="loanPaymentsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{loanPaymentsController.items}"
+                                                   var="loanPaymentIdItem"
+                                                   itemValue="#{loanPaymentIdItem}"
+                                                   itemLabel="#{loanPaymentIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_transactionFeeId}" for="transactionFeeId" />
+                                <p:selectOneMenu id="transactionFeeId" value="#{transfersController.selected.transactionFeeId}"  converter="transactionFeesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transactionFeesController.items}"
+                                                   var="transactionFeeIdItem"
+                                                   itemValue="#{transactionFeeIdItem}"
+                                                   itemLabel="#{transactionFeeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_externalTransferId}" for="externalTransferId" />
+                                <p:selectOneMenu id="externalTransferId" value="#{transfersController.selected.externalTransferId}"  converter="externalTransfersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{externalTransfersController.items}"
+                                                   var="externalTransferIdItem"
+                                                   itemValue="#{externalTransferIdItem}"
+                                                   itemLabel="#{externalTransferIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_accountFeeLogId}" for="accountFeeLogId" />
+                                <p:selectOneMenu id="accountFeeLogId" value="#{transfersController.selected.accountFeeLogId}"  converter="accountFeeLogsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountFeeLogsController.items}"
+                                                   var="accountFeeLogIdItem"
+                                                   itemValue="#{accountFeeLogIdItem}"
+                                                   itemLabel="#{accountFeeLogIdItem.id.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_typeId}" for="typeId" />
+                                <p:selectOneMenu id="typeId" value="#{transfersController.selected.typeId}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_typeId}" converter="transferTypesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transferTypesController.items}"
+                                                   var="typeIdItem"
+                                                   itemValue="#{typeIdItem}"
+                                                   itemLabel="#{typeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_receiverId}" for="receiverId" />
+                                <p:selectOneMenu id="receiverId" value="#{transfersController.selected.receiverId}"  converter="membersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{membersController.items}"
+                                                   var="receiverIdItem"
+                                                   itemValue="#{receiverIdItem}"
+                                                   itemLabel="#{receiverIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_chargebackOfId}" for="chargebackOfId" />
+                                <p:selectOneMenu id="chargebackOfId" value="#{transfersController.selected.chargebackOfId}"  converter="transfersConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transfersController.items}"
+                                                   var="chargebackOfIdItem"
+                                                   itemValue="#{chargebackOfIdItem}"
+                                                   itemLabel="#{chargebackOfIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_scheduledPaymentId}" for="scheduledPaymentId" />
+                                <p:selectOneMenu id="scheduledPaymentId" value="#{transfersController.selected.scheduledPaymentId}"  converter="scheduledPaymentsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{scheduledPaymentsController.items}"
+                                                   var="scheduledPaymentIdItem"
+                                                   itemValue="#{scheduledPaymentIdItem}"
+                                                   itemLabel="#{scheduledPaymentIdItem.description.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_feeId}" for="feeId" />
+                                <p:selectOneMenu id="feeId" value="#{transfersController.selected.feeId}"  converter="transactionFeesConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{transactionFeesController.items}"
+                                                   var="feeIdItem"
+                                                   itemValue="#{feeIdItem}"
+                                                   itemLabel="#{feeIdItem.name.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{myBundle.EditTransfersLabel_toAccountId}" for="toAccountId" />
+                                <p:selectOneMenu id="toAccountId" value="#{transfersController.selected.toAccountId}" required="true" requiredMessage="#{myBundle.EditTransfersRequiredMessage_toAccountId}" converter="accountsConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{accountsController.items}"
+                                                   var="toAccountIdItem"
+                                                   itemValue="#{toAccountIdItem}"
+                                                   itemLabel="#{toAccountIdItem.ownerName.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{transfersController.save}" value="#{myBundle.Save}" update="display,:TransfersListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TransfersEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TransfersEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

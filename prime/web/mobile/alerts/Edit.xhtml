@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AlertsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAlertsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AlertsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AlertsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{alertsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAlertsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{alertsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_subclass}" for="subclass" />
+                            <p:inputText id="subclass" value="#{alertsController.selected.subclass}" title="#{myBundle.EditAlertsTitle_subclass}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_subclass}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_removed}" for="removed" />
+                            <p:selectBooleanCheckbox id="removed" value="#{alertsController.selected.removed}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_removed}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_msgKey}" for="msgKey" />
+                            <p:inputText id="msgKey" value="#{alertsController.selected.msgKey}" title="#{myBundle.EditAlertsTitle_msgKey}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_msgKey}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_arg0}" for="arg0" />
+                            <p:inputText id="arg0" value="#{alertsController.selected.arg0}" title="#{myBundle.EditAlertsTitle_arg0}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_arg1}" for="arg1" />
+                            <p:inputText id="arg1" value="#{alertsController.selected.arg1}" title="#{myBundle.EditAlertsTitle_arg1}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_arg2}" for="arg2" />
+                            <p:inputText id="arg2" value="#{alertsController.selected.arg2}" title="#{myBundle.EditAlertsTitle_arg2}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_arg3}" for="arg3" />
+                            <p:inputText id="arg3" value="#{alertsController.selected.arg3}" title="#{myBundle.EditAlertsTitle_arg3}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_arg4}" for="arg4" />
+                            <p:inputText id="arg4" value="#{alertsController.selected.arg4}" title="#{myBundle.EditAlertsTitle_arg4}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_date}" for="date" />
+                            <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{alertsController.selected.date}" title="#{myBundle.EditAlertsTitle_date}" required="true" requiredMessage="#{myBundle.EditAlertsRequiredMessage_date}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAlertsLabel_memberId}" for="memberId" />
+                            <p:selectOneMenu id="memberId" value="#{alertsController.selected.memberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="memberIdItem"
+                                               itemValue="#{memberIdItem}"
+                                               itemLabel="#{memberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{alertsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AlertsListPage:AlertsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AlertsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

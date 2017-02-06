@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="LoanPaymentsEditDlg" widgetVar="LoanPaymentsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditLoanPaymentsTitle}" closeOnEscape="true">
+
+            <h:form id="LoanPaymentsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{loanPaymentsController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditLoanPaymentsLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{loanPaymentsController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_paymentIndex}" for="paymentIndex" />
+                        <p:inputText id="paymentIndex" value="#{loanPaymentsController.selected.paymentIndex}" title="#{myBundle.EditLoanPaymentsTitle_paymentIndex}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_paymentIndex}"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{loanPaymentsController.selected.expirationDate}" title="#{myBundle.EditLoanPaymentsTitle_expirationDate}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_expirationDate}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{loanPaymentsController.selected.amount}" title="#{myBundle.EditLoanPaymentsTitle_amount}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_amount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_repaidAmount}" for="repaidAmount" />
+                        <p:inputText id="repaidAmount" value="#{loanPaymentsController.selected.repaidAmount}" title="#{myBundle.EditLoanPaymentsTitle_repaidAmount}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_repaidAmount}"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{loanPaymentsController.selected.status}" title="#{myBundle.EditLoanPaymentsTitle_status}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_status}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_repaymentDate}" for="repaymentDate" />
+                        <p:calendar id="repaymentDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{loanPaymentsController.selected.repaymentDate}" title="#{myBundle.EditLoanPaymentsTitle_repaymentDate}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_externalTransferId}" for="externalTransferId" />
+                        <p:selectOneMenu id="externalTransferId" value="#{loanPaymentsController.selected.externalTransferId}"  converter="externalTransfersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{externalTransfersController.items}"
+                                           var="externalTransferIdItem"
+                                           itemValue="#{externalTransferIdItem}"
+                                           itemLabel="#{externalTransferIdItem.description.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditLoanPaymentsLabel_loanId}" for="loanId" />
+                        <p:selectOneMenu id="loanId" value="#{loanPaymentsController.selected.loanId}" required="true" requiredMessage="#{myBundle.EditLoanPaymentsRequiredMessage_loanId}" converter="loansConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{loansController.items}"
+                                           var="loanIdItem"
+                                           itemValue="#{loanIdItem}"
+                                           itemLabel="#{loanIdItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{loanPaymentsController.save}" value="#{myBundle.Save}" update="display,:LoanPaymentsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LoanPaymentsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('LoanPaymentsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

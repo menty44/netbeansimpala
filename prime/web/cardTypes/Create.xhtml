@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CardTypesCreateDlg" widgetVar="CardTypesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCardTypesTitle}" closeOnEscape="true">
+
+            <h:form id="CardTypesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cardTypesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{cardTypesController.selected.name}" title="#{myBundle.CreateCardTypesTitle_name}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_name}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_cardFormatNumber}" for="cardFormatNumber" />
+                        <p:inputText id="cardFormatNumber" value="#{cardTypesController.selected.cardFormatNumber}" title="#{myBundle.CreateCardTypesTitle_cardFormatNumber}" size="56" maxlength="56"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_defaultExpirationNumber}" for="defaultExpirationNumber" />
+                        <p:inputText id="defaultExpirationNumber" value="#{cardTypesController.selected.defaultExpirationNumber}" title="#{myBundle.CreateCardTypesTitle_defaultExpirationNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_defaultExpirationField}" for="defaultExpirationField" />
+                        <p:inputText id="defaultExpirationField" value="#{cardTypesController.selected.defaultExpirationField}" title="#{myBundle.CreateCardTypesTitle_defaultExpirationField}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_cardSecurityCode}" for="cardSecurityCode" />
+                        <p:inputText id="cardSecurityCode" value="#{cardTypesController.selected.cardSecurityCode}" title="#{myBundle.CreateCardTypesTitle_cardSecurityCode}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_showCardSecurityCode}" for="showCardSecurityCode" />
+                        <p:selectBooleanCheckbox id="showCardSecurityCode" value="#{cardTypesController.selected.showCardSecurityCode}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_showCardSecurityCode}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_ignoreDayInExpirationDate}" for="ignoreDayInExpirationDate" />
+                        <p:selectBooleanCheckbox id="ignoreDayInExpirationDate" value="#{cardTypesController.selected.ignoreDayInExpirationDate}" required="true" requiredMessage="#{myBundle.CreateCardTypesRequiredMessage_ignoreDayInExpirationDate}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_minCardSecurityCodeLength}" for="minCardSecurityCodeLength" />
+                        <p:inputText id="minCardSecurityCodeLength" value="#{cardTypesController.selected.minCardSecurityCodeLength}" title="#{myBundle.CreateCardTypesTitle_minCardSecurityCodeLength}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_maxCardSecurityCodeLength}" for="maxCardSecurityCodeLength" />
+                        <p:inputText id="maxCardSecurityCodeLength" value="#{cardTypesController.selected.maxCardSecurityCodeLength}" title="#{myBundle.CreateCardTypesTitle_maxCardSecurityCodeLength}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_securityCodeBlockTimeNumber}" for="securityCodeBlockTimeNumber" />
+                        <p:inputText id="securityCodeBlockTimeNumber" value="#{cardTypesController.selected.securityCodeBlockTimeNumber}" title="#{myBundle.CreateCardTypesTitle_securityCodeBlockTimeNumber}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_securityCodeBlockTimeField}" for="securityCodeBlockTimeField" />
+                        <p:inputText id="securityCodeBlockTimeField" value="#{cardTypesController.selected.securityCodeBlockTimeField}" title="#{myBundle.CreateCardTypesTitle_securityCodeBlockTimeField}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCardTypesLabel_maxSecurityCodeTries}" for="maxSecurityCodeTries" />
+                        <p:inputText id="maxSecurityCodeTries" value="#{cardTypesController.selected.maxSecurityCodeTries}" title="#{myBundle.CreateCardTypesTitle_maxSecurityCodeTries}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cardTypesController.saveNew}" value="#{myBundle.Save}" update="display,:CardTypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CardTypesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CardTypesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CurrenciesListForm">
+
+        <p:panel header="#{myBundle.ListCurrenciesTitle}">
+            <p:contextMenu id="CurrenciesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CurrenciesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CurrenciesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CurrenciesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CurrenciesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_guaranteeTypesCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateGuaranteeTypesCollection}" disabled="#{empty currenciesController.selected.guaranteeTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_accountTypesCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateAccountTypesCollection}" disabled="#{empty currenciesController.selected.accountTypesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_paymentObligationsCollection}" icon="ui-icon-search"  action="#{currenciesController.navigatePaymentObligationsCollection}" disabled="#{empty currenciesController.selected.paymentObligationsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_ARateParamsId}" icon="ui-icon-search"  actionListener="#{currenciesController.prepareARateParamsId}" update=":RateParametersViewForm" oncomplete="PF('RateParametersViewDialog').show()" disabled="#{empty currenciesController.selected.ARateParamsId}"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_DRateParamsId}" icon="ui-icon-search"  actionListener="#{currenciesController.prepareDRateParamsId}" update=":RateParametersViewForm" oncomplete="PF('RateParametersViewDialog').show()" disabled="#{empty currenciesController.selected.DRateParamsId}"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_IRateParamsId}" icon="ui-icon-search"  actionListener="#{currenciesController.prepareIRateParamsId}" update=":RateParametersViewForm" oncomplete="PF('RateParametersViewDialog').show()" disabled="#{empty currenciesController.selected.IRateParamsId}"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_adsCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateAdsCollection}" disabled="#{empty currenciesController.selected.adsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_adInterestsCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateAdInterestsCollection}" disabled="#{empty currenciesController.selected.adInterestsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_adImportsCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateAdImportsCollection}" disabled="#{empty currenciesController.selected.adImportsCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_rateParametersCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateRateParametersCollection}" disabled="#{empty currenciesController.selected.rateParametersCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CurrenciesMenuItem_ticketsCollection}" icon="ui-icon-search"  action="#{currenciesController.navigateTicketsCollection}" disabled="#{empty currenciesController.selected.ticketsCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{currenciesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{currenciesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{currenciesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CurrenciesDataTableContextMenu" listener="#{currenciesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CurrenciesDataTableContextMenu" listener="#{currenciesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{currenciesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CurrenciesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.symbol}" filterBy="#{item.symbol}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_symbol}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.symbol}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.pattern}" filterBy="#{item.pattern}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_pattern}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pattern}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ARateParamsId.id}" filterBy="#{item.ARateParamsId.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCurrenciesTitle_ARateParamsId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ARateParamsId.id}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.DRateParamsId.id}" filterBy="#{item.DRateParamsId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCurrenciesTitle_DRateParamsId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.DRateParamsId.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.IRateParamsId.id}" filterBy="#{item.IRateParamsId.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListCurrenciesTitle_IRateParamsId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.IRateParamsId.id}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{currenciesController.prepareCreate}" update=":CurrenciesCreateForm" oncomplete="PF('CurrenciesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CurrenciesViewForm" oncomplete="PF('CurrenciesViewDialog').show()" disabled="#{empty currenciesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CurrenciesEditForm" oncomplete="PF('CurrenciesEditDialog').show()" disabled="#{empty currenciesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{currenciesController.delete}" update=":growl,datalist" disabled="#{empty currenciesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

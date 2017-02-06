@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AdInterestsEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditAdInterestsTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AdInterestsListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AdInterestsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{adInterestsController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditAdInterestsLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{adInterestsController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_title}" for="title" />
+                            <p:inputText id="title" value="#{adInterestsController.selected.title}" title="#{myBundle.EditAdInterestsTitle_title}" required="true" requiredMessage="#{myBundle.EditAdInterestsRequiredMessage_title}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_tradeType}" for="tradeType" />
+                            <p:inputText id="tradeType" value="#{adInterestsController.selected.tradeType}" title="#{myBundle.EditAdInterestsTitle_tradeType}" required="true" requiredMessage="#{myBundle.EditAdInterestsRequiredMessage_tradeType}" size="1" maxlength="1"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_initialPrice}" for="initialPrice" />
+                            <p:inputText id="initialPrice" value="#{adInterestsController.selected.initialPrice}" title="#{myBundle.EditAdInterestsTitle_initialPrice}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_finalPrice}" for="finalPrice" />
+                            <p:inputText id="finalPrice" value="#{adInterestsController.selected.finalPrice}" title="#{myBundle.EditAdInterestsTitle_finalPrice}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_keywords}" for="keywords" />
+                            <p:inputText id="keywords" value="#{adInterestsController.selected.keywords}" title="#{myBundle.EditAdInterestsTitle_keywords}" size="255" maxlength="255"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_categoryId}" for="categoryId" />
+                            <p:selectOneMenu id="categoryId" value="#{adInterestsController.selected.categoryId}"  converter="adCategoriesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{adCategoriesController.items}"
+                                               var="categoryIdItem"
+                                               itemValue="#{categoryIdItem}"
+                                               itemLabel="#{categoryIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_groupFilterId}" for="groupFilterId" />
+                            <p:selectOneMenu id="groupFilterId" value="#{adInterestsController.selected.groupFilterId}"  converter="groupFiltersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{groupFiltersController.items}"
+                                               var="groupFilterIdItem"
+                                               itemValue="#{groupFilterIdItem}"
+                                               itemLabel="#{groupFilterIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_currencyId}" for="currencyId" />
+                            <p:selectOneMenu id="currencyId" value="#{adInterestsController.selected.currencyId}"  converter="currenciesConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{currenciesController.items}"
+                                               var="currencyIdItem"
+                                               itemValue="#{currencyIdItem}"
+                                               itemLabel="#{currencyIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_memberId}" for="memberId" />
+                            <p:selectOneMenu id="memberId" value="#{adInterestsController.selected.memberId}"  converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="memberIdItem"
+                                               itemValue="#{memberIdItem}"
+                                               itemLabel="#{memberIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditAdInterestsLabel_ownerId}" for="ownerId" />
+                            <p:selectOneMenu id="ownerId" value="#{adInterestsController.selected.ownerId}" required="true" requiredMessage="#{myBundle.EditAdInterestsRequiredMessage_ownerId}" converter="membersConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{membersController.items}"
+                                               var="ownerIdItem"
+                                               itemValue="#{ownerIdItem}"
+                                               itemLabel="#{ownerIdItem.name.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{adInterestsController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AdInterestsListPage:AdInterestsListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AdInterestsListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
